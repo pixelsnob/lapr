@@ -19,6 +19,10 @@
 
 Decide how the pages will be organized, where the menus will be, roughly what pages are where. Figure out what pages will need to be editable by you, etc.
 
+#### Home Page
+
+How will the homepage be organized? Will there be a slide show/montage?
+
 #### Search Interface
 
 Decide how the products will be searched for on the site, taking into account any past/current user input, as well as your own knowledge of what people are searching for, and how to make it as easy as possible to do it.
@@ -46,3 +50,5 @@ Because I'm assuming there will be more than one user on this system...
 
 - Make an unstyled, ugly but working prototype
 - Try to find a designer :)
+
+To be continued...
