@@ -15,6 +15,10 @@
 
 ### Front-End
 
+#### Layout
+
+Decide how the pages will be organized, where the menus will be, roughly what pages are where. Figure out what pages will need to be editable by you, etc.
+
 #### Search Interface
 
 Decide how the products will be searched for on the site, taking into account any past/current user input, as well as your own knowledge of what people are searching for, and how to make it as easy as possible to do it.
