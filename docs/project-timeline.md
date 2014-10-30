@@ -13,9 +13,11 @@
   - price
 - Fix, format, correct misspellings, recategorize items if necessary; this can be done in the spreadsheet, or we can wait until the admin for add/edit/delete products is done, it doesn't really matter
 
-### Front-End Search Interface
+### Front-End
 
-Decide how the products will be searched for on the site. Really important, so we should really think this through, taking into account any past/current user input, as well as your own knowledge of what people are searching for, and how to make it as easy as possible to do it.
+#### Search Interface
+
+Decide how the products will be searched for on the site, taking into account any past/current user input, as well as your own knowledge of what people are searching for, and how to make it as easy as possible to do it.
 
 - Will we be keeping the product categories in the menu like the current site? 
 - What kind of search do you want? Full text search? Do we also want to filter by maker, and maybe a couple of other fields?
