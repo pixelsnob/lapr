@@ -15,7 +15,7 @@ module.exports.getRowsFromTable = function(url, cb) {
         return;
       }
       var $ = window.$;
-      var rows = [];
+      var rows = [], c = 0;
       $('table table').find('tr').each(function(j, tr) {
         var cols = [];
         // Keep a running length of the text, so if it's all whitespace

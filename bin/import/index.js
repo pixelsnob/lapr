@@ -7,8 +7,8 @@ var scraper        = require('./scraper'),
   urls             = require('./urls'),
   num_urls         = Object.keys(urls).length,
   async            = require('async'),
-  ProductModel     = require('../models/products'),
-  TempProductModel = require('../models/temp_products'),
+  ProductModel     = require('../../models/products'),
+  TempProductModel = require('../../models/temp_products'),
   base_url         = 'http://lapercussionrentals.com/';
 
 if (!num_urls) {

@@ -2,7 +2,8 @@
 var field_map = [
   { maker: 1, description: 2 },
   { maker: 1, description: 2, model_no: 3, price: 4 },
-  { description: 1, price: 2 }
+  { description: 1, price: 2 },
+  { description: 1, other_info: 2, price: 3 }
 ];
 
 module.exports = {
@@ -33,6 +34,10 @@ module.exports = {
   'drums.html': {
     name: 'Drum Sets/Snare Drums',
     fields: field_map[1]
+  },
+  'erc.html': {
+    name: 'Emil Richards Collection',
+    fields: field_map[3]
   }
 };
 

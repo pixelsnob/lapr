@@ -14,7 +14,7 @@ var
   fs              = require('fs'),
   env             = process.env.NODE_ENV || 'development';
 
-require('./lib/db')('nesta');
+require('./lib/db')('lapr');
 require('./lib/auth');
 require('./lib/marked')(app);
 require('cms/lib/view_helpers')(app);
@@ -31,7 +31,7 @@ app.use(body_parser.json({ extended: true }));
 app.use(require('cookie-parser')());
 app.use(session({
   store: new redis_store,
-  secret: 'hot~dog',
+  secret: 'blah*99p3c20',
   proxy: true,
   cookie: { secure: (env == 'production') },
   resave: true,
