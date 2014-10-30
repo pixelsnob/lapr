@@ -20,4 +20,20 @@ Decide how the products will be searched for on the site. Really important, so w
 - Will we be keeping the product categories in the menu like the current site? 
 - What kind of search do you want? Full text search? Do we also want to filter by maker, and maybe a couple of other fields?
 
+### CMS (Back-End Administration System)
+
+A couple of things will need to be added to the CMS.
+
+#### Products
+
+- Add/edit/delete pages
+- Should also be able to delete product categories, and assign products to those categories
+
+##### Users (not critical, but probably useful)
+
+Because I'm assuming there will be more than one user on this system...
+
+- Add/edit/delete pages
+- Password change/reset
+
 ## Dev/Design Phase
