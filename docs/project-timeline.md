@@ -18,6 +18,6 @@
 Decide how the products will be searched for on the site. Really important, so we should really think this through, taking into account any past/current user input, as well as your own knowledge of what people are searching for, and how to make it as easy as possible to do it.
 
 - Will we be keeping the product categories in the menu like the current site? 
-- What kind of search do you want? Full text search? Do we also want to search by maker, and maybe range?
+- What kind of search do you want? Full text search? Do we also want to filter by maker, and maybe a couple of other fields?
 
 ## Dev/Design Phase
