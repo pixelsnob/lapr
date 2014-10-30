@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd /var/www/lapr
+
+if forever list | grep '/var/www/lapr/app.js'
+  then forever stop /var/www/lapr/app.js
+fi
+
+forever start -a -l /var/www/lapr/log/app.log -e /var/www/lapr/log/err.log -o /var/www/lapr/log/stdout.log /var/www/lapr/app.js

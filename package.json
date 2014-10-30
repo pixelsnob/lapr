@@ -1,0 +1,37 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js -e js,jade"
+  },
+  "dependencies": {
+    "cms": "git+ssh://git@github.com:pixelsnob/cms.git",
+    "js-common": "git+ssh://git@github.com:pixelsnob/js-common.git",
+    "async": "~0.2.10",
+    "bcrypt": "^0.7.7",
+    "body-parser": "^1.0.2",
+    "connect-redis": "^2.0.0",
+    "cookie-parser": "^1.0.1",
+    "csurf": "^1.6.2",
+    "express": "^4.0.0",
+    "express-session": "^1.0.2",
+    "formidable": "~1.0.14",
+    "jade": "^1.7.0",
+    "jade-browser": "0.0.14",
+    "marked": "~0.3.1",
+    "mongoose": "^3.8.18",
+    "passport": "^0.2.0",
+    "passport-local": "^0.1.6",
+    "recursive-readdir": "0.0.2",
+    "underscore": "^1.7.0",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-less": "^0.11.0",
+    "grunt-contrib-requirejs": "^0.4.3",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-jasmine": "^0.6.5",
+  }
+}
