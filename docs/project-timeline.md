@@ -29,7 +29,7 @@ A couple of things will need to be added to the CMS.
 - Add/edit/delete pages
 - Should also be able to delete product categories, and assign products to those categories
 
-##### Users (not critical, but probably useful)
+#### Users (not critical, but probably useful)
 
 Because I'm assuming there will be more than one user on this system...
 
