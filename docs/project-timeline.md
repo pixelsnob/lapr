@@ -48,7 +48,7 @@ Because I'm assuming there will be more than one user on this system...
 
 ## Dev/Design Phase
 
-- Make an unstyled, ugly but working prototype
+1. Make an unstyled, ugly but working prototype
 - Locate a designer
 - Implement design using prototype
 - Test
