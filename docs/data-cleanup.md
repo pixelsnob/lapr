@@ -2,6 +2,6 @@
 
 ## Additional Fields
 
-- tonal\_range\_low
-- tonal\_range\_high
+- tonal\_range_low
+- tonal\_range_high
 - alt_names
