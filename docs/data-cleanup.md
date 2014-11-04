@@ -7,7 +7,7 @@ Latest CSV is here: [lapr.csv](lapr.csv)
 
 - Instruments in "Backline" category have blank "maker" fields, which does exist in some of the names, so they will need to be copied over
 
-## Additional Fields
+## Additional Fields to Consider
 
 - tonal_range_low: C1-C5, etc.
 - tonal_range_high
