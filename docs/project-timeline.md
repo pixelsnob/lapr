@@ -13,6 +13,7 @@
   - price
 - Fix, format, correct misspellings, recategorize items if necessary; this can be done in the spreadsheet, or we can wait until the admin for add/edit/delete products is done, it doesn't really matter
 - Latest CSV is here: [lapr.csv](lapr.csv)
+- Are we using any of the old images?
 
 ### Front-End
 
