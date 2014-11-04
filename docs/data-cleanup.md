@@ -1,4 +1,9 @@
+
 # Data Cleanup
+
+## General Issues
+
+- Instruments in "Backline" category have blank "maker" fields, which does exist in some of the names, so they will need to be copied over
 
 ## Additional Fields
 
