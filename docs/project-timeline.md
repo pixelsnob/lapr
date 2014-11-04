@@ -6,7 +6,6 @@
 
 - Import data from old site and export as CSV and/or spreadsheet
 - Define product fields based on this data; so far, on the old site, there is:
-  - name
   - category (ethnic drums, accessories, etc.)
   - description
   - maker
