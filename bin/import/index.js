@@ -68,7 +68,6 @@ async.waterfall([
           // If page is an array, that means there are multiple categories on the
           // same page
           if ($rows.index($row) == 0) {
-            console.log($rows.index($row));
             return cb2();
           }
           if (_.isArray(page)) {
