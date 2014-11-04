@@ -31,6 +31,7 @@ Decide how the products will be searched for on the site, taking into account an
 
 - Will we be keeping the product categories in the menu like the current site? 
 - What kind of search do you want? Full text search? Do we also want to filter by maker, and maybe a couple of other fields?
+- What kind of options are needed for sorting of long lists of instruments?
 
 ### CMS (Back-End Administration System)
 
