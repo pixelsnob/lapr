@@ -58,16 +58,22 @@ async.waterfall([
         }
       };
       async.eachSeries($tables, function($table, cb1) {
-        async.eachSeries($($table).find('tr'), function($row, cb2) {
+        var $rows = $($table).find('tr');
+        async.eachSeries($rows, function($row, cb2) {
           var $col       = $($row).find('td'),
               fields,
               category,
-              page       = urls[url];
+              page       = urls[url],
+              table_index = $tables.index($table);
           // If page is an array, that means there are multiple categories on the
           // same page
+          if ($rows.index($row) == 0) {
+            console.log($rows.index($row));
+            return cb2();
+          }
           if (_.isArray(page)) {
-            fields   = page[$tables.index($table)].fields;
-            category = page[$tables.index($table)].name;
+            fields   = page[table_index].fields;
+            category = page[table_index].name;
           } else {
             fields   = page.fields;
             category = page.name;
@@ -79,6 +85,9 @@ async.waterfall([
             price:       $col.eq(fields.price).text(),
             model_no:    $col.eq(fields.model_no).text()
           });
+          if (!product.description) {
+            return cb2();
+          }
           product.save(function(err) {
             if (err) {
               return cb2(err);

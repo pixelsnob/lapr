@@ -39,8 +39,6 @@ description,category,price,maker
 "Piccolo Woodblocks / wood blocks  2 octaves, C6-C8","Chromatic","$60","Emil Richards"
 "Piccolo Boo Bams  Chromatic - specs coming soon","Chromatic","$60","Emil Richards"
 "Boom Whackers on stand  3 Octaves, C2-C5","Chromatic","$75","Rhythm Band Instruments"
-"","Chromatic"," ",""
-"","Chromatic"," ",""
 "Marimba, Robert Van Sice Artist Series, Height Adjustable  5 octaves, C2-C7","Mallets","$200","Adams"
 "Marimba, Alpha model, Height Adjustable  5 octaves, C2-C7","Mallets","$200","Adams"
 "Marimba, Soloist  5 octaves, C2-C7","Mallets"," $220","Marimba One"
@@ -84,7 +82,6 @@ description,category,price,maker
 "Viscount Bells / Tube Bells  similar to tube-a-phone / tubaphone / tubophone","Mallets","$110","n/a"
 "Flapamba  3.5 octaves, F1-C5","Mallets","$160","n/a"
 "Malletkat / Mallet kat  3 and 4 octave versions","Mallets","$100","Alternate Mode"
-"","Mallets"," ",""
 "Tuned chromatic almglocken/ Swiss cowbells  3.8 octaves: F3-D7 (Can be rented in part or whole)  (other setups, i.e. for Messiaen also available)","Accessories",,"n/a"
 "Chromatic Cowbells/ tuned cowbells/ cencerros 2.5 octaves, F4-C7","Accessories",,"n/a"
 "Tuned Bell Plates  2.3 Octaves (C2-E4)  (Can be rented in part or whole)  (Other pitches available upon request) Bell plates can be used (instead of bells) on Mahler Symphony 7,8,9","Accessories",,"LAPR"
@@ -152,7 +149,6 @@ description,category,price,maker
 "Variety of scrapers, guiros, and shekeres","Accessories",,"Various"
 "Variety of wood blocks","Accessories",,"Various"
 "Variety of ""junk"" percussion & metals: oxygen tanks, ribbon  crashers, spoons, tin canisters, brake drums, etc.","Accessories",,"Various"
-"","Accessories",,""
 "Fender Hot Rod ""Deville"" 2x12""","Backline","$55",
 "Fender '65 Deluxe Reverb Vintage Reissue 1x12""","Backline","$45",
 "Fender ""Blues Deluxe"" 1x12""","Backline","$45",
@@ -165,7 +161,6 @@ description,category,price,maker
 "Gallien Krueger RBX 115 with 1001RB  1x15""","Backline","$90",
 "Gallien Krueger Neo full stack , 1001RB  1x15"", 4x10""","Backline","$120",
 "Ampeg VST with Tube amp head  8x10""","Backline","$120",
-"","Backline"," ",
 "Custom Metal body guitar","Backline","$60",
 "Fender Stratocaster (white), American made","Backline","$70",
 "Fender Jazz Bass, 5-string, American made","Backline","$70",
@@ -178,8 +173,6 @@ description,category,price,maker
 "The NEW Rhodes Mark 7 88A with speaker platform  Hi-gloss finish   The Mark 7 is modeled after the vintage Mark V and is a genuine electro-mechanical piano, built from scratch by Rhodes.  Full length wooden piano keys  Improved action Relatively easy adjustment of sound quality to brighten or deaden notes  Better sustain out of the high register  Stronger full tone in the bass 3 band active EQ with ""sweep-able"" midrange  XLR direct outs  500 watt class D amp (lighter) speaker platform  Retains classic sound but with better reliability","Backline","$230",
 "The NEW Rhodes Mark 7 73A with speaker platform  Rhodes-touch finish  (See notes above for new Rhodes Mark 7)","Backline","$200",
 "Malletkat/ Mallet kat Pro  3 & 4 octave versions","Backline","$100",
-"","Backline"," ",
-"","Backline"," ",
 "Timpani/ Kettledrums, 7200 Series, Balance Action, hand-hammered copper bowls, extended collar w/ deluxe tuning gauges 20"", 23"", 26"", 29"", 32""","Concert Drums"," $60
 Each Drum","Yamaha"
 "Timpani/ Kettledrums, 6200 Series, Balance Action, smooth-copper bowls, extended collar w/ deluxe tuning gauges  23"", 26"", 29"", 32""","Concert Drums","$50
@@ -217,7 +210,6 @@ Each Drum","Adams"
 "Concert Toms, Maple 8"",10"",12"",14""16"" w/ suspension system, Remo Renaissance batter heads","Concert Drums"," $100","Tama/ Starclassic"
 "Standard Roto-Toms 6"",8"",10"",12"",14"",16"",18"" with stands","Concert Drums"," $100","Remo"
 "Roto-Tom with pedal, 18"". (can be used w/ any size Roto-Tom in set. Works for piccolo timpano)","Concert Drums","$40","Remo"
-"","Concert Drums"," ",""
 "Timbales, Alex Acuna model, brass 13""&14""","Ethnic Drums"," $40","Gon Bops"
 "Timbales, Alex Acuna model, brass 14""&15""","Ethnic Drums","$40","Gon Bops"
 "Timbales, Humberto Morales model, brass, calfskin heads  13""&14""","Ethnic Drums","$50","Leedy"
@@ -295,7 +287,6 @@ Each Drum","Adams"
 "Variety of Brazilian instruments (including caixa, repinique, berimbau, surdo,  pandeiro, tamborim, caxixi, reco reco, ganza, etc.)","Ethnic Drums","Various","Various"
 "Variety of other West African instruments (including sogo, talking drum,bells, etc.)","Ethnic Drums","Various","Various"
 "Chinese lute","Ethnic Drums","$55","n/a"
-"","Ethnic Drums"," ",""
 "Tenor steel pan, ""Invader"" Style, Painted, ca.1970's, ""old"" steel drum sound.","Ethnic Drums"," $60","n/a"
 "Tenor steel pan/ steel drum, ca. 1990's","Ethnic Drums","$100","Lincoln/  Andy Deils"
 "Tenor steel pan/ steel drum, 1997","Ethnic Drums","$170","Mitch  Cunningham/  Bertie Marshall"
@@ -349,9 +340,6 @@ Each Drum","Adams"
 "Roto-Tom with pedal, 14"", (can be used w/ any size roto-tom in set. Works for piccolo timpano)  Rapid Tuning Pedal","Misc. Drums",,"Remo"
 "Tenor Drum, thin shell w/ reinforcing rings","Misc. Drums",,"Ludwig"
 "Orange Vistalite Octobans","Misc. Drums",,"N/A"
-"","Misc. Drums",,""
-"","Misc. Drums",,""
-"","Misc. Drums",,""
 "Flapamba  3.5 octaves, F1-C5","Emil Richards Collection","$175","more details..."
 "Tuned Log Drums  1 octave, C3-C4","Emil Richards Collection","$130","more details..."
 "Bass Marimba  1.5 octaves C2-F3","Emil Richards Collection","$200","Made by Brock  more details..."
