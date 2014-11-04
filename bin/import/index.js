@@ -2,11 +2,11 @@
 'use strict';
 
 var jsdom            = require('jsdom'),
-    urls             = require('./import/urls'),
+    urls             = require('./urls'),
     mongoose         = require('mongoose'),
     db               = mongoose.connect('mongodb://localhost/lapr'),
     async            = require('async'),
-    ProductModel     = require('../models/products'),
+    ProductModel     = require('../../models/products'),
     _                = require('underscore');
 
 db.connection.on('error', function(e) {
@@ -51,14 +51,33 @@ async.waterfall([
     async.eachSeries(Object.keys(pages), function(url, cb) {
       var $           = pages[url],
           $tables     = $('table table');
+      // Remove excess whitespace, newlines, etc.
+      var format = function(str) {
+        if (str) {
+          return $.trim(str.replace(/\n|\s{2,}/g, ' '));
+        }
+      };
       async.eachSeries($tables, function($table, cb1) {
         async.eachSeries($($table).find('tr'), function($row, cb2) {
-          var $col = $($row).find('td');
+          var $col       = $($row).find('td'),
+              fields,
+              category,
+              page       = urls[url];
+          // If page is an array, that means there are multiple categories on the
+          // same page
+          if (_.isArray(page)) {
+            fields   = page[$tables.index($table)].fields;
+            category = page[$tables.index($table)].name;
+          } else {
+            fields   = page.fields;
+            category = page.name;
+          }
           var product = new ProductModel({
-            description: $col.eq(urls[url].fields.description).text(),
-            category:    urls[url].name,
-            maker:       $col.eq(urls[url].fields.maker).text(),
-            price:       $col.eq(urls[url].fields.price).text()
+            description: format($col.eq(fields.description).text()),
+            category:    category,
+            maker:       format($col.eq(fields.maker).text()),
+            price:       $col.eq(fields.price).text(),
+            model_no:    $col.eq(fields.model_no).text()
           });
           product.save(function(err) {
             if (err) {
