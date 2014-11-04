@@ -11,7 +11,7 @@
   - description
   - maker
   - price
-- Fix, format, correct misspellings, recategorize items and create new fields if necessary
+- Fix, format, correct misspellings, recategorize items, and create new fields if necessary
 - Latest CSV is here: [lapr.csv](lapr.csv)
 - Are we using any of the old images?
 
