@@ -15,3 +15,4 @@ Latest CSV is here: [lapr.csv](lapr.csv)
 - num_octaves: nice to have, probably not necessary, or maybe can be calculated from range fields
 - long_description: for the Emil Richards "more info..." descriptions, etc. -- or maybe we just use description for it
 - image
+- instrument_type/tags?
