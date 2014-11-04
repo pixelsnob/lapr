@@ -1,6 +1,8 @@
 
 # Data Cleanup
 
+Latest CSV is here: [lapr.csv](lapr.csv)
+
 ## General Issues
 
 - Instruments in "Backline" category have blank "maker" fields, which does exist in some of the names, so they will need to be copied over
