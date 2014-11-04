@@ -5,7 +5,8 @@ Latest CSV is here: [lapr.csv](lapr.csv)
 
 ## General Issues
 
-- Instruments in "Backline" category have blank "maker" fields, which does exist in some of the names, so they will need to be copied over
+- Instruments in "Backline" category have blank "maker" fields, which does exist in some of the names, so they will need to be copied over manually
+- Emil Richards "more info..." will need to be copied over
 
 ## Additional Fields to Consider
 
