@@ -8,6 +8,7 @@ Latest CSV is here: [lapr.csv](lapr.csv)
 - Instruments in "Backline" category have blank "maker" fields, which does exist in some of the names, so they will need to be copied over manually
 - Emil Richards "more info..." will need to be copied over
 - Current images have all sorts of different sizes and dimensions
+- Drumset descriptions have quite a bit of info
 
 ## Additional Fields to Consider
 
