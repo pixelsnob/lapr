@@ -7,8 +7,8 @@
 - Import data from old site and export as CSV and/or spreadsheet
 - Define product fields based on this data
 - Fix, format, correct misspellings, recategorize items, and create new fields if necessary
-- Latest CSV is here: [./lapr.csv](lapr.csv)
-- Data detail page is here: [./data-cleanup.md](data-cleanup.md)
+- Latest CSV is here: [lapr.csv](./lapr.csv)
+- Data detail page is here: [data-cleanup.md](./data-cleanup.md)
 
 ### Front-End
 
