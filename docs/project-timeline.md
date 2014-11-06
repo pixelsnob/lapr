@@ -25,7 +25,7 @@ How will the homepage be organized? Will there be a slide show/montage?
 
 #### Instrument Lists
 
-Decide how the products will be searched for on the site, taking into account any past/current user input, as well as your own knowledge of what people are searching for, and how to make it as easy as possible to do it.
+Decide how the products will be searched for on the site, taking into account any past/current user input, as well as your own knowledge of what people are searching for, and how to make it as easy as possible for your customers.
 
 - Site menu contains instrument categories (mallet instruments, drumsets, other chromatic, etc.)
 - Consider using submenus for grouping like instruments: for example, on the "Drumsets/Snare Drums" page, there are 3 categories; maybe we can put those three categories in a dropdown called "drums"
