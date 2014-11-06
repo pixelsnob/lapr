@@ -46,8 +46,10 @@ Clicking on an instrument will show a page (via a popup or other means) that sho
 
 #### Contact Page
 
-- Contact form
-- 
+- Contact form?
+- Map?
+- Facebook/G+ links?
+
 ### CMS (Back-End Administration System)
 
 A couple of things will need to be added to the CMS.
