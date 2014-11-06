@@ -36,14 +36,18 @@ Decide how the products will be searched for on the site, taking into account an
 
 Clicking on an instrument will show a page (via a popup or other means) that shows the following:
 
-- Instrument Name (short, maybe 50 chars or less)
+- Instrument name (short, maybe 50 chars or less)
 - "Medium" sized image
-- "Long Description"
+- "Long description"
 - Maker
 - "Alt" name(s) (if supplied)
-- Tonal Range (if supplied)
-- Tonal Quality (if supplied)
+- Tonal range (if supplied)
+- Tonal quality (if supplied)
 
+#### Contact Page
+
+- Contact form
+- 
 ### CMS (Back-End Administration System)
 
 A couple of things will need to be added to the CMS.
@@ -52,6 +56,7 @@ A couple of things will need to be added to the CMS.
 
 - Add/edit/delete pages
 - Should also be able to delete product categories, and assign products to those categories
+- Instrument makers/manufacturers should probably be in their own list
 
 #### Users (not critical, but probably useful)
 
