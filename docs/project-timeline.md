@@ -21,7 +21,7 @@ Decide how the pages will be organized, where the menus will be, roughly what pa
 
 #### Home Page
 
-How will the homepage be organized? Will there be a slide show/montage?
+How will the homepage be organized? Will there be a slide show/montage? Do you need to pull from FB for a "news" page? (I think the updates you do on FB are really informative and pretty neat. We should maybe think about making those a part of your website).
 
 #### Instrument Lists
 
