@@ -10,6 +10,13 @@ Latest CSV is here: [lapr.csv](lapr.csv)
 - Current images have all sorts of different sizes and dimensions
 - Drumset descriptions have quite a bit of info
 
+## Existing Fields
+
+- category (ethnic drums, accessories, etc.)
+- description/name
+- maker
+- price
+
 ## Additional Fields to Consider
 
 - name: right now, the name and description are all in the same field; we need a *short* name field
@@ -20,3 +27,4 @@ Latest CSV is here: [lapr.csv](lapr.csv)
 - num_octaves: nice to have, probably not necessary, or maybe can be calculated from range fields
 - long_description: for the Emil Richards "more info..." descriptions, etc. -- or maybe we just use description for it
 - image
+- sizes: for drum sizes?
