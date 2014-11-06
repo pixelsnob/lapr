@@ -23,13 +23,26 @@ Decide how the pages will be organized, where the menus will be, roughly what pa
 
 How will the homepage be organized? Will there be a slide show/montage?
 
-#### Search Interface
+#### Instrument Lists
 
 Decide how the products will be searched for on the site, taking into account any past/current user input, as well as your own knowledge of what people are searching for, and how to make it as easy as possible to do it.
 
-- Will we be keeping the product categories in the menu like the current site? 
-- What kind of search do you want? Full text search? Do we also want to filter by maker, and maybe a couple of other fields?
-- What kind of options are needed for sorting of long lists of instruments?
+- Site menu contains instrument categories (mallet instruments, drumsets, other chromatic, etc.)
+- Consider using submenus for grouping like instruments: for example, on the "Drumsets/Snare Drums" page, there are 3 categories; maybe we can put those three categories in a dropdown called "drums"
+- Clicking on a category lists all instruments in that category; each page can have some inputs that "filter" the results at the top of the page; for instance, sound quality, tonal range, maker, etc.
+- Do we still want a text search? Do we want a more "advanced" search page? Or do you think the above will suffice?
+
+#### Instrument Detail
+
+Clicking on an instrument will show a page (via a popup or other means) that shows the following:
+
+- Instrument Name
+- "Medium" sized image
+- Description
+- Maker
+- "Alt" name(s) (if supplied)
+- Tonal Range (if supplied)
+- Tonal Quality (if supplied)
 
 ### CMS (Back-End Administration System)
 
