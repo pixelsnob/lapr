@@ -1,8 +1,6 @@
 # Project Timeline
 
-## Discovery Phase
-
-### Data
+## Data
 
 - Import data from old site and export as CSV and/or spreadsheet
 - Define product fields based on this data
@@ -10,19 +8,19 @@
 - Latest CSV is here: [lapr.csv](./lapr.csv)
 - Data detail page is here: [data-cleanup.md](./data-cleanup.md)
 
-### Front-End
+## Front-End
 
-#### Layout
+### Layout
 
 Decide how the pages will be organized, where the menus will be, roughly what pages are where. Figure out what pages will need to be editable by you, etc.
 
-#### Home Page
+### Home Page
 
 - How will the homepage be organized?
 - Will there be a slide show/montage?
 - Do you need to pull from FB for a "news" page? (I think the updates you do on FB are really informative and pretty neat. We should maybe think about making those a part of your website somehow).
 
-#### Instrument Lists
+### Instrument Lists
 
 Decide how the products will be searched for on the site, taking into account any past/current user input, as well as your own knowledge of what people are searching for, and how to make it as easy as possible for your customers.
 
@@ -31,7 +29,7 @@ Decide how the products will be searched for on the site, taking into account an
 - Clicking on a category lists all instruments in that category; each page can have some inputs that "filter" the results at the top of the page; for instance, sound quality, tonal range, maker, etc.
 - Do we still want a text search? Do we want a more "advanced" search page? Or do you think the above will suffice?
 
-#### Instrument Detail
+### Instrument Detail
 
 Clicking on an instrument will show a page (via a popup or other means) that shows the following:
 
@@ -43,17 +41,17 @@ Clicking on an instrument will show a page (via a popup or other means) that sho
 - Tonal range (if supplied)
 - Tonal quality (if supplied)
 
-#### Contact Page
+### Contact Page
 
 - Contact form?
 - Map?
 - Facebook/G+ links?
 
-### CMS (Back-End Administration System)
+## CMS (Back-End Administration System)
 
 Building on the existing CMS used by Nesta, will need to add the following:
 
-#### Products
+### Products
 
 Add/edit/delete pages for the following:
 - Products
@@ -73,7 +71,7 @@ Add/edit/delete pages for the following:
 - Makers/manufacturers
 - Tonal qualities
 
-#### Users (not critical, but probably useful)
+### Users (not critical, but probably useful)
 
 Because I'm assuming there will be more than one user on this system...
 
