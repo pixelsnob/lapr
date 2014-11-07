@@ -81,7 +81,7 @@ Because I'm assuming there will be more than one user on this system...
 ## Dev/Design Phase
 
 - Locate a designer
-- Implement design using prototype
+- Implement design
 - Test
 - Launch!
 
