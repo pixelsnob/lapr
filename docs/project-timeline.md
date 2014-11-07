@@ -36,8 +36,9 @@ Decide how the products will be searched for on the site, taking into account an
 Clicking on an instrument will show a page (via a popup or other means) that shows the following:
 
 - Instrument name (short, maybe 50 chars or less)
+- Model number
 - "Medium" sized image
-- "Long description"
+- Long description
 - Maker
 - "Alt" name(s) (if supplied)
 - Tonal range (if supplied)
