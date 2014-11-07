@@ -57,6 +57,18 @@ Building on the existing CMS used by Nesta, will need to add the following:
 
 Add/edit/delete pages for the following:
 - Products
+  - name
+  - alt_names
+  - category (from list of categories)
+  - description
+  - maker (from list of makers)
+  - price
+  - tonal_range_low
+  - tonal_range_high
+  - tonal_qualities (from list of tonal qualities)
+  - num_octaves
+  - image
+  - sizes
 - Product categories
 - Makers/manufacturers
 - Tonal qualities
