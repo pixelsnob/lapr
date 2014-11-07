@@ -16,6 +16,7 @@ Latest CSV is here: [lapr.csv](lapr.csv)
 - description/name
 - maker
 - price
+- model_no
 
 ## Additional Fields to Consider
 
