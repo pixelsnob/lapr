@@ -28,6 +28,7 @@ Decide how the products will be searched for on the site, taking into account an
 - Consider using submenus for grouping like instruments: for example, on the "Drumsets/Snare Drums" page, there are 3 categories; maybe we can put those three categories in a dropdown called "drums"
 - Clicking on a category lists all instruments in that category; each page can have some inputs that "filter" the results at the top of the page; for instance, sound quality, tonal range, maker, etc.
 - Do we still want a text search? Do we want a more "advanced" search page? Or do you think the above will suffice?
+
 *This is off the top of my head, based on past conversations with you guys. It sounded like you wanted to keep the organization of the site basically the same as the old site. Let me know if you have other ideas though.*
 
 ### Instrument Detail
