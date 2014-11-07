@@ -9,6 +9,7 @@ Latest CSV is here: [lapr.csv](lapr.csv)
 - Emil Richards "more info..." will need to be copied over
 - Current images have all sorts of different sizes and dimensions
 - Drumset descriptions have quite a bit of info
+- Remove n/a's from model_no field 
 
 ## Existing Fields
 
