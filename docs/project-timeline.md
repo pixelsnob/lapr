@@ -18,7 +18,9 @@ Decide how the pages will be organized, where the menus will be, roughly what pa
 
 #### Home Page
 
-How will the homepage be organized? Will there be a slide show/montage? Do you need to pull from FB for a "news" page? (I think the updates you do on FB are really informative and pretty neat. We should maybe think about making those a part of your website).
+- How will the homepage be organized?
+- Will there be a slide show/montage?
+- Do you need to pull from FB for a "news" page? (I think the updates you do on FB are really informative and pretty neat. We should maybe think about making those a part of your website somehow).
 
 #### Instrument Lists
 
@@ -49,13 +51,15 @@ Clicking on an instrument will show a page (via a popup or other means) that sho
 
 ### CMS (Back-End Administration System)
 
-A couple of things will need to be added to the CMS.
+Building on the existing CMS used by Nesta, will need to add the following:
 
 #### Products
 
-- Add/edit/delete pages
-- Should also be able to delete product categories, and assign products to those categories
-- Instrument makers/manufacturers should probably be in their own list
+Add/edit/delete pages for the following:
+- Products
+- Product categories
+- Makers/manufacturers
+- Tonal qualities
 
 #### Users (not critical, but probably useful)
 
