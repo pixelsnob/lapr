@@ -1,14 +1,4 @@
 
-var field_map = [
-  { maker: 1, description: 2 },
-  { maker: 1, description: 2, model_no: 3, price: 4 },
-  { description: 1, price: 2 },
-  { size: 1, maker: 2, description: 3 },
-  { maker: 1, description: 2, price: 3 },
-  { description: 1, maker: 2, price: 3 },
-  { maker: 1, description: 2, range: 3, price: 4 }
-];
-
 module.exports = {
   'chromatic.html': {
     name: 'Chromatic',
