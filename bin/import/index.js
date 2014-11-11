@@ -16,6 +16,8 @@ db.connection.on('error', function(e) {
 
 var pages = [], c = 0;
 
+var temp_count = 0;
+
 async.waterfall([
   // Fetch each page in urls
   function(next) {
@@ -60,10 +62,10 @@ async.waterfall([
       async.eachSeries($tables, function($table, cb1) {
         var $rows = $($table).find('tr');
         async.eachSeries($rows, function($row, cb2) {
-          var $col       = $($row).find('td'),
+          var $col        = $($row).find('td'),
               fields,
               category,
-              page       = urls[url],
+              page        = urls[url],
               table_index = $tables.index($table);
           // If page is an array, that means there are multiple categories on the
           // same page
@@ -77,12 +79,19 @@ async.waterfall([
             fields   = page.fields;
             category = page.name;
           }
+          var description = $col.eq(fields.description).text();
+          var temp = description.match(/[A-G][#b]?[1-9]-[A-G][b#]?[1-9]/i);
+          if (temp) {
+            console.log(temp[0]);
+            temp_count++;
+          }
           var product = new ProductModel({
-            description: format($col.eq(fields.description).text()),
+            description: format(description),
             category:    category,
             maker:       format($col.eq(fields.maker).text()),
             price:       $col.eq(fields.price).text(),
-            model_no:    $col.eq(fields.model_no).text()
+            model_no:    $col.eq(fields.model_no).text(),
+            range:       $col.eq(fields.range).text()
           });
           if (!product.description) {
             return cb2();
@@ -100,6 +109,7 @@ async.waterfall([
   }
 ], function(err) {
   console.log('Done', c);
+  console.log(temp_count);
   db.connection.close();
 });
 

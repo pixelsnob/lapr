@@ -7,7 +7,8 @@ var Product = new mongoose.Schema({
   maker: String,
   description: String,
   model_no: String,
-  price: String
+  price: String,
+  range: String
 });
 
 module.exports = mongoose.model('Product', Product);

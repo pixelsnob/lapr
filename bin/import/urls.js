@@ -5,7 +5,8 @@ var field_map = [
   { description: 1, price: 2 },
   { size: 1, maker: 2, description: 3 },
   { maker: 1, description: 2, price: 3 },
-  { description: 1, maker: 2, price: 3 }
+  { description: 1, maker: 2, price: 3 },
+  { maker: 1, description: 2, range: 3, price: 4 }
 ];
 
 module.exports = {
@@ -29,10 +30,16 @@ module.exports = {
     name: 'Concert Drums',
     fields: field_map[1] 
   },
-  'ethnicdrums.html': {
-    name: 'Ethnic Drums',
-    fields: field_map[1] 
-  },
+  'ethnicdrums.html': [
+    {
+      name: 'Ethnic & Hand Drums',
+      fields: field_map[1]
+    },
+    {
+      name: 'Steel Drums',
+      fields: field_map[6]
+    }
+  ],
   'drums.html': [
     {
       name: 'Drum Sets',
