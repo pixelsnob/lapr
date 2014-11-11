@@ -10,6 +10,7 @@ Latest CSV is here: [lapr.csv](lapr.csv)
 - Current images have all sorts of different sizes and dimensions
 - Drumset descriptions have quite a bit of info
 - Remove n/a's from model_no field 
+- Need to find duplicates and merge them so that instrument names are unique 
 
 ## Existing Fields
 
