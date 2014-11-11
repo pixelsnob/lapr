@@ -11,6 +11,8 @@ Latest CSV is here: [lapr.csv](lapr.csv)
 - Drumset descriptions have quite a bit of info
 - Remove n/a's from model_no field 
 - Need to find duplicates and merge them so that instrument names are unique 
+- Capitalization of names, etc. -- pretty inconsistent right now
+- General grammar stuff
 
 ## Existing Fields
 
