@@ -79,10 +79,11 @@ async.waterfall([
             fields   = page.fields;
             category = page.name;
           }
-          var description = $col.eq(fields.description).text();
-          var temp = description.match(/[A-G][#b]?[1-9]-[A-G][b#]?[1-9]/i);
-          if (temp) {
-            console.log(temp[0]);
+          var description = $col.eq(fields.description).text(),
+              range       = $col.eq(fields.range).text();
+          var desc_range = description.match(/[A-G][#b]?[1-9]-[A-G][b#]?[1-9]/i);
+          if (desc_range && !range) {
+            range = desc_range;
             temp_count++;
           }
           var product = new ProductModel({
@@ -91,7 +92,7 @@ async.waterfall([
             maker:       format($col.eq(fields.maker).text()),
             price:       $col.eq(fields.price).text(),
             model_no:    $col.eq(fields.model_no).text(),
-            range:       $col.eq(fields.range).text()
+            range:       range
           });
           if (!product.description) {
             return cb2();
