@@ -7,7 +7,8 @@ var jsdom            = require('jsdom'),
     db               = mongoose.connect('mongodb://localhost/lapr'),
     async            = require('async'),
     ProductModel     = require('../../models/products'),
-    _                = require('underscore');
+    _                = require('underscore'),
+    path             = require('path');
 
 db.connection.on('error', function(e) {
   console.error('Mongo error: ' + e);
@@ -15,8 +16,6 @@ db.connection.on('error', function(e) {
 });
 
 var pages = [], c = 0;
-
-var temp_count = 0;
 
 async.waterfall([
   // Fetch each page in urls
@@ -56,6 +55,8 @@ async.waterfall([
       // Remove excess whitespace, newlines, etc.
       var format = function(str) {
         if (str) {
+          //str = str.replace(/,\s*$/, '');
+          str = str.replace(/more details\.{1,3}/gi, '');
           return $.trim(str.replace(/\n|\s{2,}/g, ' '));
         }
       };
@@ -79,20 +80,24 @@ async.waterfall([
             fields   = page.fields;
             category = page.name;
           }
+          // Data cleanup
           var description = $col.eq(fields.description).text(),
-              range       = $col.eq(fields.range).text();
-          var desc_range = description.match(/[A-G][#b]?[1-9]-[A-G][b#]?[1-9]/i);
+              range       = $col.eq(fields.range).text(),
+              range_regex = /[A-G][#b]?[1-9]-[A-G][b#]?[1-9]/i,
+              desc_range  = description.match(range_regex),
+              img         = $col.eq(0).find('img'),
+              image_path  = (img ? path.basename(img.attr('src')) : null);
           if (desc_range && !range) {
             range = desc_range;
-            temp_count++;
           }
           var product = new ProductModel({
             description: format(description),
             category:    category,
             maker:       format($col.eq(fields.maker).text()),
-            price:       $col.eq(fields.price).text(),
-            model_no:    $col.eq(fields.model_no).text(),
-            range:       range
+            price:       format($col.eq(fields.price).text()),
+            model_no:    format($col.eq(fields.model_no).text()),
+            range:       range,
+            image:       image_path 
           });
           if (!product.description) {
             return cb2();
@@ -109,8 +114,7 @@ async.waterfall([
     }, next);
   }
 ], function(err) {
-  console.log('Done', c);
-  console.log(temp_count);
+  console.log('Done, %s products added', c);
   db.connection.close();
 });
 

@@ -1,0 +1,4 @@
+
+#!/bin/bash
+
+mongoexport -d lapr --csv -o ./docs/lapr.csv -c products -f description,category,price,maker,range
