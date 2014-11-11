@@ -86,9 +86,9 @@ async.waterfall([
               range_regex = /[A-G][#b]?[1-9]-[A-G][b#]?[1-9]/i,
               desc_range  = description.match(range_regex),
               img         = $col.eq(0).find('img'),
-              image_path  = (img ? path.basename(img.attr('src')) : null);
+              image_path  = (img.length ? path.basename(img.attr('src')) : null);
           if (desc_range && !range) {
-            range = desc_range;
+            range = desc_range[0];
           }
           var product = new ProductModel({
             description: format(description),
@@ -96,7 +96,7 @@ async.waterfall([
             maker:       format($col.eq(fields.maker).text()),
             price:       format($col.eq(fields.price).text()),
             model_no:    format($col.eq(fields.model_no).text()),
-            range:       range,
+            range:       format(range),
             image:       image_path 
           });
           if (!product.description) {
