@@ -56,7 +56,8 @@ async.waterfall([
       var format = function(str) {
         if (str) {
           //str = str.replace(/,\s*$/, '');
-          str = str.replace(/more details\.{1,3}/gi, '');
+          str = str.replace(/more details\.{1,3}/gi, '')
+                   .replace(/n\/a/gi, '');
           return $.trim(str.replace(/\n|\s{2,}/g, ' '));
         }
       };
