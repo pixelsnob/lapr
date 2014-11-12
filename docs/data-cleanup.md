@@ -18,7 +18,7 @@ Latest CSV is here: [lapr.csv](lapr.csv)
 
 - category (ethnic drums, accessories, etc.)
 - description/name
-- maker
+- maker: see [makers.csv](makers.csv) for a list of makers extracted from your current site
 - price
 - model_no
 
