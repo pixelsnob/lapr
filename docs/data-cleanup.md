@@ -1,7 +1,7 @@
 
 # Data Cleanup
 
-Latest CSV is here: [lapr.csv](lapr.csv)
+Latest list of products is here: [lapr.csv](lapr.csv)
 
 ## General Issues
 
