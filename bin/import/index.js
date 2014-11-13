@@ -92,12 +92,17 @@ async.waterfall([
                               // Matches 15x12", 15.5x12.5", 15 x12", 15 x 12.5", etc.
               sizes_regex   = /\d+(?:\.\d+)?"?\s?x\s?\d+(?:\.\d+)?"?|\d+(?:\.\d+)?"/gi,
               sizes         = description.match(sizes_regex),
-              octaves       = /(\d+(?:\.\d+)?)\s+octaves?/gi.exec(description);
+              octaves_regex = /(\d+(?:\.\d+)?)\s+octaves?/gi,
+              octaves       = octaves_regex.exec(description),
+              name          = description.replace(sizes_regex, '')
+                                         .replace(octaves_regex, '')
+                                         .replace(range_regex, '');
           if (desc_range && !range) {
             range = desc_range[0];
           }
-          console.log(description, octaves);
+          console.log(name.split("\n")[0]);
           var product = new ProductModel({
+            name:        name.split("\n")[0],
             description: format(description),
             category:    category,
             maker:       format($col.eq(fields.maker).text()),
