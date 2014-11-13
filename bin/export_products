@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mongoexport -d lapr --csv -o ./docs/lapr.csv -c products -f description,category,maker,price,model_no,range,sizes,image
+mongoexport -d lapr --csv -o ./docs/lapr.csv -c products -f description,sizes,category,maker,price,model_no,range,image
