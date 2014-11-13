@@ -153,7 +153,8 @@ description,sizes,category,maker,price,model_no,range,image
 "Fender '65 Deluxe Reverb Vintage Reissue 1x12""","1x12""","Backline",,"$45",,,"fender_deluxe_s.jpg"
 "Fender ""Blues Deluxe"" 1x12""","1x12""","Backline",,"$45",,,"fenderbluesdeluxe_s.jpg"
 "Fender '65 Twin Reverb Vintage Reissue 1x12""","1x12""","Backline",,"$55",,,"fender_twin_s.jpg"
-"Vox AC30 Alnico Blues AC30C2X 2x12""","2x12""","Backline",,"$55",,,"vox_ac30_s.jpg"
+"Vox AC30 Alnico Blues AC30C2X 2x12""","2X
+2, 12""","Backline",,"$55",,,"vox_ac30_s.jpg"
 "SWR California Blonde 1x12""","1x12""","Backline",,"$45",,,"swr_cal_blonde_S.jpg"
 "SWR Working Man 15  1x15""","1x15""","Backline",,"$45",,,"swr_working15_s.jpg"
 "Gallien Krueger Neo 410 with 1001RB  4x10""","4x10""","Backline",,"$90",,,"gk_neo410_s.jpg"
@@ -299,7 +300,7 @@ description,sizes,category,maker,price,model_no,range,image
 "Maple Custom drumset  Available toms: 8"",10"",12"",13"",14"",16""  Available floor toms: 14"",16"", 18""  Available bass drums: 18"", 20"", 22"", 24""","8"", 10"", 12"", 13"", 14"", 16"", 14"", 16"", 18"", 18"", 20"", 22"", 24""","Drum Sets","Yamaha","$200/day",,,"yamaha_maple_cust_blk_all_icon.jpg"
 "Maple Custom Absolute drumset  Available toms: 10""x7"", 12""x8""  Available floor toms: 14""x14""  Available bass drums: 20x16""","10""x7"", 12""x8"", 14""x14"", 20x16""","Drum Sets","Yamaha","$200/day",,,"Yamaha_MCA_4.jpg"
 "Maple Custom Absolute drumset  Available toms: 12""x8""  Available floor toms: 14x14"", 16x14""  Available bass drums: 22x16"", 18x14"" Available snares: 14""x4"", 14""x5.5""","12""x8"", 14x14"", 16x14"", 22x16"", 18x14"", 14""x4"", 14""x5.5""","Drum Sets","Yamaha","$200/day",,,"mca_neil_kit_all_icon.jpg"
-"Design Series, satin white finish  Available toms: 8"", 10"", 12""  Available floor toms: 16"", 18""  Available bass drums: 22"", 22""  Available snares: 14x5  Available ""rata"" drums: 6x16"" , 6x18""","8"", 10"", 12"", 16"", 18"", 22"", 22"", 6x16"", 6x18""","Drum Sets","D.W.","$175/day",,,"dw_design_all-drums_icon.jpg"
+"Design Series, satin white finish  Available toms: 8"", 10"", 12""  Available floor toms: 16"", 18""  Available bass drums: 22"", 22""  Available snares: 14x5  Available ""rata"" drums: 6x16"" , 6x18""","8"", 10"", 12"", 16"", 18"", 22"", 22"", 14x5, 6x16"", 6x18""","Drum Sets","D.W.","$175/day",,,"dw_design_all-drums_icon.jpg"
 "Drum Workshop/ D.W. drumset. Bebop kit Shown with Flush base 6000 series hardware",,"Drum Sets","D.W.","$200/day",,,"DW_Bebop_6-77x66.jpg"
 "Manu Katche Signature Jr. Kit  16x16"" Bass Drum, 13x12"" floor tom  10x7"" tom, 12x5"" snare","16x16"", 13x12"", 10x7"", 12x5""","Drum Sets","Yamaha","$175/day",,,"manu_katche_icon.jpg"
 "1950s Vintage set. 22"" bass drum, 13x9"" rack tom, 16x16"" floor tom","22"", 13x9"", 16x16""","Drum Sets","Leedy","$225/day",,,"drumset_leedy_50s_s.jpg"

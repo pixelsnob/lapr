@@ -10,7 +10,8 @@ var Product = new mongoose.Schema({
   price: String,
   range: String,
   image: String,
-  sizes: String
+  sizes: String,
+  octaves: Number
 });
 
 module.exports = mongoose.model('Product', Product);

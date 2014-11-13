@@ -82,20 +82,21 @@ async.waterfall([
             category = page.name;
           }
           // Data cleanup
-          var description = $col.eq(fields.description).text(),
-              range       = $col.eq(fields.range).text(),
-                            // Matches note values and ranges: C2-F8, Bb4-F6, D5, etc.
-              range_regex = /[A-G][#b]?[1-9]-[A-G][b#]?[1-9]/i,
-              desc_range  = description.match(range_regex),
-              img         = $col.eq(0).find('img'),
-              image_path  = (img.length ? path.basename(img.attr('src')) : null),
-                            // Matches 15x12", 15.5x12.5", 15 x12", 15 x 12.5", etc.
-              sizes_regex = /\d+(?:\.\d+)?"?\s?x\s?\d+(?:\.\d+)?"?|\d+(?:\.\d+)?"/gi,
-              sizes       = description.match(sizes_regex);
+          var description   = $col.eq(fields.description).text(),
+              range         = $col.eq(fields.range).text(),
+                              // Matches note values and ranges: C2-F8, Bb4-F6, D5, etc.
+              range_regex   = /[A-G][#b]?[1-9]-[A-G][b#]?[1-9]/i,
+              desc_range    = description.match(range_regex),
+              img           = $col.eq(0).find('img'),
+              image_path    = (img.length ? path.basename(img.attr('src')) : null),
+                              // Matches 15x12", 15.5x12.5", 15 x12", 15 x 12.5", etc.
+              sizes_regex   = /\d+(?:\.\d+)?"?\s?x\s?\d+(?:\.\d+)?"?|\d+(?:\.\d+)?"/gi,
+              sizes         = description.match(sizes_regex),
+              octaves       = /(\d+(?:\.\d+)?)\s+octaves?/gi.exec(description);
           if (desc_range && !range) {
             range = desc_range[0];
           }
-          //console.log(sizes);
+          console.log(description, octaves);
           var product = new ProductModel({
             description: format(description),
             category:    category,
@@ -104,7 +105,8 @@ async.waterfall([
             model_no:    format($col.eq(fields.model_no).text()),
             range:       format(range),
             image:       image_path,
-            sizes:       (sizes ? sizes.join(', ') : null)
+            sizes:       (sizes ? sizes.join(', ') : null),
+            octaves:     (octaves ? octaves[1] : null)
           });
           if (!product.description) {
             return cb2();
