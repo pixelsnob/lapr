@@ -87,10 +87,13 @@ async.waterfall([
               range_regex = /[A-G][#b]?[1-9]-[A-G][b#]?[1-9]/i,
               desc_range  = description.match(range_regex),
               img         = $col.eq(0).find('img'),
-              image_path  = (img.length ? path.basename(img.attr('src')) : null);
+              image_path  = (img.length ? path.basename(img.attr('src')) : null),
+              sizes_regex = /\d+"|\d+\s?x\s?\d+"/gi,
+              sizes       = description.match(sizes_regex);
           if (desc_range && !range) {
             range = desc_range[0];
           }
+          //console.log(sizes);
           var product = new ProductModel({
             description: format(description),
             category:    category,
@@ -98,7 +101,8 @@ async.waterfall([
             price:       format($col.eq(fields.price).text()),
             model_no:    format($col.eq(fields.model_no).text()),
             range:       format(range),
-            image:       image_path 
+            image:       image_path,
+            sizes:       (sizes ? sizes.join(', ') : null)
           });
           if (!product.description) {
             return cb2();
