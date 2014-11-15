@@ -128,7 +128,11 @@ async.waterfall([
     }, next);
   }
 ], function(err) {
-  console.log('Done, %s products added', c);
+  if (err) { 
+    console.error(err);
+  } else {
+    console.log('Done, %s products added', c);
+  }
   db.connection.close();
 });
 

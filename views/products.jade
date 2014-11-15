@@ -1,0 +1,38 @@
+
+extends layout
+
+block content
+  ul
+    li
+      a(href="?") All
+    each category in categories
+      li
+        a(href="?category=#{category}")= category
+  p Count: #{products.length}
+  table
+    tbody
+      tr
+        th
+        th name
+        th alt_names
+        th description
+        th model_no
+        th maker
+        th category
+        th price
+        th range
+        th sizes
+      each product in products
+        tr
+          th
+            img(src="/images/products/#{product.image}", width="50")
+          td= product.name
+          td= product.alt_names
+          td._description= product._description
+          td= product.model_no
+          td= product.maker
+          td= product.category
+          td= product.price
+          td= product.range
+          td= product.sizes
+  
