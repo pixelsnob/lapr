@@ -8,11 +8,11 @@ Latest list of products is here: [lapr.csv](lapr.csv)
 - Instruments in "Backline" category have blank "maker" fields, which does exist in some of the names, so they will need to be copied over manually
 - Emil Richards "more info..." will need to be copied over
 - Current images have all sorts of different sizes and dimensions
-- Drumset descriptions have quite a bit of info
-- Remove n/a's from model_no field 
-- Need to find duplicates and merge them so that instrument names are unique 
-- Capitalization of names, etc. -- pretty inconsistent right now
-- General grammar stuff
+- ~~Drumset descriptions have quite a bit of info~~
+- ~~Remove n/a's from model_no field~~ 
+- ~~Need to find duplicates and merge them so that instrument names are unique~~ 
+- ~~Capitalization of names, etc. -- pretty inconsistent right now~~
+- ~~General grammar stuff~~
 
 ## Existing Fields
 
