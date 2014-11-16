@@ -1,5 +1,0 @@
-#!/bin/bash
-
-git pull
-grunt default
-forever restartall

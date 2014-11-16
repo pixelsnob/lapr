@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mongoimport -d lapr -c temp_products --type csv --file /Users/luis/Desktop/lapr.csv --headerline --drop
