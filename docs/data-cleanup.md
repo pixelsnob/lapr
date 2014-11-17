@@ -35,4 +35,6 @@ Latest list of products is here: [lapr.csv](lapr.csv)
 
 ## Further Cleanup/Categorization
 
-- Change order of some of the names in the "name" field so that instruments will sort properly
+- Change order of some of the names in the "name" field so that instruments will sort properly. For instance, "Log Drum, Medium Range, 6 pitches" -- it's a log drum, which is its name, but the medium range, 6 pitches part should be in the description or "notes field" (I would think). Also "Variety of Drumset & Ethnic Tambourines" -- in order for this to sort properly in a list, it should be "Tambourines, Drumset & Ethnic, Variety" etc.
+- Verify that my changes don't conflict with any "business reasons" for why something should be named or displayed a certain way. I can see why you would want to display certain bits of info a specific way...
+
