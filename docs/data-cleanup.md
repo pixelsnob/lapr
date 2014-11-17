@@ -38,4 +38,5 @@ Latest list of products is here: [lapr.csv](lapr.csv)
 - Change order of some of the names in the "name" field so that instruments will sort properly. Some examples:
   - "Log Drum, Medium Range, 6 pitches" -- it's a log drum, which is its name, but the medium range, 6 pitches part should be in the description or "notes field" (I would think)
   - "Variety of Drumset & Ethnic Tambourines" -- in order for this to sort properly in a list, it should be "Tambourines, Drumset & Ethnic, Variety" etc.
+  - "Ampeg VST with Tube Amp Head" contains maker (Ampeg) in the name -- repetitive
 - Verify that my changes don't conflict with any "business reasons" for why something should be named or displayed a certain way
