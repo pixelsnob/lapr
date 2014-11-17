@@ -61,27 +61,8 @@ app.use(jade_browser(
   { root: app.get('views'), minify: (env == 'production') }
 ));
 
-
-var Products = require('./models/temp_products');
-
-app.get('/products', function(req, res, next) {
-  var query = req.query.category ? { category: new RegExp(req.query.category) } : {},
-      opts  = { sort: { name: 1 } };
-  Products.find(query, null, opts, function(err, products) {
-    if (err) {
-      return next(err);
-    }
-    Products.find().distinct('category', function(err, categories) {
-      if (err) {
-        return next(err);
-      }
-      categories = categories.filter(function(category) {
-        return category.split(',').length == 1;
-      });
-      res.render('products', { products: products, categories: categories });
-    });
-  });
-});
+var routes = require('./routes')(app);
+app.route('/products').get(routes.getProducts);
 
 app.use(require('cms/router'));
 
