@@ -28,9 +28,10 @@ async.waterfall([
           product.sizes = product.sizes.replace(/(\d+(?:\.\d+)?)"?\s?x\s?(\d+(?:\.\d+)?)"?/gi, '$1x$2"');
         }
         if (product.maker) {
-          product.maker = product.maker.split('/').map(function(m) {
-            return m.replace(/^\s?([^\s]+)\s?$/, '$1');
-          }).join(',');
+          var makers = product.maker.split(',');
+          if (makers.length) {
+            product.makers = makers.map(function(maker) { return maker.replace(/^\s+|\s+$/g, ''); });
+          }
         }
         product.save(function(err) {
           if (err) {

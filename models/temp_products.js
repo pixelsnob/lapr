@@ -6,6 +6,7 @@ var TempProduct = new mongoose.Schema({
   name: String,
   alt_names: String,
   maker: String,
+  makers: Array,
   _description: String,
   description: String,
   model_no: String,

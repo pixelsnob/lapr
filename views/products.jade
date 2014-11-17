@@ -17,7 +17,7 @@ block content
         th alt_names
         th description
         th model_no
-        th maker
+        th makers
         th category
         th price
         th range
@@ -30,9 +30,10 @@ block content
           td= product.alt_names
           td._description= product._description
           td= product.model_no
-          td= product.maker
+          td= product.makers.join(', ')
           td= product.category
           td= product.price
           td= product.range
           td= product.sizes
   
+  p Makers: #{makers}
