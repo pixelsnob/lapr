@@ -11,8 +11,9 @@ module.exports = function(app) {
         // Get products
         function(cb) {
           var query = req.query.category ?
-                      { category: new RegExp(req.query.category) } : {};
-          Products.find(query, null, { sort: { name: 1 }}, function(err, products) {
+                      { category: new RegExp(req.query.category) } : {},
+              opts  = { sort: { name: 1 } };
+          Products.find(query, null, opts, function(err, products) {
             if (err) {
               return cb(err);
             }
@@ -36,11 +37,12 @@ module.exports = function(app) {
           var ids = products.map(function(product) {
             return product._id;
           });
-          Products.find({ _id: { $in: ids } }).distinct('makers', function(err, makers) {
+          var query = { _id: { $in: ids } },
+              opts  = { sort: { name: 1 } };
+          Products.find(query, null, opts).distinct('makers', function(err, makers) {
             if (err) {
               return cb(err);
             }
-            makers.sort();
             cb(null, products, categories, makers);
           });
         }
@@ -55,7 +57,5 @@ module.exports = function(app) {
         });
       });
     }
-    
-    
   };
 };

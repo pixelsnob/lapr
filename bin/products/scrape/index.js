@@ -100,7 +100,6 @@ async.waterfall([
           if (desc_range && !range) {
             range = desc_range[0];
           }
-          console.log(name.split("\n")[0]);
           var product = new ProductModel({
             name:        name.split("\n")[0],
             description: format(description),
