@@ -42,4 +42,4 @@ Latest list of products is here: [lapr.csv](lapr.csv)
 - Verify that my changes don't conflict with any "business reasons" for why something should be named or displayed a certain way
 - Talk about how duplicates have been merged and removed. On your old site, products that were displayed on different pages had, in some cases, slight differences in spellings, missing information, etc. Now, if an instrument needs to be listed on different pages (categories), there is only *one* entry in the database. This eliminates "human error" that comes from trying to maintain multiple copies of the same product synced up with each other. :) This also gives us the ability to display and categorize instruments in pretty much any way we can think of
 
-See [104.200.25.63:3003/products](104.200.25.63:3003/products)
+See [http://104.200.25.63:3003/products](http://104.200.25.63:3003/products)
