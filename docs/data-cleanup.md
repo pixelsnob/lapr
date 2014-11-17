@@ -36,4 +36,3 @@ Latest list of products is here: [lapr.csv](lapr.csv)
 ## Further Cleanup/Categorization
 
 - Change order of some of the names in the "name" field so that instruments truly sort alphabetically
-- 
