@@ -5,7 +5,7 @@ Latest list of products is here: [lapr.csv](lapr.csv)
 
 ## General Issues
 
-- Instruments in "Backline" category have blank "maker" fields, which does exist in some of the names, so they will need to be copied over manually
+- ~~Instruments in "Backline" category have blank "maker" fields, which does exist in some of the names, so they will need to be copied over manually~~
 - Emil Richards "more info..." will need to be copied over
 - Current images have all sorts of different sizes and dimensions
 - ~~Drumset descriptions have quite a bit of info~~
@@ -32,3 +32,8 @@ Latest list of products is here: [lapr.csv](lapr.csv)
 - num_octaves: nice to have, probably not necessary, or maybe can be calculated from range fields
 - image
 - sizes: for drum sizes?
+
+## Further Cleanup/Categorization
+
+- Change order of some of the names in the "name" field so that instruments truly sort alphabetically
+- 
