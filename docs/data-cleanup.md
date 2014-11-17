@@ -8,6 +8,7 @@ Latest list of products has moved to [http://104.200.25.63:3003/products](http:/
 - ~~Instruments in "Backline" category have blank "maker" fields, which does exist in some of the names, so they will need to be copied over manually~~
 - Emil Richards "more info..." will need to be copied over
 - Current images have all sorts of different sizes and dimensions
+- Large images need to scraped from old site and imported
 - ~~Drumset descriptions have quite a bit of info~~
 - ~~Remove n/a's from model_no field~~ 
 - ~~Need to find duplicates and merge them so that instrument names are unique~~ 
@@ -18,7 +19,7 @@ Latest list of products has moved to [http://104.200.25.63:3003/products](http:/
 
 - category (ethnic drums, accessories, etc.)
 - description/name
-- maker: see [makers.csv](makers.csv) for a list of makers extracted from your current site -- we'll fix the duplicates and misspellings later
+- maker
 - price
 - model_no
 
