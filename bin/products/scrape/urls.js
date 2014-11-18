@@ -45,6 +45,10 @@ module.exports = {
   'erc.html': {
     name: 'Emil Richards Collection',
     fields: { description: 1, more_info: 2, price: 3 }
+  },
+  'cymbals.html': {
+    name: 'Cymbals',
+    fields: { size: 1, maker: 2, description: 3 }
   }
 };
 
