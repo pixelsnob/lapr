@@ -19,9 +19,11 @@ require('./lib/marked')(app);
 require('cms/lib/auth');
 require('cms/lib/view_helpers')(app);
 
-if (env == 'development') {
+
+app.use(express.static('public'));
+/*if (env == 'development') {
   app.use(express.static('public'));
-}
+}*/
 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');

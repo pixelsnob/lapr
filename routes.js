@@ -39,7 +39,7 @@ module.exports = function(app) {
           });
           var query = { _id: { $in: ids } },
               opts  = { sort: { name: 1 } };
-          Products.find(query, null, opts).distinct('makers', function(err, makers) {
+          Products.find(query, null, null).distinct('makers', function(err, makers) {
             if (err) {
               return cb(err);
             }
@@ -52,7 +52,7 @@ module.exports = function(app) {
         }
         res.render('products', {
           products:      products,
-          categories:    categories,
+          categories:    categories.sort(),
           makers:        makers.join(', ')
         });
       });
