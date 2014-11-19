@@ -49,6 +49,10 @@ module.exports = {
   'cymbals.html': {
     name: 'Cymbals',
     fields: { size: 1, maker: 2, description: 3 }
+  },
+  'gongs.html': {
+    name: 'Gongs',
+    fields: { size: 1, maker: 2, description: 3 }
   }
 };
 
