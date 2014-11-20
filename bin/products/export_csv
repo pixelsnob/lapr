@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mongoexport -d lapr --csv -o ./docs/lapr.csv -c temp_products -f name,alt_names,description,_description,category,maker,price,model_no,range,octaves,sizes,image

@@ -38,7 +38,6 @@ module.exports = function(app) {
             return product._id;
           });
           var query = { _id: { $in: ids } };
-              //opts  = { sort: { name: 1 } };
           Products.find(query).distinct('makers', function(err, makers) {
             if (err) {
               return cb(err);
@@ -52,7 +51,7 @@ module.exports = function(app) {
         }
         res.render('products', {
           products:      products,
-          categories:    categories,
+          categories:    categories.sort(),
           makers:        makers.sort().join(', ')
         });
       });
