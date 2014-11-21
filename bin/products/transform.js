@@ -5,7 +5,6 @@ var mongoose         = require('mongoose'),
     db               = mongoose.connect('mongodb://localhost/lapr'),
     async            = require('async'),
     ProductModel     = require('../../models/products'),
-    TempProductModel = require('../../models/temp_products'),
     _                = require('underscore'),
     path             = require('path');
 
@@ -19,7 +18,7 @@ var pages = [], c = 0;
 async.waterfall([
   function(next) {
     var c = 0;
-    TempProductModel.find({}, function(err, products) {
+    ProductModel.find({}, function(err, products) {
       if (err) {
         return next(err);
       }
@@ -33,6 +32,9 @@ async.waterfall([
             product.makers = makers.map(function(maker) { return maker.replace(/^\s+|\s+$/g, ''); });
           }
         }
+        product.categories = product.category.split(',').map(function(category) {
+          return category.replace(/^\s+|\s+$/g, '');
+        });
         product.save(function(err) {
           if (err) {
             return next(err);

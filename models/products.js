@@ -1,10 +1,14 @@
 
 var mongoose = require('mongoose');
 
-var Product = new mongoose.Schema({
+var ProductSchema = new mongoose.Schema({
   category: String,
+  categories: Array,
   name: String,
+  alt_names: String,
   maker: String,
+  makers: Array,
+  _description: String,
   description: String,
   model_no: String,
   price: String,
@@ -14,4 +18,7 @@ var Product = new mongoose.Schema({
   octaves: Number
 });
 
-module.exports = mongoose.model('Product', Product);
+ProductSchema.getSearch = function(str, cb) {
+};
+
+var model = module.exports = mongoose.model('Product', ProductSchema);

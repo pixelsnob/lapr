@@ -1,5 +1,5 @@
 
-var Products = require('./models/temp_products'),
+var Products = require('./models/products'),
     lunr     = require('lunr'),
     async    = require('async'),
     _        = require('underscore');
@@ -52,9 +52,11 @@ module.exports = function(app) {
             if (err) {
               return cb(err);
             }
+            //////
             categories = categories.filter(function(category) {
               return category.split(',').length == 1;
             });
+            //////
             cb(null, products, categories);
           });
         },
@@ -71,6 +73,7 @@ module.exports = function(app) {
             cb(null, products, categories, makers);
           });
         }
+
       ], function(err, products, categories, makers) {
         if (err) {
           return next(err);

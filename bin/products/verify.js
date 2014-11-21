@@ -19,12 +19,12 @@ var pages = [], c = 0;
 async.waterfall([
   function(next) {
     var c = 0;
-    ProductModel.find({}, function(err, products) {
+    TempProductModel.find({}, function(err, products) {
       if (err) {
         return next(err);
       }
       async.each(products, function(product, cb) {
-        TempProductModel.findOne({ image: product.image }, function(err, tproduct) {
+        ProductModel.findOne({ image: product.image }, function(err, tproduct) {
           if (err) {
             return next(err);
           }
