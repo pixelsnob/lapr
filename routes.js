@@ -25,7 +25,7 @@ module.exports = function(app) {
         },
         // Get product categories
         function(products, cb) {
-          Product.find().distinct('categories', function(err, categories) {
+          Product.getCategories(function(err, categories) {
             if (err) {
               return cb(err);
             }
@@ -37,12 +37,8 @@ module.exports = function(app) {
           var ids = products.map(function(product) {
             return product._id;
           });
-          var query = { _id: { $in: ids } };
-          Product.find(query).distinct('makers', function(err, makers) {
-            if (err) {
-              return cb(err);
-            }
-            cb(null, products, categories, makers);
+          Product.getMakersInIds(ids, function(err, makers) {
+            cb(err, products, categories, makers);  
           });
         }
 

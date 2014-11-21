@@ -63,5 +63,23 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
   });
 };
 
+/**
+ * Gets distinct product categories
+ * 
+ */
+ProductSchema.statics.getCategories = function(cb) {
+  this.find().distinct('categories', cb);
+};
+
+/**
+ * Get makers for a given set of ids
+ * 
+ */
+ProductSchema.statics.getMakersInIds = function(ids, cb) {
+  var query = { _id: { $in: ids } };
+  this.find(query).distinct('makers', cb);
+};
+
 module.exports = mongoose.model('Product', ProductSchema);
+
 
