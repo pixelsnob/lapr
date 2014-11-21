@@ -8,6 +8,10 @@ block content
     each category in categories
       li
         a(href="?category=#{category}")= category
+  form(method="post", action="")
+    p
+      input(type="text", name="search", value="#{search}")
+      input(type="submit", value="Search")
   p Count: #{products.length}
   table
     tbody

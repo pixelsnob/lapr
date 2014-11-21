@@ -1,6 +1,8 @@
 
 var Products = require('./models/temp_products'),
-    async    = require('async');
+    lunr     = require('lunr'),
+    async    = require('async'),
+    _        = require('underscore');
 
 module.exports = function(app) {
 
@@ -10,12 +12,36 @@ module.exports = function(app) {
       async.waterfall([
         // Get products
         function(cb) {
-          var query = req.query.category ?
-                      { category: new RegExp(req.query.category) } : {},
+          var query = {},
               opts  = { sort: { name: 1 } };
+          if (req.query.category) {
+            query.category = new RegExp(req.query.category);
+          }
           Products.find(query, null, opts, function(err, products) {
             if (err) {
               return cb(err);
+            }
+            // Full text search
+            if (req.body.search) {
+              var search_index = lunr(function() {
+                this.field('name');
+                this.field('alt_names');
+                this.field('_description');
+                this.field('category');
+                this.field('makers');
+                this.field('model_no');
+              });
+              products.forEach(function(product) {
+                search_index.add(product);
+              });
+              var search_res = search_index.search(req.body.search);
+              if (search_res) {
+                // Discard products that don't exist in the full text search
+                // results
+                products = products.filter(function(product) {
+                  return _.findWhere(search_res, { ref: String(product._id) });
+                });
+              }
             }
             cb(null, products);
           });
@@ -52,7 +78,8 @@ module.exports = function(app) {
         res.render('products', {
           products:      products,
           categories:    categories.sort(),
-          makers:        makers.sort().join(', ')
+          makers:        makers.sort().join(', '),
+          search:        (req.body.search || '')
         });
       });
     }

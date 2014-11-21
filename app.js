@@ -41,11 +41,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(require('csurf')());
+//app.use(require('csurf')());
 app.locals.pretty = true;
 app.locals._ = _;
 app.use(function(req, res, next) {
-  res.locals.csrf = req.csrfToken();
+  //res.locals.csrf = req.csrfToken();
   res.locals.nav = require('./nav');
   if (req.isAuthenticated()) {
     res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
@@ -64,7 +64,7 @@ app.use(jade_browser(
 ));
 
 var routes = require('./routes')(app);
-app.route('/products').get(routes.getProducts);
+app.route('/products').get(routes.getProducts).post(routes.getProducts);
 
 app.use(require('cms/router'));
 
