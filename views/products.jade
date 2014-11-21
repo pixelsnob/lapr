@@ -33,7 +33,7 @@ block content
           td= product.name
           td= product.alt_names
           td._description= product._description
-          td= product.category
+          td= product.categories.join(', ')
           td= product.model_no
           td= product.makers.join(', ')
           td= product.price

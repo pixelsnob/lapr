@@ -1,6 +1,5 @@
 
-var Products = require('./models/products'),
-    lunr     = require('lunr'),
+var Product = require('./models/product'),
     async    = require('async'),
     _        = require('underscore');
 
@@ -17,46 +16,19 @@ module.exports = function(app) {
           if (req.query.category) {
             query.category = new RegExp(req.query.category);
           }
-          Products.find(query, null, opts, function(err, products) {
+          Product.search(query, opts, req.body.search, function(err, products) {
             if (err) {
               return cb(err);
-            }
-            // Full text search
-            if (req.body.search) {
-              var search_index = lunr(function() {
-                this.field('name');
-                this.field('alt_names');
-                this.field('_description');
-                this.field('category');
-                this.field('makers');
-                this.field('model_no');
-              });
-              products.forEach(function(product) {
-                search_index.add(product);
-              });
-              var search_res = search_index.search(req.body.search);
-              if (search_res) {
-                // Discard products that don't exist in the full text search
-                // results
-                products = products.filter(function(product) {
-                  return _.findWhere(search_res, { ref: String(product._id) });
-                });
-              }
             }
             cb(null, products);
           });
         },
         // Get product categories
         function(products, cb) {
-          Products.find().distinct('category', function(err, categories) {
+          Product.find().distinct('categories', function(err, categories) {
             if (err) {
               return cb(err);
             }
-            //////
-            categories = categories.filter(function(category) {
-              return category.split(',').length == 1;
-            });
-            //////
             cb(null, products, categories);
           });
         },
@@ -66,7 +38,7 @@ module.exports = function(app) {
             return product._id;
           });
           var query = { _id: { $in: ids } };
-          Products.find(query).distinct('makers', function(err, makers) {
+          Product.find(query).distinct('makers', function(err, makers) {
             if (err) {
               return cb(err);
             }

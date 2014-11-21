@@ -3,7 +3,7 @@
 var mongoose         = require('mongoose'),
     db               = mongoose.connect('mongodb://localhost/lapr'),
     async            = require('async'),
-    ProductModel     = require('../models/products'),
+    ProductModel     = require('../../models/product'),
     _                = require('underscore'),
     path             = require('path'),
     fs               = require('fs');

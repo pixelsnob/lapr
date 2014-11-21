@@ -4,7 +4,7 @@
 var mongoose         = require('mongoose'),
     db               = mongoose.connect('mongodb://localhost/lapr'),
     async            = require('async'),
-    ProductModel     = require('../../models/products'),
+    Product          = require('../../models/product'),
     _                = require('underscore'),
     path             = require('path');
 
@@ -18,7 +18,7 @@ var pages = [], c = 0;
 async.waterfall([
   function(next) {
     var c = 0;
-    ProductModel.find({}, function(err, products) {
+    Product.find({}, function(err, products) {
       if (err) {
         return next(err);
       }
