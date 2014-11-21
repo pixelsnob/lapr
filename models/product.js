@@ -20,6 +20,10 @@ var ProductSchema = new mongoose.Schema({
   octaves: Number
 });
 
+/**
+ * Runs a product "full text" search
+ * 
+ */
 ProductSchema.statics.search = function(query, opts, str, cb) {
   this.find(query, null, opts, function(err, products) {
     if (err) {
@@ -30,17 +34,26 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
         this.field('name');
         this.field('alt_names');
         this.field('_description');
-        this.field('category');
         this.field('makers');
+        this.field('category');
         this.field('model_no');
+        this.field('range');
+        this.field('sizes');
       });
       products.forEach(function(product) {
-        search_index.add(product);
+        search_index.add({
+          id:            product._id,
+          name:          product.name,
+          alt_names:     product.alt_names,
+          _description:  product._description,
+          makers:        product.makers.join(', '),
+          model_no:      product.model_no,
+          range:         product.range,
+          sizes:         product.sizes
+        });
       });
       var search_res = search_index.search(str);
       if (search_res) {
-        // Discard products that don't exist in the full text search
-        // results
         products = products.filter(function(product) {
           return _.findWhere(search_res, { ref: String(product._id) });
         });
