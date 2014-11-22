@@ -3,14 +3,17 @@ extends layout
 
 block content
   h2= product.name
-  p
-    em= product.alt_names
+  if product.alt_names
+    h3
+      em= product.alt_names
   if product.makers.length
     p Mfg. by #{product.makers.join(', ')}
   img(src="/images/products/#{product.image}")
   p= product._description
   if product.price
     p Rental Price: #{product.price}
+  else
+    p Contact Us for Price
   if product.sizes
     p Size(s): #{product.sizes}
   if product.range

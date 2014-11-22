@@ -23,7 +23,7 @@ Tambourine,,Tambourine,,Accessories,Grover,,,,,,grover_tamb_icon.jpg
 "Taxi Horns: A, B, C, D (i.e., for ""American in Paris"")",,"Taxi horns: A, B, C, D (i.e., for ""American in Paris"") ***Can be shipped for rental throughout U.S.**",German Made,Accessories,,,,"A, B, C, D",,,taxi_horns_angle-63x52.jpg
 Temple Blocks,,Temple Blocks,,Accessories,Vaughncraft,,VC-2001,,,,Vaughn_Temple_Blks_1-78x36.jpg
 "Temple Blocks, ""Granite"" ",,"""Granite"" Temple Blocks",,Accessories,LP,,LP1210,,,,granite_blocks_LP-75x44.jpg
-"Variety of ""Junk"" Percussion & Metals: Oxygen Tanks, Ribbon",,"Variety of ""junk"" percussion & metals: oxygen tanks, ribbon  crashers, spoons, tin canisters, brake drums, etc.",,Accessories,Various,,,,,,metals_icon.jpg
+"Variety of ""Junk"" Percussion & Metals",,"Variety of ""junk"" percussion & metals: oxygen tanks, ribbon  crashers, spoons, tin canisters, brake drums, etc.","Oxygen tanks, ribbon  crashers, spoons, tin canisters, brake drums, etc.",Accessories,Various,,,,,,metals_icon.jpg
 Variety of Cowbells,,Variety of cowbells,,Accessories,Various,,,,,,cowbells_icon.jpg
 Variety of Drumset & Ethnic Tambourines,,Variety of drumset & ethnic tambourines,,Accessories,Various,,,,,,tambourines_icon.jpg
 "Variety of Scrapers, Guiros, and Shekeres",,"Variety of scrapers, guiros, and shekeres",,Accessories,Various,,,,,,guiros_icon.jpg
@@ -39,7 +39,7 @@ Wood Blocks,,Wood blocks,,Accessories,Vaughncraft,,Various,,,,Vaughn_Woodblocks_
 "Wood Chimes, Skinny Square Dowels",,"Wood chimes, skinny square dowels",,Accessories,LAPR,,,,,,wood_chimes_square_s.jpg
 Melodica,,"Melodica, 2.6 Octaves, F3-C6",,"Accessories, Chromatic",Hohner,,,F3-C6,2.6,,Melodica-80x39.jpg
 Toy Piano,,"Toy piano, 3 octaves, F3-F6",,"Accessories, Chromatic",Schoenhut,,,F3-F6,3,,toy_piano_Schoenhut_red_icon.jpg
-"Aluminaphone, Micro-Tonal Aluminum Tubes",,"Aluminaphone, micro-tonal aluminum tubes, Arranged as shown or one long set",,"Accessories, Emil Richards Collection",Emil Richards,$160,,,,,aluminaphone_s.jpg
+"Aluminaphone, Micro-Tonal Aluminum Tubes",,"Aluminaphone, micro-tonal aluminum tubes, Arranged as shown or one long set",Arranged as shown or one long set,"Accessories, Emil Richards Collection",Emil Richards,$160,,,,,aluminaphone_s.jpg
 Amphibiaphone,Turtle Shells,"Amphibiaphone, Turtle Shells graduated in size, low - high  several tibres depending on differnt parts of the shell","Graduated in size, low - high. Several timbres depending on different parts of the shell","Accessories, Emil Richards Collection",,$80,,,,,amphibiaphone_s.jpg
 Blacksmith Anvil,,Blacksmith Anvil,,"Accessories, Emil Richards Collection",,$30,,,,,anvil_s.jpg
 Church Bell on Rolling Stand,,Church Bell on rolling stand,,"Accessories, Emil Richards Collection",,$60,,,,,church_bell_s.jpg
@@ -52,13 +52,13 @@ Water Chimes,,"Water Chimes,  4 brass plates that dip into water via foot pedal 
 "Wind Machine, Small, Table Top, Hand Crank",,"Wind Machine, small, table top, hand crank",,"Accessories, Emil Richards Collection",Emil Richards,$35,,,,,wind_machine_small_s.jpg
 Ampeg VST with Tube Amp Head,,"Ampeg VST with Tube amp head  8x10""",,Backline,Ampeg,$120,,,,"8x10""",ampeg_s.jpg
 Custom Metal Body Guitar,,Custom Metal body guitar,,Backline,,$60,,,,,guitar_s.jpg
-"Double Bass, German Made",,"Geman made, 3/4 acoustic, stand up, double bass, carved top & sides","3/4 acoustic, stand up, double bass, carved top & sides",Backline,,$100,,,,,acoustic_bass_s.jpg
+Double Bass,,"Geman made, 3/4 acoustic, stand up, double bass, carved top & sides","3/4 acoustic, stand up, double bass, carved top & sides. German made",Backline,,$100,,,,,acoustic_bass_s.jpg
 "Fender  ""Blues Deluxe"" ",,"Fender ""Blues Deluxe"" 1x12""",,Backline,Fender,$45,,,,"1x12""",fenderbluesdeluxe_s.jpg
 Fender '65 Deluxe Reverb Vintage Reissue,,"Fender '65 Deluxe Reverb Vintage Reissue 1x12""",,Backline,Fender,$45,,,,"1x12""",fender_deluxe_s.jpg
 Fender '65 Twin Reverb Vintage Reissue,,"Fender '65 Twin Reverb Vintage Reissue 1x12""",,Backline,Fender,$55,,,,"1x12""",fender_twin_s.jpg
 "Fender Hot Rod ""Deville"" ",,"Fender Hot Rod ""Deville"" 2x12""",,Backline,Fender,$55,,,,"2x12""",fender_deville_s.jpg
-"Fender Jazz Bass, 5-string, American Made",,"Fender Jazz Bass, 5-string, American made",,Backline,Fender,$70,,,,,jazz_bass_s.jpg
-"Fender Stratocaster, White, American Made",,"Fender Stratocaster (white), American made",,Backline,Fender,$70,,,,,fender_strat_s.jpg
+"Fender Jazz Bass, 5-string",,"Fender Jazz Bass, 5-string, American made",American made,Backline,Fender,$70,,,,,jazz_bass_s.jpg
+"Fender Stratocaster, White",,"Fender Stratocaster (white), American made",American made,Backline,Fender,$70,,,,,fender_strat_s.jpg
 Gallien Krueger Neo 115 with 1001RB,,"Gallien Krueger Neo 115 with 1001RB  1x15""",,Backline,Gallien,$90,,,,"1x15""",gk_neo15_s.jpg
 Gallien Krueger Neo 410 with 1001RB,,"Gallien Krueger Neo 410 with 1001RB  4x10""",,Backline,Gallien,$90,,,,"4x10""",gk_neo410_s.jpg
 "Gallien Krueger Neo Full Stack, 1001RB",,"Gallien Krueger Neo full stack , 1001RB  1x15"", 4x10""",,Backline,Gallien,$120,,,,"1x15"", 4x10""",gk_full_stack_s.jpg
@@ -68,8 +68,8 @@ Roland KC550 Keyboard Amp,,"Roland KC550 Keyboard amp  1x15""",,Backline,Roland,
 Roland Key-Tar Axis-1/AX,Keytar,Roland Key-tar / Keytar  Axis-1 / AX,,Backline,Roland,$60,,,,,
 SWR California Blonde,,"SWR California Blonde 1x12""",,Backline,SWR,$45,,,,"1x12""",swr_cal_blonde_S.jpg
 SWR Working Man 15,,"SWR Working Man 15  1x15""",,Backline,SWR,$45,,,,"1x15""",swr_working15_s.jpg
-The NEW Rhodes Mark 7 73A with Speaker Platform,,The NEW Rhodes Mark 7 73A with speaker platform  Rhodes-touch finish  (See notes above for new Rhodes Mark 7),Rhodes-touch finish  (See notes for new Rhodes Mark 7),Backline,Rhodes,$200,,,,,Rhodes-73A_s.jpg
-The NEW Rhodes Mark 7 88A with Speaker Platform,,"The NEW Rhodes Mark 7 88A with speaker platform  Hi-gloss finish   The Mark 7 is modeled after the vintage Mark V and is a genuine electro-mechanical piano, built from scratch by Rhodes.  Full length wooden piano keys  Improved action Relatively easy adjustment of sound quality to brighten or deaden notes  Better sustain out of the high register  Stronger full tone in the bass 3 band active EQ with ""sweep-able"" midrange  XLR direct outs  500 watt class D amp (lighter) speaker platform  Retains classic sound but with better reliability","Hi-gloss finish   The Mark 7 is modeled after the vintage Mark V and is a genuine electro-mechanical piano, built from scratch by Rhodes.  Full length wooden piano keys  Improved action Relatively easy adjustment of sound quality to brighten or deaden notes  Better sustain out of the high register  Stronger full tone in the bass 3 band active EQ with ""sweep-able"" midrange  XLR direct outs  500 watt class D amp (lighter) speaker platform  Retains classic sound but with better reliability",Backline,Rhodes,$230,,,,,rhodes_88_s.jpg
+Rhodes Mark 7 73A with Speaker Platform,,The NEW Rhodes Mark 7 73A with speaker platform  Rhodes-touch finish  (See notes above for new Rhodes Mark 7),Rhodes-touch finish  (See notes for new Rhodes Mark 7),Backline,Rhodes,$200,,,,,Rhodes-73A_s.jpg
+Rhodes Mark 7 88A with Speaker Platform,,"The NEW Rhodes Mark 7 88A with speaker platform  Hi-gloss finish   The Mark 7 is modeled after the vintage Mark V and is a genuine electro-mechanical piano, built from scratch by Rhodes.  Full length wooden piano keys  Improved action Relatively easy adjustment of sound quality to brighten or deaden notes  Better sustain out of the high register  Stronger full tone in the bass 3 band active EQ with ""sweep-able"" midrange  XLR direct outs  500 watt class D amp (lighter) speaker platform  Retains classic sound but with better reliability",,Backline,Rhodes,$230,,,,,rhodes_88_s.jpg
 Vox AC30 Alnico Blues AC30C2X,,"Vox AC30 Alnico Blues AC30C2X 2x12""",,Backline,Vox,$55,,,,"2x12""",vox_ac30_s.jpg
 Yamaha BB-Series Bass,,Yamaha BB-Series Bass,,Backline,Yamaha,$60,,,,,yamaha_bass_s.jpg
 Yamaha S90,,Yamaha S90,,Backline,Yamaha,$110,,,,,s90_s.jpg
@@ -237,8 +237,7 @@ Extra Large Djun Djun,,"Extra Large Djun Djun  23x34""",,"Ethnic & Hand Drums, E
 "Janggu, Large","Changgo, Seyogo","Janggu / Changgo / Seyogo  Korea, Rope tuned  10x21""",Rope tuned,"Ethnic & Hand Drums, Emil Richards Collection",,$40,,,,"10x21""",korean_drum_large_s.jpg
 "Janggu, Small","Changgo, Seyogo","Janggu / Changgo / Seyogo Korea, Rope tuned 9x15""",Rope tuned,"Ethnic & Hand Drums, Emil Richards Collection",,$35,,,,"9x15""",korean_drum_small_s.jpg
 Native American Toms,"""American Indian Drums""","Native American Toms / ""American Indian Drums""  3 drums with skin heads on rolling stand  14x18"",17x19"",20x22""",3 drums with skin heads on rolling stand,"Ethnic & Hand Drums, Emil Richards Collection",,$120,,,,"14x18"", 17x19"", 20x22""",native_american_toms_s.jpg
-"Taiko Drum, Black Finish",Daiko Drum,"Taiko/ Daiko drum, black finish  23x27"" on tall stand",On tall stand,"Ethnic & Hand Drums, Emil Richards Collection",,$150,,,,"23x27""",emil_taiko2_s.jpg
-"Taiko Drum, Black finish",Daiko Drum,"Taiko/ Daiko drum, black finish  24x28"" on tall stand",On tall stand,"Ethnic & Hand Drums, Emil Richards Collection",,$150,,,,"24x28""",emil_taiko1_s.jpg
+"Taiko Drum, Black Finish",Daiko Drum,"Taiko/ Daiko drum, black finish  23x27"" on tall stand",On tall stand,"Ethnic & Hand Drums, Emil Richards Collection",,$150,,,,"23x27"", 24x28""",emil_taiko2_s.jpg
 "Taiko Drum, Blonde Finish",Daiko Drum,"Taiko/ Daiko drum, Blonde finish  24x26"" on tall stand",On tall stand,"Ethnic & Hand Drums, Emil Richards Collection",,$150,,,,"24x26""",emil_taikoblonde_s.jpg
 Udu Drums,,Udu Drums Frank Giorgini 4 sizes,4 sizes,"Ethnic & Hand Drums, Emil Richards Collection",Frank Giorgini,$120/set,"Udu #1, Udu #2, Udu #3, Udu #4",,,,emil_udus_s.jpg
 Bass Marimba,,"Bass Marimba  2 octaves, G1-G3",,Mallets,Chris Banta,$230,,G1-G3,2,,marimba_bass_icon.jpg
