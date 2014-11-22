@@ -1,0 +1,27 @@
+{
+  "name": "lapr",
+  "version": "0.0.1",
+  "authors": [
+    "Luis A. Echeverria <pixelsnob@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.11.0",
+    "requirejs": "latest",
+    "bootstrap": "^3.0.0",
+    "backbone-amd": "latest",
+    "underscore-amd": "latest",
+    "marked": "latest",
+    "backbone-forms": "latest",
+    "html5shiv": "~3.7.2",
+    "vex": "~2.2.1"
+  }
+}

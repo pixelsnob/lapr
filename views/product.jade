@@ -8,7 +8,6 @@ block content
       em= product.alt_names
   if product.makers.length
     p Mfg. by #{product.makers.join(', ')}
-  img(src="/images/products/#{product.image}")
   p= product._description
   if product.price
     p Rental Price: #{product.price}
@@ -20,3 +19,4 @@ block content
     p Range: #{product.range}
   if product.octaves
     p Octaves: #{product.octaves}
+  img(src="/images/products/#{product.full_image}", width="400")

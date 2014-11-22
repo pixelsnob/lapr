@@ -19,3 +19,35 @@ html
   body(class="#{body_class}")
     block content 
 
+    script(type="text/javascript").
+      // Various polyfills
+      [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});
+      Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r};
+      Array.isArray||(Array.isArray=function(a){return''+a!==a&&{}.toString.call(a)=='[object Array]'});
+      window.lapr = { env: '#{settings.env}' };
+
+    if user
+      script(type="text/javascript").
+        window.lapr.user = !{JSON.stringify(user)};
+        window.lapr.markdown_opts = !{JSON.stringify(marked_opts)};
+    
+    if settings.env == 'production'
+      script(type="text/javascript", src="/dist/js/main/app.js")
+      if user
+        script(type="text/javascript", src="/dist/js/cms/app.js")
+    else
+      script(type="text/javascript", src="/bower_components/requirejs/require.js")
+
+
+    if user
+      script(type="text/javascript").
+        require.config({ baseUrl: '/js' });
+        require([ 'config' ], function() {
+          require([ 'main/app', 'cms-local/app' ]);
+        });
+    else
+      script(type="text/javascript").
+        require.config({ baseUrl: '/js' });
+        require([ 'config' ], function() {
+          require([ 'main/app' ]);
+        });

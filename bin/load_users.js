@@ -2,9 +2,9 @@
 'use strict';
 
 var
-  db              = require('../lib/db'),
+  db              = require('../lib/db')('lapr'),
   async           = require('async'),
-  User            = require('../models/user')
+  User            = require('cms/models/user')
 
 db.connection.on('error', function(err) {
   console.error('mongo error: ' + err);
@@ -17,9 +17,9 @@ db.connection.on('open', function() {
     // Add user(s)
     function(callback) {
       User.create({
-        username: 'abby',
-        password: 'xxxxxxxxxxxxxxxxx',
-        name: 'Abby'
+        username: 'luis',
+        password: '1234',
+        name: 'Luis'
       }, function(err) {
         if (err) {
           return callback(err);

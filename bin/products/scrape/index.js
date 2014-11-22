@@ -6,7 +6,7 @@ var jsdom            = require('jsdom'),
     mongoose         = require('mongoose'),
     db               = mongoose.connect('mongodb://localhost/lapr'),
     async            = require('async'),
-    ProductModel     = require('../../../models/product'),
+    ProductModel     = require('../../../models/temp_product'),
     _                = require('underscore'),
     path             = require('path');
 
@@ -97,6 +97,12 @@ async.waterfall([
               name          = description.replace(sizes_regex, '')
                                          .replace(octaves_regex, '')
                                          .replace(range_regex, '');
+
+          //console.log(img.attr('onclick'));
+          var full_image_path;
+          if (img && img.attr('onclick')) {
+            full_image_path = img.attr('onclick').match(/MM_openBrWindow\(\'([^\']+)/)[1];
+          }
           if (desc_range && !range) {
             range = desc_range[0];
           }
@@ -109,6 +115,7 @@ async.waterfall([
             model_no:    format($col.eq(fields.model_no).text()),
             range:       format(range),
             image:       image_path,
+            full_image:  full_image_path,
             sizes:       (sizes ? sizes.join(', ') : null),
             octaves:     (octaves ? octaves[1] : null)
           });

@@ -10,6 +10,7 @@ var TempProduct = new mongoose.Schema({
   price: String,
   range: String,
   image: String,
+  full_image: String,
   sizes: String,
   octaves: Number
 }, { collection: 'temp_products' });
