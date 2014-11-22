@@ -76,8 +76,7 @@ ProductSchema.statics.getCategories = function(cb) {
  * 
  */
 ProductSchema.statics.getMakersInIds = function(ids, cb) {
-  var query = { _id: { $in: ids } };
-  this.find(query).distinct('makers', cb);
+  this.find({ _id: { $in: ids }}).distinct('makers', cb);
 };
 
 module.exports = mongoose.model('Product', ProductSchema);

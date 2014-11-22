@@ -53,6 +53,18 @@ module.exports = function(app) {
           search:        (req.body.search || '')
         });
       });
+    },
+
+    getProduct: function(req, res, next) {
+      Product.findById(req.params.id, function(err, product) {
+        if (err) {
+          return next(err);
+        }
+        if (!product) {
+          return next(new Error('Product not found'));
+        }
+        res.render('product', { product: product });
+      });
     }
   };
 };

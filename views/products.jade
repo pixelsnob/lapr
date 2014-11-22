@@ -28,9 +28,10 @@ block content
         th sizes
       each product in products
         tr
-          th
+          td
             img(src="/images/products/#{product.image}", width="50")
-          td= product.name
+          td
+            a(href="/products/#{product.id}")= product.name
           td= product.alt_names
           td._description= product._description
           td= product.categories.join(', ')
