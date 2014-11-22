@@ -56,7 +56,7 @@ module.exports = function(app) {
     },
 
     getProduct: function(req, res, next) {
-      Product.findById(req.params.id, function(err, product) {
+      Product.findOne({ slug: req.params.slug }, function(err, product) {
         if (err) {
           return next(err);
         }

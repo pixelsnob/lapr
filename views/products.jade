@@ -31,7 +31,7 @@ block content
           td
             img(src="/images/products/#{product.image}", width="50")
           td
-            a(href="/products/#{product.id}")= product.name
+            a(href="/products/#{product.slug}")= product.name
           td= product.alt_names
           td._description= product._description
           td= product.categories.join(', ')
