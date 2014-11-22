@@ -25,11 +25,13 @@
     "jade-browser": "0.0.14",
     "js-common": "git+ssh://git@github.com:pixelsnob/js-common.git",
     "lunr": "^0.5.6",
+    "lwip": "0.0.5",
     "marked": "~0.3.1",
     "mongoose": "3.8.19",
     "passport": "^0.2.0",
     "passport-local": "^0.1.6",
     "recursive-readdir": "0.0.2",
+    "slug": "^0.8.0",
     "underscore": "^1.7.0"
   },
   "devDependencies": {

@@ -6,6 +6,7 @@ var mongoose         = require('mongoose'),
     async            = require('async'),
     Product          = require('../../models/product'),
     _                = require('underscore'),
+    slug             = require('slug'),
     path             = require('path');
 
 db.connection.on('error', function(e) {
@@ -35,6 +36,7 @@ async.waterfall([
         product.categories = product.category.split(',').map(function(category) {
           return category.replace(/^\s+|\s+$/g, '');
         });
+        product.slug = slug(product.name);
         product.save(function(err) {
           if (err) {
             return next(err);
