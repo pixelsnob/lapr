@@ -249,10 +249,10 @@ Crotales,Tuned Discs,"Crotales/Tuned Discs, Chrome Folding Stand 2 octaves, C6-C
 Crotales,Tuned Discs,"Crotales/Tuned Discs  2 octaves, C6-C8",,Mallets,Zildjian,$100,"P0615, P0625",C6-C8,2,,Zildj_Crotales_2-102x44.jpg
 Extended Range Bass Chimes,Tubular Bells,"Extended Range Bass Chimes/Tubular Bells  1/2 octave, F3-B3",,Mallets,Adams,$125,BK-3000C,F3-B3,2,,chimes_adams_bass_icon.jpg
 Malletkat,Mallet Kat,Malletkat / Mallet kat  3 and 4 octave versions,3 and 4 octave versions,Mallets,Alternate Mode,$100,Pro,,4,,malletkat_icon.jpg
-"Marimba, Alpha model, Height Adjustable",,"Marimba, Alpha model, Height Adjustable  5 octaves, C2-C7",,Mallets,Adams,$200,MAHR50,C2-C7,5,,marimba_adams_alpha_icon.jpg
-"Marimba, Robert Van Sice Artist Series, Height Adjustable",,"Marimba, Robert Van Sice Artist Series, Height Adjustable  5 octaves, C2-C7",,Mallets,Adams,$200,MAHC50,C2-C7,5,,marimba_adams_new_icon.jpg
-"Marimba, Rosewood, ""Diana Deluxe"", ca. 1970s",,"Marimba, Rosewood, ""Diana Deluxe"", ca. 1970s  4 octaves, C3-C7",,Mallets,Deagan,$150,652,C3-C7,4,,Deagan_Marimba_2_icon.jpg
-"Marimba, Rosewood, Height Adjustable",,"Marimba, Rosewood, Height Adjustable  4.5 octaves, F2-C7",,Mallets,Yamaha,$175,YM-4900A,F2-C7,4.5,,marimba_yamaha_icon.jpg
+"Marimba, Alpha Model",,"Marimba, Alpha model, Height Adjustable  5 octaves, C2-C7",Height adjustable,Mallets,Adams,$200,MAHR50,C2-C7,5,,marimba_adams_alpha_icon.jpg
+"Marimba, Robert Van Sice Artist Series",,"Marimba, Robert Van Sice Artist Series, Height Adjustable  5 octaves, C2-C7",Height adjustable,Mallets,Adams,$200,MAHC50,C2-C7,5,,marimba_adams_new_icon.jpg
+"Marimba, Rosewood, ""Diana Deluxe"", ca. 1970s",,"Marimba, Rosewood, ""Diana Deluxe"", ca. 1970s  4 octaves, C3-C7",Height adjustable,Mallets,Deagan,$150,652,C3-C7,4,,Deagan_Marimba_2_icon.jpg
+"Marimba, Rosewood",,"Marimba, Rosewood, Height Adjustable  4.5 octaves, F2-C7",Height adjustable,Mallets,Yamaha,$175,YM-4900A,F2-C7,4.5,,marimba_yamaha_icon.jpg
 "Marimba, Soloist",,"Marimba, Soloist  5 octaves, C2-C7",,Mallets,Marimba One,$220,,C2-C7,5,,Marimba_One-127x48.jpg
 Orchestra Bells,"Glockenspiel, Parsifal Bells","Orchestra Bells/ Glockenspiel  Parsifal Bells, Height Adj. w/ damper pedal  3.3 octaves, C5-E8",Height-adjustable with damper pedal,Mallets,Yamaha,$100,YG-2500,C5-E8,3.3,,glock_yamaha_parsifal_icon.jpg
 Orchestra Bells,Glockenspiel,"Orchestra Bells/ Glockenspiel  2.5 octaves, G5-C8",,Mallets,Deagan,$60,DG-1590A,G5-C8,2.5,,glock_deagan_1590_icon.jpg
@@ -268,7 +268,7 @@ Roundtops,"Orchestra Bells, Glockenspiel","Roundtops, Orchestra Bells/ Glockensp
 "Vibraphone, ""Electra-Vibe""",,"Vibraphone, ""Electra-Vibe""  electro-acustic vibraphone with on board reverb and direct outs to amplifier. Can use other effects pedals as well",Electro-acoustic vibraphone with on board reverb and direct outs to amplifier. Can use other effects pedals as well,Mallets,Deagan,$160,515,,,,vibes_deagan_electr_s.jpg
 "Vibraphone, Virtuoso Vibe",,"Vibraphone, Virtuoso Vibe, Height Adjustable  4 octaves, C3-C7",Height-adjustable,Mallets,Yamaha,$155,YV-4110,C3-C7,4,,Yamaha_4-Octave_icon.jpg
 "Vibraphone, with Pickups",,"Vibraphone, with pickups. Can use other effects pedals  3 octaves, F3-F6",Can use other effects pedals,Mallets,Deagan,$150,,F3-F6,3,,vibes_deagan_pickups.jpg
-"Xylophone, ""Radio"" Xylophone, ca. 1930s, Rosewood",,"Xylophone, ""Radio"" Xylophone, ca. 1930s, Rosewood  3.5 octaves, F4-C8",,Mallets,Deagan,$150,855B,F4-C8,3.5,,xylo_deagan_two_s.jpg
+"Xylophone, ""Radio"" Xylophone, Rosewood",,"Xylophone, ""Radio"" Xylophone, ca. 1930s, Rosewood  3.5 octaves, F4-C8",Ca. 1930s,Mallets,Deagan,$150,855B,F4-C8,3.5,,xylo_deagan_two_s.jpg
 "Xylophone, Concert Series, Rosewood",,"Xylophone, Concert Series, Rosewood, Height Adjustable 4 octaves, C4-C8",Height-adjustable,Mallets,Adams,$135,XCHV40,C4-C8,4,,Xylo_Adams-103x59.jpg
 "Xylophone, Professional Rosewood",,"Xylophone, Professional Rosewood, Height Adjustable  3.5 Octaves, F4-C8",Height-adjustable,Mallets,Yamaha,$120,YX-350,F4-C8,3.5,,xylo_yamaha_icon.jpg
 "Xylophone, Rosewood",,"Xylophone, Rosewood  3.5 octaves, F4-C8",,Mallets,Musser,$120,M50,F4-C8,3.5,,musser_xylo_s.jpg
@@ -343,7 +343,7 @@ Piatti,Pair of Orchestral Hand Crash Cymbals,"Piatti, pair of Orchestral Hand Cr
 K. Dark Thin Crash,,K. Dark Thin Crash,,Cymbals,Zildjian,,,,,,17_Zil_K_Dark_Crash-39x38.jpg
 K. Custom Dark China,,K. Custom Dark China,,Cymbals,Zildjian,,,,,,17_K_Zildjian_China-38x38.jpg
 Signature Series Fast Crash,,Signature Series Fast Crash,,Cymbals,Paiste,,,,,,17_paiste_fast_icon.jpg
-"Piatti, K Constantinople Special Selection",,"Piatti, K Constantinople Special Selection  Hand Crash Cymbals",,Cymbals,Zildjian,,,,,,17_piatti_zild_spec_sel_icon.jpg
+"Piatti, K Constantinople Special Selection",Pair of Orchestral Hand Crash Cymbals,"Piatti, K Constantinople Special Selection  Hand Crash Cymbals",,Cymbals,Zildjian,,,,,,17_piatti_zild_spec_sel_icon.jpg
 HH Hand Hammered Dark Crash,,HH Hand Hammered Dark Crash,,Cymbals,Sabian,,,,,,18_Sabian_HH_Dark_Crash-38x38.jpg
 A Custom Projection Crash,,A Custom Projection Crash,,Cymbals,Zildjian,,,,,,18_zild_proj_crash_icon.jpg
 K Dark Crash,,K Dark Crash,,Cymbals,Zildjian,,,,,,18_zild_k_dark_icon.jpg
@@ -377,7 +377,7 @@ K Symphonic Traditional Piatti,,K Symphonic Traditional Piatti,,Cymbals,Zildjian
 "Piatti, Symphonic Medium Light",Pair of Orchestral Hand Crash Cymbals,"Piatti, Symphonic Medium Light",,Cymbals,Paiste,,,,,,20_paiste_med_heavy_icon.jpg
 "Piatti, HH Viennese Orchestral",Pair of Orchestral Hand Crash Cymbals,"Piatti, Pair of HH Viennese Orchestral Hand Crash Cymbals",,Cymbals,Sabian,,,,,,20_Sabian_Viennesse_Piatti-74x35.jpg
 China Cymbals,,"China cymbals, single or as pair of crash cymbals, piatti","Single or as pair of crash cymbals, piatti",Cymbals,Dream,,,,,,20_dream_piatti_china_icon.jpg
-HH Hand Hammered Raw Bell Dry Ride in Brilliant Finish,,HH Hand Hammered Raw Bell Dry Ride in Brilliant Finish,,Cymbals,Sabian,,,,,,21_Sabian_HH_Dry_Ride-74x72.jpg
+HH Hand Hammered Raw Bell Dry Ride,,HH Hand Hammered Raw Bell Dry Ride in Brilliant Finish,In brilliant finish,Cymbals,Sabian,,,,,,21_Sabian_HH_Dry_Ride-74x72.jpg
 Swish with Rivets,,Swish with rivets,,Cymbals,,,,,,,23_swish_icon.jpg
 "Tuned Gongs, Chromatic",,Tuned Gongs (chromatic)  C2-C3,,"Gongs, Chromatic",Dream,,,C2-C3,,,gongs_c2-c3_cia_icon.jpg
 "Tuned Gongs, Chromatic",,Tuned Gongs (chromatic)  C3-C5,,"Gongs, Chromatic",Dream,,,C3-C5,,,Gongs_C3-C4_2_icon.jpg
