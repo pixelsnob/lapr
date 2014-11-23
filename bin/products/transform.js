@@ -5,6 +5,7 @@ var mongoose         = require('mongoose'),
     db               = mongoose.connect('mongodb://localhost/lapr'),
     async            = require('async'),
     Product          = require('../../models/product'),
+    ProductCategory  = require('../../models/product_category'),
     _                = require('underscore'),
     slug             = require('slug'),
     path             = require('path');
@@ -18,7 +19,6 @@ var pages = [], c = 0;
 
 async.waterfall([
   function(next) {
-    var c = 0;
     Product.find({}, function(err, products) {
       if (err) {
         return next(err);
@@ -33,22 +33,43 @@ async.waterfall([
             product.makers = makers.map(function(maker) { return maker.replace(/^\s+|\s+$/g, ''); });
           }
         }
-        product.categories = product.category.split(',').map(function(category) {
+        product.slug = slug(product.name);
+        var categories = product.category.split(',').map(function(category) {
           return category.replace(/^\s+|\s+$/g, '');
         });
-        product.slug = slug(product.name);
-        product.save(function(err) {
+        async.each(categories, function(category, cb1) {
+          ProductCategory.findOneAndUpdate({ name: category }, {
+            $set: { name: category, slug: slug(category) }
+          }, { upsert: true }, function(err, _category) {
+            if (err) {
+              return cb1(err);
+            }
+            product.categories.push(_category);
+            cb1();
+          });
+        }, function(err) {
           if (err) {
-            return next(err);
+            return cb(err);
           }
-          cb();
+          product.save(function(err) {
+            if (err) {
+              return next(err);
+            }
+            cb();
+          });
         });
       }, function(err) {
-        next(err);
+        if (err) {
+          return next(err);
+        }
+        next();
       });
     });
   }
 ], function(err) {
+  if (err) {
+    return console.error(err);
+  }
   console.log('Done');
   db.connection.close();
 });

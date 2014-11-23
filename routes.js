@@ -1,7 +1,8 @@
 
-var Product = require('./models/product'),
-    async    = require('async'),
-    _        = require('underscore');
+var Product          = require('./models/product'),
+    ProductCategory  = require('./models/product_category'),
+    async            = require('async'),
+    _                = require('underscore');
 
 module.exports = function(app) {
 
@@ -9,46 +10,55 @@ module.exports = function(app) {
     
     getProducts: function(req, res, next) {
       async.waterfall([
-        // Get products
+        // Get selected category, if any
         function(cb) {
+          ProductCategory.findOne({ slug: req.query.category }, function(err, category) {
+            if (err) {
+              return cb(err);
+            }
+            cb(null, category);
+          });
+        },
+        // Get products
+        function(category, cb) {
           var query = {},
               opts  = { sort: { name: 1 } };
-          if (req.query.category) {
-            query.category = new RegExp(req.query.category);
+          if (category) {
+            query.categories = category._id;
           }
           Product.search(query, opts, req.body.search, function(err, products) {
             if (err) {
               return cb(err);
             }
-            cb(null, products);
+            cb(null, category, products);
           });
         },
         // Get product categories
-        function(products, cb) {
-          Product.getCategories(function(err, categories) {
+        function(category, products, cb) {
+          ProductCategory.find(function(err, categories) {
             if (err) {
               return cb(err);
             }
-            cb(null, products, categories);
+            cb(null, category, products, categories);
           });
         },
         // Get makers
-        function(products, categories, cb) {
+        function(category, products, categories, cb) {
           var ids = products.map(function(product) {
             return product._id;
           });
           Product.getMakersInIds(ids, function(err, makers) {
-            cb(err, products, categories, makers);  
+            cb(err, category, products, categories, makers);  
           });
         }
 
-      ], function(err, products, categories, makers) {
+      ], function(err, category, products, categories, makers) {
         if (err) {
           return next(err);
         }
         res.render('products', {
           products:      products,
-          categories:    categories.sort(),
+          categories:    categories,
           makers:        makers.sort().join(', '),
           search:        (req.body.search || '')
         });

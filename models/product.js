@@ -5,7 +5,7 @@ var mongoose   = require('mongoose'),
 
 var ProductSchema = new mongoose.Schema({
   category: String,
-  categories: Array,
+  categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProductCategory' }],
   name: String,
   slug: String,
   alt_names: String,
@@ -27,7 +27,7 @@ var ProductSchema = new mongoose.Schema({
  * 
  */
 ProductSchema.statics.search = function(query, opts, str, cb) {
-  this.find(query, null, opts, function(err, products) {
+  this.find(query, null, opts).populate('categories').exec(function(err, products) {
     if (err) {
       return cb(err);
     }
@@ -56,6 +56,7 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
       });
       var search_res = search_index.search(str);
       if (search_res) {
+        // Filter out products that aren't also in the search results
         products = products.filter(function(product) {
           return _.findWhere(search_res, { ref: String(product._id) });
         });
