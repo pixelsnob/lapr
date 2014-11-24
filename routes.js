@@ -12,7 +12,7 @@ module.exports = function(app) {
       async.waterfall([
         // Get selected category, if any
         function(cb) {
-          ProductCategory.findOne({ slug: req.query.category }, function(err, category) {
+          ProductCategory.findOne({ slug: req.params.category }, function(err, category) {
             if (err) {
               return cb(err);
             }

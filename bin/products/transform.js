@@ -7,7 +7,7 @@ var mongoose         = require('mongoose'),
     Product          = require('../../models/product'),
     ProductCategory  = require('../../models/product_category'),
     _                = require('underscore'),
-    slug             = require('slug'),
+    slug             = require('../../lib/slug'),
     path             = require('path');
 
 db.connection.on('error', function(e) {

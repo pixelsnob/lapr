@@ -64,8 +64,8 @@ app.use(jade_browser(
 ));
 
 var routes = require('./routes')(app);
-app.route('/products').get(routes.getProducts).post(routes.getProducts);
-app.route('/products/:slug').get(routes.getProduct);
+app.route('/products/:category?').get(routes.getProducts).post(routes.getProducts);
+app.route('/products/:category/:slug').get(routes.getProduct);
 
 app.use(require('cms/router'));
 

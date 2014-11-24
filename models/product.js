@@ -67,14 +67,6 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
 };
 
 /**
- * Gets distinct product categories
- * 
- */
-ProductSchema.statics.getCategories = function(cb) {
-  this.find().distinct('categories', cb);
-};
-
-/**
  * Get makers for a given set of ids
  * 
  */
