@@ -1,8 +1,11 @@
 
+"use strict";
+
 var Product          = require('./models/product'),
     ProductCategory  = require('./models/product_category'),
     Maker            = require('./models/maker'),
     async            = require('async'),
+    models           = require('./models'),
     _                = require('underscore');
 
 module.exports = function(app) {
@@ -13,7 +16,7 @@ module.exports = function(app) {
       async.waterfall([
         // Get selected category, if any
         function(cb) {
-          ProductCategory.findOne({ slug: req.params.category }, function(err, category) {
+          models.ProductCategory.findOne({ slug: req.params.category }, function(err, category) {
             if (err) {
               return cb(err);
             }
@@ -27,7 +30,7 @@ module.exports = function(app) {
           if (category) {
             query.categories = category._id;
           }
-          Product.search(query, opts, req.body.search, function(err, products) {
+          models.Product.search(query, opts, req.body.search, function(err, products) {
             if (err) {
               return cb(err);
             }
@@ -36,7 +39,7 @@ module.exports = function(app) {
         },
         // Get product categories
         function(category, products, cb) {
-          ProductCategory.find(function(err, categories) {
+          models.ProductCategory.find(function(err, categories) {
             if (err) {
               return cb(err);
             }
@@ -57,15 +60,17 @@ module.exports = function(app) {
     },
 
     getProduct: function(req, res, next) {
-      Product.findOne({ slug: req.params.slug }, function(err, product) {
-        if (err) {
-          return next(err);
+      models.Product.findById(req.params.id).populate('makers categories').exec(
+        function(err, product) {
+          if (err) {
+            return next(err);
+          }
+          if (!product) {
+            return next(new Error('Product not found'));
+          }
+          res.render('product', { product: product });
         }
-        if (!product) {
-          return next(new Error('Product not found'));
-        }
-        res.render('product', { product: product });
-      });
+      );
     }
   };
 };

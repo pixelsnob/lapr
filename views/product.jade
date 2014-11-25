@@ -6,8 +6,8 @@ block content
   if product.alt_names
     h3
       em= product.alt_names
-  if product.makers.length
-    p Mfg. by #{product.makers.join(', ')}
+  if product.makers
+    p Mfg. by #{product.makers.map(function(m) { return m.name; }).join(', ')}
   p= product.description
   if product.price
     p Rental Price: #{product.price}

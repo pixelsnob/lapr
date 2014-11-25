@@ -1,4 +1,6 @@
 
+"use strict";
+
 var mongoose   = require('mongoose')
 
 var ProductCategorySchema = new mongoose.Schema({

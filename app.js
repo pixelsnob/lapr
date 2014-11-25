@@ -14,7 +14,7 @@ var
   fs              = require('fs'),
   env             = process.env.NODE_ENV || 'development';
 
-require('./lib/db')('lapr');
+//require('./lib/db')('lapr');
 require('./lib/marked')(app);
 require('cms/lib/auth');
 require('cms/lib/view_helpers')(app);
@@ -65,7 +65,7 @@ app.use(jade_browser(
 
 var routes = require('./routes')(app);
 app.route('/products/:category?').get(routes.getProducts).post(routes.getProducts);
-app.route('/products/:category/:slug').get(routes.getProduct);
+app.route('/products/:category/:slug/:id').get(routes.getProduct);
 
 app.use(require('cms/router'));
 

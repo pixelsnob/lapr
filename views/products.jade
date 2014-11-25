@@ -31,7 +31,7 @@ block content
           td
             img(src="/images/products/#{product.image}", width="50")
           td
-            a(href="/products/#{product.categories[0].slug}/#{product.slug}")= product.name
+            a(href="/products/#{product.categories[0].slug}/#{product.slug}/#{product.id}")= product.name
           td= product.alt_names
           td.description= product.description
           td= product.categories.map(function(p) { return p.name; }).join(', ')

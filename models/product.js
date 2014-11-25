@@ -1,4 +1,6 @@
 
+"use strict";
+
 var mongoose   = require('mongoose'),
     lunr       = require('lunr'),
     _          = require('underscore');
@@ -64,14 +66,6 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
     }
     cb(null, products);
   });
-};
-
-/**
- * Get makers for a given set of ids
- * 
- */
-ProductSchema.statics.getMakersInIds = function(ids, cb) {
-  this.find({ _id: { $in: ids }}).distinct('makers', cb);
 };
 
 module.exports = mongoose.model('Product', ProductSchema);

@@ -1,4 +1,6 @@
 
+"use strict";
+
 var mongoose   = require('mongoose');
 
 var MakerSchema = new mongoose.Schema({
