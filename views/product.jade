@@ -8,7 +8,7 @@ block content
       em= product.alt_names
   if product.makers.length
     p Mfg. by #{product.makers.join(', ')}
-  p= product._description
+  p= product.description
   if product.price
     p Rental Price: #{product.price}
   else

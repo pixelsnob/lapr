@@ -6,6 +6,7 @@ var mongoose         = require('mongoose'),
     async            = require('async'),
     Product          = require('../../models/product'),
     ProductCategory  = require('../../models/product_category'),
+    Maker            = require('../../models/maker'),
     _                = require('underscore'),
     slug             = require('../../lib/slug'),
     path             = require('path');
@@ -27,12 +28,6 @@ async.waterfall([
         if (product.sizes) {
           product.sizes = product.sizes.replace(/(\d+(?:\.\d+)?)"?\s?x\s?(\d+(?:\.\d+)?)"?/gi, '$1x$2"');
         }
-        if (product.maker) {
-          var makers = product.maker.split(',');
-          if (makers.length) {
-            product.makers = makers.map(function(maker) { return maker.replace(/^\s+|\s+$/g, ''); });
-          }
-        }
         product.slug = slug(product.name);
         var categories = product.category.split(',').map(function(category) {
           return category.replace(/^\s+|\s+$/g, '');
@@ -48,14 +43,27 @@ async.waterfall([
             cb1();
           });
         }, function(err) {
-          if (err) {
-            return cb(err);
-          }
-          product.save(function(err) {
+          var makers = product.maker.split(',').map(function(maker) { return maker.replace(/^\s+|\s+$/g, ''); });
+          async.each(makers, function(maker, cb2) {
+            Maker.findOneAndUpdate({ name: maker }, {
+              $set: { name: maker }
+            }, { upsert: true }, function(err, _maker) {
+              if (err) {
+                return cb1(err);
+              }
+              product.makers.push(_maker);
+              cb2();
+            });
+          }, function(err) {
             if (err) {
-              return next(err);
+              return cb(err);
             }
-            cb();
+            product.save(function(err) {
+              if (err) {
+                return next(err);
+              }
+              cb();
+            });
           });
         });
       }, function(err) {

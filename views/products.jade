@@ -33,12 +33,11 @@ block content
           td
             a(href="/products/#{product.categories[0].slug}/#{product.slug}")= product.name
           td= product.alt_names
-          td._description= product._description
+          td.description= product.description
           td= product.categories.map(function(p) { return p.name; }).join(', ')
           td= product.model_no
-          td= product.makers.join(', ')
+          td= product.makers.map(function(p) { return p.name; }).join(', ')
           td= product.price
           td= product.range
           td= product.sizes
   
-  p Makers: #{makers}

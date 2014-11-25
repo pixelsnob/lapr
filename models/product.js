@@ -4,22 +4,22 @@ var mongoose   = require('mongoose'),
     _          = require('underscore');
 
 var ProductSchema = new mongoose.Schema({
-  category: String,
-  categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProductCategory' }],
-  name: String,
-  slug: String,
-  alt_names: String,
-  maker: String,
-  makers: Array,
-  _description: String,
-  description: String,
-  model_no: String,
-  price: String,
-  range: String,
-  image: String,
-  full_image: String,
-  sizes: String,
-  octaves: Number
+  category:      String,
+  categories:    [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProductCategory' }],
+  name:          String,
+  slug:          String,
+  alt_names:     String,
+  maker:         String,
+  makers:        [{ type: mongoose.Schema.Types.ObjectId, ref: 'Maker' }],
+  description:  String,
+  old_description:   String,
+  model_no:      String,
+  price:         String,
+  range:         String,
+  image:         String,
+  full_image:    String,
+  sizes:         String,
+  octaves:       Number
 });
 
 /**
@@ -27,7 +27,7 @@ var ProductSchema = new mongoose.Schema({
  * 
  */
 ProductSchema.statics.search = function(query, opts, str, cb) {
-  this.find(query, null, opts).populate('categories').exec(function(err, products) {
+  this.find(query, null, opts).populate('categories makers').exec(function(err, products) {
     if (err) {
       return cb(err);
     }
@@ -35,7 +35,7 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
       var search_index = lunr(function() {
         this.field('name');
         this.field('alt_names');
-        this.field('_description');
+        this.field('description');
         this.field('makers');
         this.field('category');
         this.field('model_no');
@@ -47,7 +47,7 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
           id:            product._id,
           name:          product.name,
           alt_names:     product.alt_names,
-          _description:  product._description,
+          description:   product.description,
           makers:        product.makers.join(', '),
           model_no:      product.model_no,
           range:         product.range,

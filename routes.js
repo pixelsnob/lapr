@@ -1,6 +1,7 @@
 
 var Product          = require('./models/product'),
     ProductCategory  = require('./models/product_category'),
+    Maker            = require('./models/maker'),
     async            = require('async'),
     _                = require('underscore');
 
@@ -41,15 +42,6 @@ module.exports = function(app) {
             }
             cb(null, category, products, categories);
           });
-        },
-        // Get makers
-        function(category, products, categories, cb) {
-          var ids = products.map(function(product) {
-            return product._id;
-          });
-          Product.getMakersInIds(ids, function(err, makers) {
-            cb(err, category, products, categories, makers);  
-          });
         }
 
       ], function(err, category, products, categories, makers) {
@@ -59,7 +51,6 @@ module.exports = function(app) {
         res.render('products', {
           products:      products,
           categories:    categories,
-          makers:        makers.sort().join(', '),
           search:        (req.body.search || '')
         });
       });
