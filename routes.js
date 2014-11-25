@@ -60,7 +60,7 @@ module.exports = function(app) {
     },
 
     getProduct: function(req, res, next) {
-      models.Product.findById(req.params.id).populate('makers categories').exec(
+      models.Product.findById(req.params.id).populate('makers').exec(
         function(err, product) {
           if (err) {
             return next(err);
@@ -68,6 +68,7 @@ module.exports = function(app) {
           if (!product) {
             return next(new Error('Product not found'));
           }
+          console.log(product);
           res.render('product', { product: product });
         }
       );

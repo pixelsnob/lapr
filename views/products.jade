@@ -36,7 +36,7 @@ block content
           td.description= product.description
           td= product.categories.map(function(p) { return p.name; }).join(', ')
           td= product.model_no
-          td= product.makers.map(function(p) { return p.name; }).join(', ')
+          td= (product.makers ? product.makers.map(function(p) { return p.name; }).join(', ') : '')
           td= product.price
           td= product.range
           td= product.sizes

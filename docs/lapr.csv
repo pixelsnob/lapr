@@ -3,7 +3,7 @@ name,alt_names,description,old_description,category,maker,price,model_no,range,o
 Automotive Suspension Coils,,,Automotive Suspension Coils,Accessories,,,,,,,coils-40x33.jpg,coils.JPG
 Bamboo Wind Chimes,,,Bamboo wind chimes,Accessories,,,,,,,bamboo_chimes_s.jpg,bamboo_chimes.jpg
 "Camel Bells, Cast Bronze",,,"Camel bells, cast bronze",Accessories,,,,,,,camel_bells_s.jpg,camel_bells.jpg
-Death Knell,,4 ft tall metal bar. 6 metal resonators amplify different harmonics. It's used as the bellsound to signify death,Death Knell  4 ft tall metal bar. 6 metal resonators amplify different harmonics. It's used as the bellsound to signify death,Accessories,,$75,,,,,emil_deathknell_s.jpg,emil_deathknell.jpg
+Death Knell,,4 ft tall metal bar. 6 metal resonators amplify different harmonics. Used as the bell sound to signify death,Death Knell  4 ft tall metal bar. 6 metal resonators amplify different harmonics. It's used as the bellsound to signify death,Accessories,,$75,,,,,emil_deathknell_s.jpg,emil_deathknell.jpg
 Glass Chimes,,,Glass Chimes,Accessories,,,,,,,glass_chimes_s.jpg,glass_chimes.jpg
 Large Bell Tree,,,Large Bell Tree,Accessories,Carroll Sound,,,,,,bell_tree_CS-20x50.jpg,bell_tree_CS.jpg
 Large Bell Tree,,,Large Bell Tree,Accessories,LP,,LP450,,,,bell_tree_LP-24x50.jpg,bell_tree_LP.jpg
@@ -75,8 +75,8 @@ Yamaha BB-Series Bass,,,Yamaha BB-Series Bass,Backline,Yamaha,$60,,,,,yamaha_bas
 Yamaha S90,,,Yamaha S90,Backline,Yamaha,$110,,,,,s90_s.jpg,s90.jpg
 Boo Bams,Boobams,,"Boo Bams/ Boobams  2 Octaves, (F3-F5)",Chromatic,,$140,,F3-F5,2,,boobams-76x66.jpg,boobams.JPG
 "Celesta, Studio Model",Celeste,,"Celesta/ Celeste Studio Model 5.5 octave, C3-F8",Chromatic,Schiedmayer,$500,Studio,C3-F8,5.5,,Celesta_6_icon.jpg,Celesta_6.jpg
-"Cimbalom, ca. 1890s",,Made in Budapest,"Cimbalom, circa 1890s, made in Budapest  4 Octaves, E2-E6 + low D2","Chromatic, Emil Richards Collection",Schunda,$250,,E2-E6 + low D2,4,,cimbalom_s.jpg,cimbalom.jpg
-"Harmonium, ca. 1890s",Pump Organ,,"Harmonium, pump organ, circa 1890s",Chromatic,Schiedmayer,$500,,,,,harmonium_s.jpg,harmonium.jpg
+Cimbalom,,Ca. 1890s. Made in Budapest,"Cimbalom, circa 1890s, made in Budapest  4 Octaves, E2-E6 + low D2","Chromatic, Emil Richards Collection",Schunda,$250,,E2-E6 + low D2,4,,cimbalom_s.jpg,cimbalom.jpg
+Harmonium,Pump Organ,Ca. 1890s,"Harmonium, pump organ, circa 1890s",Chromatic,Schiedmayer,$500,,,,,harmonium_s.jpg,harmonium.jpg
 Keyboard Glockenspiel,,,"Keyboard Glockenspiel 4.6 Octaves, C4-G8",Chromatic,Yamaha,$350,CEL-56PGL,C4-G8,4.6,,keyboard_glock_s.jpg,keyboard_glock.jpg
 Tuned Bell Plates,,"Can be rented in part or whole. Other pitches available upon request. Bell plates can be used (instead of bells) on Mahler Symphony 7,8,9, and in Berlioz's Symphonie Fantastique","Tuned Bell Plates  2.3 Octaves (C2-G4)  (Can be rented in part or whole)  (Other pitches available upon request) Bell plates can be used (instead of bells) on Mahler Symphony 7,8,9, and in Berlioz's Symphonie Fantastique","Chromatic, Gongs",LAPR,Call,,C2-G4,2.3,,Bell_Plates_1_icon.jpg,Bell_Plates_1.jpg
 Kalimba,"Mbira, Thumb Piano","Fully chromatic, keys on front and back","Kalimba/Mbira/Thumb Piano, Fully Chromatic  keys on front and back, 2.1 Octaves, F#3-G5","Chromatic, Accessories",Hugh Tracy,$25,,F#3-G5,2.1,,Kalimba_1-34x43.jpg,Kalimba_1.jpg
@@ -134,7 +134,7 @@ Tenor Drum,,,"Tenor Drum  17""x12""",Concert Drums,Ludwig,$30,,,,"17x12""",Tenor
 Berlin Symphonic Series Concert Snare Drum,,"Thin maple shell, Remo Renaissance batter head","The Berlin Symphonic Series Concert Snare Drum,  thin maple shell,  14""x6.5""  Remo Renaissance batter head","Concert Drums, Snare Drums",Yamaha,$40,BSM-1465,,,"14x6.5""",yamaha_berlin_icon.jpg,yamaha_berlin.JPG
 "Timpani, 6200 Series",Kettledrums,"Balance Action, smooth-copper bowls, extended collar, with deluxe tuning gauges","Timpani/ Kettledrums, 6200 Series, Balance Action, smooth-copper bowls, extended collar w/ deluxe tuning gauges  23"", 26"", 29"", 32""",Concert Drums,Yamaha,$50/each drum,6200 Series,,,"23"", 26"", 29"", 32""",timpani_yamaha_smooth_icon.jpg,timpani_yamaha_smooth.JPG
 "Timpani, 7200 Series",Kettledrums,"Balance Action, hand-hammered copper bowls, extended collar, with deluxe tuning gauges","Timpani/ Kettledrums, 7200 Series, Balance Action, hand-hammered copper bowls, extended collar w/ deluxe tuning gauges 20"", 23"", 26"", 29"", 32""",Concert Drums,Yamaha,$60/each drum,7200 Series,,,"20"", 23"", 26"", 29"", 32""",timpani_7200series_icon.jpg,Yamaha_Timpani.jpg
-"Timpani, Generation II Series",Kettledrums,"Professional, Hand Hammered cambered copper bowls, with tuning gauges","Timpani/ Kettledrums, Generation II Series, Professional, Hand Hammered  cambered copper bowls, w/ tuning gauges  23"",26"",29"",32""",Concert Drums,Adams,$60/each drum,P2DHSET4,,,"23"", 26"", 29"", 32""",adams_timps_g2_icon.jpg,adams_timps_g2.JPG
+"Timpani, Generation II Series",Kettledrums,"Professional, hand hammered cambered copper bowls, with tuning gauges","Timpani/ Kettledrums, Generation II Series, Professional, Hand Hammered  cambered copper bowls, w/ tuning gauges  23"",26"",29"",32""",Concert Drums,Adams,$60/each drum,P2DHSET4,,,"23"", 26"", 29"", 32""",adams_timps_g2_icon.jpg,adams_timps_g2.JPG
 "Tube Lug Field Drum, Mahogany, with Gut Snares",,With calf heads or Remo Renaissance heads,"Tube-lug field drum, mahogony, w/ gut snares, 15""x12"",w/ calf heads or Remo Renaissance heads",Concert Drums,Slingerland,$35,,,,"15x12""",Field_Snare_2-91x87.jpg,Field_Snare_2.JPG
 Vintage Concert Bass Drum,,With Remo NuSkin heads,"Vintage Concert Bass Drum, 28""x14"", w/ Remo NuSkin heads",Concert Drums,Leedy,$60,,,,"28x14""",leedy_28_s.jpg,leedy_28.jpg
 "Tabor, Deep Snare Cocktail Snare Drum","Field drum, tabor, tabour, long drum","Individual tensioned snares, floor tom legs","Tabor / Tabour / long drum Deep Snare Cocktail Snare Drum Field Drum 14x26""","Concert Drums, Emil Richards Collection",Slingerland,$40,,,,"14x26""",cocktail_snare_s.jpg,cocktail_snare.jpg
@@ -146,7 +146,7 @@ Roto-Tom with Pedal,,Can be used with any size Roto-Tom in set. Works for piccol
 Custom Drum with Vaughncraft Shell,,Made of 1 solid single ply of Cocobolo Rosewood,"Custom Drum with Vaughncraft shell made of 1 solid single ply of Cocobolo Rosewood. 14""x6.5""","Concert Drums, Snare Drums","Vaughncraft, Pork Pie",$30,,,,"14x6.5""",Vaughn_SD_4-94x59.jpg,Vaughn_SD_4.jpg
 "Field Drum, Maple, Wound Snares",,,"Field drum, maple, wound snares  15""x10""","Concert Drums, Snare Drums",Leedy,$35,,,,"15x10""",leedy_field_drum_s.jpg,leedy_field_drum.jpg
 Design Series Drumset,,Satin white finish,"Design Series, satin white finish  Available toms: 8"", 10"", 12""  Available floor toms: 16"", 18""  Available bass drums: 22"", 22""  Available snares: 14x5  Available ""rata"" drums: 6x16"" , 6x18""",Drum Sets,DW,$175/day,,,,"Toms: 8"", 10"", 12""; floor toms: 16"", 18""; bass drums: 22"", 22""; snare drums: 14x5""; ""rata"" drums: 6x16"", 6x18""",dw_design_all-drums_icon.jpg,dw_design_all-drums.jpg
-Drum Workshop/DW Drumset,,Bebop kit Shown with Flush base 6000 series hardware,Drum Workshop/ DW drumset. Bebop kit Shown with Flush base 6000 series hardware,Drum Sets,DW,$200/day,,,,,DW_Bebop_6-77x66.jpg,DW_Bebop_6.JPG
+Drum Workshop/DW Drumset,,Bebop kit Shown with Flush base 6000 series hardware,Drum Workshop/ DW drumset. Bebop kit shown with Flush base 6000 series hardware,Drum Sets,DW,$200/day,,,,,DW_Bebop_6-77x66.jpg,DW_Bebop_6.JPG
 "Drum Workshop/DW Drumset, Collector’s Series",,"Maple with ""broken glass"" finish","Drum Workshop/DW drumset. Collector’s Series, maple w/ ""broken glass""finish. Available toms: 8x7"",10x8"", 12x9"", 13x10"".  Available Floor Toms: 14x12"",16x14""  Available Bass Drums: 22x18"",20x18"",18x16""  Available Snares: 14x5"",14x6"" edge snare",Drum Sets,DW,$200day,,,,"Toms: 8x7"", 10x8"", 12x9"", 13x10""; floor toms: 14x12"", 16x14"", bass drums: 22x18"", 20x18"", 18x16""; snare drums: 14x5"", 14x6"" edge snare",DW_Set_All_4-103x81.jpg,DW_Set_All_4.JPG
 Electronic Drum Set from the 1980s,,,Electronic Drum set from the 1980s,Drum Sets,"Simmons, Tama",$175/day,,,,,simmons-_drumset_icon.jpg,simmons_drumset.jpg
 "Full Vintage Drum Kit, ca. 1920",,Including temple blocks,"Full Vintage drum kit, ca. 1920, incl. temple blocks 28x14"" bass drum",Drum Sets,Leedy,$250/day,,,,"28x14""",drumset_leedy-75x58.jpg,drumset_leedy.jpg
@@ -210,7 +210,7 @@ Rin Bowls,"Singing Bowls, Temple Bowls, Dobachi",,Rin Bowls / singing bowls / te
 "Shekeres, Real Gourd",,"Small, medium, large. Uno, segundo, caja","Shekeres, real gourd, small, medium, large  Uno, Segundo, Caja",Ethnic & Hand Drums,Pearl,$10/each,"PSK50FC, PSK60FC, PSK70FC",,,,shekeres_icon.jpg,shekeres.jpg
 Slit Drum,Log Drum,,"Slit drum, log drum",Ethnic & Hand Drums,,$30,,,,,slit_drum_s.jpg,slit_drum.jpg
 Sogo,Ewe drum,"Peg tuned, from Ghana","Sogo, Ewe drum, peg tuned  from Ghana  8"" Head x 26"" Tall",Ethnic & Hand Drums,,$40,,,,"8x26""",sogo_icon.jpg,sogo.jpg
-"Tabla and Bayan from India, Professional",,,"Tabla and Bayan from India, professional",Ethnic & Hand Drums,,$40,,,,,tabla_new_icon.jpg,tabla_new.jpg
+Tabla and Bayan,,"From India, Professional","Tabla and Bayan from India, professional",Ethnic & Hand Drums,,$40,,,,,tabla_new_icon.jpg,tabla_new.jpg
 Talking Drum,,,"Talking drum  8x18""",Ethnic & Hand Drums,Remo,$30,TD-0818-07,,,"8x18""",talking_drum_remo_s.jpg,talking_drum_remo.jpg
 Talking Drum,,,"Talking drum  6x13""",Ethnic & Hand Drums,LP,$30,LP751,,,"6x13""",talking_drum_lp_s.jpg,talking_drum_lp.jpg
 Tambourim,,,Tambourim,Ethnic & Hand Drums,LP,$8,,,,,tamborim_icon.jpg,tamborim.jpg
@@ -288,7 +288,7 @@ DW Collector’s Series,,"Maple/brass shell, ""edge snare""","DW Collector’s S
 "Field Drum, Mahogany Shell",,With tube lugs and real gut snares,"Field Drum, Mahogany shell, w/ tube lugs and real gut snares",Snare Drums,Slingerland,,,,,,Field_Snare_2-109x105.jpg,Field_Snare_2.JPG
 Jarrah Wood Soprano Snare,,,Jarrah wood soprano snare,Snare Drums,Brady,,,,,,Snare_Brady-67x48.jpg,Snare_Brady.JPG
 Jungle Snare,,With tambourine jingles in the shell,"""Jungle Snare"" w/ tambourine jingles in the shell",Snare Drums,Sonor,,,,,,SD_jingle-63x47.jpg,SD_jingle.jpg
-Limited Edition Snare,,"Mahogany shell, with 24k Gold Hardware",Limited Edition Mahogany shell w/ 24k Gold Hardware,Snare Drums,Pearl,,,,,,pearl_mahahog_snare_cia_icon.jpg,pearl_mahahog_snare_cia.jpg
+Limited Edition Snare,,"Mahogany shell, with 24k gold hardware",Limited Edition Mahogany shell w/ 24k Gold Hardware,Snare Drums,Pearl,,,,,,pearl_mahahog_snare_cia_icon.jpg,pearl_mahahog_snare_cia.jpg
 Maple Custom Absolute,,,Maple Custom Absolute,Snare Drums,Yamaha,,,,,,yamaha_mca_snare_picc_icon.jpg,yamaha_mca_snare_picc.JPG
 Maple Custom Absolute,,,Maple Custom Absolute,Snare Drums,Yamaha,,,,,,yamaha_mca_snare_icon.jpg,yamaha_mca_snare.JPG
 Multi-Model Snare,,Ca. 1920s. Nickel over brass,"Multi-model, ca. 1920s, nickel over brass",Snare Drums,Leedy,,,,,,leedy_nicke_iconl.jpg,leedy_nickel.jpg
@@ -296,7 +296,7 @@ Philharmonic Snare,,"Cast aluminum, multi-snare strainer ","Philharmonic snare, 
 Recording Custom,,Birch shell,"Recording Custom, birch shell",Snare Drums,Yamaha,,,,,,Yamaha_14_x_8_Recording_custom-85x61.jpg,Yamaha_14_x_8_Recording_custom.JPG
 Roy Haynes Signature Snare Drum,,Hand hammered copper shell,Roy Haynes Signature Snare drum  Hand hammered copper shell,Snare Drums,Yamaha,,,,,,yamaha_roy_snare_icon.jpg,yamaha_roy_snare.JPG
 Starclassic Quilted Maple,,"8 lugs, die cast hoops","Starclassic quilted maple, 8 lugs, die cast hoops",Snare Drums,"Tama, Starclassic",,,,,,starclassic_SD-88x51.jpg,starclassic_SD.jpg
-"Bass Pan, 2 Notes, 45 gal. drum",Steel Drum,,"2 note bass pan/ steel drum, 45 gal. drum",Steel Drums,Dave Beery,$35,,"C,F",,,bass_pan_icon.jpg,bass_pan.jpg
+Bass Pan,Steel Drum,"2 Notes, 45 gal. drum","2 note bass pan/ steel drum, 45 gal. drum",Steel Drums,Dave Beery,$35,,"C,F",,,bass_pan_icon.jpg,bass_pan.jpg
 Bass Pans,"Bass Cans, Bass Steel Drums, Bass Steel Pans",,Bass pans/ bass cans/ bass steel drums/ bass steel pans,Steel Drums,Ellie Mannette,$180,,Bb1-E3,1.5,,pans_bass_icon.jpg,pans_bass.jpg
 Double Seconds Steel Pans,Steel Drums,2000,"Double Seconds steel drums/ steel pans, 2000",Steel Drums,"Mitch Cunningham, Lincoln Noel",$160,,F#3-C#6,2.5,,pan_doubles_lincoln-73x37.jpg,pan_doubles_lincoln.jpg
 Double Seconds Steel Pans,Steel Drums,2003,"Double Seconds steel drums/ steel pans, 2003",Steel Drums,Herman Guppy,$160,,F3-Bb5,2.5,,pans_doubles_guppy-75x37.jpg,pans_doubles_guppy.jpg

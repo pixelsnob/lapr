@@ -43,13 +43,16 @@ async.waterfall([
             cb1();
           });
         }, function(err) {
+          if (!product.maker) {
+            return product.save(cb);
+          }
           var makers = product.maker.split(',').map(function(maker) { return maker.replace(/^\s+|\s+$/g, ''); });
           async.each(makers, function(maker, cb2) {
             Maker.findOneAndUpdate({ name: maker }, {
               $set: { name: maker }
             }, { upsert: true }, function(err, _maker) {
               if (err) {
-                return cb1(err);
+                return cb2(err);
               }
               product.makers.push(_maker);
               cb2();
