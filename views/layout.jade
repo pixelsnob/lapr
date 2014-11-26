@@ -2,6 +2,13 @@ doctype html
 html
   head
     title 
+
+    link(rel="stylesheet", href="/dist/css/main.css")
+    if user
+      link(rel="stylesheet", href="/dist/css/cms.css")
+      link(rel="stylesheet", href="/bower_components/vex/css/vex.css")
+      link(rel="stylesheet", href="/bower_components/vex/css/vex-theme-plain.css")
+
     style(type="text/css", media="screen")
       | body { font: 13px arial; }
       | table { border-collapse: none; width: 100%; }
@@ -12,6 +19,7 @@ html
       |   font-size: 11px;
       | }
       | td._description { white-space: normal; min-width: 100px; }
+    
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(name="csrf-param", content="#{csrf}")
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
@@ -43,7 +51,7 @@ html
       script(type="text/javascript").
         require.config({ baseUrl: '/js' });
         require([ 'config' ], function() {
-          require([ 'main/app', 'cms-local/app' ]);
+          require([ 'main/app', 'cms/app' ]);
         });
     else
       script(type="text/javascript").

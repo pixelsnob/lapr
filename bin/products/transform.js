@@ -44,6 +44,7 @@ async.waterfall([
           });
         }, function(err) {
           if (!product.maker) {
+            product.makers = [];
             return product.save(cb);
           }
           var makers = product.maker.split(',').map(function(maker) { return maker.replace(/^\s+|\s+$/g, ''); });

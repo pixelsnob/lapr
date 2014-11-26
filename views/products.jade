@@ -13,7 +13,7 @@ block content
       input(type="text", name="search", value="#{search}")
       input(type="submit", value="Search")
   p Count: #{products.length}
-  table
+  table.products
     tbody
       tr
         th
@@ -27,11 +27,11 @@ block content
         th range
         th sizes
       each product in products
-        tr
+        tr(id="#{product.id}")
           td
             img(src="/images/products/#{product.image}", width="50")
           td
-            a(href="/products/#{product.categories[0].slug}/#{product.slug}/#{product.id}")= product.name
+            a.product(href="/products/#{product.categories[0].slug}/#{product.slug}/#{product.id}")= product.name
           td= product.alt_names
           td.description= product.description
           td= product.categories.map(function(p) { return p.name; }).join(', ')

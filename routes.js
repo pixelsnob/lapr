@@ -68,7 +68,7 @@ module.exports = function(app) {
           if (!product) {
             return next(new Error('Product not found'));
           }
-          console.log(product);
+          //console.log(product);
           res.render('product', { product: product });
         }
       );
