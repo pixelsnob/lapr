@@ -16,9 +16,13 @@ define([
     
     initialize: function(opts) {
       this.model = new ProductModel({ id: opts.id });
-      //this.form = new ProductForm({ model: this.model });
-      this.form = new Backbone.Form({ model: this.model });
-      this.model.fetch({ success: _.bind(this.trigger, this, 'ready') });
+      this.form = new Backbone.Form({ model: this.model }).render();
+      var obj = this;
+      this.model.fetch({
+        success: function(model) {
+          obj.trigger('ready');
+        }
+      });
     },
     
     render: function() {
@@ -29,11 +33,11 @@ define([
       var modal_view = new ModalFormView({ form: this.form });
       modal_view.modal({
         title: 'Edit Product',
-        body: this.form.render().el,
+        body: this.form.el,
         save_label: 'Save'
       });
-      this.form.setValue(this.model.toJSON());
-      //console.log(this.model);
+      var product = this.model.toJSON();
+      this.form.setValue(product);
     }
 
   });

@@ -7,6 +7,8 @@ define([
 ], function(ProductCategoryModel) {
   return Backbone.Collection.extend({
     
+    url: '/categories',
+
     model: ProductCategoryModel,
 
     initialize: function() {

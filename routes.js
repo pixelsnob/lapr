@@ -73,6 +73,21 @@ module.exports = function(app) {
           }
         });
       });
+    },
+
+    getCategories: function(req, res, next) {
+      models.ProductCategory.find()
+        .sort({ name: 1 })
+        .exec(function(err, categories) {
+          if (err) {
+            return next(err);
+          }
+          res.format({
+            json: function() {
+              res.send(categories);
+            }
+          });
+        });
     }
   };
 };
