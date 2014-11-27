@@ -7,7 +7,6 @@ define([
   '../models/product',
   'backbone',
   'backbone-forms'
-  //'../forms/product'
 ], function(BaseView, ModalFormView, ProductModel, Backbone) {
   return BaseView.extend({
 
@@ -36,8 +35,22 @@ define([
         body: this.form.el,
         save_label: 'Save'
       });
-      var product = this.model.toJSON();
-      this.form.setValue(product);
+      this.listenTo(modal_view, 'save', this.save);
+      modal_view.listenTo(this, 'save', modal_view.hide);
+      this.form.setValue(this.model.formify());
+    },
+
+    save: function() {
+      var errors = this.form.commit();
+      if (!errors) {
+        this.model.save(this.model.attributes, {
+          wait: true,
+          success: _.bind(this.trigger, this, 'save'),
+          error:   _.bind(this.showServerError, this)
+        });
+      } else {
+        this.showServerError();
+      }
     }
 
   });

@@ -33,24 +33,13 @@ define([
 
     initialize: function(opts) {
       this.id = opts.id;
-      if (typeof this.categories == 'undefined') {
-        this.categories = new ProductCategories;
-      }
     },
 
-    parse: function(res) {
-      this.categories = new ProductCategories(res.categories, {
-        parse: true
-      });
-      delete res.categories;
-      return res;
-    },
-
-    toJSON: function() {
+    formify: function() {
       var product    = BaseModel.prototype.toJSON.apply(this),
           categories = [];
-      this.categories.forEach(function(category) {
-        categories.push(category.id);
+      this.get('categories').forEach(function(category) {
+        categories.push(category._id);
       });
       product.categories = categories;
       return product;
