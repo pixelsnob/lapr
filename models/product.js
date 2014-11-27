@@ -24,10 +24,14 @@ var ProductSchema = new mongoose.Schema({
   octaves:       Number
 });
 
-/**
- * Runs a product "full text" search
- * 
- */
+ProductSchema.statics.findByIdAndPopulate = function(id, cb) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return cb(null, null);
+  }
+  this.findById(id).populate('categories makers').exec(cb);
+},
+
+// Runs a product "full text" search
 ProductSchema.statics.search = function(query, opts, str, cb) {
   this.find(query, null, opts).populate('categories makers').exec(function(err, products) {
     if (err) {
@@ -69,5 +73,4 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
 };
 
 module.exports = mongoose.model('Product', ProductSchema);
-
 

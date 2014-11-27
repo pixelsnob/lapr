@@ -42,7 +42,7 @@ html
     if settings.env == 'production'
       script(type="text/javascript", src="/dist/js/main/app.js")
       if user
-        script(type="text/javascript", src="/dist/js/cms/app.js")
+        script(type="text/javascript", src="/dist/js/cms-lapr/app.js")
     else
       script(type="text/javascript", src="/bower_components/requirejs/require.js")
 
@@ -51,7 +51,7 @@ html
       script(type="text/javascript").
         require.config({ baseUrl: '/js' });
         require([ 'config' ], function() {
-          require([ 'main/app', 'cms/app' ]);
+          require([ 'main/app', 'cms-lapr/app' ]);
         });
     else
       script(type="text/javascript").

@@ -13,8 +13,8 @@ define([], function() {
       bootstrap:        '../bower_components/bootstrap/dist/js/bootstrap',
       template:         'lib/template',
       vex:              '../bower_components/vex/js/vex',
-      vex_dialog:       '../bower_components/vex/js/vex.dialog',
-      'cms-lib':        '../cms/js'
+      vex_dialog:       '../bower_components/vex/js/vex.dialog'
+      //'cms-lib':        '../cms/js'
     },
     shim: {
       jade:              { exports: 'jade' },

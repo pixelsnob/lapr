@@ -65,8 +65,13 @@ app.use(jade_browser(
 
 var routes = require('./routes')(app);
 
-app.route('/products/:category?').get(routes.getProducts).post(routes.getProducts);
-app.route('/products/:category/:slug/:id').get(routes.getProduct);
+app.route('/products/categories/:category')
+  .get(routes.getProducts)
+  .post(routes.getProducts);
+app.route('/products')
+  .get(routes.getProducts)
+  .post(routes.getProducts);
+app.route('/products/:id').get(routes.getProduct);
 
 app.use(require('cms/router'));
 
@@ -90,5 +95,4 @@ app.use(function(err, req, res, next) {
 
 app.listen(port);
 console.log('Listening on port ' + port);
-
 
