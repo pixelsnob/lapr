@@ -73,6 +73,7 @@ app.route('/products')
   .post(routes.getProducts);
 app.route('/products/:id').get(routes.getProduct);
 app.route('/categories').get(routes.getCategories);
+app.route('/makers').get(routes.getMakers);
 
 app.use(require('cms/router'));
 

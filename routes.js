@@ -88,6 +88,21 @@ module.exports = function(app) {
             }
           });
         });
+    },
+
+    getMakers: function(req, res, next) {
+      models.Maker.find()
+        .sort({ name: 1 })
+        .exec(function(err, makers) {
+          if (err) {
+            return next(err);
+          }
+          res.format({
+            json: function() {
+              res.send(makers);
+            }
+          });
+        });
     }
   };
 };

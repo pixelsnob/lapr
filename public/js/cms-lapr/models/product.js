@@ -4,8 +4,9 @@
  */
 define([
   'cms/models/base',
-  '../collections/product_categories'
-], function(BaseModel, ProductCategories) {
+  '../collections/product_categories',
+  '../collections/makers'
+], function(BaseModel, ProductCategories, Makers) {
   return BaseModel.extend({
     
     url: function() { return '/products/' + this.id; },
@@ -25,6 +26,10 @@ define([
         options: new ProductCategories
       },
       model_no: { type: 'Text' },
+      makers: {
+        type: 'Checkboxes',
+        options: new Makers
+      },
       price: { type: 'Text' },
       range: { type: 'Text' },
       sizes: { type: 'TextArea' },
@@ -37,11 +42,16 @@ define([
 
     formify: function() {
       var product    = BaseModel.prototype.toJSON.apply(this),
-          categories = [];
+          categories = [],
+          makers     = [];
       this.get('categories').forEach(function(category) {
         categories.push(category._id);
       });
       product.categories = categories;
+      this.get('makers').forEach(function(maker) {
+        makers.push(maker._id);
+      });
+      product.makers = makers;
       return product;
     }
   });
