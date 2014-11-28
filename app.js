@@ -68,10 +68,15 @@ var routes = require('./routes')(app);
 app.route('/products/categories/:category')
   .get(routes.getProducts)
   .post(routes.getProducts);
+
 app.route('/products')
   .get(routes.getProducts)
-  .post(routes.getProducts);
-app.route('/products/:id').get(routes.getProduct);
+  .post(routes.getProducts)
+
+app.route('/products/:id')
+  .get(routes.getProduct)
+  .put(routes.updateProduct);
+
 app.route('/categories').get(routes.getCategories);
 app.route('/makers').get(routes.getMakers);
 

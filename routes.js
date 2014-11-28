@@ -77,6 +77,16 @@ module.exports = function(app) {
       });
     },
 
+    updateProduct: function(req, res, next) {
+      models.Product.findOneAndUpdate({ _id: req.body.id }, req.body,
+      function(err, product) {
+        if (err) {
+          return next(err);
+        }
+        res.send(product);
+      });
+    },
+
     getCategories: function(req, res, next) {
       models.ProductCategory.find()
         .sort({ name: 1 })

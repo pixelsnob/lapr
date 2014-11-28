@@ -35,7 +35,7 @@ define([
       sizes: { type: 'TextArea' },
       alt_names: { type: 'Text' }
     },
-
+    
     initialize: function(opts) {
       this.id = opts.id;
     }
