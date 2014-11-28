@@ -38,9 +38,9 @@ define([
 
     initialize: function(opts) {
       this.id = opts.id;
-    },
-
-    formify: function() {
+    }
+    
+    /*formify: function() {
       var product    = BaseModel.prototype.toJSON.apply(this),
           categories = [],
           makers     = [];
@@ -53,6 +53,7 @@ define([
       });
       product.makers = makers;
       return product;
-    }
+    }*/
+
   });
 });

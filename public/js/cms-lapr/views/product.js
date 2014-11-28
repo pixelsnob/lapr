@@ -37,7 +37,7 @@ define([
       });
       this.listenTo(modal_view, 'save', this.save);
       modal_view.listenTo(this, 'save', modal_view.hide);
-      this.form.setValue(this.model.formify());
+      this.form.setValue(this.model.toJSON());
     },
 
     save: function() {

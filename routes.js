@@ -60,7 +60,7 @@ module.exports = function(app) {
     },
 
     getProduct: function(req, res, next) {
-      models.Product.findByIdAndPopulate(req.params.id, function(err, product) {
+      models.Product.findById(req.params.id, function(err, product) {
         if (err) {
           return next(err);
         }
@@ -69,7 +69,9 @@ module.exports = function(app) {
             res.send(product);
           },
           html: function() {
-            res.render('product', { product: product });
+            product.populate('categories makers', function(err, product) {
+              res.render('product', { product: product });
+            });
           }
         });
       });
