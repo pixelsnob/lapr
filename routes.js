@@ -78,7 +78,7 @@ module.exports = function(app) {
     },
 
     updateProduct: function(req, res, next) {
-      models.Product.findOneAndUpdate({ _id: req.body.id }, req.body,
+      models.Product.findOneAndUpdate({ _id: req.body.id }, _.omit(req.body, '_id'),
       function(err, product) {
         if (err) {
           return next(err);
