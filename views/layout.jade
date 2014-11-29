@@ -40,11 +40,11 @@ html
       script(type="text/javascript").
         require.config({ baseUrl: '/js' });
         require([ 'config' ], function() {
-          require([ 'main/app', 'cms-lapr/app' ]);
+          require([ 'main', 'cms' ]);
         });
     else
       script(type="text/javascript").
         require.config({ baseUrl: '/js' });
         require([ 'config' ], function() {
-          require([ 'main/app' ]);
+          require([ 'main' ]);
         });

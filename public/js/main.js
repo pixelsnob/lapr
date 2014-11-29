@@ -2,7 +2,7 @@
 define([
   'backbone',
   'lib/csrf',
-  './views/app',
+  //'views/app',
   'bootstrap'
 ], function(Backbone, csrf, AppView) {
   $(function() {

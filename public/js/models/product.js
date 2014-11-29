@@ -5,8 +5,9 @@
 define([
   'cms/models/base',
   '../collections/product_categories',
-  '../collections/makers'
-], function(BaseModel, ProductCategories, Makers) {
+  '../collections/makers',
+  'template'
+], function(BaseModel, ProductCategories, Makers, template) {
   return BaseModel.extend({
     
     url: function() { return '/products/' + this.id; },
@@ -39,21 +40,5 @@ define([
     initialize: function(opts) {
       this.id = opts.id;
     }
-    
-    /*formify: function() {
-      var product    = BaseModel.prototype.toJSON.apply(this),
-          categories = [],
-          makers     = [];
-      this.get('categories').forEach(function(category) {
-        categories.push(category._id);
-      });
-      product.categories = categories;
-      this.get('makers').forEach(function(maker) {
-        makers.push(maker._id);
-      });
-      product.makers = makers;
-      return product;
-    }*/
-
   });
 });
