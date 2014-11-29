@@ -6,8 +6,8 @@ define([
   'cms/models/base',
   '../collections/product_categories',
   '../collections/makers',
-  'template'
-], function(BaseModel, ProductCategories, Makers, template) {
+  'views/forms/editors/multi_select'
+], function(BaseModel, ProductCategories, Makers, MultiSelect) {
   return BaseModel.extend({
     
     url: function() { return '/products/' + this.id; },
@@ -23,12 +23,12 @@ define([
       alt_names: { type: 'Text' },
 
       categories: {
-        type: 'Checkboxes',
+        type: MultiSelect,
         options: new ProductCategories
       },
       model_no: { type: 'Text' },
       makers: {
-        type: 'Checkboxes',
+        type: MultiSelect,
         options: new Makers
       },
       price: { type: 'Text' },
