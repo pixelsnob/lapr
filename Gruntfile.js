@@ -37,11 +37,11 @@ module.exports = function(grunt) {
           optimize: (process.env.NODE_ENV == 'production' ? 'uglify2' : 'none'),
           modules: [
             {
-              name: 'main/app',
+              name: 'main',
               include: [ 'config', 'require_lib' ]
             }, {
-              name: 'cms/app',
-              exclude: [ 'main/app' ]
+              name: 'cms',
+              exclude: [ 'main' ]
             }
           ]
         }

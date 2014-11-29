@@ -29,9 +29,9 @@ html
         window.cms.markdown_opts = !{JSON.stringify(marked_opts)};
     
     if settings.env == 'production'
-      script(type="text/javascript", src="/dist/js/main/app.js")
+      script(type="text/javascript", src="/dist/js/main.js")
       if user
-        script(type="text/javascript", src="/dist/js/cms-lapr/app.js")
+        script(type="text/javascript", src="/dist/js/cms.js")
     else
       script(type="text/javascript", src="/bower_components/requirejs/require.js")
 
