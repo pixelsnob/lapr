@@ -7,9 +7,8 @@ define([
   '../collections/product_categories',
   '../collections/makers',
   'views/forms/editors/multi_select',
-  //'form-adapters/backbone.bootstrap-modal',
-  'form-editors/list'
-], function(BaseModel, ProductCategories, Makers, MultiSelectEditor) {
+  'views/forms/editors/images'
+], function(BaseModel, ProductCategories, Makers, MultiSelectEditor, ImagesEditor) {
   return BaseModel.extend({
     
     url: function() { return '/products/' + this.id; },
@@ -50,11 +49,7 @@ define([
         type: 'Text'
       },
       images: {
-        type: 'List',
-        validators: [ 'required' ]
-        //itemType: 'Object'
-        //itemToString: 'test',
-        //options: [ 'test1.jpg', 'test2.jpg' ]
+        type: 'Images'
       }
     },
     

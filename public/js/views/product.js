@@ -20,7 +20,8 @@ define([
         success: function(model) {
           obj.form = new Backbone.Form({ model: obj.model }).render();
           obj.trigger('ready');
-        }
+        },
+        error: _.bind(this.showServerError, this)
       });
     },
     
