@@ -20,6 +20,7 @@ var ProductSchema = new mongoose.Schema({
   range:         String,
   image:         String,
   full_image:    String,
+  images:        [ String ],
   sizes:         String,
   octaves:       Number
 });

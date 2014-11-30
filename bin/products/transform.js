@@ -29,6 +29,9 @@ async.waterfall([
           product.sizes = product.sizes.replace(/(\d+(?:\.\d+)?)"?\s?x\s?(\d+(?:\.\d+)?)"?/gi, '$1x$2"');
         }
         product.slug = slug(product.name);
+        if (product.image) {
+          product.images = [ product.image ];
+        }
         var categories = product.category.split(',').map(function(category) {
           return category.replace(/^\s+|\s+$/g, '');
         });

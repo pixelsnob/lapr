@@ -15,10 +15,10 @@ define([
     
     initialize: function(opts) {
       this.model = new ProductModel({ id: opts.id });
-      this.form = new Backbone.Form({ model: this.model }).render();
       var obj = this;
       this.model.fetch({
         success: function(model) {
+          obj.form = new Backbone.Form({ model: obj.model }).render();
           obj.trigger('ready');
         }
       });
@@ -37,7 +37,6 @@ define([
       });
       this.listenTo(modal_view, 'save', this.save);
       modal_view.listenTo(this, 'save', modal_view.hide);
-      this.form.setValue(this.model.toJSON());
     },
 
     save: function() {
