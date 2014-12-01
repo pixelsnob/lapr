@@ -54,7 +54,9 @@ define([
     },
     
     initialize: function(opts) {
-      this.id = opts.id;
+      if (opts && opts.id) {
+        this.id = opts.id;
+      }
     }
   });
 });

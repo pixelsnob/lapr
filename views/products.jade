@@ -41,4 +41,7 @@ block content
           td= product.price
           td= product.range
           td= product.sizes
-  
+  if user
+    ul
+      li
+        a.add-product(href="javascript:void(0);") Add Product

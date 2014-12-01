@@ -1,4 +1,5 @@
 /**
+ * product view
  * 
  */
 define([
@@ -10,26 +11,20 @@ define([
 ], function(BaseView, ModalFormView, ProductModel, Backbone) {
   return BaseView.extend({
 
+    model: new ProductModel,
     events: {
     },
     
     initialize: function(opts) {
-      this.model = new ProductModel({ id: opts.id });
-      var obj = this;
-      this.model.fetch({
-        success: function(model) {
-          obj.form = new Backbone.Form({ model: obj.model }).render();
-          obj.trigger('ready');
-        },
-        error: _.bind(this.showServerError, this)
-      });
+      
     },
     
     render: function() {
-      return this.el;
+      return this;
     },
 
-    renderModal: function() {
+    renderModalForm: function() {
+      this.form = new Backbone.Form({ model: this.model }).render();
       var modal_view = new ModalFormView({ form: this.form });
       modal_view.modal({
         title: 'Edit Product',
