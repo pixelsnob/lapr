@@ -11,7 +11,7 @@ define([
 ], function(BaseModel, ProductCategories, Makers, MultiSelectEditor, ImagesEditor) {
   return BaseModel.extend({
     
-    url: function() { return '/products/' + this.id; },
+    url: function() { return '/products/item/' + (this.id || ''); },
 
     schema: {
       name: {

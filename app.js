@@ -63,19 +63,22 @@ app.use(jade_browser(
   { root: app.get('views'), minify: (env == 'production') }
 ));
 
-var routes = require('./routes')(app);
-
-app.route('/products/categories/:category')
-  .get(routes.getProducts)
-  .post(routes.getProducts);
+var routes     = require('./routes')(app),
+    cms_routes = require('cms/routes');
 
 app.route('/products')
   .get(routes.getProducts)
   .post(routes.getProducts)
 
-app.route('/products/:id')
+app.route('/products/categories/:category')
+  .get(routes.getProducts)
+  .post(routes.getProducts);
+
+app.route('/products/item/:id?')
   .get(routes.getProduct)
-  .put(routes.updateProduct);
+  .post(cms_routes.auth, routes.addProduct)
+  .put(cms_routes.auth, routes.updateProduct)
+  .delete(cms_routes.auth, routes.removeProduct);
 
 app.route('/categories').get(routes.getCategories);
 app.route('/makers').get(routes.getMakers);

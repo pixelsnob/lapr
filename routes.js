@@ -78,7 +78,30 @@ module.exports = function(app) {
     },
 
     updateProduct: function(req, res, next) {
-      models.Product.findOneAndUpdate({ _id: req.body.id }, _.omit(req.body, '_id'),
+      models.Product.findOneAndUpdate(
+        { _id: req.body.id },
+        _.omit(req.body, '_id'),
+        function(err, product) {
+          if (err) {
+            return next(err);
+          }
+          res.send(product);
+        }
+      );
+    },
+
+    addProduct: function(req, res, next) {
+      var product = models.Product(_.omit(req.body, [ 'id', '_id' ]));
+      product.save(function(err, product) {
+        if (err) {
+          return next(err);
+        }
+        res.send(product);
+      });
+    },
+
+    removeProduct: function(req, res, next) {
+      models.Product.findOneAndRemove({ _id: req.params.id },
       function(err, product) {
         if (err) {
           return next(err);
