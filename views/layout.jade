@@ -31,7 +31,7 @@ html
     if settings.env == 'production'
       script(type="text/javascript", src="/dist/js/main.js")
       if user
-        script(type="text/javascript", src="/dist/js/cms.js")
+        script(type="text/javascript", src="/dist/js/admin.js")
     else
       script(type="text/javascript", src="/bower_components/requirejs/require.js")
 
@@ -40,7 +40,7 @@ html
       script(type="text/javascript").
         require.config({ baseUrl: '/js' });
         require([ 'config' ], function() {
-          require([ 'main', 'cms' ]);
+          require([ 'main', 'admin' ]);
         });
     else
       script(type="text/javascript").

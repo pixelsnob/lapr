@@ -2,7 +2,7 @@
 define([
   'backbone',
   'cms/views/page',
-  'views/products',
+  'views/admin/products',
   'bootstrap'
 ], function(Backbone, PageView, ProductsView) {
   $(function() {

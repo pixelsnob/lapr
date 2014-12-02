@@ -5,8 +5,8 @@
 define([
   'cms/views/base',
   'cms/views/modal/form',
-  '../models/product',
-  '../forms/product'
+  '../../models/product',
+  '../../forms/product'
 ], function(BaseView, ModalFormView, ProductModel, ProductForm) {
   return BaseView.extend({
 

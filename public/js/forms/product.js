@@ -40,9 +40,9 @@ define([
             <label for="<%= editorId %>">\
               <%- title %>\
             </label>\
-            <a href="javascript:void(0);" class="edit-categories">Edit</a>\
           <div>\
             <span data-editor></span>\
+            <a href="javascript:void(0);" class="edit-categories">Edit</a>\
             <div data-error></div>\
             <div><%= help %></div>\
           </div>\
