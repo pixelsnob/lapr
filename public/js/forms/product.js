@@ -8,14 +8,16 @@ define([
   '../collections/product_categories',
   '../collections/makers',
   'views/forms/editors/multi_select',
-  'views/forms/editors/images'
+  'views/forms/editors/images',
+  'views/forms/templates'
 ], function(
   Backbone,
   BackboneForms,
   ProductCategories,
   Makers,
   MultiSelectEditor,
-  ImagesEditor
+  ImagesEditor,
+  form_templates
 ) {
   
   return Backbone.Form.extend({
@@ -29,31 +31,22 @@ define([
         type: 'TextArea'
       },
       alt_names: {
-        type: 'Text'
+        type: 'Text',
+        title: 'Alternate Names'
       },
       categories: {
         type: MultiSelectEditor,
         validators: [ 'required' ],
         options: new ProductCategories,
-        template: _.template('\
-          <div>\
-            <label for="<%= editorId %>">\
-              <%- title %>\
-            </label>\
-          <div>\
-            <span data-editor></span>\
-            <a href="javascript:void(0);" class="edit-categories">Edit</a>\
-            <div data-error></div>\
-            <div><%= help %></div>\
-          </div>\
-        </div>\
-        ')
+        template: form_templates.editable_field
       },
       model_no: {
+        title: 'Model No.',
         type: 'Text'
       },
       makers: {
         type: MultiSelectEditor,
+        template: form_templates.editable_field,
         options: new Makers
       },
       price: {
@@ -64,9 +57,6 @@ define([
       },
       sizes: {
         type: 'TextArea'
-      },
-      alt_names: {
-        type: 'Text'
       },
       images: {
         type: 'Images'
