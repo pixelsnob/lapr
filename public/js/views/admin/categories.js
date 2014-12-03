@@ -23,14 +23,16 @@ define([
     
     initialize: function(opts) {
       this.setElement(template.render('admin/categories'));
+      this.listenTo(this.collection, 'change', this.render);
     },
     
     render: function() {
-      var obj = this;
+      var obj    = this
+          $table = this.$el.find('table');
+      $table.empty();
       this.collection.each(function(category) {
-        var category_view = new CategoryView({ model: category });
-        obj.$el.find('table').append(category_view.render().el);
-        //console.log(category);
+        var view = new CategoryView({ model: category });
+        $table.append(view.render().el);
       });
       return this;
     },
@@ -76,11 +78,11 @@ define([
         message: 'Are you sure you want to remove this?',
         callback: function(value) {
           if (value) {
-            obj.model.destroy({
+            /*obj.model.destroy({
               wait: true,
               success: _.bind(obj.trigger, obj, 'remove'),
               error: _.bind(obj.showServerError, obj)
-            });
+            });*/
           }
         }
       });

@@ -54,10 +54,6 @@ define([
           val     = editor.getValue();
       var view = new CategoriesView({ collection: editor.schema.options });
       view.renderModal();
-      /*editor.schema.options.fetch().done(function() {
-        editor.render().setValue(val);
-      });*/
-      
     },
 
     save: function() {

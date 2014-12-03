@@ -125,6 +125,30 @@ module.exports = function(app) {
         });
     },
 
+    updateCategory: function(req, res, next) {
+      models.ProductCategory.findOneAndUpdate(
+        { _id: req.params.id },
+        _.omit(req.body, '_id'),
+        function(err, category) {
+          if (err) {
+            return next(err);
+          }
+          console.log(category);
+          res.send(category);
+        }
+      );
+    },
+
+    removeCategory: function(req, res, next) {
+      models.ProductCategory.findOneAndRemove({ _id: req.params.id },
+      function(err, category) {
+        if (err) {
+          return next(err);
+        }
+        res.send(category);
+      });
+    },
+
     getMakers: function(req, res, next) {
       models.Maker.find()
         .sort({ name: 1 })

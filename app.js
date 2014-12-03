@@ -81,6 +81,10 @@ app.route('/products/item/:id?')
   .delete(cms_routes.auth, routes.removeProduct);
 
 app.route('/categories').get(routes.getCategories);
+app.route('/categories/:id')
+  .put(cms_routes.auth, routes.updateCategory)
+  .delete(cms_routes.auth, routes.removeCategory);
+
 app.route('/makers').get(routes.getMakers);
 
 app.use(require('cms/router'));
