@@ -4,7 +4,7 @@
  */
 define([
   'views/base',
-  'views/modal/form',
+  'cms/views/modal/form',
   'models/product',
   'forms/product',
   'lib/dialog'
@@ -24,7 +24,7 @@ define([
       return this;
     },
 
-    renderModalForm: function() {
+    renderModalForm: function(opts) {
       this.form = new ProductForm({ model: this.model }).render();
       this.setElement(this.form.el);
       var modal_view = new ModalFormView({ form: this.form });
@@ -32,7 +32,7 @@ define([
         title: 'Edit Product',
         body: this.$el,
         save_label: 'Save',
-        show_remove: true
+        show_remove_button: (opts.mode == 'edit')
       });
       this.listenTo(modal_view, 'save', this.save);
       this.listenTo(modal_view, 'remove', this.remove);
@@ -66,10 +66,17 @@ define([
 
     remove: function() {
       var obj = this;
-      this.model.destroy({
-        wait: true,
-        success: _.bind(this.trigger, this, 'remove'),
-        error: _.bind(this.showServerError, this)
+      dialog.confirm({
+        message: 'Are you sure you want to remove this?',
+        callback: function(value) {
+          if (value) {
+            obj.model.destroy({
+              wait: true,
+              success: _.bind(obj.trigger, obj, 'remove'),
+              error: _.bind(obj.showServerError, obj)
+            });
+          }
+        }
       });
     }
 

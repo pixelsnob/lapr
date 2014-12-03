@@ -24,7 +24,7 @@ define([
           model = new ProductModel({ id: id }),
           view  = new ProductView({ model: model });
       model.fetch({
-        success: _.bind(view.renderModalForm, view),
+        success: _.bind(view.renderModalForm, view, { mode: 'edit' }),
         error:   _.bind(this.showServerError, this)
       });
       return false;
@@ -32,7 +32,7 @@ define([
 
     add: function(ev) {
       var product_view = new ProductView;
-      product_view.renderModalForm();
+      product_view.renderModalForm({ mode: 'add' });
       return false;
     }
   });
