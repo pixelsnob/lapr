@@ -1,5 +1,5 @@
 /**
- * products admin
+ * products view
  * 
  */
 define([
@@ -24,7 +24,7 @@ define([
           model = new ProductModel({ id: id }),
           view  = new ProductView({ model: model });
       model.fetch({
-        success: _.bind(view.renderModalForm, view, { mode: 'edit' }),
+        success: _.bind(view.renderModal, view, { mode: 'edit' }),
         error:   _.bind(this.showServerError, this)
       });
       return false;
@@ -32,7 +32,7 @@ define([
 
     add: function(ev) {
       var product_view = new ProductView;
-      product_view.renderModalForm({ mode: 'add' });
+      product_view.renderModal({ mode: 'add' });
       return false;
     }
   });

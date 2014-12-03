@@ -1,39 +1,48 @@
 /**
- * product view
+ * product_categories view
  * 
  */
 define([
   'views/base',
-  './categories',
+  'views/admin/category',
+  'cms/views/modal/base',
   'cms/views/modal/form',
-  'models/product',
-  'forms/product',
-  'lib/dialog'
+  'template'
 ], function(
   BaseView,
-  CategoriesView,
+  CategoryView,
+  ModalView,
   ModalFormView,
-  ProductModel,
-  ProductForm,
-  dialog
+  template
 ) {
+
   return BaseView.extend({
 
-    model: new ProductModel,
     events: {
-      'click .edit-categories': 'editCategories'
     },
     
     initialize: function(opts) {
-      
+      this.setElement(template.render('admin/categories'));
     },
     
     render: function() {
+      var obj = this;
+      this.collection.each(function(category) {
+        var category_view = new CategoryView({ model: category });
+        obj.$el.find('table').append(category_view.render().el);
+        //console.log(category);
+      });
       return this;
     },
 
     renderModal: function(opts) {
-      this.form = new ProductForm({ model: this.model }).render();
+      var modal_view = new ModalView;
+      modal_view.modal({
+        title: 'Edit Product Categories',
+        body: this.render().el,
+        save_label: 'Save'
+      });
+      /*this.form = new ProductForm({ model: this.model }).render();
       this.setElement(this.form.el);
       var modal_view = new ModalFormView({ form: this.form });
       modal_view.modal({
@@ -45,19 +54,7 @@ define([
       this.listenTo(modal_view, 'save', this.save);
       this.listenTo(modal_view, 'remove', this.remove);
       modal_view.listenTo(this, 'save remove', modal_view.hide);
-      modal_view.listenTo(this, 'remove', _.bind(dialog.alert, dialog, 'Removed'));
-    },
-    
-    editCategories: function() {
-      var obj     = this,
-          editor  = this.form.getEditor('categories'),
-          val     = editor.getValue();
-      var view = new CategoriesView({ collection: editor.schema.options });
-      view.renderModal();
-      /*editor.schema.options.fetch().done(function() {
-        editor.render().setValue(val);
-      });*/
-      
+      modal_view.listenTo(this, 'remove', _.bind(dialog.alert, dialog, 'Removed'));*/
     },
 
     save: function() {

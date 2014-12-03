@@ -15,9 +15,7 @@ define([
         </label>\
         <div>\
           <span data-editor></span>\
-          <ul>\
-            <li><a href="javascript:void(0);" class="add-<%= key %>">Add</a></li>\
-            <li><a href="javascript:void(0);" class="edit-<%= key %>">Edit</a></li>\
+          <a href="javascript:void(0);" class="edit-<%= key %>">Edit</a>\
           </ul>\
           <div data-error></div>\
           <div><%= help %></div>\
