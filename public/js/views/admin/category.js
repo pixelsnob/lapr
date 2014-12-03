@@ -31,7 +31,6 @@ define([
     },
 
     render: function() {
-      //this.$el.attr('id', this.model.id);
       this.$el.append(template.render('admin/category', this.model.toJSON())); 
       return this;
     },
@@ -43,9 +42,7 @@ define([
         body: this.form.render().el
       });
       this.listenTo(modal_view, 'save', this.save);
-      //this.listenTo(modal_view, 'remove', this.remove);
       modal_view.listenTo(this, 'save', modal_view.hide);
-      //modal_view.listenTo(this, 'remove', _.bind(dialog.alert, dialog, 'Removed'));
     },
     
     save: function() {
@@ -70,7 +67,6 @@ define([
           if (value) {
             obj.model.destroy({
               wait: true,
-              //success: _.bind(this.trigger, this, 'destroy'),
               error:   _.bind(obj.showServerError, obj)
             });
           }

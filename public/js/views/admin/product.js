@@ -56,6 +56,15 @@ define([
       view.renderModal();
     },
 
+    editMakers: function() {
+      var obj     = this,
+          editor  = this.form.getEditor('makers'),
+          val     = editor.getValue();
+      var view = new MakersView({ collection: editor.schema.options });
+      view.renderModal();
+    },
+
+
     save: function() {
       var errors = this.form.commit();
       if (!errors) {
