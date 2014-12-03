@@ -3,16 +3,16 @@
  * 
  */
 define([
-  'cms/views/base',
-  'cms/views/modal/form',
-  '../../models/product',
-  '../../forms/product'
-], function(BaseView, ModalFormView, ProductModel, ProductForm) {
+  'views/base',
+  'views/modal/form',
+  'models/product',
+  'forms/product',
+  'lib/dialog'
+], function(BaseView, ModalFormView, ProductModel, ProductForm, dialog) {
   return BaseView.extend({
 
     model: new ProductModel,
     events: {
-      'click .remove': 'remove',
       'click .edit-categories': 'editCategories'
     },
     
@@ -28,7 +28,6 @@ define([
       this.form = new ProductForm({ model: this.model }).render();
       this.setElement(this.form.el);
       var modal_view = new ModalFormView({ form: this.form });
-      //this.$el.append($('<a>').addClass('remove').text('Remove'));
       modal_view.modal({
         title: 'Edit Product',
         body: this.$el,
@@ -36,7 +35,9 @@ define([
         show_remove: true
       });
       this.listenTo(modal_view, 'save', this.save);
-      modal_view.listenTo(this, 'save', modal_view.hide);
+      this.listenTo(modal_view, 'remove', this.remove);
+      modal_view.listenTo(this, 'save remove', modal_view.hide);
+      modal_view.listenTo(this, 'remove', _.bind(dialog.alert, dialog, 'Removed'));
     },
     
     editCategories: function() {
@@ -67,7 +68,7 @@ define([
       var obj = this;
       this.model.destroy({
         wait: true,
-        success: _.bind(this.trigger, this, 'save'),
+        success: _.bind(this.trigger, this, 'remove'),
         error: _.bind(this.showServerError, this)
       });
     }

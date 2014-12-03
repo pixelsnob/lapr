@@ -3,7 +3,7 @@
  * 
  */
 define([
-  'cms/models/base'
+  './base'
 ], function(BaseModel) {
   return BaseModel.extend({
     

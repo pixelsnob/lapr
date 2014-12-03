@@ -1,10 +1,11 @@
 /**
+ * products admin
  * 
  */
 define([
-  'cms/views/base',
+  'views/base',
   './product',
-  '../../models/product'
+  'models/product'
 ], function(BaseView, ProductView, ProductModel) {
   return BaseView.extend({
     
