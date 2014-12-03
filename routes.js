@@ -133,7 +133,6 @@ module.exports = function(app) {
           if (err) {
             return next(err);
           }
-          console.log(category);
           res.send(category);
         }
       );
@@ -162,6 +161,30 @@ module.exports = function(app) {
             }
           });
         });
+    },
+
+    updateMaker: function(req, res, next) {
+      models.Maker.findOneAndUpdate(
+        { _id: req.params.id },
+        _.omit(req.body, '_id'),
+        function(err, maker) {
+          if (err) {
+            return next(err);
+          }
+          res.send(maker);
+        }
+      );
+    },
+
+    removeMaker: function(req, res, next) {
+      models.Maker.findOneAndRemove({ _id: req.params.id },
+      function(err, maker) {
+        if (err) {
+          return next(err);
+        }
+        res.send(maker);
+      });
     }
+
   };
 };

@@ -5,6 +5,7 @@
 define([
   'views/base',
   './categories',
+  './makers',
   'cms/views/modal/form',
   'models/product',
   'forms/product',
@@ -12,6 +13,7 @@ define([
 ], function(
   BaseView,
   CategoriesView,
+  MakersView,
   ModalFormView,
   ProductModel,
   ProductForm,
@@ -21,7 +23,8 @@ define([
 
     model: new ProductModel,
     events: {
-      'click .edit-categories': 'editCategories'
+      'click .edit-categories':  'editCategories',
+      'click .edit-makers':      'editMakers'
     },
     
     initialize: function(opts) {
@@ -63,7 +66,6 @@ define([
       var view = new MakersView({ collection: editor.schema.options });
       view.renderModal();
     },
-
 
     save: function() {
       var errors = this.form.commit();

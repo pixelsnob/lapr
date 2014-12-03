@@ -1,16 +1,16 @@
 /**
- * product_categories view
+ * makers view
  * 
  */
 define([
   'views/base',
-  'views/admin/category',
+  'views/admin/maker',
   'cms/views/modal/base',
   'cms/views/modal/form',
   'template'
 ], function(
   BaseView,
-  CategoryView,
+  MakerView,
   ModalView,
   ModalFormView,
   template
@@ -22,7 +22,7 @@ define([
     },
     
     initialize: function(opts) {
-      this.setElement(template.render('admin/categories'));
+      this.setElement(template.render('admin/makers'));
       this.listenTo(this.collection, 'change', this.render);
     },
     
@@ -30,8 +30,8 @@ define([
       var obj    = this
           $table = this.$el.find('table');
       $table.empty();
-      this.collection.each(function(category) {
-        var view = new CategoryView({ model: category });
+      this.collection.each(function(maker) {
+        var view = new MakerView({ model: maker });
         $table.append(view.render().el);
       });
       return this;
@@ -40,7 +40,7 @@ define([
     renderModal: function(opts) {
       var modal_view = new ModalView;
       modal_view.modal({
-        title: 'Edit Product Categories',
+        title: 'Edit Makers',
         body: this.render().el,
         save_label: 'Save'
       });

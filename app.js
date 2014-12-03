@@ -86,6 +86,10 @@ app.route('/categories/:id')
   .delete(cms_routes.auth, routes.removeCategory);
 
 app.route('/makers').get(routes.getMakers);
+app.route('/makers/:id')
+  .put(cms_routes.auth, routes.updateMaker)
+  .delete(cms_routes.auth, routes.removeMaker);
+
 
 app.use(require('cms/router'));
 

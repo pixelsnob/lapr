@@ -7,14 +7,6 @@ define([
 ], function(BaseModel) {
   return BaseModel.extend({
     
-    schema: {
-      name: {
-        type: 'Text',
-        validators: [ 'required' ]
-      },
-      slug: { type: 'Text' }
-    },
-
     initialize: function(opts) {
       
     },
