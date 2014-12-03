@@ -40,7 +40,7 @@ module.exports = function(grunt) {
               name: 'main',
               include: [ 'config', 'require_lib' ]
             }, {
-              name: 'cms',
+              name: 'admin',
               exclude: [ 'main' ]
             }
           ]
