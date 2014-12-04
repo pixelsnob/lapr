@@ -55,7 +55,7 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
           name:          product.name,
           alt_names:     product.alt_names,
           description:   product.description,
-          makers:        product.makers.join(', '),
+          makers:        (_.isArray(product.makers) ? product.makers.join(', ') : []),
           model_no:      product.model_no,
           range:         product.range,
           sizes:         product.sizes
