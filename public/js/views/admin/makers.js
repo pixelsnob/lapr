@@ -5,7 +5,8 @@
 define([
   'views/base',
   'views/mixins/admin_list',
-  'views/admin/maker'
+  'views/admin/maker',
+  'lib/view_mixin'
 ], function(
   BaseView,
   AdminListMixin,
@@ -13,12 +14,11 @@ define([
 ) {
 
   var view = BaseView.extend({
-
     view: MakerView,
-
     title: 'Product Categories',
     
     initialize: function(opts) {
+      
     }
   });
 

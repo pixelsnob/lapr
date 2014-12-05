@@ -5,7 +5,8 @@
 define([
   'views/base',
   'views/mixins/admin_list',
-  'views/admin/category'
+  'views/admin/category',
+  'lib/view_mixin'
 ], function(
   BaseView,
   AdminListMixin,
@@ -13,14 +14,10 @@ define([
 ) {
 
   var view = BaseView.extend({
-
     view: CategoryView,
-
     title: 'Product Categories',
-
     events: {
     },
-    
     initialize: function(opts) {
     }
   });
