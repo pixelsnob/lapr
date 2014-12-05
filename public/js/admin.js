@@ -1,12 +1,12 @@
 
 define([
   'backbone',
-  'cms/views/page',
+  //'cms/views/page',
   'views/admin/products',
-  'bootstrap'
-], function(Backbone, PageView, ProductsView) {
+  'bootstrap',
+  'lib/view_mixin'
+], function(Backbone,  ProductsView) {
   $(function() {
-    new PageView;
     new ProductsView;
   });
 });
