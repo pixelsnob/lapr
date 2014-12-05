@@ -7,6 +7,8 @@ define([
 ], function(BaseModel) {
   return BaseModel.extend({
     
+    url: function() { return '/makers/' + (this.id || '') },
+
     initialize: function(opts) {
       
     },

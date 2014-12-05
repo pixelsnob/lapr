@@ -19,11 +19,12 @@ define([
   return BaseView.extend({
 
     events: {
+      'click .add-category': 'renderAddForm'
     },
     
     initialize: function(opts) {
       this.setElement(template.render('admin/categories'));
-      this.listenTo(this.collection, 'change', this.render);
+      this.listenTo(this.collection, 'change add', this.render);
     },
     
     render: function() {
@@ -42,7 +43,18 @@ define([
       modal_view.modal({
         title: 'Edit Product Categories',
         body: this.render().el,
-        save_label: 'Save'
+        save_label: 'Close',
+        hide_cancel_button: true
+      });
+      modal_view.listenTo(modal_view, 'save', modal_view.hide);
+    },
+
+    renderAddForm: function() {
+      var view = new CategoryView({ model: new this.collection.model });
+      view.renderAddForm();
+      var obj = this;
+      this.listenTo(view, 'add', function(model) {
+        obj.collection.add(model);
       });
     }
     

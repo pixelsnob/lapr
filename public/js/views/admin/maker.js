@@ -6,28 +6,32 @@ define([
   'views/base',
   'cms/views/modal/form',
   'forms/maker',
+  'models/maker',
   'template',
   'lib/dialog'
 ], function(
   BaseView,
   ModalFormView,
   MakerForm,
+  MakerModel,
   template,
   dialog
 ) {
   
   return BaseView.extend({
     
+    model: new MakerModel,
+
     tagName: 'tr',
 
     events: {
-      'click .edit':      'edit',
-      'click .remove':    'destroy' 
+      'click .edit':    'renderEditForm'
     },
     
     initialize: function() {
       this.listenTo(this.model, 'destroy', this.remove);
       this.listenTo(this.model, 'save', this.render);
+      this.form = new MakerForm({ model: this.model });
     },
 
     render: function() {
@@ -35,14 +39,25 @@ define([
       return this;
     },
 
-    edit: function(ev) {
-      this.form = new MakerForm({ model: this.model });
+    renderEditForm: function(ev) {
+      var modal_view = new ModalFormView({ form: this.form });
+      modal_view.modal({
+        body: this.form.render().el,
+        show_remove_button: true
+      });
+      this.listenTo(modal_view, 'save', this.save);
+      this.listenTo(modal_view, 'remove', this.destroy);
+      modal_view.listenTo(this, 'save destroy', modal_view.hide);
+    },
+
+    renderAddForm: function(ev) {
       var modal_view = new ModalFormView({ form: this.form });
       modal_view.modal({
         body: this.form.render().el
       });
       this.listenTo(modal_view, 'save', this.save);
       modal_view.listenTo(this, 'save', modal_view.hide);
+      this.on('save', _.bind(this.trigger, this, 'add'));
     },
     
     save: function() {
@@ -61,12 +76,13 @@ define([
     destroy: function(ev) {
       var obj = this;
       dialog.confirm({
-        message: 'Are you sure you want to do this?',
+        message: 'Are you sure you want to remove this maker?',
         callback: function(value) {
           if (value) {
             obj.model.destroy({
               wait: true,
-              error:   _.bind(obj.showServerError, obj)
+              success: _.bind(obj.trigger, obj, 'destroy'),
+              error: _.bind(obj.showServerError, obj)
             });
           }
         }

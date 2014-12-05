@@ -80,12 +80,16 @@ app.route('/products/item/:id?')
   .put(cms_routes.auth, routes.updateProduct)
   .delete(cms_routes.auth, routes.removeProduct);
 
-app.route('/categories').get(routes.getCategories);
+app.route('/categories')
+  .get(routes.getCategories)
+  .post(routes.addCategory);
 app.route('/categories/:id')
   .put(cms_routes.auth, routes.updateCategory)
   .delete(cms_routes.auth, routes.removeCategory);
 
-app.route('/makers').get(routes.getMakers);
+app.route('/makers')
+  .get(routes.getMakers)
+  .post(routes.addMaker);
 app.route('/makers/:id')
   .put(cms_routes.auth, routes.updateMaker)
   .delete(cms_routes.auth, routes.removeMaker);

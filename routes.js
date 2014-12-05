@@ -148,6 +148,17 @@ module.exports = function(app) {
       });
     },
 
+    addCategory: function(req, res, next) {
+      var category = models.ProductCategory(_.omit(req.body, [ 'id', '_id' ]));
+      category.save(function(err, category) {
+        if (err) {
+          return next(err);
+        }
+        res.send(category);
+      });
+    },
+
+
     getMakers: function(req, res, next) {
       models.Maker.find()
         .sort({ name: 1 })
@@ -184,7 +195,18 @@ module.exports = function(app) {
         }
         res.send(maker);
       });
-    }
+    },
+
+    addMaker: function(req, res, next) {
+      var maker = models.Maker(_.omit(req.body, [ 'id', '_id' ]));
+      maker.save(function(err, maker) {
+        if (err) {
+          return next(err);
+        }
+        res.send(maker);
+      });
+    },
+
 
   };
 };

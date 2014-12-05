@@ -11,7 +11,7 @@ define([ 'backbone', 'backbone-forms' ], function(Backbone) {
       Backbone.Form.editors.Select.prototype.initialize.call(this, opts); 
       // Update options when there is a change to the collection
       if (opts.schema.options instanceof Backbone.Collection) {
-        this.listenTo(opts.schema.options, 'change remove', this.render);
+        this.listenTo(opts.schema.options, 'add change remove', this.render);
       }
     }
 
