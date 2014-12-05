@@ -21,14 +21,12 @@ define([
 ) {
   return BaseView.extend({
 
-    model: new ProductModel,
     events: {
       'click .edit-categories':  'editCategories',
       'click .edit-makers':      'editMakers'
     },
     
     initialize: function(opts) {
-      
     },
     
     render: function() {

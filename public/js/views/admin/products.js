@@ -31,7 +31,7 @@ define([
     },
 
     add: function(ev) {
-      var product_view = new ProductView;
+      var product_view = new ProductView({ model: new ProductModel });
       product_view.renderModal({ mode: 'add' });
       return false;
     }
