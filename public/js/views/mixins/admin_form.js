@@ -63,9 +63,10 @@ define([
     },
     
     destroy: function(ev) {
-      var obj = this;
+      var obj   = this,
+          label = this.label || 'item';
       dialog.confirm({
-        message: 'Are you sure you want to remove this category?',// <<<<<<<<<
+        message: 'Are you sure you want to remove this ' + this.label + '?',
         callback: function(value) {
           if (value) {
             obj.model.destroy({

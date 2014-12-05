@@ -16,6 +16,7 @@ define([
   
   var view = BaseView.extend({
     tagName: 'tr',
+    label: 'category',
     model: new CategoryModel,
     initialize: function() {
       this.form = new CategoryForm({ model: this.model });

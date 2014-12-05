@@ -24,8 +24,8 @@ define([
       var obj    = this
           $table = this.$el.find('table');
       $table.empty();
-      this.collection.each(function(category) {
-        var view = new obj.view({ model: category });
+      this.collection.each(function(model) {
+        var view = new obj.view({ model: model });
         $table.append(view.render().el);
       });
       return this;
@@ -34,7 +34,7 @@ define([
     renderModal: function(opts) {
       var modal_view = new ModalView;
       modal_view.modal({
-        title: 'Edit Product Categories',
+        //title: 'Edit Product Categories',
         body: this.render().el,
         save_label: 'Close',
         hide_cancel_button: true
