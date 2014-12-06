@@ -1,10 +1,7 @@
 
 "use strict";
 
-var Product          = require('./models/product'),
-    ProductCategory  = require('./models/product_category'),
-    Maker            = require('./models/maker'),
-    async            = require('async'),
+var async            = require('async'),
     models           = require('./models'),
     _                = require('underscore');
 
