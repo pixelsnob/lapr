@@ -74,7 +74,7 @@ app.route('/products/categories/:category')
   .get(routes.getProducts)
   .post(routes.getProducts);
 
-app.route('/products/item/:id?')
+app.route('/products/:id')
   .get(routes.getProduct)
   .post(cms_routes.auth, routes.addProduct)
   .put(cms_routes.auth, routes.updateProduct)
@@ -94,6 +94,12 @@ app.route('/makers/:id')
   .put(cms_routes.auth, routes.updateMaker)
   .delete(cms_routes.auth, routes.removeMaker);
 
+app.route('/tonal_qualities')
+  .get(routes.getTonalQualities)
+  .post(routes.addTonalQuality);
+app.route('/tonal_qualities/:id')
+  .put(cms_routes.auth, routes.updateTonalQuality)
+  .delete(cms_routes.auth, routes.removeTonalQuality);
 
 app.use(require('cms/router'));
 

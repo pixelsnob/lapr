@@ -6,23 +6,24 @@ var mongoose   = require('mongoose'),
     _          = require('underscore');
 
 var ProductSchema = new mongoose.Schema({
-  category:      String,
-  categories:    [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProductCategory' }],
-  name:          String,
-  slug:          String,
-  alt_names:     String,
-  maker:         String,
-  makers:        [{ type: mongoose.Schema.Types.ObjectId, ref: 'Maker' }],
-  description:  String,
+  category:          String,
+  categories:        [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProductCategory' }],
+  name:              String,
+  slug:              String,
+  alt_names:         String,
+  maker:             String,
+  makers:            [{ type: mongoose.Schema.Types.ObjectId, ref: 'Maker' }],
+  description:       String,
   old_description:   String,
-  model_no:      String,
-  price:         String,
-  range:         String,
-  image:         String,
-  full_image:    String,
-  images:        [ String ],
-  sizes:         String,
-  octaves:       Number
+  model_no:          String,
+  price:             String,
+  range:             String,
+  image:             String,
+  full_image:        String,
+  images:            [ String ],
+  sizes:             String,
+  octaves:           Number,
+  tonal_qualities:   [{ type: mongoose.Schema.Types.ObjectId, ref: 'TonalQualities' }]
 });
 
 ProductSchema.statics.findByIdAndPopulate = function(id, cb) {

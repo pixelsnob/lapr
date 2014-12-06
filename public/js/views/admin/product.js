@@ -6,6 +6,7 @@ define([
   'views/base',
   './categories',
   './makers',
+  './tonal_qualities',
   'cms/views/modal/form',
   'models/product',
   'forms/product',
@@ -14,6 +15,7 @@ define([
   BaseView,
   CategoriesView,
   MakersView,
+  TonalQualitiesView,
   ModalFormView,
   ProductModel,
   ProductForm,
@@ -22,8 +24,9 @@ define([
   return BaseView.extend({
 
     events: {
-      'click .edit-categories':  'editCategories',
-      'click .edit-makers':      'editMakers'
+      'click .edit-categories':           'editCategories',
+      'click .edit-makers':               'editMakers',
+      'click .edit-tonal_qualities':      'editTonalQualities'
     },
     
     initialize: function(opts) {
@@ -65,6 +68,15 @@ define([
       view.renderModal();
     },
 
+    editTonalQualities: function() {
+      console.log('wtf');
+      var obj     = this,
+          editor  = this.form.getEditor('tonal_qualities'),
+          val     = editor.getValue();
+      var view = new TonalQualitiesView({ collection: editor.schema.options });
+      view.renderModal();
+    },
+    
     save: function() {
       var errors = this.form.commit();
       if (!errors) {

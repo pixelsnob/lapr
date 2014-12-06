@@ -7,6 +7,7 @@ define([
   'backbone-forms',
   '../collections/product_categories',
   '../collections/makers',
+  '../collections/tonal_qualities',
   'views/forms/editors/multi_select',
   'views/forms/editors/images',
   'views/forms/templates'
@@ -15,6 +16,7 @@ define([
   BackboneForms,
   ProductCategories,
   Makers,
+  TonalQualities,
   MultiSelectEditor,
   ImagesEditor,
   form_templates
@@ -48,6 +50,12 @@ define([
         type: MultiSelectEditor,
         template: form_templates.editable_field,
         options: new Makers
+      },
+      tonal_qualities: {
+        title: 'Tonal Qualities',
+        type: MultiSelectEditor,
+        template: form_templates.editable_field,
+        options: new TonalQualities
       },
       price: {
         type: 'Text'

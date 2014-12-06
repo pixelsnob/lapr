@@ -179,6 +179,33 @@ module.exports = function(app) {
 
     addMaker: function(req, res, next) {
       add(req, res, next)('Maker');
+    },
+
+    getTonalQualities: function(req, res, next) {
+      models.TonalQuality.find()
+        .sort({ name: 1 })
+        .exec(function(err, tonal_qualities) {
+          if (err) {
+            return next(err);
+          }
+          res.format({
+            json: function() {
+              res.send(tonal_qualities);
+            }
+          });
+        });
+    },
+
+    updateTonalQuality: function(req, res, next) {
+      update(req, res, next)('TonalQuality');
+    },
+
+    removeTonalQuality: function(req, res, next) {
+      remove(req, res, next)('TonalQuality');
+    },
+
+    addTonalQuality: function(req, res, next) {
+      add(req, res, next)('TonalQuality');
     }
 
 
