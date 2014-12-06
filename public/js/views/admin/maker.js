@@ -17,6 +17,7 @@ define([
   var view = BaseView.extend({
     tagName: 'tr',
     label: 'maker',
+    title: 'Maker',
     model: new MakerModel,
     initialize: function() {
       this.form = new MakerForm({ model: this.model });

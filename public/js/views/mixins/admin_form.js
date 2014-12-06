@@ -31,6 +31,7 @@ define([
     renderEditForm: function(ev) {
       var modal_view = new ModalFormView({ form: this.form });
       modal_view.modal({
+        title: 'Edit ' + this.title,
         body: this.form.render().el,
         show_remove_button: true
       });
@@ -42,6 +43,7 @@ define([
     renderAddForm: function(ev) {
       var modal_view = new ModalFormView({ form: this.form });
       modal_view.modal({
+        title: 'Add ' + this.title,
         body: this.form.render().el
       });
       this.listenTo(modal_view, 'save', this.save);

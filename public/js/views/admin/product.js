@@ -46,7 +46,7 @@ define([
       this.listenTo(modal_view, 'save', this.save);
       this.listenTo(modal_view, 'remove', this.remove);
       modal_view.listenTo(this, 'save remove', modal_view.hide);
-      modal_view.listenTo(this, 'remove', _.bind(dialog.alert, dialog, 'Removed'));
+      //modal_view.listenTo(this, 'remove', _.bind(dialog.alert, dialog, 'Removed'));
     },
     
     editCategories: function() {

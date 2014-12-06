@@ -15,7 +15,7 @@ define([
 
   var view = BaseView.extend({
     view: MakerView,
-    title: 'Product Categories',
+    title: 'Makers',
     
     initialize: function(opts) {
       

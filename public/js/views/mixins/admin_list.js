@@ -10,7 +10,7 @@ define([
   template
 ) {
   return {
-
+    
     events: {
       'click .add': 'renderAddForm'
     },
@@ -34,7 +34,7 @@ define([
     renderModal: function(opts) {
       var modal_view = new ModalView;
       modal_view.modal({
-        //title: 'Edit Product Categories',
+        title: this.title,
         body: this.render().el,
         save_label: 'Close',
         hide_cancel_button: true
