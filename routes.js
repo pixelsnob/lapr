@@ -10,6 +10,47 @@ var Product          = require('./models/product'),
 
 module.exports = function(app) {
 
+  var update = function(req, res, next) {
+    return function(model_name) {
+      models[model_name].findOneAndUpdate(
+        { _id: req.params.id },
+        _.omit(req.body, '_id'),
+        function(err, doc) {
+          if (err) {
+            return next(err);
+          }
+          res.send(doc);
+        }
+      );
+    };
+  },
+
+  add = function(req, res, next) {
+    return function(model_name) {
+      var data  = _.omit(req.body, [ 'id', '_id' ]);
+      models[model_name].create(data, function(err, doc) {
+        if (err) {
+          return next(err);
+        }
+        res.send(doc);
+      });
+    };
+  },
+  
+  remove = function(req, res, next) {
+    return function(model_name) {
+      models[model_name].findOneAndRemove(
+        { _id: req.params.id },
+        function(err, doc) {
+          if (err) {
+            return next(err);
+          }
+          res.send(doc);
+        }
+      );
+    };
+  };
+
   return {
     
     getProducts: function(req, res, next) {
@@ -78,36 +119,15 @@ module.exports = function(app) {
     },
 
     updateProduct: function(req, res, next) {
-      models.Product.findOneAndUpdate(
-        { _id: req.body.id },
-        _.omit(req.body, '_id'),
-        function(err, product) {
-          if (err) {
-            return next(err);
-          }
-          res.send(product);
-        }
-      );
+      update(req, res, next)('Product');
     },
 
     addProduct: function(req, res, next) {
-      var product = models.Product(_.omit(req.body, [ 'id', '_id' ]));
-      product.save(function(err, product) {
-        if (err) {
-          return next(err);
-        }
-        res.send(product);
-      });
+      add(req, res, next)('Product');
     },
 
     removeProduct: function(req, res, next) {
-      models.Product.findOneAndRemove({ _id: req.params.id },
-      function(err, product) {
-        if (err) {
-          return next(err);
-        }
-        res.send(product);
-      });
+      remove(req, res, next)('Product');
     },
 
     getCategories: function(req, res, next) {
@@ -126,38 +146,16 @@ module.exports = function(app) {
     },
 
     updateCategory: function(req, res, next) {
-      models.ProductCategory.findOneAndUpdate(
-        { _id: req.params.id },
-        _.omit(req.body, '_id'),
-        function(err, category) {
-          if (err) {
-            return next(err);
-          }
-          res.send(category);
-        }
-      );
+      update(req, res, next)('ProductCategory');
     },
 
     removeCategory: function(req, res, next) {
-      models.ProductCategory.findOneAndRemove({ _id: req.params.id },
-      function(err, category) {
-        if (err) {
-          return next(err);
-        }
-        res.send(category);
-      });
+      remove(req, res, next)('ProductCategory');
     },
 
     addCategory: function(req, res, next) {
-      var category = models.ProductCategory(_.omit(req.body, [ 'id', '_id' ]));
-      category.save(function(err, category) {
-        if (err) {
-          return next(err);
-        }
-        res.send(category);
-      });
+      add(req, res, next)('ProductCategory');
     },
-
 
     getMakers: function(req, res, next) {
       models.Maker.find()
@@ -175,37 +173,16 @@ module.exports = function(app) {
     },
 
     updateMaker: function(req, res, next) {
-      models.Maker.findOneAndUpdate(
-        { _id: req.params.id },
-        _.omit(req.body, '_id'),
-        function(err, maker) {
-          if (err) {
-            return next(err);
-          }
-          res.send(maker);
-        }
-      );
+      update(req, res, next)('Maker');
     },
 
     removeMaker: function(req, res, next) {
-      models.Maker.findOneAndRemove({ _id: req.params.id },
-      function(err, maker) {
-        if (err) {
-          return next(err);
-        }
-        res.send(maker);
-      });
+      remove(req, res, next)('Maker');
     },
 
     addMaker: function(req, res, next) {
-      var maker = models.Maker(_.omit(req.body, [ 'id', '_id' ]));
-      maker.save(function(err, maker) {
-        if (err) {
-          return next(err);
-        }
-        res.send(maker);
-      });
-    },
+      add(req, res, next)('Maker');
+    }
 
 
   };

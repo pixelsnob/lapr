@@ -1,12 +1,21 @@
 
+select, input, textarea {
+  border: 1px solid #bbb;
+}
+
 .modal {
   .modal-header, .modal-footer {
     border: none;
   }
-}
-
-button.remove {
-  float: left;
+  select[multiple], textarea, input[type="text"] {
+    width: 60%;
+  }
+  select[multiple] {
+    height: 100px;
+  }
+  button.remove {
+    float: left;
+  }
 }
 
 .error label, .error [data-error] {
