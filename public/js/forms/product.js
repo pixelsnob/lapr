@@ -9,8 +9,8 @@ define([
   '../collections/makers',
   '../collections/tonal_qualities',
   'views/forms/editors/multi_select',
-  'views/forms/editors/images',
-  'views/forms/templates'
+  'views/forms/templates',
+  'form-editors/list'
 ], function(
   Backbone,
   BackboneForms,
@@ -18,7 +18,6 @@ define([
   Makers,
   TonalQualities,
   MultiSelectEditor,
-  ImagesEditor,
   form_templates
 ) {
   
@@ -67,7 +66,7 @@ define([
         type: 'TextArea'
       },
       images: {
-        type: 'Images'
+        type: 'List'
       }
     }
     
