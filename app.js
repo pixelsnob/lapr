@@ -76,30 +76,33 @@ app.route('/products/categories/:category')
 
 app.route('/products/:id')
   .get(routes.getProduct)
-  .post(cms_routes.auth, routes.addProduct)
-  .put(cms_routes.auth, routes.updateProduct)
-  .delete(cms_routes.auth, routes.removeProduct);
+  .post(cms_routes.auth, routes.add('Product'))
+  .put(cms_routes.auth, routes.update('Product'))
+  .delete(cms_routes.auth, routes.remove('Product'));
 
 app.route('/categories')
-  .get(routes.getCategories)
-  .post(routes.addCategory);
+  .get(routes.get('ProductCategory'))
+  .post(cms_routes.auth, routes.add('ProductCategory'));
+
 app.route('/categories/:id')
-  .put(cms_routes.auth, routes.updateCategory)
-  .delete(cms_routes.auth, routes.removeCategory);
+  .put(cms_routes.auth, routes.update('ProductCategory'))
+  .delete(cms_routes.auth, routes.remove('ProductCategory'));
 
 app.route('/makers')
-  .get(routes.getMakers)
-  .post(routes.addMaker);
+  .get(routes.get('Maker'))
+  .post(cms_routes.auth, routes.add('Maker'));
+  
 app.route('/makers/:id')
-  .put(cms_routes.auth, routes.updateMaker)
-  .delete(cms_routes.auth, routes.removeMaker);
+  .put(cms_routes.auth, routes.update('Maker'))
+  .delete(cms_routes.auth, routes.remove('Maker'));
 
 app.route('/tonal_qualities')
-  .get(routes.getTonalQualities)
-  .post(routes.addTonalQuality);
+  .get(routes.get('TonalQuality'))
+  .post(cms_routes.auth, routes.add('TonalQuality'));
+
 app.route('/tonal_qualities/:id')
-  .put(cms_routes.auth, routes.updateTonalQuality)
-  .delete(cms_routes.auth, routes.removeTonalQuality);
+  .put(cms_routes.auth, routes.update('TonalQuality'))
+  .delete(cms_routes.auth, routes.remove('TonalQuality'));
 
 app.use(require('cms/router'));
 

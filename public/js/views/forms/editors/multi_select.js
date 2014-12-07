@@ -11,7 +11,14 @@ define([ 'backbone', 'backbone-forms' ], function(Backbone) {
       Backbone.Form.editors.Select.prototype.initialize.call(this, opts); 
       // Update options when there is a change to the collection
       if (opts.schema.options instanceof Backbone.Collection) {
-        this.listenTo(opts.schema.options, 'add change remove', this.render);
+        var obj = this;
+        this.listenTo(opts.schema.options, 'add change remove', function() {
+          // Store old value and reset, in case user has updated values since
+          // the form was rendered
+          var old_val = obj.getValue();
+          obj.render();
+          obj.setValue(old_val);
+        });
       }
     }
 

@@ -7,49 +7,72 @@ var async            = require('async'),
 
 module.exports = function(app) {
 
-  var update = function(req, res, next) {
-    return function(model_name) {
-      models[model_name].findOneAndUpdate(
-        { _id: req.params.id },
-        _.omit(req.body, '_id'),
-        function(err, doc) {
-          if (err) {
-            return next(err);
-          }
-          res.send(doc);
-        }
-      );
-    };
-  },
-
-  add = function(req, res, next) {
-    return function(model_name) {
-      var data  = _.omit(req.body, [ 'id', '_id' ]);
-      models[model_name].create(data, function(err, doc) {
-        if (err) {
-          return next(err);
-        }
-        res.send(doc);
-      });
-    };
-  },
-  
-  remove = function(req, res, next) {
-    return function(model_name) {
-      models[model_name].findOneAndRemove(
-        { _id: req.params.id },
-        function(err, doc) {
-          if (err) {
-            return next(err);
-          }
-          res.send(doc);
-        }
-      );
-    };
+  var isValidId = function(id) {
+    return require('mongoose').Types.ObjectId.isValid(id);
   };
 
   return {
     
+    get: function(model_name) {
+      return function(req, res, next) {
+        models[model_name].find()
+          .sort({ name: 1 })
+          .exec(function(err, docs) {
+            if (err) {
+              return next(err);
+            }
+            res.send(docs);
+          });
+      }
+    },
+
+    update: function(model_name) {
+      return function(req, res, next) {
+        if (!isValidId(req.params.id)) {
+          return res.sendStatus(404);
+        }
+        models[model_name].findOneAndUpdate(
+          { _id: req.params.id },
+          _.omit(req.body, '_id'),
+          function(err, doc) {
+            if (err) {
+              return next(err);
+            }
+            res.send(doc);
+          }
+        );
+      };
+    },
+
+    add: function(model_name) {
+      return function(req, res, next) {
+        var data  = _.omit(req.body, [ 'id', '_id' ]);
+        models[model_name].create(data, function(err, doc) {
+          if (err) {
+            return next(err);
+          }
+          res.send(doc);
+        });
+      };
+    },
+    
+    remove: function(model_name) {
+      return function(req, res, next) {
+        if (!isValidId(req.params.id)) {
+          return res.sendStatus(404);
+        }
+        models[model_name].findOneAndRemove(
+          { _id: req.params.id },
+          function(err, doc) {
+            if (err) {
+              return next(err);
+            }
+            res.send(doc);
+          }
+        );
+      };
+    },
+
     getProducts: function(req, res, next) {
       async.waterfall([
         // Get selected category, if any
@@ -98,9 +121,15 @@ module.exports = function(app) {
     },
 
     getProduct: function(req, res, next) {
+      if (!isValidId(req.params.id)) {
+        return res.sendStatus(404);
+      }
       models.Product.findById(req.params.id, function(err, product) {
         if (err) {
           return next(err);
+        }
+        if (!product) {
+          return res.sendStatus(404);
         }
         res.format({
           json: function() {
@@ -113,99 +142,6 @@ module.exports = function(app) {
           }
         });
       });
-    },
-
-    updateProduct: function(req, res, next) {
-      update(req, res, next)('Product');
-    },
-
-    addProduct: function(req, res, next) {
-      add(req, res, next)('Product');
-    },
-
-    removeProduct: function(req, res, next) {
-      remove(req, res, next)('Product');
-    },
-
-    getCategories: function(req, res, next) {
-      models.ProductCategory.find()
-        .sort({ name: 1 })
-        .exec(function(err, categories) {
-          if (err) {
-            return next(err);
-          }
-          res.format({
-            json: function() {
-              res.send(categories);
-            }
-          });
-        });
-    },
-
-    updateCategory: function(req, res, next) {
-      update(req, res, next)('ProductCategory');
-    },
-
-    removeCategory: function(req, res, next) {
-      remove(req, res, next)('ProductCategory');
-    },
-
-    addCategory: function(req, res, next) {
-      add(req, res, next)('ProductCategory');
-    },
-
-    getMakers: function(req, res, next) {
-      models.Maker.find()
-        .sort({ name: 1 })
-        .exec(function(err, makers) {
-          if (err) {
-            return next(err);
-          }
-          res.format({
-            json: function() {
-              res.send(makers);
-            }
-          });
-        });
-    },
-
-    updateMaker: function(req, res, next) {
-      update(req, res, next)('Maker');
-    },
-
-    removeMaker: function(req, res, next) {
-      remove(req, res, next)('Maker');
-    },
-
-    addMaker: function(req, res, next) {
-      add(req, res, next)('Maker');
-    },
-
-    getTonalQualities: function(req, res, next) {
-      models.TonalQuality.find()
-        .sort({ name: 1 })
-        .exec(function(err, tonal_qualities) {
-          if (err) {
-            return next(err);
-          }
-          res.format({
-            json: function() {
-              res.send(tonal_qualities);
-            }
-          });
-        });
-    },
-
-    updateTonalQuality: function(req, res, next) {
-      update(req, res, next)('TonalQuality');
-    },
-
-    removeTonalQuality: function(req, res, next) {
-      remove(req, res, next)('TonalQuality');
-    },
-
-    addTonalQuality: function(req, res, next) {
-      add(req, res, next)('TonalQuality');
     }
 
 
