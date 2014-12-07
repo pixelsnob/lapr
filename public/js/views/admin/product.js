@@ -47,7 +47,7 @@ define([
         show_remove_button: (opts.mode == 'edit')
       });
       this.listenTo(modal_view, 'save', this.save);
-      this.listenTo(modal_view, 'remove', this.remove);
+      this.listenTo(modal_view, 'remove', this._remove);
       modal_view.listenTo(this, 'save remove', modal_view.hide);
     },
     
@@ -88,7 +88,7 @@ define([
       }
     },
 
-    remove: function() {
+    _remove: function() {
       var obj = this;
       dialog.confirm({
         message: 'Are you sure you want to remove this?',
