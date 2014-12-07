@@ -49,6 +49,13 @@ define([
       this.listenTo(modal_view, 'save', this.save);
       this.listenTo(modal_view, 'remove', this._remove);
       modal_view.listenTo(this, 'save remove', modal_view.hide);
+      // Cause the form to reload options from server next time
+      this.listenTo(modal_view, 'close', function() {
+        var fields = this.form.fields;
+        fields.categories.schema.options.reset();
+        fields.makers.schema.options.reset();
+        fields.tonal_qualities.schema.options.reset();
+      });
     },
     
     editCategories: function() {
@@ -57,6 +64,7 @@ define([
           val     = editor.getValue();
       var view = new CategoriesView({ collection: editor.schema.options });
       view.renderModal();
+      editor.listenTo(view, 'close', editor.refresh);
     },
 
     editMakers: function() {
@@ -65,6 +73,7 @@ define([
           val     = editor.getValue();
       var view = new MakersView({ collection: editor.schema.options });
       view.renderModal();
+      editor.listenTo(view, 'close', editor.refresh);
     },
 
     editTonalQualities: function() {
@@ -73,6 +82,7 @@ define([
           val     = editor.getValue();
       var view = new TonalQualitiesView({ collection: editor.schema.options });
       view.renderModal();
+      editor.listenTo(view, 'close', editor.refresh);
     },
     
     save: function() {

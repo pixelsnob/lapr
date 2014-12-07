@@ -40,6 +40,7 @@ define([
         hide_cancel_button: true
       });
       modal_view.listenTo(modal_view, 'save', modal_view.hide);
+      this.listenTo(modal_view, 'close', _.bind(this.trigger, this, 'close'));
     },
 
     renderAddForm: function() {
