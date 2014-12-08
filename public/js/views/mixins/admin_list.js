@@ -46,10 +46,7 @@ define([
     renderAddForm: function() {
       var view = new this.view({ model: new this.collection.model });
       view.renderAddForm();
-      var obj = this;
-      this.listenTo(view, 'add', function(model) {
-        obj.collection.add(model);
-      });
+      this.collection.listenTo(view, 'add', this.collection.add);
     }
     
   };

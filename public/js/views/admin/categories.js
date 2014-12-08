@@ -5,8 +5,7 @@
 define([
   'views/base',
   'views/mixins/admin_list',
-  'views/admin/category',
-  'lib/view_mixin'
+  'views/admin/category'
 ], function(
   BaseView,
   AdminListMixin,
