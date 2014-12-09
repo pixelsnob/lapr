@@ -38,6 +38,7 @@ define([
 
     renderModal: function(opts) {
       this.form = new ProductForm({ model: this.model }).render();
+      this.listenTo(this.form, 'init-error', this.showServerError);
       this.setElement(this.form.el);
       var modal_view = new ModalFormView({ form: this.form });
       modal_view.modal({
@@ -49,12 +50,11 @@ define([
       this.listenTo(modal_view, 'save', this.save);
       this.listenTo(modal_view, 'remove', this._remove);
       modal_view.listenTo(this, 'save remove', modal_view.hide);
-      // Cause the form to reload options from server next time
       this.listenTo(modal_view, 'close', function() {
-        var fields = this.form.fields;
-        fields.categories.schema.options.reset();
-        fields.makers.schema.options.reset();
-        fields.tonal_qualities.schema.options.reset();
+        // Cleanup
+        $('.modal').remove();
+        this.undelegateEvents();
+        this.remove();
       });
     },
     

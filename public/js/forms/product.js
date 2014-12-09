@@ -23,6 +23,22 @@ define([
   
   return Backbone.Form.extend({
 
+    initialize: function() {
+      Backbone.Form.prototype.initialize.apply(this, arguments);
+      // Force ref lists to load each time form is created. Notice empty
+      // schema.options below
+      this.fields.categories.schema.options = new ProductCategories;
+      this.fields.makers.schema.options = new Makers;
+      this.fields.tonal_qualities.schema.options = new TonalQualities;
+      $.when(
+        this.fields.categories.schema.options.fetch,
+        this.fields.makers.schema.options.fetch,
+        this.fields.tonal_qualities.schema.options.fetch
+      ).fail(
+        _.bind(this.trigger, this, 'init-error')
+      );
+    },
+
     schema: {
       name: {
         type: 'Text',
@@ -38,7 +54,7 @@ define([
       categories: {
         type: MultiSelectEditor,
         validators: [ 'required' ],
-        options: new ProductCategories,
+        options: [], // set in init
         template: form_templates.editable_field
       },
       model_no: {
@@ -48,13 +64,13 @@ define([
       makers: {
         type: MultiSelectEditor,
         template: form_templates.editable_field,
-        options: new Makers
+        options: []
       },
       tonal_qualities: {
         title: 'Tonal Qualities',
         type: MultiSelectEditor,
         template: form_templates.editable_field,
-        options: new TonalQualities
+        options: []
       },
       price: {
         type: 'Text'
