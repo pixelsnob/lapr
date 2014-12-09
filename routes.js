@@ -77,7 +77,8 @@ module.exports = function(app) {
       async.waterfall([
         // Get selected category, if any
         function(cb) {
-          models.ProductCategory.findOne({ slug: req.params.category }, function(err, category) {
+          models.ProductCategory.findOne({ slug: req.params.category },
+          function(err, category) {
             if (err) {
               return cb(err);
             }
@@ -91,7 +92,8 @@ module.exports = function(app) {
           if (category) {
             query.categories = category._id;
           }
-          models.Product.search(query, opts, req.body.search, function(err, products) {
+          models.Product.search(query, opts, req.body.search,
+          function(err, products) {
             if (err) {
               return cb(err);
             }
@@ -100,7 +102,8 @@ module.exports = function(app) {
         },
         // Get product categories
         function(category, products, cb) {
-          models.ProductCategory.find(function(err, categories) {
+          models.ProductCategory.find({}, null, { sort: { name: 1 }},
+          function(err, categories) {
             if (err) {
               return cb(err);
             }
