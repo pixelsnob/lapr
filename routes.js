@@ -110,7 +110,7 @@ module.exports = function(app) {
             cb(null, category, products, categories);
           });
         }
-
+        
       ], function(err, category, products, categories, makers) {
         if (err) {
           return next(err);

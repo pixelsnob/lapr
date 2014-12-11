@@ -74,7 +74,7 @@ app.route('/products/categories/:category')
   .get(routes.getProducts)
   .post(routes.getProducts);
 
-app.route('/products/item/:id?')
+app.route('/products/:slug/:id?')
   .get(routes.getProduct)
   .post(cms_routes.auth, routes.add('Product'))
   .put(cms_routes.auth, routes.update('Product'))

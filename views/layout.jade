@@ -15,8 +15,36 @@ html
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
 
   body(class="#{body_class}")
-    block content 
 
+    header
+      
+      div.navbar.navbar-default(role="navigation")
+        div.navbar-left
+          .logo
+            a(href="/", title="L.A. Percussion Rentals")
+              span L.A. Percussion Rentals
+
+        .navbar-header
+          button(type="button", data-target="#navbar-collapse", data-toggle="collapse", class="navbar-toggle")
+            span.sr-only Toggle Nav
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+
+        div.container-fluid.collapse.navbar-collapse#navbar-collapse
+          nav
+            ul.nav.navbar-nav
+              each link, name in nav
+                - var current = (name == body_class ? 'current' : '');
+                li(class="#{current}")
+                  a(href="#{link.url}")= link.text
+
+
+    #main
+      block content 
+
+    footer
+      
     script(type="text/javascript").
       // Various polyfills
       [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});

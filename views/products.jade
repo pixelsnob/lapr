@@ -2,12 +2,6 @@
 extends layout
 
 block content
-  ul
-    li
-      a(href="/products") All
-    each category in categories
-      li
-        a(href="/products/categories/#{category.slug}")= category.name
   form(method="post", action="")
     p
       input(type="text", name="search", value="#{search}")
@@ -31,8 +25,7 @@ block content
           td
             img(src="/images/products/#{product.image}", width="50")
           td
-            // a.product(href="/products/#{product.categories[0].slug}/#{product.slug}/#{product.id}")= product.name
-            a.product(href="/products/#{product.id}")= product.name
+            a.product(href="/products/#{product.slug}/#{product.id}")= product.name
           td= product.alt_names
           td.description= product.description
           td= product.categories.map(function(p) { return p.name; }).join(', ')
