@@ -1,0 +1,12 @@
+
+tr(id="#{product.id}")
+  td
+    img(src="/images/products/#{product.image}", width="50")
+  td
+    a.product(href="/products/#{product.slug}/#{product.id}")= product.name
+  td.description= product.description
+  if product.makers
+    td= product.makers.map(function(m) { return m.name; }).join(', ')
+  else
+    td
+  td= product.price

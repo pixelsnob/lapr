@@ -14,11 +14,9 @@ var
   fs              = require('fs'),
   env             = process.env.NODE_ENV || 'development';
 
-//require('./lib/db')('lapr');
 require('./lib/marked')(app);
 require('cms/lib/auth');
 require('cms/lib/view_helpers')(app);
-
 
 app.use(express.static('public'));
 /*if (env == 'development') {
@@ -59,7 +57,7 @@ app.use(function(req, res, next) {
 
 app.use(jade_browser(
   '/jade.js',
-  [ 'player/*.jade', 'cms/*.jade', 'admin/*.jade' ],
+  [ 'cms/*.jade', 'admin/*.jade', 'product_row.jade' ],
   { root: app.get('views'), minify: (env == 'production') }
 ));
 
@@ -69,6 +67,10 @@ var routes     = require('./routes')(app),
 app.route('/products')
   .get(routes.getProducts)
   .post(routes.getProducts)
+
+// temp
+app.route('/api/products')
+  .get(routes.getProductsApi);
 
 app.route('/products/categories/:category')
   .get(routes.getProducts)

@@ -72,6 +72,16 @@ module.exports = function(app) {
         );
       };
     },
+    
+    // temp
+    getProductsApi: function(req, res, next) {
+      models.Product.find(function(err, products) {
+        if (err) {
+          return next(err);
+        }
+        res.send(products);
+      });
+    },
 
     getProducts: function(req, res, next) {
       async.waterfall([
@@ -115,10 +125,18 @@ module.exports = function(app) {
         if (err) {
           return next(err);
         }
-        res.render('products', {
-          products:      products,
-          categories:    categories,
-          search:        (req.body.search || '')
+        res.format({
+          html: function() {
+            res.render('products', {
+              products:      products,
+              categories:    categories,
+              search:        (req.body.search || '')
+            });
+          },
+          json: function() {
+            res.send(products);
+          }
+
         });
       });
     },

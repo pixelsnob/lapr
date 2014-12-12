@@ -2,15 +2,16 @@
 define([
   'backbone',
   'lib/csrf',
-  //'views/app',
+  'router',
   'bootstrap'
-], function(Backbone, csrf, AppView) {
+], function(Backbone, csrf, Router) {
   $(function() {
-    new AppView;
+    //new AppView;
+    new Router;
     Backbone.history.start({
       pushState: true,
       hashChange: false,
-      silent: false 
+      silent: true 
     });
   });
 });
