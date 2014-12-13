@@ -98,13 +98,13 @@ app.route('/makers/:id')
   .put(cms_routes.auth, routes.update('Maker'))
   .delete(cms_routes.auth, routes.remove('Maker'));
 
-app.route('/tonal_qualities')
-  .get(routes.get('TonalQuality'))
-  .post(cms_routes.auth, routes.add('TonalQuality'));
+app.route('/tags')
+  .get(routes.get('Tag'))
+  .post(cms_routes.auth, routes.add('Tag'));
 
-app.route('/tonal_qualities/:id')
-  .put(cms_routes.auth, routes.update('TonalQuality'))
-  .delete(cms_routes.auth, routes.remove('TonalQuality'));
+app.route('/tags/:id')
+  .put(cms_routes.auth, routes.update('Tag'))
+  .delete(cms_routes.auth, routes.remove('Tag'));
 
 app.use(require('cms/router'));
 

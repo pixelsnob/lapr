@@ -6,7 +6,7 @@ define([
   'views/base',
   './categories',
   './makers',
-  './tonal_qualities',
+  './tags',
   'cms/views/modal/form',
   'models/product',
   'forms/product',
@@ -15,7 +15,7 @@ define([
   BaseView,
   CategoriesView,
   MakersView,
-  TonalQualitiesView,
+  TagsView,
   ModalFormView,
   ProductModel,
   ProductForm,
@@ -26,7 +26,7 @@ define([
     events: {
       'click .edit-categories':           'editCategories',
       'click .edit-makers':               'editMakers',
-      'click .edit-tonal_qualities':      'editTonalQualities'
+      'click .edit-tags':                 'editTags'
     },
     
     initialize: function(opts) {
@@ -76,11 +76,11 @@ define([
       editor.listenTo(view, 'close', editor.refresh);
     },
 
-    editTonalQualities: function() {
+    editTags: function() {
       var obj     = this,
-          editor  = this.form.getEditor('tonal_qualities'),
+          editor  = this.form.getEditor('tags'),
           val     = editor.getValue();
-      var view = new TonalQualitiesView({ collection: editor.schema.options });
+      var view = new TagsView({ collection: editor.schema.options });
       view.renderModal();
       editor.listenTo(view, 'close', editor.refresh);
     },

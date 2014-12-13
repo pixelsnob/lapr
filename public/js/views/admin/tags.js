@@ -1,21 +1,21 @@
 /**
- * tonal_qualities view
+ * tags view
  * 
  */
 define([
   'views/base',
   'views/mixins/admin_list',
-  'views/admin/tonal_quality',
+  'views/admin/tag',
   'lib/view_mixin'
 ], function(
   BaseView,
   AdminListMixin,
-  TonalQualityView
+  TagView
 ) {
 
   var view = BaseView.extend({
-    view: TonalQualityView,
-    title: 'Tonal Qualities',
+    view: TagView,
+    title: 'Tags',
     events: {
     },
     initialize: function(opts) {

@@ -7,7 +7,7 @@ define([
   'backbone-forms',
   '../collections/product_categories',
   '../collections/makers',
-  '../collections/tonal_qualities',
+  '../collections/tags',
   'views/forms/editors/multi_select',
   'views/forms/templates',
   'form-editors/list'
@@ -16,7 +16,7 @@ define([
   BackboneForms,
   ProductCategories,
   Makers,
-  TonalQualities,
+  Tags,
   MultiSelectEditor,
   form_templates
 ) {
@@ -29,11 +29,11 @@ define([
       // schema.options below
       this.fields.categories.schema.options = new ProductCategories;
       this.fields.makers.schema.options = new Makers;
-      this.fields.tonal_qualities.schema.options = new TonalQualities;
+      this.fields.tags.schema.options = new Tags;
       $.when(
         this.fields.categories.schema.options.fetch,
         this.fields.makers.schema.options.fetch,
-        this.fields.tonal_qualities.schema.options.fetch
+        this.fields.tags.schema.options.fetch
       ).fail(
         _.bind(this.trigger, this, 'init-error')
       );
@@ -66,8 +66,8 @@ define([
         template: form_templates.editable_field,
         options: []
       },
-      tonal_qualities: {
-        title: 'Tonal Qualities',
+      tags: {
+        title: 'Tags',
         type: MultiSelectEditor,
         template: form_templates.editable_field,
         options: []

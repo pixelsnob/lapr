@@ -23,7 +23,7 @@ var ProductSchema = new mongoose.Schema({
   images:            [ String ],
   sizes:             String,
   octaves:           Number,
-  tonal_qualities:   [{ type: mongoose.Schema.Types.ObjectId, ref: 'TonalQualities' }]
+  tags:              [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }]
 });
 
 ProductSchema.statics.findByIdAndPopulate = function(id, cb) {

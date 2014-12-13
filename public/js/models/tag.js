@@ -1,5 +1,5 @@
 /**
- * tonal_quality model
+ * tag model
  * 
  */
 define([
@@ -7,7 +7,7 @@ define([
 ], function(BaseModel) {
   return BaseModel.extend({
     
-    url: function() { return '/tonal_qualities/' + (this.id || '') },
+    url: function() { return '/tags/' + (this.id || '') },
 
     initialize: function(opts) {
       
