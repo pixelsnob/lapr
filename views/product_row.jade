@@ -5,8 +5,9 @@ tr(id="#{product.id}")
   td
     a.product(href="/products/#{product.slug}/#{product.id}")= product.name
   td.description= product.description
-  if product.makers
+  if _.isArray(product.makers)
     td= product.makers.map(function(m) { return m.name; }).join(', ')
   else
     td
   td= product.price
+

@@ -6,8 +6,8 @@ define([
   
   return Backbone.Router.extend({
     routes: {
-      'products': 'showProducts',
-      'products/categories/:category': 'showProductsByCategory'
+      'products':                       'showProducts',
+      'products/categories/:category':  'showProductsByCategory'
     },
 
     initialize: function() {

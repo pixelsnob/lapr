@@ -6,11 +6,13 @@ define([
   'views/base',
   'collections/products',
   'collections/product_categories',
+  'collections/makers',
   'views/product'
 ], function(
   BaseView,
   ProductsCollection,
   ProductCategoriesCollection,
+  MakersCollection,
   ProductView
 ) {
   
@@ -20,22 +22,25 @@ define([
     
     categories: new ProductCategoriesCollection,
 
+    makers: new MakersCollection,
+
     el: '.products',
     
     events: {
     },
 
     initialize: function(opts) {
-      // temporary <<<<<<<<<<<<<<<<
       this.collection.fetch(); 
       this.categories.fetch();
+      this.makers.fetch();
     },
     
     render: function(products) {
+      var obj = this;
       products = products || this.collection;
       var fragment = document.createDocumentFragment();
       products.forEach(function(product) {
-        var view = new ProductView({ model: product });
+        var view = new ProductView({ model: product, makers: obj.makers });
         fragment.appendChild(view.render().el);
       });
       this.$el.find('tbody').html(fragment);
