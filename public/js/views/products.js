@@ -30,6 +30,7 @@ define([
     },
 
     initialize: function(opts) {
+      // temp
       this.collection.fetch(); 
       this.categories.fetch();
       this.makers.fetch();

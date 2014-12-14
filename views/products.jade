@@ -14,6 +14,7 @@ block content
     form(method="post", action="")
       p
         input(type="text", name="search", value="#{search}")
+        input(type="hidden" name="_csrf" value="#{csrf}")
         input(type="submit", value="Search")
     p Count: #{products.length}
     table.products
