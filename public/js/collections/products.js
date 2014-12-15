@@ -11,6 +11,8 @@ define([
 
     model: ProductModel,
 
+    comparator: 'name',
+
     initialize: function() {
 
     }

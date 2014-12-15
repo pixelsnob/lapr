@@ -6,11 +6,11 @@ define([
   'bootstrap'
 ], function(Backbone, csrf, Router) {
   $(function() {
-    //new Router;
+    new Router;
     Backbone.history.start({
       pushState: true,
       hashChange: false,
-      silent: true 
+      silent: false 
     });
   });
 });

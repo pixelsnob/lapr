@@ -72,8 +72,8 @@ app.route('/products')
   .post(routes.getProducts)
 
 // temp
-app.route('/api/products')
-  .get(routes.getProductsApi);
+//app.route('/api/products')
+//  .get(routes.getProductsApi);
 
 app.route('/products/categories/:category')
   .get(routes.getProducts)

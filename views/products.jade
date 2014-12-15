@@ -3,12 +3,10 @@ extends layout
 
 block content
   .col-md-2
-    //- ul.product-categories
-    //-  li
-    //-    a.category(href="/products") All
-    //-  each category in categories
-    //-    li 
-    //-      a.category(href="/products/categories/#{category.slug}")= category.name
+    ul.tags
+      each tag in tags
+        li 
+          a.category(href="/products/tags/#{tag}")= tag
 
   .col-md-10
     a(href=paginate.href({ sort: 'name' })) Sort by name

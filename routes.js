@@ -72,16 +72,6 @@ module.exports = function(app) {
         );
       };
     },
-    
-    // temp
-    getProductsApi: function(req, res, next) {
-      models.Product.find(function(err, products) {
-        if (err) {
-          return next(err);
-        }
-        res.send(products);
-      });
-    },
 
     /*
     getProducts: function(req, res, next) {
@@ -178,7 +168,8 @@ module.exports = function(app) {
               products:      products,
               categories:    categories,
               page_count:    page_count,
-              item_count:    item_count
+              item_count:    item_count,
+              tags:          []
             });
           },
           json: function() {
