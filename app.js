@@ -2,17 +2,17 @@
 'use strict';
 
 var
-  port            = 3003,
-  express         = require('express'),
-  app             = express(),
-  jade_browser    = require('jade-browser'),
-  passport        = require('passport'),
-  _               = require('underscore'),
-  session         = require('express-session'),
-  redis_store     = require('connect-redis')(session),
-  body_parser     = require('body-parser'),
-  fs              = require('fs'),
-  env             = process.env.NODE_ENV || 'development';
+  port              = 3003,
+  express           = require('express'),
+  app               = express(),
+  jade_browser      = require('jade-browser'),
+  passport          = require('passport'),
+  _                 = require('underscore'),
+  session           = require('express-session'),
+  redis_store       = require('connect-redis')(session),
+  body_parser       = require('body-parser'),
+  fs                = require('fs'),
+  env               = process.env.NODE_ENV || 'development';
 
 require('./lib/marked')(app);
 require('cms/lib/auth');
@@ -39,6 +39,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('csurf')());
+app.use(require('express-paginate').middleware(10, 50));
 app.locals.pretty = true;
 app.locals._ = _;
 

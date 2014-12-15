@@ -74,5 +74,6 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
   });
 };
 
+ProductSchema.plugin(require('mongoose-paginate'));
 module.exports = mongoose.model('Product', ProductSchema);
 

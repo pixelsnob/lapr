@@ -6,8 +6,7 @@ define([
   'bootstrap'
 ], function(Backbone, csrf, Router) {
   $(function() {
-    //new AppView;
-    new Router;
+    //new Router;
     Backbone.history.start({
       pushState: true,
       hashChange: false,

@@ -83,6 +83,7 @@ module.exports = function(app) {
       });
     },
 
+    /*
     getProducts: function(req, res, next) {
       async.waterfall([
         // Get selected category, if any
@@ -102,8 +103,10 @@ module.exports = function(app) {
           if (category) {
             query.categories = category._id;
           }
-          models.Product.search(query, opts, req.body.search,
-          function(err, products) {
+          //models.Product.search(query, opts, req.body.search,
+          //function(err, products) {
+          models.Product.paginate({}, req.query.page, req.query.limit,
+          function(err, page_count, products, item_count) {
             if (err) {
               return cb(err);
             }
@@ -131,6 +134,51 @@ module.exports = function(app) {
               products:      products,
               categories:    categories,
               search:        (req.body.search || '')
+            });
+          },
+          json: function() {
+            res.send(products);
+          }
+
+        });
+      });
+    },
+    */
+
+    getProducts: function(req, res, next) {
+      async.waterfall([
+        // Get products
+        function(cb) {
+          models.Product.paginate({}, req.query.page, req.query.limit,
+          function(err, page_count, products, item_count) {
+            if (err) {
+              return cb(err);
+            }
+            cb(null, products, page_count, item_count);
+          }, { sortBy: { name: 1 }});
+        },
+        // Get product categories
+        function(products, page_count, item_count, cb) {
+          models.ProductCategory.find({}, null, { sort: { name: 1 }},
+          function(err, categories) {
+            if (err) {
+              return cb(err);
+            }
+            cb(null, products, categories, page_count, item_count);
+          });
+        }
+        
+      ], function(err, products, categories, page_count, item_count) {
+        if (err) {
+          return next(err);
+        }
+        res.format({
+          html: function() {
+            res.render('products', {
+              products:      products,
+              categories:    categories,
+              page_count:    page_count,
+              item_count:    item_count
             });
           },
           json: function() {
