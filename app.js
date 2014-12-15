@@ -18,10 +18,9 @@ require('./lib/marked')(app);
 require('cms/lib/auth');
 require('cms/lib/view_helpers')(app);
 
-app.use(express.static('public'));
-/*if (env == 'development') {
+if (env == 'development') {
   app.use(express.static('public'));
-}*/
+}
 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
@@ -42,9 +41,12 @@ app.use(passport.session());
 app.use(require('csurf')());
 app.locals.pretty = true;
 app.locals._ = _;
+
 app.use(function(req, res, next) {
   res.locals.nav = require('./nav');
   res.locals.csrf = req.csrfToken();
+  // Data to dump on the page in a script tag
+  res.locals.json_data = require('./lib/json_data');
   if (req.isAuthenticated()) {
     res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
     // Disable caching if logged in

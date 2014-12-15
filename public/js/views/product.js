@@ -48,7 +48,7 @@ define([
       this.setElement(template.render('product_row', { product: product }));
       return this;
     }
-
+    
   });
-  
 });
+

@@ -30,10 +30,9 @@ define([
     },
 
     initialize: function(opts) {
-      // temp
-      this.collection.fetch(); 
-      this.categories.fetch();
-      this.makers.fetch();
+      this.collection.reset(window.lapr.products); 
+      this.categories.reset(window.lapr.product_categories); 
+      this.makers.reset(window.lapr.makers); 
     },
     
     render: function(products) {
