@@ -10,6 +10,10 @@ define([
   'cms/views/modal/form',
   'models/product',
   'forms/product',
+  'collections/product_categories',
+  'collections/makers',
+  'collections/tags',
+  'collections/tag_categories',
   'lib/dialog'
 ], function(
   BaseView,
@@ -19,6 +23,10 @@ define([
   ModalFormView,
   ProductModel,
   ProductForm,
+  ProductCategories,
+  Makers,
+  Tags,
+  TagCategories,
   dialog
 ) {
   return BaseView.extend({
@@ -30,16 +38,53 @@ define([
     },
     
     initialize: function(opts) {
+      // move all this bs back to the form
+      this.product_categories = new ProductCategories;
+      this.makers             = new Makers;
+      this.tags               = new Tags;
+      this.tag_categories     = new TagCategories;
+      var obj = this;
+      $.when(
+        this.product_categories.fetch(),
+        this.makers.fetch(),
+        this.tags.fetch(),
+        this.tag_categories.fetch()
+      ).done(function() {
+        obj.trigger('ready');
+      }).fail(_.bind(this.showServerError, this));
     },
     
+    // Build an array of grouped options for backbone-forms
+    getTagOptions: function() {
+      var tree = [],
+          obj  = this;
+      this.tag_categories.forEach(function(category) {
+        tree.push({
+          group:   category.get('name'),
+          options: obj.tags.filter(function(tag) {
+            return tag.get('category') == category.id;
+          }).map(function(tag) {
+            return { val: tag.id, label: tag.get('name') };
+          })
+        });
+      });
+      return tree; 
+    },
+
     render: function() {
+      this.form = new ProductForm({
+        model:               this.model,
+        product_categories:  this.product_categories,
+        makers:              this.makers,
+        tags:                this.getTagOptions()
+      }).render();
+      this.listenTo(this.form, 'init-error', this.showServerError);
+      this.setElement(this.form.el);
       return this;
     },
 
     renderModal: function(opts) {
-      this.form = new ProductForm({ model: this.model }).render();
-      this.listenTo(this.form, 'init-error', this.showServerError);
-      this.setElement(this.form.el);
+      this.render();
       var modal_view = new ModalFormView({ form: this.form });
       modal_view.modal({
         title: 'Edit Product',
@@ -62,7 +107,7 @@ define([
       var obj     = this,
           editor  = this.form.getEditor('categories'),
           val     = editor.getValue();
-      var view = new CategoriesView({ collection: editor.schema.options });
+      var view = new CategoriesView({ collection: this.product_categories });
       view.renderModal();
       editor.listenTo(view, 'close', editor.refresh);
     },
@@ -71,7 +116,7 @@ define([
       var obj     = this,
           editor  = this.form.getEditor('makers'),
           val     = editor.getValue();
-      var view = new MakersView({ collection: editor.schema.options });
+      var view = new MakersView({ collection: this.makers });
       view.renderModal();
       editor.listenTo(view, 'close', editor.refresh);
     },
@@ -80,9 +125,12 @@ define([
       var obj     = this,
           editor  = this.form.getEditor('tags'),
           val     = editor.getValue();
-      var view = new TagsView({ collection: editor.schema.options });
+      var view = new TagsView({ collection: this.tags });
       view.renderModal();
-      editor.listenTo(view, 'close', editor.refresh);
+      editor.listenTo(view, 'close', function() {
+        editor.schema.options = obj.getTagOptions();
+        editor.refresh();
+      });
     },
     
     save: function() {

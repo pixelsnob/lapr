@@ -22,10 +22,13 @@ define([
     edit: function(ev) {
       var id    = $(ev.currentTarget).parents('tr').attr('id'),
           model = new ProductModel({ id: id }),
-          view  = new ProductView({ model: model });
-      model.fetch({
-        success: _.bind(view.renderModal, view, { mode: 'edit' }),
-        error:   _.bind(this.showServerError, this)
+          view  = new ProductView({ model: model }),
+          obj   = this;
+      this.listenTo(view, 'ready', function() {
+        model.fetch({
+          success: _.bind(view.renderModal, view, { mode: 'edit' }),
+          error:   _.bind(obj.showServerError, this)
+        });
       });
       return false;
     },

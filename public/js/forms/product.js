@@ -7,7 +7,7 @@ define([
   'backbone-forms',
   '../collections/product_categories',
   '../collections/makers',
-  '../collections/tags',
+  '../collections/tags_tree',
   'views/forms/editors/multi_select',
   'views/forms/templates',
   'form-editors/list'
@@ -16,27 +16,18 @@ define([
   BackboneForms,
   ProductCategories,
   Makers,
-  Tags,
+  TagsTree,
   MultiSelectEditor,
   form_templates
 ) {
   
   return Backbone.Form.extend({
 
-    initialize: function() {
+    initialize: function(opts) {
       Backbone.Form.prototype.initialize.apply(this, arguments);
-      // Force ref lists to load each time form is created. Notice empty
-      // schema.options below
-      this.fields.categories.schema.options = new ProductCategories;
-      this.fields.makers.schema.options = new Makers;
-      this.fields.tags.schema.options = new Tags;
-      $.when(
-        this.fields.categories.schema.options.fetch,
-        this.fields.makers.schema.options.fetch,
-        this.fields.tags.schema.options.fetch
-      ).fail(
-        _.bind(this.trigger, this, 'init-error')
-      );
+      this.fields.categories.schema.options = opts.product_categories;
+      this.fields.makers.schema.options     = opts.makers;
+      this.fields.tags.schema.options       = opts.tags
     },
 
     schema: {
@@ -64,13 +55,13 @@ define([
       makers: {
         type: MultiSelectEditor,
         template: form_templates.editable_field,
-        options: []
+        options: [] // set in init
       },
       tags: {
         title: 'Tags',
         type: MultiSelectEditor,
         template: form_templates.editable_field,
-        options: []
+        options: [] // set in init
       },
       price: {
         type: 'Text'

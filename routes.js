@@ -73,68 +73,6 @@ module.exports = function(app) {
       };
     },
 
-    /*
-    getProducts: function(req, res, next) {
-      async.waterfall([
-        // Get selected category, if any
-        function(cb) {
-          models.ProductCategory.findOne({ slug: req.params.category },
-          function(err, category) {
-            if (err) {
-              return cb(err);
-            }
-            cb(null, category);
-          });
-        },
-        // Get products
-        function(category, cb) {
-          var query = {},
-              opts  = { sort: { name: 1 } };
-          if (category) {
-            query.categories = category._id;
-          }
-          //models.Product.search(query, opts, req.body.search,
-          //function(err, products) {
-          models.Product.paginate({}, req.query.page, req.query.limit,
-          function(err, page_count, products, item_count) {
-            if (err) {
-              return cb(err);
-            }
-            cb(null, category, products);
-          });
-        },
-        // Get product categories
-        function(category, products, cb) {
-          models.ProductCategory.find({}, null, { sort: { name: 1 }},
-          function(err, categories) {
-            if (err) {
-              return cb(err);
-            }
-            cb(null, category, products, categories);
-          });
-        }
-        
-      ], function(err, category, products, categories, makers) {
-        if (err) {
-          return next(err);
-        }
-        res.format({
-          html: function() {
-            res.render('products', {
-              products:      products,
-              categories:    categories,
-              search:        (req.body.search || '')
-            });
-          },
-          json: function() {
-            res.send(products);
-          }
-
-        });
-      });
-    },
-    */
-
     getProducts: function(req, res, next) {
       async.waterfall([
         // Get products
@@ -179,7 +117,7 @@ module.exports = function(app) {
         });
       });
     },
-
+    
     getProduct: function(req, res, next) {
       if (!isValidId(req.params.id)) {
         return res.sendStatus(404);

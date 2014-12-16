@@ -1,11 +1,13 @@
 /**
- * tag form
+ * tag_category form
  * 
  */
 define([
+  'collections/tag_categories',
   'backbone',
   'backbone-forms'
 ], function(
+  TagCategories
 ) {
   
   return Backbone.Form.extend({
@@ -14,6 +16,11 @@ define([
       name: {
         type: 'Text',
         validators: [ 'required' ]
+      },
+      category: {
+        title: 'Tag Category',
+        type: 'Select',
+        options: new TagCategories 
       }
     }
     

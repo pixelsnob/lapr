@@ -109,6 +109,15 @@ app.route('/tags/:id')
   .put(cms_routes.auth, routes.update('Tag'))
   .delete(cms_routes.auth, routes.remove('Tag'));
 
+app.route('/tag-categories')
+  .get(routes.get('TagCategory'))
+  .post(cms_routes.auth, routes.add('TagCategory'));
+
+app.route('/tag-categories/:id')
+  .put(cms_routes.auth, routes.update('TagCategory'))
+  .delete(cms_routes.auth, routes.remove('TagCategory'));
+
+
 app.use(require('cms/router'));
 
 app.use(function(req, res, next) {

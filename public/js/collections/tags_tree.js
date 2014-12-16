@@ -13,6 +13,11 @@ define([
     model: TagModel,
 
     initialize: function() {
+    },
+
+    parse: function(data) {
+      //console.log(this.tag_categories);
+      return data;
     }
   });
 });

@@ -1,5 +1,5 @@
 /**
- * tags collection
+ * tags collection as a tree structure
  * 
  */
 define([
@@ -16,4 +16,3 @@ define([
     }
   });
 });
-
