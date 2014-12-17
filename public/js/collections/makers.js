@@ -11,6 +11,8 @@ define([
 
     model: MakerModel,
 
+    comparator: 'name',
+
     initialize: function() {
     }
   });

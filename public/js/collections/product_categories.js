@@ -11,6 +11,8 @@ define([
 
     model: ProductCategoryModel,
 
+    comparator: 'name',
+
     initialize: function() {
     }
   });

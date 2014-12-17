@@ -12,6 +12,8 @@ define([
 
     model: TagModel,
 
+    comparator: 'name',
+
     initialize: function() {
     }
   });
