@@ -5,8 +5,7 @@
 define([
   'cms/views/modal/form',
   'template',
-  'lib/dialog',
-  'lib/view_mixin'
+  'lib/dialog'
 ], function(
   ModalFormView,
   template,

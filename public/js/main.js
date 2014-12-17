@@ -3,7 +3,8 @@ define([
   'backbone',
   'lib/csrf',
   'router',
-  'bootstrap'
+  'bootstrap',
+  'lib/view_mixin'
 ], function(Backbone, csrf, Router) {
   $(function() {
     new Router;

@@ -47,7 +47,6 @@ app.use(function(req, res, next) {
   res.locals.nav = require('./nav');
   res.locals.csrf = req.csrfToken();
   // Data to dump on the page in a script tag
-  res.locals.json_data = require('./lib/json_data');
   if (req.isAuthenticated()) {
     res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
     // Disable caching if logged in
@@ -68,16 +67,16 @@ var routes     = require('./routes')(app),
     cms_routes = require('cms/routes');
 
 app.route('/products')
-  .get(routes.getProducts)
-  .post(routes.getProducts)
+  .get(routes.buildJson, routes.getProducts)
+  .post(routes.buildJson, routes.getProducts)
 
 // temp
 //app.route('/api/products')
 //  .get(routes.getProductsApi);
 
 app.route('/products/categories/:category')
-  .get(routes.getProducts)
-  .post(routes.getProducts);
+  .get(routes.buildJson, routes.getProducts)
+  .post(routes.buildJson, routes.getProducts);
 
 app.route('/products/:slug/:id?')
   .get(routes.getProduct)

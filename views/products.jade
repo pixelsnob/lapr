@@ -13,14 +13,15 @@ block content
     table.products
       thead
         tr
-          th
+          //- th
           th Instrument
           th Description
           th Maker/Manufacturer
           th Price
       tbody
         each product in products
-          include product_row
+          tr
+            include product_row
 
     include paginate
     

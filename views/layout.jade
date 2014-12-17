@@ -51,6 +51,8 @@ html
         window.lapr.products           = !{JSON.stringify(json_data.products)};
         window.lapr.product_categories = !{JSON.stringify(json_data.product_categories)};
         window.lapr.makers             = !{JSON.stringify(json_data.makers)};
+        window.lapr.tags               = !{JSON.stringify(json_data.tags)};
+        window.lapr.tag_categories     = !{JSON.stringify(json_data.tag_categories)};
       
     script(type="text/javascript").
       // Various polyfills
@@ -68,21 +70,11 @@ html
     
     if settings.env == 'production'
       script(type="text/javascript", src="/dist/js/main.js")
-      if user
-        script(type="text/javascript", src="/dist/js/admin.js")
     else
       script(type="text/javascript", src="/bower_components/requirejs/require.js")
 
-
-    if user
-      script(type="text/javascript").
-        require.config({ baseUrl: '/js' });
-        require([ 'config' ], function() {
-          require([ 'main', 'admin' ]);
-        });
-    else
-      script(type="text/javascript").
-        require.config({ baseUrl: '/js' });
-        require([ 'config' ], function() {
-          require([ 'main' ]);
-        });
+    script(type="text/javascript").
+      require.config({ baseUrl: '/js' });
+      require([ 'config' ], function() {
+        require([ 'main' ]);
+      });

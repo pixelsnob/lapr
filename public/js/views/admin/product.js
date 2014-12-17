@@ -8,12 +8,7 @@ define([
   './makers',
   './tags',
   'cms/views/modal/form',
-  'models/product',
   'forms/product',
-  'collections/product_categories',
-  'collections/makers',
-  'collections/tags',
-  'collections/tag_categories',
   'lib/dialog'
 ], function(
   BaseView,
@@ -21,12 +16,7 @@ define([
   MakersView,
   TagsView,
   ModalFormView,
-  ProductModel,
   ProductForm,
-  ProductCategories,
-  Makers,
-  Tags,
-  TagCategories,
   dialog
 ) {
   return BaseView.extend({
@@ -38,20 +28,11 @@ define([
     },
     
     initialize: function(opts) {
-      // move all this bs back to the form
-      this.product_categories = new ProductCategories;
-      this.makers             = new Makers;
-      this.tags               = new Tags;
-      this.tag_categories     = new TagCategories;
-      var obj = this;
-      $.when(
-        this.product_categories.fetch(),
-        this.makers.fetch(),
-        this.tags.fetch(),
-        this.tag_categories.fetch()
-      ).done(function() {
-        obj.trigger('ready');
-      }).fail(_.bind(this.showServerError, this));
+      this.model               = opts.model;
+      this.product_categories  = opts.product_categories;
+      this.makers              = opts.makers;
+      this.tags                = opts.tags;
+      this.tag_categories      = opts.tag_categories;
     },
     
     // Build an array of grouped options for backbone-forms

@@ -10,7 +10,7 @@ module.exports = function(app) {
   var isValidId = function(id) {
     return require('mongoose').Types.ObjectId.isValid(id);
   };
-
+  
   return {
     
     get: function(model_name) {
@@ -139,6 +139,34 @@ module.exports = function(app) {
             });
           }
         });
+      });
+    },
+
+    // Builds JSON data that gets dumped on the page, for the front-end
+    // to use
+    buildJson: function(req, res, next) {
+      var model_names = {
+        'products':            'Product',
+        'product_categories':  'ProductCategory',
+        'makers':              'Maker',
+        'tags':                'Tag',
+        'tag_categories':      'TagCategory'
+      },
+      data = [];
+      async.each(Object.keys(model_names), function(model_name, cb) {
+        models[model_names[model_name]].find(function(err, docs) {
+          if (err) {
+            return cb(err);
+          }
+          data[model_name] = docs;
+          cb();
+        });
+      }, function(err) {
+        if (err) {
+          return next(err);
+        }
+        res.locals.json_data = data;       
+        next();
       });
     }
 
