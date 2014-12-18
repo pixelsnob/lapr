@@ -23,6 +23,9 @@ define([
       this.refs                 = opts.refs;
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'destroy', this.remove);
+      var obj = this;
+      // Keep refs data fresh on the page 
+      this.listenTo(this.model.collection, 'change-ref', this.refsChange); 
       // Include product admin editor if admin user
       if (window.cms.user) {
         var obj = this;
@@ -46,6 +49,7 @@ define([
           if (maker && maker.attributes) {
             return maker.attributes;
           }
+          return [];
         });
       }
       this.$el.html(template.render('product_row', { product: product }));
@@ -59,6 +63,18 @@ define([
       });
       view.renderModal({ mode: mode });
       return false;
+    },
+
+    refsChange: function(model) {
+      var ids    = [],
+          makers = this.model.get('makers');
+      if (_.isArray(makers) && makers.length) {
+        ids = ids.concat(makers);
+      }
+      if (_.contains(ids, model.id)) {
+        this.render();
+      }
+      
     }
     
   });

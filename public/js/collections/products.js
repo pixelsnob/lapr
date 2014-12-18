@@ -19,7 +19,7 @@ define([
       var obj = this;
       // Add event handlers for each reference collection
       Object.keys(this.refs).forEach(function(ref) {
-        obj.listenTo(obj.refs[ref], 'change', _.bind(obj.trigger, obj, 'change-ref'));
+        obj.listenTo(obj.refs[ref], 'change remove', _.bind(obj.trigger, obj, 'change-ref'));
         // Remove id from parent collection when ref is removed
         obj.listenTo(obj.refs[ref], 'remove', function(model) {
           if (model instanceof MakerModel) {

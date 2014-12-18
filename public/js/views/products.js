@@ -19,11 +19,6 @@ define([
       this.collection = opts.collection;
       this.refs = opts.refs;
       this.setElement(opts.el);
-      //this.listenTo(this.refs.product_categories, 'change remove', this.render);
-      //this.listenTo(this.collection, 'remove-ref', this.render);
-      this.listenTo(this.collection, 'change-ref', function() {
-        console.log(arguments);
-      });
     },
     
     render: function() {
