@@ -61,13 +61,17 @@ module.exports = function(app) {
         if (!isValidId(req.params.id)) {
           return res.sendStatus(404);
         }
-        models[model_name].findOneAndRemove(
-          { _id: req.params.id },
+        models[model_name].findOne({ _id: req.params.id },
           function(err, doc) {
             if (err) {
               return next(err);
             }
-            res.send(doc);
+            doc.remove(function(err) {
+              if (err) {
+                return next(err);
+              }
+              res.send(doc);
+            });
           }
         );
       };

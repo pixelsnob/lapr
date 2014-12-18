@@ -29,20 +29,17 @@ define([
     
     initialize: function(opts) {
       this.model               = opts.model;
-      this.product_categories  = opts.product_categories;
-      this.makers              = opts.makers;
-      this.tags                = opts.tags;
-      this.tag_categories      = opts.tag_categories;
+      this.refs                = opts.refs;
     },
     
     // Build an array of grouped options for backbone-forms
     getTagOptions: function() {
       var tree = [],
           obj  = this;
-      this.tag_categories.forEach(function(category) {
+      this.refs.tag_categories.forEach(function(category) {
         tree.push({
           group:   category.get('name'),
-          options: obj.tags.filter(function(tag) {
+          options: obj.refs.tags.filter(function(tag) {
             return tag.get('category') == category.id;
           }).map(function(tag) {
             return { val: tag.id, label: tag.get('name') };
@@ -55,8 +52,8 @@ define([
     render: function() {
       this.form = new ProductForm({
         model:               this.model,
-        product_categories:  this.product_categories,
-        makers:              this.makers,
+        product_categories:  this.refs.product_categories,
+        makers:              this.refs.makers,
         tags:                this.getTagOptions()
       }).render();
       this.listenTo(this.form, 'init-error', this.showServerError);
@@ -88,7 +85,7 @@ define([
       var obj     = this,
           editor  = this.form.getEditor('categories'),
           val     = editor.getValue();
-      var view = new CategoriesView({ collection: this.product_categories });
+      var view = new CategoriesView({ collection: this.refs.product_categories });
       view.renderModal();
       editor.listenTo(view, 'close', editor.refresh);
     },
@@ -97,7 +94,7 @@ define([
       var obj     = this,
           editor  = this.form.getEditor('makers'),
           val     = editor.getValue();
-      var view = new MakersView({ collection: this.makers });
+      var view = new MakersView({ collection: this.refs.makers });
       view.renderModal();
       editor.listenTo(view, 'close', editor.refresh);
     },
@@ -106,7 +103,7 @@ define([
       var obj     = this,
           editor  = this.form.getEditor('tags'),
           val     = editor.getValue();
-      var view = new TagsView({ collection: this.tags });
+      var view = new TagsView({ collection: this.refs.tags });
       view.renderModal();
       editor.listenTo(view, 'close', function() {
         editor.schema.options = obj.getTagOptions();

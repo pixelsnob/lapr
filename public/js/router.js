@@ -1,8 +1,8 @@
 
 define([
   'backbone',
-  'views/products'
-], function(Backbone, ProductsView) {
+  'views/app'
+], function(Backbone, AppView) {
   
   return Backbone.Router.extend({
     routes: {
@@ -20,15 +20,15 @@ define([
           Backbone.history.navigate(href, true);
         }
       });
-      this.products_view = new ProductsView;
+      this.app_view = new AppView;
     },
 
     showProducts: function() {
-      this.products_view.render();
+      this.app_view.renderProducts();
     },
 
     showProductsByCategory: function(category) {
-      this.products_view.showByCategory(category);
+      //this.products_view.showByCategory(category);
     }
   });
 });

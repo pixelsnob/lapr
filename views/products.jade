@@ -9,24 +9,26 @@ block content
           a.category(href="/products/tags/#{tag}")= tag
 
   .col-md-10
-    a(href=paginate.href({ sort: 'name' })) Sort by name
-    table.products
-      thead
-        tr
-          //- th
-          th Instrument
-          th Description
-          th Maker/Manufacturer
-          th Price
-      tbody
-        each product in products
+    .products
+      table.products
+        thead
           tr
-            include product_row
+            //- th
+            th Instrument
+            th Description
+            th Maker/Manufacturer
+            th Price
+        tbody
+          each product in products
+            tr
+              include product_row
+      
 
-    include paginate
+      if user
+        ul
+          li
+            a.add-product(href="javascript:void(0);") Add Product
+      
+      include paginate
     
-    if user
-      ul
-        li
-          a.add-product(href="javascript:void(0);") Add Product
 
