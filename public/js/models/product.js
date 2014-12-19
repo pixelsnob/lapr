@@ -13,7 +13,6 @@ define([
       if (opts && opts.id) {
         this.id = opts.id;
       }
-      //this.makers = opts.makers;
     }
   });
 });

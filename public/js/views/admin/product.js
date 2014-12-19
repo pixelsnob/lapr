@@ -4,6 +4,7 @@
  */
 define([
   'views/base',
+  'models/product',
   './categories',
   './makers',
   './tags',
@@ -12,6 +13,7 @@ define([
   'lib/dialog'
 ], function(
   BaseView,
+  ProductModel,
   CategoriesView,
   MakersView,
   TagsView,
@@ -28,8 +30,9 @@ define([
     },
     
     initialize: function(opts) {
-      this.model               = opts.model;
-      this.refs                = opts.refs;
+      this.model    = opts.model || new ProductModel;
+      this.refs     = opts.refs;
+      this.mode     = opts.mode || 'edit';
     },
     
     // Build an array of grouped options for backbone-forms
@@ -60,7 +63,7 @@ define([
       this.setElement(this.form.el);
       return this;
     },
-
+    
     renderModal: function(opts) {
       this.render();
       var modal_view = new ModalFormView({ form: this.form });
@@ -68,7 +71,7 @@ define([
         title: 'Edit Product',
         body: this.$el,
         save_label: 'Save',
-        show_remove_button: (opts.mode == 'edit')
+        show_remove_button: (this.mode == 'edit')
       });
       this.listenTo(modal_view, 'save', this.save);
       this.listenTo(modal_view, 'remove', this._remove);
@@ -116,7 +119,7 @@ define([
       if (!errors) {
         this.model.save(this.model.attributes, {
           wait: true,
-          success: _.bind(this.trigger, this, 'save'),
+          success: _.bind(this.trigger, this, 'save', this.model),
           error:   _.bind(this.showServerError, this)
         });
       } else {

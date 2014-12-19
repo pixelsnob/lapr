@@ -4,9 +4,11 @@
  */
 define([
   'views/base',
+  'models/product',
   'template'
 ], function(
   BaseView,
+  ProductModel,
   template
 ) {
   
@@ -16,22 +18,21 @@ define([
     
     events: {
     },
-    
 
     initialize: function(opts) {
-      this.model                = opts.model;
+      this.model                = opts.model || new ProductModel;
       this.refs                 = opts.refs;
+      this.products             = opts.products;
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'destroy', this.remove);
-      var obj = this;
       // Keep refs data fresh on the page 
-      this.listenTo(this.model.collection, 'change-ref', this.refsChange); 
+      this.listenTo(this.products, 'change-ref', this.refsChange); 
       // Include product admin editor if admin user
       if (window.cms.user) {
         var obj = this;
         require([ 'views/admin/product' ], function(ProductAdminView) {
           var events = {
-            'click a.product': _.bind(obj.edit, obj, ProductAdminView, 'edit')
+            'click a.product': _.bind(obj.edit, obj, ProductAdminView)
           };
           obj.delegateEvents(events);
         });
@@ -56,12 +57,13 @@ define([
       return this;
     },
 
-    edit: function(ProductAdminView, mode) {
+    edit: function(ProductAdminView) {
       var view = new ProductAdminView({
         model:              this.model,
-        refs:               this.refs
+        refs:               this.refs,
+        mode:               'edit'
       });
-      view.renderModal({ mode: mode });
+      view.renderModal();
       return false;
     },
 
