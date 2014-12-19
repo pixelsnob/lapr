@@ -33,7 +33,6 @@ define([
     },
     
     render: function() {
-      console.log('render');
       var fragment = document.createDocumentFragment(),
           obj      = this;
       this.collection.forEach(function(product) {

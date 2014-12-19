@@ -67,6 +67,7 @@ define([
       return false;
     },
 
+    // Only render if refs that belong to this product are changed
     refsChange: function(model) {
       var ids    = [],
           makers = this.model.get('makers');
