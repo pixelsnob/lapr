@@ -67,16 +67,16 @@ var routes     = require('./routes')(app),
     cms_routes = require('cms/routes');
 
 app.route('/products')
-  .get(routes.buildJson, routes.getProducts)
-  .post(routes.buildJson, routes.getProducts)
+  .get(routes.getProducts, routes.productsSearch)
+  .post(routes.getProducts, routes.productsSearch)
 
 // temp
 //app.route('/api/products')
 //  .get(routes.getProductsApi);
 
 app.route('/products/categories/:category')
-  .get(routes.buildJson, routes.getProducts)
-  .post(routes.buildJson, routes.getProducts);
+  .get(routes.getProducts)
+  .post(routes.getProducts);
 
 app.route('/products/:slug/:id?')
   .get(routes.getProduct)

@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 var TagSchema = new mongoose.Schema({
   name: String,
-  category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TagCategory' }]
+  category: { type: mongoose.Schema.Types.ObjectId, ref: 'TagCategory' }
 });
 
 TagSchema.pre('remove', function(next) {

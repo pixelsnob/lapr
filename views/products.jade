@@ -6,7 +6,7 @@ block content
     ul.tags
       each tag in tags
         li 
-          a.category(href="/products/tags/#{tag}")= tag
+          a.category(href="/products/tags/#{tag.name}")= tag.name
 
   .col-md-10
     .products

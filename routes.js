@@ -77,8 +77,30 @@ module.exports = function(app) {
       };
     },
 
-    getProducts: function(req, res, next) {
-      async.waterfall([
+    productsSearch: function(req, res, next) {
+      var tags_tree = [];
+      //console.log(_.findWhere(res.locals.products.tags, { name: 'Metal' }));
+      /*res.locals.products.tag_categories.forEach(function(tag_cat) {
+        var tags = _.findWhere(res.locals.products.tags, { category: require('mongoose').Types.ObjectId(tag_cat._id) });
+        tags_tree[tag_cat._id] = { name: tag_cat.name, tags: tags };
+        //console.log(tags);
+      });*/
+      console.log(tags_tree);
+      res.format({
+        html: function() {
+          res.render('products', {
+            products:      res.locals.products.products,
+            categories:    res.locals.products.categories,
+            tags:          tags_tree,
+            page_count:    0,
+            item_count:    0
+          });
+        },
+        json: function() {
+          res.send(products);
+        }
+      });
+      /*async.waterfall([
         // Get products
         function(cb) {
           models.Product.paginate({}, req.query.page, req.query.limit,
@@ -119,7 +141,7 @@ module.exports = function(app) {
           }
 
         });
-      });
+      });*/
     },
     
     getProduct: function(req, res, next) {
@@ -148,7 +170,7 @@ module.exports = function(app) {
 
     // Builds JSON data that gets dumped on the page, for the front-end
     // to use
-    buildJson: function(req, res, next) {
+    getProducts: function(req, res, next) {
       var model_names = {
         'products':            'Product',
         'product_categories':  'ProductCategory',
@@ -169,7 +191,7 @@ module.exports = function(app) {
         if (err) {
           return next(err);
         }
-        res.locals.json_data = data;       
+        res.locals.products = data;       
         next();
       });
     }
