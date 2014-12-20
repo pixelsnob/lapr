@@ -1,5 +1,5 @@
 
-"use strict";
+'use strict';
 
 var async            = require('async'),
     models           = require('./models'),
@@ -157,7 +157,6 @@ module.exports = function(app) {
           return next(err);
         }
         res.locals.json_data = data;       
-        //console.log(data);
         next();
       });
     }
