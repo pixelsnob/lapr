@@ -2,13 +2,17 @@
 extends layout
 
 block content
-  .col-md-2
+  .col-md-3
     ul.tags
-      each tag in tags
+      each tag_cat in tags_tree
         li 
-          a.category(href="/products/tags/#{tag.name}")= tag.name
+          //- p= tag_cat.name
+          ul
+            each tag in tag_cat.tags
+              li
+                a.category(href="/products/tags/#{tag.slug}")= tag.name
 
-  .col-md-10
+  .col-md-9
     .products
       table.products
         thead

@@ -31,14 +31,21 @@ module.exports = function(app) {
         if (!isValidId(req.params.id)) {
           return res.sendStatus(404);
         }
-        models[model_name].findOneAndUpdate(
-          { _id: req.params.id },
-          _.omit(req.body, '_id'),
+        models[model_name].findOne({ _id: req.params.id },
           function(err, doc) {
             if (err) {
               return next(err);
             }
-            res.send(doc);
+            if (!doc) {
+              return new Error(model_name + ' not found');
+            }
+            _.extend(doc, _.omit(req.body, '_id'));
+            doc.save(function(err) {
+              if (err) {
+                return next(err);
+              }
+              res.send(doc);
+            });
           }
         );
       };
@@ -79,19 +86,18 @@ module.exports = function(app) {
 
     productsSearch: function(req, res, next) {
       var tags_tree = [];
-      //console.log(_.findWhere(res.locals.products.tags, { name: 'Metal' }));
-      /*res.locals.products.tag_categories.forEach(function(tag_cat) {
-        var tags = _.findWhere(res.locals.products.tags, { category: require('mongoose').Types.ObjectId(tag_cat._id) });
-        tags_tree[tag_cat._id] = { name: tag_cat.name, tags: tags };
-        //console.log(tags);
-      });*/
-      console.log(tags_tree);
+      res.locals.json_data.tag_categories.forEach(function(tag_cat) {
+        var tags = res.locals.json_data.tags.filter(function(tag) {
+          return _.isEqual(tag.category, tag_cat._id);
+        });
+        tags_tree.push({ name: tag_cat.name, tags: tags });
+      });
       res.format({
         html: function() {
           res.render('products', {
-            products:      res.locals.products.products,
-            categories:    res.locals.products.categories,
-            tags:          tags_tree,
+            products:      res.locals.json_data.products,
+            categories:    res.locals.json_data.categories, 
+            tags_tree:     tags_tree,
             page_count:    0,
             item_count:    0
           });
@@ -100,48 +106,6 @@ module.exports = function(app) {
           res.send(products);
         }
       });
-      /*async.waterfall([
-        // Get products
-        function(cb) {
-          models.Product.paginate({}, req.query.page, req.query.limit,
-          function(err, page_count, products, item_count) {
-            if (err) {
-              return cb(err);
-            }
-            cb(null, products, page_count, item_count);
-          }, { sortBy: { name: 1 }});
-        },
-        // Get product categories
-        function(products, page_count, item_count, cb) {
-          models.ProductCategory.find({}, null, { sort: { name: 1 }},
-          function(err, categories) {
-            if (err) {
-              return cb(err);
-            }
-            cb(null, products, categories, page_count, item_count);
-          });
-        }
-        
-      ], function(err, products, categories, page_count, item_count) {
-        if (err) {
-          return next(err);
-        }
-        res.format({
-          html: function() {
-            res.render('products', {
-              products:      products,
-              categories:    categories,
-              page_count:    page_count,
-              item_count:    item_count,
-              tags:          []
-            });
-          },
-          json: function() {
-            res.send(products);
-          }
-
-        });
-      });*/
     },
     
     getProduct: function(req, res, next) {
@@ -180,7 +144,8 @@ module.exports = function(app) {
       },
       data = [];
       async.each(Object.keys(model_names), function(model_name, cb) {
-        models[model_names[model_name]].find(function(err, docs) {
+        models[model_names[model_name]].find({}, null, { sort: { name: 1 }},
+        function(err, docs) {
           if (err) {
             return cb(err);
           }
@@ -191,7 +156,8 @@ module.exports = function(app) {
         if (err) {
           return next(err);
         }
-        res.locals.products = data;       
+        res.locals.json_data = data;       
+        //console.log(data);
         next();
       });
     }
