@@ -5,6 +5,7 @@
 define([
   'views/base',
   'views/products',
+  'views/tags_tree',
   'collections/products',
   'collections/product_categories',
   'collections/makers',
@@ -13,6 +14,7 @@ define([
 ], function(
   BaseView,
   ProductsView,
+  TagsTreeView,
   ProductsCollection,
   ProductCategoriesCollection,
   MakersCollection,
@@ -37,10 +39,15 @@ define([
         collection:         this.products,
         refs:               this.refs
       });
+      this.tags_tree_view = new TagsTreeView({
+        tags:           this.refs.tags,
+        tag_categories: this.refs.tag_categories
+      });
     },
 
     renderProducts: function() {
-      this.products_view.render(); 
+      this.products_view.render();// <<<<<<<<<<< 
+      this.$el.find('.tags-tree').html(this.tags_tree_view.render().el);
     }
 
   });

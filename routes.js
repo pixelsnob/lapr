@@ -97,7 +97,7 @@ module.exports = function(app) {
           res.render('products', {
             products:      res.locals.json_data.products,
             categories:    res.locals.json_data.categories, 
-            tags_tree:     tags_tree,
+            tags_tree:     [],//tags_tree,
             page_count:    0,
             item_count:    0
           });
