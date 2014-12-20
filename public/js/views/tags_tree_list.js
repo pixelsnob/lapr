@@ -18,18 +18,20 @@ define([
     },
 
     initialize: function(opts) {
+      this.selected_tags = opts.selected_tags;
     },
     
     render: function() {
       var obj = this;
       this.collection.forEach(function(tag) {
-        var view = new TagsTreeListItemView({ model: tag });
+        var view = new TagsTreeListItemView({
+          model: tag,
+          selected_tags: obj.selected_tags
+        });
         obj.$el.append(view.render().el);
       });
       return this;
     }
 
-
   });
-  
 });

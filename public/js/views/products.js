@@ -59,7 +59,7 @@ define([
           return category.get('slug') == slug;
         });
       });
-      this.render(products);// <<<<<<<<<<<<
+      this.render(products);// <<<<<<<<<<<< instead set filtered collection here
       return false;
     },
 
