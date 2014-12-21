@@ -22,8 +22,9 @@ define([
     },
 
     initialize: function(opts) {
-      this.tag_categories = opts.tag_categories;
-      this.tags = opts.tags;
+      this.refs = opts.refs;
+      //this.tag_categories = opts.tag_categories;
+      //this.tags = opts.tags;
       this.selected_tags = new Backbone.Collection;
       var obj = this;
       /*vent.on('tag-item-selected', function(model) {
@@ -38,10 +39,11 @@ define([
     
     render: function() {
       var obj = this;
-      this.tag_categories.forEach(function(category) {
-        var tags = obj.tags.where({ category: category.id });
+      this.refs.tag_categories.forEach(function(category) {
+        var tags = obj.refs.tags.where({ category: category.id });
         var view = new TagsTreeCategoryView({
           model: category,
+          refs: obj.refs,
           tags: tags,
           selected_tags: obj.selected_tags
         });

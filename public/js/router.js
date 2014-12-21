@@ -7,7 +7,9 @@ define([
   return Backbone.Router.extend({
     routes: {
       'products':                       'showProducts',
-      'products/categories/:category':  'showProductsByCategory'
+      //'products/categories/:category':  'showProductsByCategory',
+      'products/tags/':                 'showProducts',
+      'products/tags/:tags':           'filterProductsByTags'
     },
 
     initialize: function() {
@@ -27,8 +29,13 @@ define([
       this.app_view.renderProducts();
     },
 
-    showProductsByCategory: function(category) {
+    //showProductsByCategory: function(category) {
       //this.products_view.showByCategory(category);
+    //},
+
+    filterProductsByTags: function(tags) {
+      console.log(tags);
+      this.app_view.filterProductsByTags(tags.split(','));
     }
   });
 });

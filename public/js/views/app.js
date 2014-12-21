@@ -28,7 +28,7 @@ define([
     initialize: function() {
       var json = window.lapr;
       this.refs = {
-        filtered_products:    new Backbone.Collection(json.product_categories),
+        filtered_products:    new Backbone.Collection(json.products),
         product_categories:   new ProductCategoriesCollection(json.product_categories),
         makers:               new MakersCollection(json.makers),
         tags:                 new TagsCollection(json.tags),
@@ -41,15 +41,17 @@ define([
         refs:               this.refs
       });
       this.tags_tree_view = new TagsTreeView({
-        filtered_products: this.refs.filtered_products,
-        tags:              this.refs.tags,
-        tag_categories:    this.refs.tag_categories
+        refs: this.refs
       });
+      this.$el.find('.tags-tree').html(this.tags_tree_view.render().el);
     },
 
     renderProducts: function() {
-      this.products_view.render();// <<<<<<<<<<< 
-      this.$el.find('.tags-tree').html(this.tags_tree_view.render().el);
+      this.products_view.showAllProducts(); 
+    },
+
+    filterProductsByTags: function(tags) {
+      this.products_view.filterProductsByTags(tags);
     }
 
   });

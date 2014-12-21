@@ -18,6 +18,7 @@ define([
     },
 
     initialize: function(opts) {
+      this.refs = opts.refs;
       this.selected_tags = opts.selected_tags;
     },
     
@@ -26,6 +27,7 @@ define([
       this.collection.forEach(function(tag) {
         var view = new TagsTreeListItemView({
           model: tag,
+          refs: obj.refs,
           selected_tags: obj.selected_tags
         });
         obj.$el.append(view.render().el);

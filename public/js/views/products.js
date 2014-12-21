@@ -30,12 +30,14 @@ define([
         });
       }
       this.listenTo(this.collection, 'add', this.render);
+      this.listenTo(this.refs.filtered_products, 'reset change', this.render);
     },
     
     render: function() {
       var fragment = document.createDocumentFragment(),
           obj      = this;
-      this.collection.forEach(function(product) {
+      //console.log('render');
+      this.refs.filtered_products.forEach(function(product) {
         var view = new ProductView({
           model:              product,
           products:           obj.collection,
@@ -47,8 +49,27 @@ define([
       return this;
     },
     
+    showAllProducts: function() {
+      this.refs.filtered_products.reset(this.collection.models);
+    },
+
+    filterProductsByTags: function(slugs) {
+      // Get tag _ids from slugs
+      var tag_ids = this.refs.tags.filter(function(tag) {
+        return _.contains(slugs, tag.get('slug'));
+      }).map(function(tag) {
+        return tag.get('_id');
+      });
+      // Filter products by tags
+      var products = this.collection.filter(function(product) {
+        return _.intersection(tag_ids, product.get('tags')).length; 
+      });
+      this.refs.filtered_products.reset(products);
+      console.log(products.length);
+    },
+
     // ?????
-    showByCategory: function(slug) {
+    /*showByCategory: function(slug) {
       var obj = this;
       var products = this.collection.filter(function(product) { 
         return _.some(product.get('categories'), function(id) {
@@ -61,7 +82,7 @@ define([
       });
       this.render(products);// <<<<<<<<<<<< instead set filtered collection here
       return false;
-    },
+    },*/
 
     add: function(ProductAdminView) {
       var view = new ProductAdminView({
