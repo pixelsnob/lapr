@@ -26,7 +26,7 @@ define([
       //this.tag_categories = opts.tag_categories;
       //this.tags = opts.tags;
       this.selected_tags = new Backbone.Collection;
-      var obj = this;
+      //var obj = this;
       /*vent.on('tag-item-selected', function(model) {
         obj.selected_tags.add(model);
         console.log(obj.selected_tags);

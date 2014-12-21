@@ -21,8 +21,7 @@ define([
     initialize: function(opts) {
       this.selected_tags = opts.selected_tags; 
       this.refs = opts.refs;
-      // This needs to happen in each list item view, so that this view
-      // can disable itself based on cascading search
+      // Select or deselect if this model exists in selected_tags
       var obj = this;
       this.listenTo(this.selected_tags, 'add', function(model) {
         if (model.id == obj.model.id) {
@@ -34,13 +33,24 @@ define([
           obj.deselect();
         }
       });
-      // ...listen to a filtered products collection??????
-      this.listenTo(this.refs.filtered_products, 'reset', function() {
-        console.log('ch');
+      // Disable tags that don't exist in current filtered products
+      this.listenTo(this.refs.filtered_products, 'reset', function(filtered_products) {
+        var products = filtered_products.filter(function(product) {
+          return _.contains(product.get('tags'), obj.model.id);
+        });
+        var a = obj.$el.find('a');
+        if (products.length) {
+          a.removeClass('disabled');
+        } else {
+          a.addClass('disabled');
+        }
       });
     },
     
     toggle: function(ev) {
+      if ($(ev.currentTarget).hasClass('disabled')) {
+        return false;
+      }
       if (this.selected_tags.findWhere({ _id: this.model.id })) {
         this.selected_tags.remove(this.model);
       } else {

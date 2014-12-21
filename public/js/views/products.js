@@ -69,7 +69,6 @@ define([
         return temp_tag_ids.length == tag_ids.length;
       });
       this.refs.filtered_products.reset(products);
-      console.log(products.length);
     },
 
     // ?????

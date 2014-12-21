@@ -34,7 +34,6 @@ define([
     //},
 
     filterProductsByTags: function(tags) {
-      console.log(tags);
       this.app_view.filterProductsByTags(tags.split(','));
     }
   });
