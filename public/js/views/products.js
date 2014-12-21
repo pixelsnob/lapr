@@ -36,7 +36,6 @@ define([
     render: function() {
       var fragment = document.createDocumentFragment(),
           obj      = this;
-      //console.log('render');
       this.refs.filtered_products.forEach(function(product) {
         var view = new ProductView({
           model:              product,
@@ -62,7 +61,12 @@ define([
       });
       // Filter products by tags
       var products = this.collection.filter(function(product) {
-        return _.intersection(tag_ids, product.get('tags')).length; 
+        var temp_tag_ids = tag_ids.filter(function(tag_id) {
+          return _.contains(product.get('tags'), tag_id);
+        });
+        // Filter product if all of the selected tags exist in the product's
+        // tags array
+        return temp_tag_ids.length == tag_ids.length;
       });
       this.refs.filtered_products.reset(products);
       console.log(products.length);
