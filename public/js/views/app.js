@@ -32,7 +32,8 @@ define([
         product_categories:   new ProductCategoriesCollection(json.product_categories),
         makers:               new MakersCollection(json.makers),
         tags:                 new TagsCollection(json.tags),
-        tag_categories:       new TagCategoriesCollection(json.tag_categories)
+        tag_categories:       new TagCategoriesCollection(json.tag_categories),
+        selected_tags:        new Backbone.Collection
       };
       this.products = new ProductsCollection(json.products, { refs: this.refs });
       this.products_view = new ProductsView({
@@ -52,6 +53,7 @@ define([
 
     filterProductsByTags: function(tags) {
       this.products_view.filterProductsByTags(tags);
+      this.tags_tree_view.setSelectedTags(tags);
     }
 
   });

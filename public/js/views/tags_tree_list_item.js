@@ -19,16 +19,15 @@ define([
     },
 
     initialize: function(opts) {
-      this.selected_tags = opts.selected_tags; 
       this.refs = opts.refs;
-      // Select or deselect if this model exists in selected_tags
       var obj = this;
-      this.listenTo(this.selected_tags, 'add', function(model) {
+      // Select or deselect if this model exists in selected_tags
+      this.listenTo(this.refs.selected_tags, 'add', function(model) {
         if (model.id == obj.model.id) {
           obj.select();
         }
       });
-      this.listenTo(this.selected_tags, 'remove', function(model) {
+      this.listenTo(this.refs.selected_tags, 'remove', function(model) {
         if (model.id == obj.model.id) {
           obj.deselect();
         }
@@ -44,6 +43,7 @@ define([
         } else {
           a.addClass('disabled');
         }
+        // determine if this is the only active tag in its group?
       });
     },
     
@@ -51,12 +51,12 @@ define([
       if ($(ev.currentTarget).hasClass('disabled')) {
         return false;
       }
-      if (this.selected_tags.findWhere({ _id: this.model.id })) {
-        this.selected_tags.remove(this.model);
+      if (this.refs.selected_tags.findWhere({ _id: this.model.id })) {
+        this.refs.selected_tags.remove(this.model);
       } else {
-        this.selected_tags.add(this.model);
+        this.refs.selected_tags.add(this.model);
       }
-      var slugs = this.selected_tags.map(function(tag) {
+      var slugs = this.refs.selected_tags.map(function(tag) {
         return tag.get('slug');
       });
       var url;
