@@ -4,14 +4,6 @@ extends layout
 block content
   .col-md-3
     .tags-tree
-      ul
-        each tag_cat in tags_tree
-          li 
-            //- p= tag_cat.name
-            ul
-              each tag in tag_cat.tags
-                li
-                  a.category(href="/products/tags/#{tag.slug}")= tag.name
 
   .col-md-9
     .products

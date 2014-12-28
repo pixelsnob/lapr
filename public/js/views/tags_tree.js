@@ -26,8 +26,11 @@ define([
     },
     
     setSelectedTags: function(tags) {
-      var obj = this, models = [];
+      var obj = this, models = [], tags = (_.isArray(tags) ? tags : []);
       this.refs.selected_tags.reset();
+      if (!tags.length) {
+        return;
+      }
       tags.forEach(function(tag) {
         var model = obj.refs.tags.findWhere({ slug: tag });
         if (model) {

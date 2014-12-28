@@ -10,7 +10,7 @@ module.exports = {
     text: 'Instruments'
   },
   contact: {
-    url: '/contact',
-    text: 'Contact'
+    url: '/products/tags/',
+    text: 'Sound Search'
   }
 };

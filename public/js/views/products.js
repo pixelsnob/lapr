@@ -53,6 +53,7 @@ define([
     },
 
     filterProductsByTags: function(slugs) {
+      slugs = _.isArray(slugs) ? slugs : [];
       // Get tag _ids from slugs
       var tag_ids = this.refs.tags.filter(function(tag) {
         return _.contains(slugs, tag.get('slug'));
@@ -61,6 +62,9 @@ define([
       });
       // Filter products by tags
       var products = this.collection.filter(function(product) {
+        if (!tag_ids.length) {
+          return _.isArray(product.get('tags')) && product.get('tags').length;
+        }
         var temp_tag_ids = tag_ids.filter(function(tag_id) {
           return _.contains(product.get('tags'), tag_id);
         });

@@ -32,6 +32,18 @@ define([
           obj.deselect();
         }
       });
+      this.listenTo(this.refs.selected_tags, 'reset', function(selected_tags) {
+        var selected_tag_ids = selected_tags.map(function(models) {
+          return model.id;
+        });
+        obj.refs.tags.forEach(function(tag) {
+          if (_.contains(selected_tag_ids, tag.id)) {
+            obj.select();
+          } else {
+            obj.deselect();
+          }
+        });
+      });
       // Disable tags that don't exist in current filtered products
       this.listenTo(this.refs.filtered_products, 'reset', function(filtered_products) {
         var products = filtered_products.filter(function(product) {
@@ -59,11 +71,9 @@ define([
       var slugs = this.refs.selected_tags.map(function(tag) {
         return tag.get('slug');
       });
-      var url;
+      var url = '/products/tags';
       if (slugs.length) {
-        url = '/products/tags/' + slugs.join(',');
-      } else {
-        url = '/products';
+        url += '/' + slugs.join(',');
       }
       Backbone.history.navigate(url, true);
       return false;

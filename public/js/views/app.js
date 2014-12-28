@@ -25,6 +25,10 @@ define([
     
     el: 'body',
 
+    events: {
+      'click nav a': 'navigate'
+    },
+
     initialize: function() {
       var json = window.lapr;
       this.refs = {
@@ -44,16 +48,46 @@ define([
       this.tags_tree_view = new TagsTreeView({
         refs: this.refs
       });
-      this.$el.find('.tags-tree').html(this.tags_tree_view.render().el);
+    },
+    
+    navigate: function(ev) {
+      var url = $(ev.currentTarget).attr('href');
+      switch (url) {
+        case '/products':
+          this.renderProducts();
+          break;
+        case '/tags':
+          this.filterProductsByTags();
+          break;
+      }
+      Backbone.history.navigate(url, true);
+      return false;
+    },
+    
+    renderProducts: function() {
+      this.hideTagsTree();
+      setTimeout(_.bind(this.products_view.showAllProducts,
+        this.products_view), 0);
+      return false;
     },
 
-    renderProducts: function() {
-      this.products_view.showAllProducts(); 
+    showTagsTree: function() {
+      var $tags_tree = this.$el.find('.tags-tree');
+      if (!$tags_tree.children().length) {
+        $tags_tree.html(this.tags_tree_view.render().el);
+      }
+      $tags_tree.show();
+    },
+    
+    hideTagsTree: function() {
+      this.$el.find('.tags-tree').hide();
     },
 
     filterProductsByTags: function(tags) {
+      this.showTagsTree();
       this.products_view.filterProductsByTags(tags);
       this.tags_tree_view.setSelectedTags(tags);
+      return false;
     }
 
   });

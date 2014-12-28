@@ -8,20 +8,13 @@ define([
     routes: {
       'products':                       'showProducts',
       //'products/categories/:category':  'showProductsByCategory',
-      'products/tags/':                 'showProducts',
+      //'products/tags/':                 'showProducts',
+      'products/tags':                 'filterProductsByTags',
+      'products/tags/':                'filterProductsByTags',
       'products/tags/:tags':           'filterProductsByTags'
     },
 
     initialize: function() {
-      // move this to lib or somewhere else
-      /*$('a').on('click', function(ev) {
-        var href = $(this).attr('href'), protocol = this.protocol + '//';
-        if (href.slice(protocol.length) !== protocol && protocol !== 'javascript://'
-            && href.substring(0, 1) !== '#') {
-          ev.preventDefault();
-          Backbone.history.navigate(href, true);
-        }
-      });*/
       this.app_view = new AppView;
     },
 
@@ -34,7 +27,8 @@ define([
     //},
 
     filterProductsByTags: function(tags) {
-      this.app_view.filterProductsByTags(tags.split(','));
+      tags = (tags && tags.length ? tags.split(',') : []);
+      this.app_view.filterProductsByTags(tags);
     }
   });
 });
