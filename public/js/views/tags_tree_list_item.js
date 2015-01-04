@@ -32,6 +32,7 @@ define([
           obj.deselect();
         }
       });
+      // Reset selected tags
       this.listenTo(this.refs.selected_tags, 'reset', function(selected_tags) {
         var selected_tag_ids = selected_tags.map(function(models) {
           return model.id;
@@ -45,8 +46,8 @@ define([
         });
       });
       // Disable tags that don't exist in current filtered products
-      this.listenTo(this.refs.filtered_products, 'reset', function(filtered_products) {
-        var products = filtered_products.filter(function(product) {
+      this.listenTo(this.refs.filtered_products, 'reset', function(products) {
+        products = products.filter(function(product) {
           return _.contains(product.get('tags'), obj.model.id);
         });
         var a = obj.$el.find('a');

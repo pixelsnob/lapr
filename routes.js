@@ -160,9 +160,10 @@ module.exports = function(app) {
       res.format({
         html: function() {
           res.render('products', {
-            products:      products,
-            categories:    res.locals.json_data.categories, 
-            tags_tree:     [],//tags_tree,
+            products:       products,
+            categories:     res.locals.json_data.categories, 
+            tags:           res.locals.json_data.tags,
+            tag_categories: res.locals.json_data.tag_categories,
             page_count:    0,
             item_count:    0
           });
