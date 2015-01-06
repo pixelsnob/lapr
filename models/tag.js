@@ -26,5 +26,7 @@ TagSchema.pre('remove', function(next) {
   next();
 });*/
 
-module.exports = mongoose.model('Tag', TagSchema);
+module.exports = function(mai) {
+  return mongoose.model('Tag', TagSchema);
+};
 

@@ -8,13 +8,19 @@ var MakerSchema = new mongoose.Schema({
   name: String,
 });
 
-MakerSchema.pre('remove', function(next) {
+/*MakerSchema.pre('remove', function(next) {
   Product.update(
     { makers: this._id },
     { $pull: { makers: this._id }},
     { multi: true },
     next
   );
-});
+});*/
 
-module.exports = mongoose.model('Maker', MakerSchema);
+module.exports = function(mai) {
+  MakerSchema.plugin(mai.plugin, {
+    model: 'Maker',
+    startAt: 0
+  });
+  return mongoose.model('Maker', MakerSchema);
+};

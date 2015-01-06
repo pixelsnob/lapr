@@ -2,20 +2,22 @@
 'use strict';
 
 var async            = require('async'),
-    models           = require('./models'),
+    db               = require('./models'),
     _                = require('underscore');
 
 module.exports = function(app) {
 
   var isValidId = function(id) {
-    return require('mongoose').Types.ObjectId.isValid(id);
+    //return require('mongoose').Types.ObjectId.isValid(id);
+    //return (typeof id == 'number');
+    return true;
   };
   
   return {
     
     get: function(model_name) {
       return function(req, res, next) {
-        models[model_name].find()
+        db.connection.model(model_name).find()
           .sort({ name: 1 })
           .exec(function(err, docs) {
             if (err) {
@@ -31,7 +33,7 @@ module.exports = function(app) {
         if (!isValidId(req.params.id)) {
           return res.sendStatus(404);
         }
-        models[model_name].findOne({ _id: req.params.id },
+        db.connection.model(model_name).findOne({ _id: req.params.id },
           function(err, doc) {
             if (err) {
               return next(err);
@@ -54,7 +56,7 @@ module.exports = function(app) {
     add: function(model_name) {
       return function(req, res, next) {
         var data  = _.omit(req.body, [ 'id', '_id' ]);
-        models[model_name].create(data, function(err, doc) {
+        db.connection.model(model_name).create(data, function(err, doc) {
           if (err) {
             return next(err);
           }
@@ -68,7 +70,7 @@ module.exports = function(app) {
         if (!isValidId(req.params.id)) {
           return res.sendStatus(404);
         }
-        models[model_name].findOne({ _id: req.params.id },
+        db.connection.model(model_name).findOne({ _id: req.params.id },
           function(err, doc) {
             if (err) {
               return next(err);
@@ -112,7 +114,7 @@ module.exports = function(app) {
       if (!isValidId(req.params.id)) {
         return res.sendStatus(404);
       }
-      models.Product.findById(req.params.id, function(err, product) {
+      db.connection.model('Product').findById(req.params.id, function(err, product) {
         if (err) {
           return next(err);
         }
@@ -186,7 +188,7 @@ module.exports = function(app) {
       },
       data = [];
       async.each(Object.keys(model_names), function(model_name, cb) {
-        models[model_names[model_name]].find({}, null, { sort: { name: 1 }},
+        db.connection.model(model_names[model_name]).find({}, null, { sort: { name: 1 }},
         function(err, docs) {
           if (err) {
             return cb(err);

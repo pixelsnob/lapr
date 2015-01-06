@@ -6,20 +6,20 @@ var mongoose   = require('mongoose'),
     _          = require('underscore');
 
 var ProductSchema = new mongoose.Schema({
-  category:          String,
-  categories:        [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProductCategory' }],
+  //category:          String,
+  categories:        [{ type: Number, ref: 'ProductCategory' }],
   name:              String,
   slug:              String,
   alt_names:         String,
-  maker:             String,
-  makers:            [{ type: mongoose.Schema.Types.ObjectId, ref: 'Maker' }],
+  //maker:             String,
+  makers:            [{ type: Number, ref: 'Maker' }],
   description:       String,
   old_description:   String,
   model_no:          String,
   price:             String,
   range:             String,
-  image:             String,
-  full_image:        String,
+  //image:             String,
+  //full_image:        String,
   images:            [ String ],
   sizes:             String,
   octaves:           Number,
@@ -75,5 +75,8 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
 };
 
 ProductSchema.plugin(require('mongoose-paginate'));
-module.exports = mongoose.model('Product', ProductSchema);
+module.exports = function(mai) {
+  ProductSchema.plugin(mai.plugin, { model: 'Product', startAt: 0 });
+  return mongoose.model('Product', ProductSchema);
+};
 

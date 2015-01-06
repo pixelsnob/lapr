@@ -17,5 +17,8 @@ TagCategorySchema.pre('remove', function(next) {
   );
 });
 
-module.exports = mongoose.model('TagCategory', TagCategorySchema);
+module.exports = function(mai) {
+  return mongoose.model('TagCategory', TagCategorySchema);
+};
+
 

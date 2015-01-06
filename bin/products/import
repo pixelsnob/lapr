@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mongoimport -d lapr -c products --type csv --file /var/www/lapr/docs/lapr.csv --headerline --drop
+mongoimport -d lapr -c temp_products --type csv --file /var/www/lapr/docs/lapr.csv --headerline --drop
 
 echo 'Transforming data...'
 node bin/products/transform.js
