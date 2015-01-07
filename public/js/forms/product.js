@@ -72,11 +72,13 @@ define([
       sizes: {
         type: 'TextArea'
       },
-      images: {
-        type: 'List'
+      thumbnail: { 
+        type: 'Text'
+      },
+      image: {
+        type: 'Text'
       }
     }
-    
   });
 });
 

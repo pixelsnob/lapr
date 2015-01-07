@@ -18,9 +18,9 @@ var ProductSchema = new mongoose.Schema({
   model_no:          String,
   price:             String,
   range:             String,
-  //image:             String,
-  //full_image:        String,
-  images:            [ String ],
+  thumbnail:         String,
+  image:             String,
+  //images:            [ String ],
   sizes:             String,
   octaves:           Number,
   tags:              [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }]

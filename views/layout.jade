@@ -37,7 +37,10 @@ html
               each link, name in nav
                 - var current = (name == body_class ? 'current' : '');
                 li(class="#{current}")
-                  a(href="#{link.url}")= link.text
+                  a.navigate(href="#{link.url}")= link.text
+              if user
+                li
+                  a.logout(href="/logout") Logout
 
     #main
       block content 

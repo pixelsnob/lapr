@@ -14,9 +14,9 @@ var TempProduct = new mongoose.Schema({
   model_no:          String,
   price:             String,
   range:             String,
+  thumbnail:         String,
   image:             String,
-  full_image:        String,
-  images:            [ String ],
+  //images:            [ String ],
   sizes:             String,
   octaves:           Number,
   tags:              [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }]

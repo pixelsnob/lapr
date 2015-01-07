@@ -66,7 +66,11 @@ app.use(jade_browser(
 var routes     = require('./routes')(app),
     cms_routes = require('cms/routes');
 
-app.route('/products')
+app.route('/').get(function(req, res, next) {
+  res.redirect('/instruments');
+});
+
+app.route('/instruments')
   .get(routes.getProducts, routes.productsSearch)
   .post(routes.getProducts, routes.productsSearch)
 
@@ -74,14 +78,14 @@ app.route('/products')
 //app.route('/api/products')
 //  .get(routes.getProductsApi);
 
-app.route('/products/categories/:category')
+app.route('/instruments/categories/:category')
   .get(routes.getProducts)
   .post(routes.getProducts);
 
-app.route('/products/tags/:tags?')
+app.route('/instruments/tags/:tags?')
   .get(routes.getProducts, routes.getProductsByTags);
 
-app.route('/products/:slug/:id?')
+app.route('/instruments/:slug/:id?')
   .get(routes.getProduct)
   .post(cms_routes.auth, routes.add('Product'))
   .put(cms_routes.auth, routes.update('Product'))

@@ -6,12 +6,12 @@ define([
   
   return Backbone.Router.extend({
     routes: {
-      'products':                       'showProducts',
-      //'products/categories/:category':  'showProductsByCategory',
-      //'products/tags/':                 'showProducts',
-      'products/tags':                 'filterProductsByTags',
-      'products/tags/':                'filterProductsByTags',
-      'products/tags/:tags':           'filterProductsByTags'
+      'instruments':                       'showProducts',
+      //'instruments/categories/:category':  'showProductsByCategory',
+      //'instruments/tags/':                 'showProducts',
+      'instruments/tags':                 'filterProductsByTags',
+      'instruments/tags/':                'filterProductsByTags',
+      'instruments/tags/:tags':           'filterProductsByTags'
     },
 
     initialize: function() {

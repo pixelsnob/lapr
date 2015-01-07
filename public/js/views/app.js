@@ -26,7 +26,7 @@ define([
     el: 'body',
 
     events: {
-      'click nav a': 'navigate'
+      'click a.navigate': 'navigate'
     },
 
     initialize: function() {

@@ -6,11 +6,11 @@
  */
 module.exports = {
   instruments: {
-    url: '/products',
+    url: '/instruments',
     text: 'Instruments'
   },
   contact: {
-    url: '/products/tags/',
+    url: '/instruments/tags/',
     text: 'Sound Search'
   }
 };
