@@ -1,22 +1,21 @@
 
-"use strict";
+'use strict';
 
-var mongoose   = require('mongoose'),
-    Product    = require('./product');
+var db = require('mongoose');
 
-var ProductCategorySchema = new mongoose.Schema({
+var ProductCategorySchema = new db.Schema({
   name: { type: String, unique: true },
   slug: { type: String, unique: true }
 }, { collection: 'product_categories' });
 
-/*ProductCategorySchema.pre('remove', function(next) {
-  Product.update(
+ProductCategorySchema.pre('remove', function(next) {
+  db.connection.model('Product').update(
     { categories: this._id },
     { $pull: { categories: this._id }},
     { multi: true },
     next
   );
-});*/
+});
 
 
 module.exports = function(mai) {
@@ -24,7 +23,7 @@ module.exports = function(mai) {
     model: 'ProductCategory',
     startAt: 0
   });
-  return mongoose.model('ProductCategory', ProductCategorySchema);
+  return db.model('ProductCategory', ProductCategorySchema);
 };
 
 

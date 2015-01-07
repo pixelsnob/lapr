@@ -8,9 +8,7 @@ var async            = require('async'),
 module.exports = function(app) {
 
   var isValidId = function(id) {
-    //return require('mongoose').Types.ObjectId.isValid(id);
-    //return (typeof id == 'number');
-    return true;
+    return !isNaN(Number(id));
   };
   
   return {

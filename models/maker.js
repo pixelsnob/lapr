@@ -1,26 +1,25 @@
 
-"use strict";
+'use strict';
 
-var mongoose   = require('mongoose'),
-    Product    = require('./product');
+var db = require('mongoose');
 
-var MakerSchema = new mongoose.Schema({
+var MakerSchema = new db.Schema({
   name: String,
 });
 
-/*MakerSchema.pre('remove', function(next) {
-  Product.update(
+MakerSchema.pre('remove', function(next) {
+  db.connection.model('Product').update(
     { makers: this._id },
     { $pull: { makers: this._id }},
     { multi: true },
     next
   );
-});*/
+});
 
 module.exports = function(mai) {
   MakerSchema.plugin(mai.plugin, {
     model: 'Maker',
     startAt: 0
   });
-  return mongoose.model('Maker', MakerSchema);
+  return db.model('Maker', MakerSchema);
 };

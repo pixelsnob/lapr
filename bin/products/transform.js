@@ -9,12 +9,14 @@ var async            = require('async'),
     categories       = [];
 
 async.waterfall([
-  /*function(next) {
+  function(next) {
     var collections = [ 'products', 'product_categories', 'makers' ];
     async.eachSeries(collections, function(collection, cb) {
-      db.connection.collections[collection].drop(cb);
+      db.connection.collections[collection].drop(function(err) {
+        cb();
+      });
     }, next);
-  },*/
+  },
   function(next) {
     db.connection.model('TempProduct').find({}, function(err, products) {
       if (err) {
