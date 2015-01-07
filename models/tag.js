@@ -1,17 +1,16 @@
 
-"use strict";
+'use strict';
 
-var mongoose = require('mongoose'),
-    Product    = require('./product');
+var db = require('mongoose');
 
-var TagSchema = new mongoose.Schema({
+var TagSchema = new db.Schema({
   name: String,
   slug: String,
-  category: { type: mongoose.Schema.Types.ObjectId, ref: 'TagCategory' }
+  category: { type: db.Schema.Types.ObjectId, ref: 'TagCategory' }
 });
 
 TagSchema.pre('remove', function(next) {
-  Product.update(
+  db.model('Product').update(
     { tags: this._id },
     { $pull: { tags: this._id }},
     { multi: true },
@@ -27,6 +26,6 @@ TagSchema.pre('remove', function(next) {
 });*/
 
 module.exports = function(mai) {
-  return mongoose.model('Tag', TagSchema);
+  return db.model('Tag', TagSchema);
 };
 

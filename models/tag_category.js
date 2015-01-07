@@ -1,15 +1,14 @@
 
 "use strict";
 
-var mongoose = require('mongoose'),
-    Tag      = require('./tag');
+var db = require('mongoose');
 
-var TagCategorySchema = new mongoose.Schema({
+var TagCategorySchema = new db.Schema({
   name: String
 }, { collection: 'tag_categories' });
 
 TagCategorySchema.pre('remove', function(next) {
-  Tag.update(
+  db.model('Tag').update(
     { category: this._id },
     { $pull: { category: this._id }},
     { multi: true },
@@ -18,7 +17,7 @@ TagCategorySchema.pre('remove', function(next) {
 });
 
 module.exports = function(mai) {
-  return mongoose.model('TagCategory', TagCategorySchema);
+  return db.model('TagCategory', TagCategorySchema);
 };
 
 

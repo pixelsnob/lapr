@@ -3,7 +3,6 @@
 
 var mongoose   = require('mongoose'),
     fs         = require('fs'),
-    models     = [],
     mai        = require('mongoose-auto-increment');
 
 var db = require('../lib/db')('lapr');

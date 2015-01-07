@@ -15,7 +15,7 @@ module.exports = function(app) {
     
     get: function(model_name) {
       return function(req, res, next) {
-        db.connection.model(model_name).find()
+        db.model(model_name).find()
           .sort({ name: 1 })
           .exec(function(err, docs) {
             if (err) {
@@ -31,7 +31,7 @@ module.exports = function(app) {
         if (!isValidId(req.params.id)) {
           return res.sendStatus(404);
         }
-        db.connection.model(model_name).findOne({ _id: req.params.id },
+        db.model(model_name).findOne({ _id: req.params.id },
           function(err, doc) {
             if (err) {
               return next(err);
@@ -54,7 +54,7 @@ module.exports = function(app) {
     add: function(model_name) {
       return function(req, res, next) {
         var data  = _.omit(req.body, [ 'id', '_id' ]);
-        db.connection.model(model_name).create(data, function(err, doc) {
+        db.model(model_name).create(data, function(err, doc) {
           if (err) {
             return next(err);
           }
@@ -68,7 +68,7 @@ module.exports = function(app) {
         if (!isValidId(req.params.id)) {
           return res.sendStatus(404);
         }
-        db.connection.model(model_name).findOne({ _id: req.params.id },
+        db.model(model_name).findOne({ _id: req.params.id },
           function(err, doc) {
             if (err) {
               return next(err);
@@ -112,7 +112,7 @@ module.exports = function(app) {
       if (!isValidId(req.params.id)) {
         return res.sendStatus(404);
       }
-      db.connection.model('Product').findById(req.params.id, function(err, product) {
+      db.model('Product').findById(req.params.id, function(err, product) {
         if (err) {
           return next(err);
         }
@@ -186,7 +186,7 @@ module.exports = function(app) {
       },
       data = [];
       async.each(Object.keys(model_names), function(model_name, cb) {
-        db.connection.model(model_names[model_name]).find({}, null, { sort: { name: 1 }},
+        db.model(model_names[model_name]).find({}, null, { sort: { name: 1 }},
         function(err, docs) {
           if (err) {
             return cb(err);

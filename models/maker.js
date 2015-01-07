@@ -8,7 +8,7 @@ var MakerSchema = new db.Schema({
 });
 
 MakerSchema.pre('remove', function(next) {
-  db.connection.model('Product').update(
+  db.model('Product').update(
     { makers: this._id },
     { $pull: { makers: this._id }},
     { multi: true },
@@ -23,3 +23,5 @@ module.exports = function(mai) {
   });
   return db.model('Maker', MakerSchema);
 };
+
+

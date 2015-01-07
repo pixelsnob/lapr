@@ -72,7 +72,7 @@ define([
       var slugs = this.refs.selected_tags.map(function(tag) {
         return tag.get('slug');
       });
-      var url = '/products/tags';
+      var url = '/instruments/tags';
       if (slugs.length) {
         url += '/' + slugs.join(',');
       }
@@ -90,7 +90,7 @@ define([
 
     render: function() {
       var a = $('<a>').text(this.model.get('name'))
-        .attr('href', '/products/tags/'  + this.model.get('slug'));
+        .attr('href', '/instruments/tags/'  + this.model.get('slug'));
       this.$el.append(a);
       return this;
     }

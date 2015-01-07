@@ -25,3 +25,4 @@ var TempProduct = new mongoose.Schema({
 module.exports = function(mai) {
   return mongoose.model('TempProduct', TempProduct);
 };
+
