@@ -4,7 +4,7 @@
  */
 define([
   'views/base',
-  'views/product'
+  'views/product',
 ], function(
   BaseView,
   ProductView
@@ -29,14 +29,19 @@ define([
           obj.delegateEvents(events);
         });
       }
-      this.listenTo(this.collection, 'add reset change', this.render);
+      this.listenTo(this.refs.filtered_products, 'add reset change', this.render);
     },
     
+    showProducts: function(){
+      this.refs.filtered_products.state.currentPage = 0;
+      this.refs.filtered_products.fullCollection.reset(this.collection.models);
+    },
+
     render: function() {
-      console.log('render');
+      //console.log('render');
       var fragment = document.createDocumentFragment(),
           obj      = this;
-      this.collection.forEach(function(product) {
+      this.refs.filtered_products.forEach(function(product) {
         var view = new ProductView({
           model:              product,
           products:           obj.collection,
@@ -48,12 +53,8 @@ define([
       return this;
     },
     
-    showAllProducts: function() {
-      //this.refs.filtered_products.reset(this.collection.models);
-    },
-
     getNextPage: function(ev) {
-      this.collection.getNextPage();
+      this.refs.filtered_products.getNextPage();
     },
 
     filterProductsByTags: function(slugs) {
@@ -76,9 +77,10 @@ define([
         // tags array
         return temp_tag_ids.length == tag_ids.length;
       });
-      this.collection.reset(products);
+      this.refs.filtered_products.state.currentPage = 0;
+      this.refs.filtered_products.fullCollection.reset(products);
     },
-
+    
     // ?????
     /*showByCategory: function(slug) {
       var obj = this;

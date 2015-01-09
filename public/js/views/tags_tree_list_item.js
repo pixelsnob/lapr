@@ -46,7 +46,7 @@ define([
         });
       });
       // Disable tags that don't exist in current filtered products
-      this.listenTo(this.products, 'reset', function(products) {
+      this.listenTo(this.products.refs.filtered_products, 'reset', function(products) {
         products = products.filter(function(product) {
           return _.contains(product.get('tags'), obj.model.id);
         });

@@ -1,13 +1,13 @@
 /**
- * products collection
+ * filtered_products collection
  * 
  */
 define([
   '../models/product',
-  '../models/maker'
-  //'backbone-paginator'
+  '../models/maker',
+  'backbone-paginator'
 ], function(ProductModel, MakerModel) {
-  return Backbone.Collection.extend({
+  return Backbone.PageableCollection.extend({
     
     url: '/products',
 
@@ -15,13 +15,13 @@ define([
 
     comparator: 'name',
 
-    /*mode: 'client',
+    mode: 'client',
 
     state: {
       firstPage: 0,
       currentPage: 0,
       pageSize: 30
-    },*/
+    }/*,
  
     initialize: function(models, opts) {
       this.refs = (opts && opts.refs) || {};
@@ -45,7 +45,7 @@ define([
           product.set(coll_name, _.without(ids, model.id));
         }
       });
-    }
+    }*/
 
   });
 });

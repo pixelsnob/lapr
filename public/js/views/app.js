@@ -7,6 +7,7 @@ define([
   'views/products',
   'views/tags_tree',
   'collections/products',
+  'collections/filtered_products',
   'collections/product_categories',
   'collections/makers',
   'collections/tags',
@@ -16,6 +17,7 @@ define([
   ProductsView,
   TagsTreeView,
   ProductsCollection,
+  FilteredProductsCollection,
   ProductCategoriesCollection,
   MakersCollection,
   TagsCollection,
@@ -33,7 +35,7 @@ define([
     initialize: function() {
       var json = window.lapr;
       this.refs = {
-        filtered_products:    new Backbone.Collection(json.products),
+        filtered_products:    new FilteredProductsCollection(json.products),
         product_categories:   new ProductCategoriesCollection(json.product_categories),
         makers:               new MakersCollection(json.makers),
         tags:                 new TagsCollection(json.tags),
@@ -67,15 +69,13 @@ define([
     
     showProducts: function() {
       this.hideTagsTree();
-      this.products.reset(window.lapr.products, { silent: true });
-      this.products.getFirstPage();
-      //setTimeout(_.bind(this.products_view.render,
-      //  this.products_view), 0);
+      setTimeout(_.bind(this.products_view.showProducts,
+        this.products_view), 0);
       return false;
     },
 
+    // move this to products view
     getNextPage: function(ev) {
-      console.log('???');
       this.products_view.getNextPage();
     },
 
@@ -92,7 +92,6 @@ define([
     },
 
     filterProductsByTags: function(tags) {
-      this.products.reset(window.lapr.products, { silent: true });
       this.showTagsTree();
       this.products_view.filterProductsByTags(tags);
       this.tags_tree_view.setSelectedTags(tags);

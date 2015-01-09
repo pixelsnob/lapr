@@ -21,12 +21,12 @@ define([
 
     initialize: function(opts) {
       this.model                = opts.model || new ProductModel;
-      this.refs                 = opts.refs;
+      //this.refs                 = opts.refs;
       this.products             = opts.products;
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'destroy', this.remove);
       // Keep refs data fresh on the page 
-      this.listenTo(this.products, 'change-ref', this.refsChange); 
+      this.listenTo(this.products, 'change-ref', this.render); 
       // Include product admin editor if admin user
       if (window.cms.user) {
         var obj = this;
@@ -46,7 +46,7 @@ define([
       product.id  = id;
       if (product.makers) {
         product.makers = product.makers.map(function(maker) {
-          var maker = obj.refs.makers.findWhere({ _id: maker });
+          var maker = obj.products.refs.makers.findWhere({ _id: maker });
           if (maker && maker.attributes) {
             return maker.attributes;
           }
@@ -60,7 +60,7 @@ define([
     edit: function(ProductAdminView) {
       var view = new ProductAdminView({
         model:              this.model,
-        refs:               this.refs,
+        refs:               this.products.refs,
         mode:               'edit'
       });
       view.renderModal();
