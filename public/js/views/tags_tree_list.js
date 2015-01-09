@@ -18,7 +18,7 @@ define([
     },
 
     initialize: function(opts) {
-      this.refs = opts.refs;
+      this.products = opts.products;
     },
     
     render: function() {
@@ -26,7 +26,7 @@ define([
       this.collection.forEach(function(tag) {
         var view = new TagsTreeListItemView({
           model: tag,
-          refs: obj.refs
+          products:  obj.products
         });
         obj.$el.append(view.render().el);
       });

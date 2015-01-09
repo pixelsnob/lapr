@@ -17,7 +17,6 @@ ProductCategorySchema.pre('remove', function(next) {
   );
 });
 
-
 module.exports = function(mai) {
   ProductCategorySchema.plugin(mai.plugin, {
     model: 'ProductCategory',

@@ -19,25 +19,25 @@ define([
     },
 
     initialize: function(opts) {
-      this.refs = opts.refs;
+      this.products = opts.products;
       var obj = this;
       // Select or deselect if this model exists in selected_tags
-      this.listenTo(this.refs.selected_tags, 'add', function(model) {
+      this.listenTo(this.products.refs.selected_tags, 'add', function(model) {
         if (model.id == obj.model.id) {
           obj.select();
         }
       });
-      this.listenTo(this.refs.selected_tags, 'remove', function(model) {
+      this.listenTo(this.products.refs.selected_tags, 'remove', function(model) {
         if (model.id == obj.model.id) {
           obj.deselect();
         }
       });
       // Reset selected tags
-      this.listenTo(this.refs.selected_tags, 'reset', function(selected_tags) {
+      this.listenTo(this.products.refs.selected_tags, 'reset', function(selected_tags) {
         var selected_tag_ids = selected_tags.map(function(models) {
           return model.id;
         });
-        obj.refs.tags.forEach(function(tag) {
+        obj.products.refs.tags.forEach(function(tag) {
           if (_.contains(selected_tag_ids, tag.id)) {
             obj.select();
           } else {
@@ -46,7 +46,7 @@ define([
         });
       });
       // Disable tags that don't exist in current filtered products
-      this.listenTo(this.refs.filtered_products, 'reset', function(products) {
+      this.listenTo(this.products, 'reset', function(products) {
         products = products.filter(function(product) {
           return _.contains(product.get('tags'), obj.model.id);
         });
@@ -64,12 +64,12 @@ define([
       if ($(ev.currentTarget).hasClass('disabled')) {
         return false;
       }
-      if (this.refs.selected_tags.findWhere({ _id: this.model.id })) {
-        this.refs.selected_tags.remove(this.model);
+      if (this.products.refs.selected_tags.findWhere({ _id: this.model.id })) {
+        this.products.refs.selected_tags.remove(this.model);
       } else {
-        this.refs.selected_tags.add(this.model);
+        this.products.refs.selected_tags.add(this.model);
       }
-      var slugs = this.refs.selected_tags.map(function(tag) {
+      var slugs = this.products.refs.selected_tags.map(function(tag) {
         return tag.get('slug');
       });
       var url = '/instruments/tags';

@@ -19,7 +19,7 @@ define([
     },
 
     showProducts: function() {
-      this.app_view.renderProducts();
+      this.app_view.showProducts();
     },
 
     //showProductsByCategory: function(category) {

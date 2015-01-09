@@ -10,7 +10,7 @@ define([
   'collections/product_categories',
   'collections/makers',
   'collections/tags',
-  'collections/tag_categories',
+  'collections/tag_categories'
 ], function(
   BaseView,
   ProductsView,
@@ -26,7 +26,8 @@ define([
     el: 'body',
 
     events: {
-      'click a.navigate': 'navigate'
+      'click a.navigate': 'navigate',
+      'click .get-next-page': 'getNextPage'
     },
 
     initialize: function() {
@@ -42,11 +43,11 @@ define([
       this.products = new ProductsCollection(json.products, { refs: this.refs });
       this.products_view = new ProductsView({
         el:                 this.$el.find('.products'),
-        collection:         this.products,
-        refs:               this.refs
+        collection:         this.products
       });
+      this.$el.find('.products').before($('<a>').attr('href', 'javascript:void(0);').addClass('get-next-page').text('Next'));
       this.tags_tree_view = new TagsTreeView({
-        refs: this.refs
+        products: this.products
       });
     },
     
@@ -54,7 +55,7 @@ define([
       var url = $(ev.currentTarget).attr('href');
       switch (url) {
         case '/products':
-          this.renderProducts();
+          this.showProducts();
           break;
         case '/tags':
           this.filterProductsByTags();
@@ -64,11 +65,18 @@ define([
       return false;
     },
     
-    renderProducts: function() {
+    showProducts: function() {
       this.hideTagsTree();
-      setTimeout(_.bind(this.products_view.showAllProducts,
-        this.products_view), 0);
+      this.products.reset(window.lapr.products, { silent: true });
+      this.products.getFirstPage();
+      //setTimeout(_.bind(this.products_view.render,
+      //  this.products_view), 0);
       return false;
+    },
+
+    getNextPage: function(ev) {
+      console.log('???');
+      this.products_view.getNextPage();
     },
 
     showTagsTree: function() {
@@ -84,6 +92,7 @@ define([
     },
 
     filterProductsByTags: function(tags) {
+      this.products.reset(window.lapr.products, { silent: true });
       this.showTagsTree();
       this.products_view.filterProductsByTags(tags);
       this.tags_tree_view.setSelectedTags(tags);

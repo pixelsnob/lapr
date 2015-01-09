@@ -4,9 +4,10 @@
  */
 define([
   '../models/product',
-  '../models/maker'
+  '../models/maker',
+  'backbone-paginator'
 ], function(ProductModel, MakerModel) {
-  return Backbone.Collection.extend({
+  return Backbone.PageableCollection.extend({
     
     url: '/products',
 
@@ -14,6 +15,14 @@ define([
 
     comparator: 'name',
 
+    mode: 'client',
+
+    state: {
+      firstPage: 0,
+      currentPage: 0,
+      pageSize: 30
+    },
+ 
     initialize: function(models, opts) {
       this.refs = opts.refs;
       var obj = this;

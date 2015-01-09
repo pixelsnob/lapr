@@ -19,7 +19,7 @@ define([
     },
 
     initialize: function(opts) {
-      this.refs = opts.refs;
+      this.products = opts.products;
       this.tags = opts.tags;
     },
     
@@ -29,7 +29,7 @@ define([
       //this.$el.append($('<a>').attr('href', 'javascript:void(0);').addClass('clear-category').text('x'));
       var view = new TagsTreeListView({
         collection: this.tags,
-        refs: this.refs
+        products: this.products
       });
       this.$el.append(view.render().el);
       return this;
