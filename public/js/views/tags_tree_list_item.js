@@ -34,16 +34,13 @@ define([
       });
       // Reset selected tags
       this.listenTo(this.products.refs.selected_tags, 'reset', function(selected_tags) {
-        /*console.log(selected_tags.length);
-        var selected_tag_ids = selected_tags.map(function(models) {
-          return model.id;
-        });*/
+        var selected_tag_ids = selected_tags.pluck('_id');
         obj.products.refs.tags.forEach(function(tag) {
-          //if (_.contains(selected_tag_ids, tag.id)) {
-            //obj.select();
-          //} else {
+          if (_.contains(selected_tag_ids, tag.get('_id'))) {
+            obj.select();
+          } else {
             obj.deselect();
-          //}
+          }
         });
       });
       // Disable tags that don't exist in current filtered products
@@ -65,8 +62,13 @@ define([
       if ($(ev.currentTarget).hasClass('disabled')) {
         return false;
       }
-      if (this.products.refs.selected_tags.findWhere({ _id: this.model.id })) {
-        this.products.refs.selected_tags.remove(this.model);
+      var tag = this.products.refs.selected_tags.findWhere({ _id: this.model.id });
+      if (tag) {
+        // set attribute on existing tags instead of removing them?
+        var t = (new Date).getTime();
+        //this.products.refs.selected_tags.remove(tag);
+        this.products.refs.selected_tags.reset(this.products.refs.selected_tags.without(tag));
+        console.log((new Date).getTime() - t);
       } else {
         this.products.refs.selected_tags.add(this.model);
       }

@@ -53,14 +53,15 @@ define([
     
     navigate: function(ev) {
       var url = $(ev.currentTarget).attr('href');
-      switch (url) {
+      /*switch (url) {
         case '/products':
+          console.log('x');
           this.showProducts();
           break;
         case '/tags':
           this.filterProductsByTags();
           break;
-      }
+      }*/
       Backbone.history.navigate(url, true);
       return false;
     },
@@ -76,6 +77,7 @@ define([
       var $tags_tree = this.$el.find('.tags-tree');
       if (!$tags_tree.children().length) {
         $tags_tree.html(this.tags_tree_view.render().el);
+        //console.log('tt');
       }
       $tags_tree.show();
     },
