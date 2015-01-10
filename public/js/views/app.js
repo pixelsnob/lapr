@@ -28,8 +28,7 @@ define([
     el: 'body',
 
     events: {
-      'click a.navigate': 'navigate',
-      'click .get-next-page': 'getNextPage'
+      'click a.navigate': 'navigate'
     },
 
     initialize: function() {
@@ -47,7 +46,6 @@ define([
         el:                 this.$el.find('.products'),
         collection:         this.products
       });
-      this.$el.find('.products').before($('<a>').attr('href', 'javascript:void(0);').addClass('get-next-page').text('Next'));
       this.tags_tree_view = new TagsTreeView({
         products: this.products
       });
@@ -72,11 +70,6 @@ define([
       setTimeout(_.bind(this.products_view.showProducts,
         this.products_view), 0);
       return false;
-    },
-
-    // move this to products view
-    getNextPage: function(ev) {
-      this.products_view.getNextPage();
     },
 
     showTagsTree: function() {

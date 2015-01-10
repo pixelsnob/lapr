@@ -13,6 +13,8 @@ define([
   return BaseView.extend({
 
     events: {
+      'click .pagination .previous': 'getPreviousPage',
+      'click .pagination .next':     'getNextPage'
     },
 
     initialize: function(opts) {
@@ -26,7 +28,7 @@ define([
           var events = {
             'click a.add-product': _.bind(obj.add, obj, ProductAdminView)
           };
-          obj.delegateEvents(events);
+          obj.delegateEvents(_.extend(obj.events, events));
         });
       }
       this.listenTo(this.refs.filtered_products, 'add reset change', this.render);
@@ -38,7 +40,6 @@ define([
     },
 
     render: function() {
-      //console.log('render');
       var fragment = document.createDocumentFragment(),
           obj      = this;
       this.refs.filtered_products.forEach(function(product) {
@@ -50,11 +51,23 @@ define([
         fragment.appendChild(view.render().el);
       });
       this.$el.find('tbody').html(fragment);
+      console.log('render');
       return this;
     },
     
+    getPreviousPage: function(ev) {
+      if (this.refs.filtered_products.state.currentPage > 0) {
+        this.refs.filtered_products.getPreviousPage();
+      }
+      return false;
+    },
+
     getNextPage: function(ev) {
-      this.refs.filtered_products.getNextPage();
+      var state = this.refs.filtered_products.state;
+      if (state.currentPage + 1 < state.totalPages) {
+        this.refs.filtered_products.getNextPage();
+      }
+      return false;
     },
 
     filterProductsByTags: function(slugs) {

@@ -21,7 +21,6 @@ define([
 
     initialize: function(opts) {
       this.model                = opts.model || new ProductModel;
-      //this.refs                 = opts.refs;
       this.products             = opts.products;
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'destroy', this.remove);

@@ -34,15 +34,16 @@ define([
       });
       // Reset selected tags
       this.listenTo(this.products.refs.selected_tags, 'reset', function(selected_tags) {
+        /*console.log(selected_tags.length);
         var selected_tag_ids = selected_tags.map(function(models) {
           return model.id;
-        });
+        });*/
         obj.products.refs.tags.forEach(function(tag) {
-          if (_.contains(selected_tag_ids, tag.id)) {
-            obj.select();
-          } else {
+          //if (_.contains(selected_tag_ids, tag.id)) {
+            //obj.select();
+          //} else {
             obj.deselect();
-          }
+          //}
         });
       });
       // Disable tags that don't exist in current filtered products
