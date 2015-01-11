@@ -2,7 +2,7 @@
 //- td
 //-  img(src="/images/products/#{product.image}", width="50")
 td
-  a.product(href="/products/#{product.slug}/#{product.id}")= product.name
+  a.product(href="/instruments/#{product.slug}/#{product.id}")= product.name
 td.description= product.description
 if _.isArray(product.makers)
   td= product.makers.map(function(m) { return m.name; }).join(', ')

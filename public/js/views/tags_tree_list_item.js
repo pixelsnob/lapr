@@ -64,9 +64,9 @@ define([
       }
       var tag = this.products.refs.selected_tags.findWhere({ _id: this.model.id });
       if (tag) {
-        // set attribute on existing tags instead of removing them?
         //var t = (new Date).getTime();
         //this.products.refs.selected_tags.remove(tag);
+        // remove() was causing a memory leak ^^^^
         this.products.refs.selected_tags.reset(
           this.products.refs.selected_tags.without(tag));
         //console.log((new Date).getTime() - t);
