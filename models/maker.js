@@ -19,7 +19,7 @@ MakerSchema.pre('remove', function(next) {
 module.exports = function(mai) {
   MakerSchema.plugin(mai.plugin, {
     model: 'Maker',
-    startAt: 0
+    startAt: 1
   });
   return db.model('Maker', MakerSchema);
 };

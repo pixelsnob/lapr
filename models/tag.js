@@ -6,7 +6,7 @@ var db = require('mongoose');
 var TagSchema = new db.Schema({
   name: String,
   slug: String,
-  category: { type: db.Schema.Types.ObjectId, ref: 'TagCategory' }
+  category: { type: Number, ref: 'TagCategory' }
 });
 
 TagSchema.pre('remove', function(next) {
@@ -26,6 +26,7 @@ TagSchema.pre('remove', function(next) {
 });*/
 
 module.exports = function(mai) {
+  TagSchema.plugin(mai.plugin, { model: 'Tag', startAt: 1 });
   return db.model('Tag', TagSchema);
 };
 

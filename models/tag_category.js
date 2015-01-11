@@ -17,6 +17,7 @@ TagCategorySchema.pre('remove', function(next) {
 });
 
 module.exports = function(mai) {
+  TagCategorySchema.plugin(mai.plugin, { model: 'TagCategory', startAt: 1 });
   return db.model('TagCategory', TagCategorySchema);
 };
 

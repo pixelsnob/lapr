@@ -20,7 +20,7 @@ ProductCategorySchema.pre('remove', function(next) {
 module.exports = function(mai) {
   ProductCategorySchema.plugin(mai.plugin, {
     model: 'ProductCategory',
-    startAt: 0
+    startAt: 1
   });
   return db.model('ProductCategory', ProductCategorySchema);
 };

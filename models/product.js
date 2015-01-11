@@ -23,7 +23,7 @@ var ProductSchema = new mongoose.Schema({
   //images:            [ String ],
   sizes:             String,
   octaves:           Number,
-  tags:              [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }]
+  tags:              [{ type: Number, ref: 'Tag' }]
 });
 
 ProductSchema.statics.findByIdAndPopulate = function(id, cb) {
@@ -76,7 +76,7 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
 
 ProductSchema.plugin(require('mongoose-paginate'));
 module.exports = function(mai) {
-  ProductSchema.plugin(mai.plugin, { model: 'Product', startAt: 0 });
+  ProductSchema.plugin(mai.plugin, { model: 'Product', startAt: 1 });
   return mongoose.model('Product', ProductSchema);
 };
 
