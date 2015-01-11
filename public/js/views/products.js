@@ -32,11 +32,6 @@ define([
         });
       }
       this.listenTo(this.refs.filtered_products, 'add reset change', this.render);
-      this.tagged_products = this.collection.filter(function(product) {
-        var tags = product.get('tags');
-        return _.isArray(tags) && tags.length;
-      });
-      //console.log(this.tagged_products);
     },
     
     showProducts: function(){
@@ -45,21 +40,17 @@ define([
     },
 
     render: function() {
-     // var fragment = document.createDocumentFragment(),
-      var obj      = this,
-          $tbody   = this.$el.find('tbody');
-      $tbody.empty();
+      var fragment = document.createDocumentFragment(),
+          obj      = this;
       this.refs.filtered_products.forEach(function(product) {
         var view = new ProductView({
           model:              product,
           products:           obj.collection,
           refs:               obj.refs
         });
-        //fragment.appendChild(view.render().el);
-        $tbody.append(view.render().el);
+        fragment.appendChild(view.render().el);
       });
-      //this.$el.find('tbody').html(fragment);
-      //console.log('render');
+      this.$el.find('tbody').html(fragment);
       return this;
     },
     
@@ -79,7 +70,6 @@ define([
     },
 
     filterProductsByTags: function(slugs) {
-      //console.log('filterProductsByTags');
       slugs = _.isArray(slugs) ? slugs : [];
       // Get tag _ids from slugs
       var tag_ids = this.refs.tags.filter(function(tag) {
@@ -88,7 +78,7 @@ define([
         return tag.get('_id');
       });
       // Filter products by tags
-      var products = this.tagged_products.filter(function(product) {
+      var products = this.collection.filter(function(product) {
         if (!tag_ids.length) {
           return _.isArray(product.get('tags')) && product.get('tags').length;
         }

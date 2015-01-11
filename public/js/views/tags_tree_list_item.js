@@ -65,10 +65,11 @@ define([
       var tag = this.products.refs.selected_tags.findWhere({ _id: this.model.id });
       if (tag) {
         // set attribute on existing tags instead of removing them?
-        var t = (new Date).getTime();
+        //var t = (new Date).getTime();
         //this.products.refs.selected_tags.remove(tag);
-        this.products.refs.selected_tags.reset(this.products.refs.selected_tags.without(tag));
-        console.log((new Date).getTime() - t);
+        this.products.refs.selected_tags.reset(
+          this.products.refs.selected_tags.without(tag));
+        //console.log((new Date).getTime() - t);
       } else {
         this.products.refs.selected_tags.add(this.model);
       }
