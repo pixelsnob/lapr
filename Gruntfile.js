@@ -40,10 +40,10 @@ module.exports = function(grunt) {
             {
               name: 'main',
               include: [ 'config', 'require_lib' ]
-            }, {
+            }/*, {
               name: 'admin',
               exclude: [ 'main' ]
-            }
+            }*/
           ]
         }
       }
