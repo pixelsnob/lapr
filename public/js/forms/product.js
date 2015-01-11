@@ -7,7 +7,6 @@ define([
   'backbone-forms',
   '../collections/product_categories',
   '../collections/makers',
-  '../collections/tags_tree',
   'views/forms/editors/multi_select',
   'views/forms/templates',
   'form-editors/list'
@@ -16,7 +15,6 @@ define([
   BackboneForms,
   ProductCategories,
   Makers,
-  TagsTree,
   MultiSelectEditor,
   form_templates
 ) {

@@ -20,7 +20,6 @@ define([
 
     initialize: function(opts) {
       this.products = opts.products;
-      var obj = this;
       // Select or deselect if this model exists in selected_tags
       this.listenTo(this.products.refs.selected_tags, 'add', function(model) {
         if (model.id == obj.model.id) {
@@ -32,15 +31,23 @@ define([
           obj.deselect();
         }
       });
+      var obj = this;
       // Reset selected tags
-      this.listenTo(this.products.refs.selected_tags, 'reset', function(selected_tags) {
-        var selected_tag_ids = selected_tags.pluck('_id');
-        obj.products.refs.tags.forEach(function(tag) {
-          if (_.contains(selected_tag_ids, tag.get('_id'))) {
-            obj.select();
-          } else {
-            obj.deselect();
+      this.listenToOnce(this.products.refs.selected_tags, 'reset', function() {
+        obj.listenTo(obj.products.refs.selected_tags, 'reset', function(selected_tags) {
+          //console.log('reset');
+          var selected_tag_ids = selected_tags.pluck('_id');
+          //console.log(selected_tag_ids);
+          if (!selected_tag_ids) {
+            return obj.deselect();
           }
+          obj.products.refs.tags.forEach(function(tag) {
+            if (_.contains(selected_tag_ids, tag.get('_id'))) {
+              obj.select();
+            } else {
+              obj.deselect();
+            }
+          });
         });
       });
       // Disable tags that don't exist in current filtered products
@@ -64,12 +71,12 @@ define([
       }
       var tag = this.products.refs.selected_tags.findWhere({ _id: this.model.id });
       if (tag) {
-        //var t = (new Date).getTime();
-        //this.products.refs.selected_tags.remove(tag);
+        var t = (new Date).getTime();
+        this.products.refs.selected_tags.remove(tag);
         // remove() was causing a memory leak ^^^^
-        this.products.refs.selected_tags.reset(
-          this.products.refs.selected_tags.without(tag));
-        //console.log((new Date).getTime() - t);
+        //this.products.refs.selected_tags.reset(
+        //  this.products.refs.selected_tags.without(tag));
+        console.log((new Date).getTime() - t);
       } else {
         this.products.refs.selected_tags.add(this.model);
       }
@@ -96,6 +103,7 @@ define([
       var a = $('<a>').text(this.model.get('name'))
         .attr('href', '/instruments/tags/'  + this.model.get('slug'));
       this.$el.append(a);
+      console.log('render');
       return this;
     }
 

@@ -22,10 +22,11 @@ define([
     initialize: function(opts) {
       this.products = opts.products;
       var obj = this;
-      this.listenTo(this.products.refs.tags, 'add change remove', this.render); 
+      this.listenTo(this.products.refs.tags, 'add change remove', this.render);// ? 
     },
     
     setSelectedTags: function(tags) {
+      console.log('sst');
       var obj = this, models = [], tags = (_.isArray(tags) ? tags : []);
       this.products.refs.selected_tags.reset();
       if (!tags.length) {
