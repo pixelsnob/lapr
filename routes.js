@@ -73,6 +73,9 @@ module.exports = function(app) {
             if (err) {
               return next(err);
             }
+            if (!doc) {
+              return res.sendStatus(404);
+            }
             doc.remove(function(err) {
               if (err) {
                 return next(err);

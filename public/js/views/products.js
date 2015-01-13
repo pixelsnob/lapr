@@ -31,7 +31,8 @@ define([
           obj.delegateEvents(_.extend(obj.events, events));
         });
       }
-      this.listenTo(this.refs.filtered_products, 'add reset change', this.render);
+      this.listenTo(this.refs.filtered_products, 'add reset change remove', this.render);
+      this.listenTo(this.refs.selected_tags, 'add remove reset', this.filterProductsByTags);
     },
     
     showProducts: function(){
@@ -69,18 +70,13 @@ define([
       return false;
     },
 
-    filterProductsByTags: function(slugs) {
-      slugs = _.isArray(slugs) ? slugs : [];
-      // Get tag _ids from slugs
-      var tag_ids = this.refs.tags.filter(function(tag) {
-        return _.contains(slugs, tag.get('slug'));
-      }).map(function(tag) {
-        return tag.get('_id');
-      });
+    filterProductsByTags: function() {
+      var tag_ids = this.refs.selected_tags.pluck('_id');
       // Filter products by tags
       var products = this.collection.filter(function(product) {
         if (!tag_ids.length) {
-          return _.isArray(product.get('tags')) && product.get('tags').length;
+          var tags = product.get('tags');
+          return _.isArray(tags) && tags.length;
         }
         var temp_tag_ids = tag_ids.filter(function(tag_id) {
           return _.contains(product.get('tags'), tag_id);

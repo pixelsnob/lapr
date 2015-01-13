@@ -78,7 +78,6 @@ define([
 
     filterProductsByTags: function(tags) {
       this.showTagsTree();
-      this.products_view.filterProductsByTags(tags);
       this.tags_tree_view.setSelectedTags(tags);
       return false;
     }
