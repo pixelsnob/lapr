@@ -1,6 +1,7 @@
 
-//- td
-//-  img(src="/images/products/#{product.image}", width="50")
+td
+  if product.thumbnail
+    img(src="/images/products/#{product.thumbnail}", width="50")
 td
   a.product(href="/instruments/#{product.slug}/#{product.id}")= product.name
 td.description= product.description

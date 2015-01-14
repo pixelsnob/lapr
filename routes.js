@@ -98,7 +98,7 @@ module.exports = function(app) {
       res.format({
         html: function() {
           res.render('products', {
-            products:      res.locals.json_data.products,
+            products:      res.locals.json_data.products.slice(0, 50), // temp
             categories:    res.locals.json_data.categories, 
             tags_tree:     [],//tags_tree,
             page_count:    0,
