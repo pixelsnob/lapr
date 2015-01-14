@@ -19,17 +19,25 @@ define([
 
     initialize: function(opts) {
       this.products = opts.products;
-      //this.listenTo(this.products.refs.tags, 'add change remove', this.render);// ? 
+      this.listenTo(this.products.refs.product_categories, 'add change remove', this.render);
     },
     
-    setSelectedCategory: function(category_id) {
+    setSelectedCategory: function(category) {
+      this.products.refs.selected_categories.reset();
+      if (!category) {
+        return;
+      }
+      var model = this.products.refs.product_categories.findWhere({
+        slug: category });
+      if (model) {
+        this.products.refs.selected_categories.add(model);
+      }
     },
 
     render: function() {
       var obj = this;
       this.$el.empty();
       this.products.refs.product_categories.forEach(function(category) {
-        //var category = obj.products.refs.tags.where({ category: category.id });
         var view = new CategoriesNavItemView({
           model: category,
           products: obj.products

@@ -63,14 +63,19 @@ define([
       return false;
     },
     
-    showProducts: function() {
+    showProductsByCategory: function(category) {
       this.hideTagsTree();
       this.showCategoriesNav();
-      this.refs.selected_categories.reset();
-      // set selected categories from slug?
+      this.categories_view.setSelectedCategory(category);
       //setTimeout(_.bind(this.products_view.showProducts,
       //  this.products_view), 0);
-      //this.products_view.showProducts();
+      return false;
+    },
+
+    showProductsByTags: function(tags) {
+      this.showTagsTree();
+      this.hideCategoriesNav();
+      this.tags_tree_view.setSelectedTags(tags);
       return false;
     },
 
@@ -96,13 +101,6 @@ define([
 
     hideCategoriesNav: function() {
       this.$el.find('.categories').hide();
-    },
-
-    filterProductsByTags: function(tags) {
-      this.showTagsTree();
-      this.hideCategoriesNav();
-      this.tags_tree_view.setSelectedTags(tags);
-      return false;
     }
 
   });

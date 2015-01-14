@@ -33,7 +33,7 @@ define([
       }
       this.listenTo(this.refs.filtered_products, 'add reset change remove', this.render);
       this.listenTo(this.refs.selected_tags, 'add remove reset', this.filterProductsByTags);
-      this.listenTo(this.refs.selected_categories, 'reset', this.filterProductsByCategory);
+      this.listenTo(this.refs.selected_categories, 'add reset', this.filterProductsByCategory);
     },
     
     showProducts: function(){

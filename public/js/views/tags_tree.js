@@ -39,7 +39,7 @@ define([
         }
       });
     },
-
+    
     render: function() {
       var obj = this;
       this.$el.empty();

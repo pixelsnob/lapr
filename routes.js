@@ -87,14 +87,31 @@ module.exports = function(app) {
       };
     },
 
-    productsSearch: function(req, res, next) {
-      var tags_tree = [];
+    showProducts: function(req, res, next) {
+      /*var tags_tree = [];
       res.locals.json_data.tag_categories.forEach(function(tag_cat) {
         var tags = res.locals.json_data.tags.filter(function(tag) {
           return _.isEqual(tag.category, tag_cat._id);
         });
         tags_tree.push({ name: tag_cat.name, tags: tags });
+      });*/
+      res.format({
+        html: function() {
+          res.render('products', {
+            products:      res.locals.json_data.products,
+            categories:    res.locals.json_data.categories, 
+            tags_tree:     [],//tags_tree,
+            page_count:    0,
+            item_count:    0
+          });
+        },
+        json: function() {
+          res.send(products);
+        }
       });
+    },
+
+    showProductsByCategory: function(req, res, next) {
       res.format({
         html: function() {
           res.render('products', {
@@ -111,7 +128,7 @@ module.exports = function(app) {
       });
     },
     
-    getProduct: function(req, res, next) {
+    showProduct: function(req, res, next) {
       if (!isValidId(req.params.id)) {
         return res.sendStatus(404);
       }
@@ -135,7 +152,7 @@ module.exports = function(app) {
       });
     },
     
-    getProductsByTags: function(req, res, next) {
+    showProductsByTags: function(req, res, next) {
       var tags     = (typeof req.params.tags != 'undefined' ?
                       req.params.tags.split(',') : []),
           query    = {},
@@ -179,7 +196,7 @@ module.exports = function(app) {
 
     // Builds JSON data that gets dumped on the page, for the front-end
     // to use
-    getProducts: function(req, res, next) {
+    setProducts: function(req, res, next) {
       var model_names = {
         'products':            'Product',
         'product_categories':  'ProductCategory',

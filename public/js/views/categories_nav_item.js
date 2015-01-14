@@ -18,6 +18,7 @@ define([
 
     initialize: function(opts) {
       this.products = opts.products;
+      this.listenTo(this.products.refs.selected_categories, 'add', this.selectIfCurrent);
       this.listenTo(this.products.refs.selected_categories, 'reset', this.setSelected);
     },
     
@@ -28,6 +29,13 @@ define([
         this.deselect();
       }
     },
+
+    selectIfCurrent: function(model) {
+      if (model.id == this.model.id) {
+        this.select();
+      }
+    },
+    
 
     deselectIfCurrent: function(model) {
       if (model.id == this.model.id) {

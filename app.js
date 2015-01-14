@@ -70,26 +70,26 @@ app.route('/').get(function(req, res, next) {
   res.redirect('/instruments');
 });
 
-app.route('/instruments')
-  .get(routes.getProducts, routes.productsSearch)
-  .post(routes.getProducts, routes.productsSearch)
+// Products
 
-// temp
-//app.route('/api/products')
-//  .get(routes.getProductsApi);
+app.route('/instruments')
+  .get(routes.setProducts, routes.showProducts)
+  .post(routes.setProducts, routes.showProducts)
 
 app.route('/instruments/categories/:category')
-  .get(routes.getProducts)
-  .post(routes.getProducts);
+  .get(routes.setProducts, routes.showProductsByCategory)
+  .post(routes.setProducts, routes.showProductsByCategory);
 
 app.route('/instruments/tags/:tags?')
-  .get(routes.getProducts, routes.getProductsByTags);
+  .get(routes.setProducts, routes.showProductsByTags);
 
 app.route('/instruments/:slug/:id?')
-  .get(routes.getProduct)
+  .get(routes.showProduct)
   .post(cms_routes.auth, routes.add('Product'))
   .put(cms_routes.auth, routes.update('Product'))
   .delete(cms_routes.auth, routes.remove('Product'));
+
+// Product refs
 
 app.route('/categories')
   .get(routes.get('ProductCategory'))
