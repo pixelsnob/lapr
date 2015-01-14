@@ -3,11 +3,9 @@
  * 
  */
 define([
-  'views/base',
-  'lib/events'
+  'views/base'
 ], function(
-  BaseView,
-  vent
+  BaseView
 ) {
   
   return BaseView.extend({
@@ -35,14 +33,12 @@ define([
     
     selectIfCurrent: function(model) {
       if (model.id == this.model.id) {
-        console.log(model.get('name'));
         this.select();
       }
     },
 
     deselectIfCurrent: function(model) {
       if (model.id == this.model.id) {
-        console.log(model.get('name'));
         this.deselect();
       }
     },

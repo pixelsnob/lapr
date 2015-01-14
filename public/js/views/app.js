@@ -6,6 +6,7 @@ define([
   'views/base',
   'views/products',
   'views/tags_tree',
+  'views/categories_nav',
   'collections/products',
   'collections/filtered_products',
   'collections/product_categories',
@@ -16,6 +17,7 @@ define([
   BaseView,
   ProductsView,
   TagsTreeView,
+  CategoriesNavView,
   ProductsCollection,
   FilteredProductsCollection,
   ProductCategoriesCollection,
@@ -39,7 +41,8 @@ define([
         makers:               new MakersCollection(json.makers),
         tags:                 new TagsCollection(json.tags),
         tag_categories:       new TagCategoriesCollection(json.tag_categories),
-        selected_tags:        new Backbone.Collection
+        selected_tags:        new Backbone.Collection,
+        selected_categories:  new Backbone.Collection
       };
       this.products = new ProductsCollection(json.products, { refs: this.refs });
       this.products_view = new ProductsView({
@@ -47,6 +50,9 @@ define([
         collection:         this.products
       });
       this.tags_tree_view = new TagsTreeView({
+        products: this.products
+      });
+      this.categories_view = new CategoriesNavView({
         products: this.products
       });
     },
@@ -59,8 +65,12 @@ define([
     
     showProducts: function() {
       this.hideTagsTree();
-      setTimeout(_.bind(this.products_view.showProducts,
-        this.products_view), 0);
+      this.showCategoriesNav();
+      this.refs.selected_categories.reset();
+      // set selected categories from slug?
+      //setTimeout(_.bind(this.products_view.showProducts,
+      //  this.products_view), 0);
+      //this.products_view.showProducts();
       return false;
     },
 
@@ -76,8 +86,21 @@ define([
       this.$el.find('.tags-tree').hide();
     },
 
+    showCategoriesNav: function() {
+      var $categories = this.$el.find('.categories');
+      if (!$categories.children().length) {
+        $categories.html(this.categories_view.render().el);
+      }
+      $categories.show();
+    },
+
+    hideCategoriesNav: function() {
+      this.$el.find('.categories').hide();
+    },
+
     filterProductsByTags: function(tags) {
       this.showTagsTree();
+      this.hideCategoriesNav();
       this.tags_tree_view.setSelectedTags(tags);
       return false;
     }

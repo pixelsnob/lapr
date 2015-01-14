@@ -26,7 +26,7 @@ define([
     },
     
     setSelectedTags: function(tags) {
-      console.log('sst');
+      //console.log('sst');
       var obj = this, models = [], tags = (_.isArray(tags) ? tags : []);
       this.products.refs.selected_tags.reset();
       if (!tags.length) {

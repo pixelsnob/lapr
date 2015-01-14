@@ -33,6 +33,7 @@ define([
       }
       this.listenTo(this.refs.filtered_products, 'add reset change remove', this.render);
       this.listenTo(this.refs.selected_tags, 'add remove reset', this.filterProductsByTags);
+      this.listenTo(this.refs.selected_categories, 'reset', this.filterProductsByCategory);
     },
     
     showProducts: function(){
@@ -41,6 +42,7 @@ define([
     },
 
     render: function() {
+      //console.log('products list render');
       var fragment = document.createDocumentFragment(),
           obj      = this;
       this.refs.filtered_products.forEach(function(product) {
@@ -89,21 +91,24 @@ define([
       this.refs.filtered_products.fullCollection.reset(products);
     },
     
-    // ?????
-    /*showByCategory: function(slug) {
-      var obj = this;
+    filterProductsByCategory: function() {
+      var obj                  = this,
+          selected_category    = this.refs.selected_categories.at(0),
+          selected_category_id = selected_category ? selected_category.id : null;
       var products = this.collection.filter(function(product) { 
         return _.some(product.get('categories'), function(id) {
           var category = obj.refs.product_categories.findWhere({ _id: id });
           if (!category) {
             return;
           }
-          return category.get('slug') == slug;
+          // Include all products if no selected category exists
+          return (!selected_category_id || (category.id == selected_category_id)); 
         });
       });
-      this.render(products);// <<<<<<<<<<<< instead set filtered collection here
+      this.refs.filtered_products.state.currentPage = 0;
+      this.refs.filtered_products.fullCollection.reset(products);
       return false;
-    },*/
+    },
 
     add: function(ProductAdminView) {
       var view = new ProductAdminView({
