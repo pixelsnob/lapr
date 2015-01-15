@@ -67,8 +67,6 @@ define([
       this.hideTagsTree();
       this.showCategoriesNav();
       this.categories_view.setSelectedCategory(category);
-      //setTimeout(_.bind(this.products_view.showProducts,
-      //  this.products_view), 0);
       return false;
     },
 

@@ -51,6 +51,7 @@ define([
           }
           return [];
         });
+        //console.log(product.makers);
       }
       this.$el.html(template.render('product_row', { product: product }));
       return this;

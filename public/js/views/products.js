@@ -31,18 +31,16 @@ define([
           obj.delegateEvents(_.extend(obj.events, events));
         });
       }
-      this.listenTo(this.refs.filtered_products, 'add reset change remove', this.render);
-      this.listenTo(this.refs.selected_tags, 'add remove reset', this.filterProductsByTags);
-      this.listenTo(this.refs.selected_categories, 'add reset', this.filterProductsByCategory);
+      this.listenTo(this.refs.filtered_products, 'add reset change remove',
+        this.render);
+      this.listenTo(this.refs.selected_tags, 'add remove reset',
+        this.filterProductsByTags);
+      this.listenTo(this.refs.selected_categories, 'add reset',
+        this.filterProductsByCategory);
     },
     
-    showProducts: function(){
-      this.refs.filtered_products.state.currentPage = 0;
-      this.refs.filtered_products.fullCollection.reset(this.collection.models);
-    },
-
     render: function() {
-      //console.log('products list render');
+      console.log('products list render');
       var fragment = document.createDocumentFragment(),
           obj      = this;
       this.refs.filtered_products.forEach(function(product) {
@@ -72,6 +70,7 @@ define([
       return false;
     },
 
+    // move these to collection?
     filterProductsByTags: function() {
       var tag_ids = this.refs.selected_tags.pluck('_id');
       // Filter products by tags
@@ -87,8 +86,7 @@ define([
         // tags array
         return temp_tag_ids.length == tag_ids.length;
       });
-      this.refs.filtered_products.state.currentPage = 0;
-      this.refs.filtered_products.fullCollection.reset(products);
+      this.resetProducts(products);
     },
     
     filterProductsByCategory: function() {
@@ -105,9 +103,12 @@ define([
           return (!selected_category_id || (category.id == selected_category_id)); 
         });
       });
+      this.resetProducts(products);
+    },
+
+    resetProducts: function(products) {
       this.refs.filtered_products.state.currentPage = 0;
       this.refs.filtered_products.fullCollection.reset(products);
-      return false;
     },
 
     add: function(ProductAdminView) {
@@ -124,7 +125,6 @@ define([
       });
       return false;
     }
-
 
   });
   

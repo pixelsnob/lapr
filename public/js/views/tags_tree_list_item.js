@@ -72,7 +72,7 @@ define([
     },
 
     toggle: function(ev) {
-      if ($(ev.currentTarget).hasClass('disabled')) {
+      if ($(ev.currentTarget).parent().hasClass('disabled')) {
         return false;
       }
       var tag = this.products.refs.selected_tags.findWhere({ _id: this.model.id });
@@ -91,19 +91,19 @@ define([
     },
     
     select: function() {
-      this.$el.find('a').css({ fontWeight: 'bold' }); 
+      this.$el.addClass('selected');
     },
     
     deselect: function() {
-      this.$el.find('a').css({ fontWeight: 'normal' }); 
+      this.$el.removeClass('selected'); 
     },
 
     enable: function() {
-      this.$el.find('a').removeClass('disabled');
+      this.$el.removeClass('disabled');
     },
     
     disable: function() {
-      this.$el.find('a').addClass('disabled');
+      this.$el.addClass('disabled');
     },
 
     render: function() {

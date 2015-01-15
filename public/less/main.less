@@ -25,15 +25,51 @@ table {
 
 .tags-tree  {
   font-size: 12px;
-  li ul {
-    margin-left: 15px;
+  ul {
     padding: 0;
   }
-  a.disabled {
-    opacity: 0.2;
-  }
-  a.clear-category {
-    margin-left: 5px;
+  li {
+    list-style: none;
+    margin-bottom: 10px;
+    ul {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      li {
+        display: block;
+        float: left;
+        margin: 2px;
+        border: 1px solid #aaa;
+        a, a:active {
+          text-decoration: none;
+          display: block;
+          padding: 3px 4px;
+          font-weight: normal;
+          color: #999;
+          background: #eee;
+        }
+        a:hover {
+          background: #f1f1f1;
+        }
+        a:active {
+          background: #777;
+          color: #fff;
+        }
+        &.selected a {
+          background: #999;
+          color: #fff;
+        }
+        &.selected a:hover {
+          background: #888;
+        }
+        &.disabled {
+          /*background: none;
+          border: #eee;
+          color: #ddd;*/
+          opacity: 0.15;
+        }
+      }
+    }
   }
 }
 

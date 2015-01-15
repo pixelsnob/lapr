@@ -88,13 +88,6 @@ module.exports = function(app) {
     },
 
     showProducts: function(req, res, next) {
-      /*var tags_tree = [];
-      res.locals.json_data.tag_categories.forEach(function(tag_cat) {
-        var tags = res.locals.json_data.tags.filter(function(tag) {
-          return _.isEqual(tag.category, tag_cat._id);
-        });
-        tags_tree.push({ name: tag_cat.name, tags: tags });
-      });*/
       res.format({
         html: function() {
           res.render('products', {
@@ -115,7 +108,7 @@ module.exports = function(app) {
       res.format({
         html: function() {
           res.render('products', {
-            products:      res.locals.json_data.products,
+            products:      res.locals.json_data.products.slice(0, 50), // temp
             categories:    res.locals.json_data.categories, 
             tags_tree:     [],//tags_tree,
             page_count:    0,

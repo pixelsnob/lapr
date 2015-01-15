@@ -18,12 +18,12 @@ TagSchema.pre('remove', function(next) {
   );
 });
 
-/*TagSchema.pre('save', function(next) {
+TagSchema.pre('save', function(next) {
   if (!this.slug) {
     this.slug = require('../lib/slug')(this.name); 
   }
   next();
-});*/
+});
 
 module.exports = function(mai) {
   TagSchema.plugin(mai.plugin, { model: 'Tag', startAt: 1 });

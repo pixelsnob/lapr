@@ -17,6 +17,13 @@ ProductCategorySchema.pre('remove', function(next) {
   );
 });
 
+ProductCategorySchema.pre('save', function(next) {
+  if (!this.slug) {
+    this.slug = require('../lib/slug')(this.name); 
+  }
+  next();
+});
+
 module.exports = function(mai) {
   ProductCategorySchema.plugin(mai.plugin, {
     model: 'ProductCategory',
