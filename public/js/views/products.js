@@ -19,11 +19,11 @@ define([
 
     initialize: function(opts) {
       this.collection = opts.collection;
-      this.refs = this.collection.refs;
+      var refs = this.refs = this.collection.refs;
       this.setElement(opts.el);
       // Include product admin editor if admin user
+      var obj = this;
       if (window.cms.user) {
-        var obj = this;
         require([ 'views/admin/product' ], function(ProductAdminView) {
           var events = {
             'click a.add-product': _.bind(obj.add, obj, ProductAdminView)
@@ -31,16 +31,19 @@ define([
           obj.delegateEvents(_.extend(obj.events, events));
         });
       }
-      this.listenTo(this.refs.filtered_products, 'add reset change remove',
-        this.render);
-      this.listenTo(this.refs.selected_tags, 'add remove reset',
+      this.listenToOnce(refs.filtered_products, 'reset', function() {
+        obj.listenTo(refs.filtered_products, 'reset', obj.render);
+      });
+      this.listenTo(refs.selected_tags, 'add remove reset',
         this.filterProductsByTags);
-      this.listenTo(this.refs.selected_categories, 'add reset',
+      this.listenTo(refs.selected_categories, 'add reset',
         this.filterProductsByCategory);
+      this.listenTo(refs.product_categories, 'add remove change', this.render);
+      this.listenTo(refs.makers, 'add remove change', this.render);
     },
     
     render: function() {
-      console.log('products list render');
+      //console.log('products list render');
       var fragment = document.createDocumentFragment(),
           obj      = this;
       this.refs.filtered_products.forEach(function(product) {

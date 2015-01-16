@@ -24,8 +24,6 @@ define([
       this.products             = opts.products;
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'destroy', this.remove);
-      // Keep refs data fresh on the page 
-      this.listenTo(this.products, 'change-ref', this.render); 
       // Include product admin editor if admin user
       if (window.cms.user) {
         var obj = this;
@@ -39,19 +37,17 @@ define([
     },
     
     render: function() {
-      var id      = this.model.id,
-          product = this.model.toJSON(),
+      var product = this.model.toJSON(),
           obj     = this;
-      product.id  = id;
+      product.id  = this.model.id;
       if (product.makers) {
         product.makers = product.makers.map(function(maker) {
-          var maker = obj.products.refs.makers.findWhere({ _id: maker });
+          var maker = obj.products.refs.makers.findWhere({ _id: Number(maker) }); // << backbone-forms is casting this wrong, ugh
           if (maker && maker.attributes) {
-            return maker.attributes;
+            return maker.toJSON();
           }
           return [];
         });
-        //console.log(product.makers);
       }
       this.$el.html(template.render('product_row', { product: product }));
       return this;

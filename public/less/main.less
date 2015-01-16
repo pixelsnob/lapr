@@ -40,12 +40,12 @@ table {
         float: left;
         margin: 2px;
         border: 1px solid #aaa;
-        a, a:active {
+        a {
           text-decoration: none;
           display: block;
           padding: 3px 4px;
           font-weight: normal;
-          color: #999;
+          color: #bbb;
           background: #eee;
         }
         a:hover {
@@ -56,17 +56,25 @@ table {
           color: #fff;
         }
         &.selected a {
-          background: #999;
+          background: #555;
           color: #fff;
-        }
-        &.selected a:hover {
-          background: #888;
+          &:hover {
+            background: #888;
+          }
+          &:active {
+            background: #a1a1a1;
+          }
         }
         &.disabled {
-          /*background: none;
-          border: #eee;
-          color: #ddd;*/
-          opacity: 0.15;
+          border-color: #eee;
+          a {
+            background: none;
+            color: #eee;
+          }
+          a:active {
+            background: none;
+            color: #999;
+          }
         }
       }
     }

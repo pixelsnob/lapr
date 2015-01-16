@@ -5,7 +5,7 @@ td
 td
   a.product(href="/instruments/#{product.slug}/#{product.id}")= product.name
 td.description= product.description
-if _.isArray(product.makers)
+if _.isArray(product.makers) && product.makers.length
   td= product.makers.map(function(m) { return m.name; }).join(', ')
 else
   td
