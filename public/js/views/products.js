@@ -31,13 +31,20 @@ define([
           obj.delegateEvents(_.extend(obj.events, events));
         });
       }
+      this.listenTo(this.collection, 'add', function(model) {
+        refs.filtered_products.fullCollection.add(model);
+        refs.filtered_products.sort();
+      });
+      this.listenTo(this.collection, 'change', this.render);
       this.listenToOnce(refs.filtered_products, 'reset', function() {
         obj.listenTo(refs.filtered_products, 'reset', obj.render);
       });
+      // Filter products
       this.listenTo(refs.selected_tags, 'add remove reset',
         this.filterProductsByTags);
       this.listenTo(refs.selected_categories, 'add reset',
         this.filterProductsByCategory);
+      // Render if product refs change
       this.listenTo(refs.product_categories, 'add remove change', this.render);
       this.listenTo(refs.makers, 'add remove change', this.render);
     },
