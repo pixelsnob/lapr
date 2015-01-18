@@ -3,11 +3,13 @@ define([
   'backbone',
   'lib/csrf',
   'router',
+  'views/app',
   'bootstrap',
   'lib/view_mixin'
-], function(Backbone, csrf, Router) {
+], function(Backbone, csrf, Router, AppView) {
   $(function() {
-    new Router;
+    var app_view = new AppView;
+    new Router({ app_view: app_view });
     Backbone.history.start({
       pushState: true,
       hashChange: false,

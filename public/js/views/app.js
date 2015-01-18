@@ -7,23 +7,13 @@ define([
   'views/products',
   'views/tags_tree',
   'views/categories_nav',
-  'collections/products',
-  'collections/filtered_products',
-  'collections/product_categories',
-  'collections/makers',
-  'collections/tags',
-  'collections/tag_categories'
+  'collections/products'
 ], function(
   BaseView,
   ProductsView,
   TagsTreeView,
   CategoriesNavView,
-  ProductsCollection,
-  FilteredProductsCollection,
-  ProductCategoriesCollection,
-  MakersCollection,
-  TagsCollection,
-  TagCategoriesCollection
+  ProductsCollection
 ) {
   return BaseView.extend({ 
     
@@ -34,17 +24,8 @@ define([
     },
 
     initialize: function() {
-      var json = window.lapr;
-      this.refs = {
-        filtered_products:    new FilteredProductsCollection(json.products),
-        product_categories:   new ProductCategoriesCollection(json.product_categories),
-        makers:               new MakersCollection(json.makers),
-        tags:                 new TagsCollection(json.tags),
-        tag_categories:       new TagCategoriesCollection(json.tag_categories),
-        selected_tags:        new Backbone.Collection,
-        selected_categories:  new Backbone.Collection
-      };
-      this.products = new ProductsCollection(json.products, { refs: this.refs });
+      this.products = new ProductsCollection;
+      this.deferred = this.products.fetch();
       this.products_view = new ProductsView({
         el:                 this.$el.find('.products'),
         collection:         this.products
@@ -55,8 +36,9 @@ define([
       this.categories_view = new CategoriesNavView({
         products: this.products
       });
+      this.trigger('ready');
     },
-    
+
     navigate: function(ev) {
       var url = $(ev.currentTarget).attr('href');
       Backbone.history.navigate(url, true);
@@ -64,16 +46,23 @@ define([
     },
     
     showProductsByCategory: function(category) {
-      this.hideTagsTree();
-      this.showCategoriesNav();
-      this.categories_view.setSelectedCategory(category);
+      var obj = this;
+      this.deferred.done(function() {
+        obj.hideTagsTree();
+        obj.showCategoriesNav();
+        obj.categories_view.setSelectedCategory(category);
+
+      });
       return false;
     },
 
     showProductsByTags: function(tags) {
-      this.showTagsTree();
-      this.hideCategoriesNav();
-      this.tags_tree_view.setSelectedTags(tags);
+      var obj = this;
+      this.deferred.done(function() {
+        obj.showTagsTree();
+        obj.hideCategoriesNav();
+        obj.tags_tree_view.setSelectedTags(tags);
+      });
       return false;
     },
 

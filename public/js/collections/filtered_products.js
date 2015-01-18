@@ -20,7 +20,7 @@ define([
     state: {
       firstPage: 0,
       currentPage: 0,
-      pageSize: 30
+      pageSize: 60
     }
 
   });

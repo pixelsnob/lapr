@@ -88,18 +88,25 @@ module.exports = function(app) {
     },
 
     showProducts: function(req, res, next) {
+      var json_data = res.locals.json_data;
       res.format({
         html: function() {
           res.render('products', {
-            products:      res.locals.json_data.products.slice(0, 50), // temp
-            categories:    res.locals.json_data.categories, 
+            products:      json_data.products.slice(0, 50), // temp
+            categories:    json_data.categories, 
             tags_tree:     [],//tags_tree,
             page_count:    0,
             item_count:    0
           });
         },
         json: function() {
-          res.send(products);
+          res.send({
+            products: json_data.products,
+            product_categories: json_data.product_categories, // product_categories or categories?
+            makers: json_data.makers,
+            tags: json_data.tags,
+            tag_categories: json_data.tag_categories
+          });
         }
       });
     },

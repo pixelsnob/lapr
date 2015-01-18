@@ -1,8 +1,7 @@
 
 define([
-  'backbone',
-  'views/app'
-], function(Backbone, AppView) {
+  'backbone'
+], function(Backbone) {
   
   return Backbone.Router.extend({
 
@@ -14,8 +13,8 @@ define([
       'instruments/tags/:tags':            'showProductsByTags'
     },
 
-    initialize: function() {
-      this.app_view = new AppView;
+    initialize: function(opts) {
+      this.app_view = opts.app_view;
     },
     
     showProductsByCategory: function(category) {

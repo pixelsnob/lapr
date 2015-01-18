@@ -14,7 +14,7 @@ define([
   
   return BaseView.extend({
     
-    tagName: 'tr',
+    tagName: 'li',
     
     events: {
     },
@@ -29,7 +29,7 @@ define([
         var obj = this;
         require([ 'views/admin/product' ], function(ProductAdminView) {
           var events = {
-            'click a.product': _.bind(obj.edit, obj, ProductAdminView)
+            'click a.edit': _.bind(obj.edit, obj, ProductAdminView)
           };
           obj.delegateEvents(events);
         });

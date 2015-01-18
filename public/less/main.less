@@ -16,11 +16,48 @@ table {
 
 .navbar-nav > li > a {
   padding: 4px 10px;
-
 }
 
 #main {
   padding: 10px;
+}
+
+.products {
+  .results {
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    li {
+      list-style-type: none;
+      display: block;
+      float: left;
+      width: 30%;
+      padding: 10px;
+      margin: 5px;
+      overflow: hidden;
+      height: 200px;
+      border: 1px solid #eee;
+      .thumbnail {
+        /*float: left;
+        display: block;
+        width: 25%;*/
+        img {
+          width: 50px;
+        }
+      }
+      .name {
+        font-weight: bold;
+      }
+      .description {
+        clear: both;
+        padding-top: 10px;
+      }
+      .makers {
+        clear: both;
+        font-style: italic;
+      }
+    }
+  }
 }
 
 .tags-tree  {
@@ -45,24 +82,24 @@ table {
           display: block;
           padding: 3px 4px;
           font-weight: normal;
-          color: #bbb;
-          background: #eee;
-        }
-        a:hover {
+          color: #aaa;
           background: #f1f1f1;
-        }
-        a:active {
-          background: #777;
-          color: #fff;
-        }
-        &.selected a {
-          background: #999;
-          color: #fff;
           &:hover {
-            background: #888;
+            background: #f7f7f7;
           }
           &:active {
-            background: #a1a1a1;
+            background: #555;
+            color: #fff;
+          }
+        }
+        &.selected a {
+          background: #666;
+          color: #fff;
+          &:hover {
+            background: #7f7f7f;
+          }
+          &:active {
+            background: #555;
           }
         }
         &.disabled {

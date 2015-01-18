@@ -1,13 +1,16 @@
 
-td
-  if product.thumbnail
-    img(src="/images/products/#{product.thumbnail}", width="50")
-td
-  a.product(href="/instruments/#{product.slug}/#{product.id}")= product.name
-td.description= product.description
-if _.isArray(product.makers) && product.makers.length
-  td= product.makers.map(function(m) { return m.name; }).join(', ')
-else
-  td
-td= product.price
 
+if product.thumbnail
+  .thumbnail
+    img(src="/images/products/#{product.thumbnail}")
+
+.name= product.name
+
+if _.isArray(product.makers) && product.makers.length
+  .makers= product.makers.map(function(m) { return m.name; }).join(', ')
+
+.description= product.description
+
+.price= product.price
+
+a.edit(href="/instruments/#{product.slug}/#{product.id}") Edit
