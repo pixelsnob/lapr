@@ -75,6 +75,42 @@ define([
       this.refs.tags.reset(res.tags); 
       this.refs.tag_categories.reset(res.tag_categories); 
       return res.products;
+    },
+
+    filterByTags: function() {
+      var tag_ids = this.refs.selected_tags.pluck('_id');
+      // Filter products by tags
+      var products = this.filter(function(product) {
+        if (!tag_ids.length) {
+          var tags = product.get('tags');
+          return _.isArray(tags) && tags.length;
+        }
+        var temp_tag_ids = tag_ids.filter(function(tag_id) {
+          return _.contains(product.get('tags'), tag_id);
+        });
+        // Filter product if all of the selected tags exist in the product's
+        // tags array
+        return temp_tag_ids.length == tag_ids.length;
+      });
+      this.refs.filtered_products.fullCollection.reset(products);
+    },
+
+    filterByCategory: function() {
+      var obj                  = this,
+          selected_category    = this.refs.selected_categories.at(0),
+          selected_category_id = selected_category ? selected_category.id : null;
+      var products = this.filter(function(product) { 
+        return _.some(product.get('categories'), function(id) {
+          var category = obj.refs.product_categories.findWhere({ _id: id });
+          if (!category) {
+            return;
+          }
+          // Include all products if no selected category exists
+          return (!selected_category_id || (category.id == selected_category_id)); 
+        });
+      });
+      this.refs.filtered_products.fullCollection.reset(products);
     }
+
   });
 });
