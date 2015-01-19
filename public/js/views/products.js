@@ -13,8 +13,7 @@ define([
   return BaseView.extend({
 
     events: {
-      'click .pagination .previous': 'getPreviousPage',
-      'click .pagination .next':     'getNextPage'
+      'click .get-next-page':     'getNextPage'
     },
 
     initialize: function(opts) {
@@ -38,8 +37,8 @@ define([
       this.listenTo(refs.makers, 'add remove change', this.render);
     },
     
-    render: function() {
-      console.log('products list render');
+    render: function(append) {
+      //console.log('products list render');
       var fragment = document.createDocumentFragment(),
           obj      = this;
       this.refs.filtered_products.forEach(function(product) {
@@ -50,7 +49,12 @@ define([
         });
         fragment.appendChild(view.render().el);
       });
-      this.$el.find('.results').html(fragment);
+      var $results = this.$el.find('.results');
+      if (append) {
+        $results.append(fragment);
+      } else {
+        $results.html(fragment);
+      }
       return this;
     },
     
@@ -66,7 +70,7 @@ define([
       var state = this.refs.filtered_products.state;
       if (state.currentPage + 1 < state.totalPages) {
         this.refs.filtered_products.getNextPage();
-        this.render();
+        this.render(true);
       }
       return false;
     },

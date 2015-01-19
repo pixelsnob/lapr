@@ -21,7 +21,26 @@ table {
 #main {
   padding: 10px;
   .products {
+    padding-bottom: 10px;
+    .get-next-page {
+      width: 100%;
+      display: block;
+      background: #f1f1f1;
+      border: 1px solid #aaa;
+      color: #aaa;
+      text-align: center;
+      padding: 12px 0;
+      text-decoration: none;
+      &:hover {
+        background: #f7f7f7;
+      }
+      &:active {
+        background: #ddd;
+        color: #fff;
+      }
+    }
     .results {
+      min-height: 600px;
       padding: 0;
       display: block;
       overflow: hidden;

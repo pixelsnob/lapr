@@ -7,19 +7,15 @@ block content
     .categories
 
   .col-md-9
-    .products
-      .pagination
-        ul
-          li
-            a.previous(href="javascript:void(0);") Previous
-          li
-            a.next(href="javascript:void(0);") Next
-      ul.results
+    if user
+      ul
+        li
+          a.add-product(href="javascript:void(0);") Add Product
 
-      if user
-        ul
-          li
-            a.add-product(href="javascript:void(0);") Add Product
+    .products
+      ul.results
+      a.get-next-page(href="javascript:void(0);") More
+
       
       include paginate
     
