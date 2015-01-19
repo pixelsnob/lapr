@@ -51,6 +51,7 @@ define([
         obj.hideTagsTree();
         obj.showCategoriesNav();
         obj.categories_view.setSelectedCategory(category);
+        obj.products_view.filterProductsByCategory();
 
       });
       return false;
@@ -62,6 +63,7 @@ define([
         obj.showTagsTree();
         obj.hideCategoriesNav();
         obj.tags_tree_view.setSelectedTags(tags);
+        obj.products_view.filterProductsByTags();
       });
       return false;
     },

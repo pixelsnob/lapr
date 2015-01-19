@@ -69,6 +69,7 @@ define([
       }
     },
 
+    // Set refs from server data on fetch()
     parse: function(res) {
       this.refs.product_categories.reset(res.product_categories); 
       this.refs.makers.reset(res.makers); 
@@ -79,7 +80,6 @@ define([
 
     filterByTags: function() {
       var tag_ids = this.refs.selected_tags.pluck('_id');
-      // Filter products by tags
       var products = this.filter(function(product) {
         if (!tag_ids.length) {
           var tags = product.get('tags');

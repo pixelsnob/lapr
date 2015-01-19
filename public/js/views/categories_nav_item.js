@@ -45,7 +45,8 @@ define([
     
     toggle: function(ev) {
       this.products.refs.selected_categories.reset(this.model);
-      Backbone.history.navigate('/instruments/categories/' + this.model.get('slug'));
+      var url = '/instruments/categories/' + this.model.get('slug');
+      Backbone.history.navigate(url, true);
       return false;
     },
     

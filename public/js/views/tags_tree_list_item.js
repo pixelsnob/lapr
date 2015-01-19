@@ -86,7 +86,7 @@ define([
       if (slugs.length) {
         url += '/' + slugs.join(',');
       }
-      Backbone.history.navigate(url/*, true*/);
+      Backbone.history.navigate(url, true);
       return false;
     },
     

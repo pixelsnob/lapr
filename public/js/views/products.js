@@ -35,12 +35,6 @@ define([
         refs.filtered_products.fullCollection.add(model);
       });
       this.listenTo(this.collection, 'change', this.render);
-      this.listenTo(refs.filtered_products, 'reset', this.render);
-      this.listenTo(refs.selected_tags, 'add remove reset',
-        this.filterProductsByTags);
-      this.listenTo(refs.selected_categories, 'add reset',
-        this.filterProductsByCategory);
-      // Render if product refs change
       this.listenTo(refs.product_categories, 'add remove change', this.render);
       this.listenTo(refs.makers, 'add remove change', this.render);
     },
@@ -64,6 +58,7 @@ define([
     getPreviousPage: function(ev) {
       if (this.refs.filtered_products.state.currentPage > 0) {
         this.refs.filtered_products.getPreviousPage();
+        this.render();
       }
       return false;
     },
@@ -72,6 +67,7 @@ define([
       var state = this.refs.filtered_products.state;
       if (state.currentPage + 1 < state.totalPages) {
         this.refs.filtered_products.getNextPage();
+        this.render();
       }
       return false;
     },
@@ -79,11 +75,14 @@ define([
     filterProductsByTags: function() {
       this.refs.filtered_products.state.currentPage = 0;
       this.collection.filterByTags();
+      this.render();
     },
     
     filterProductsByCategory: function() {
       this.refs.filtered_products.state.currentPage = 0;
       this.collection.filterByCategory();
+      this.render();
+      console.log('filterProductsByCat');
     },
 
     add: function(ProductAdminView) {
