@@ -31,16 +31,15 @@ define([
           obj.delegateEvents(_.extend(obj.events, events));
         });
       }
-      this.listenTo(this.collection, 'add', function(model) {
-        refs.filtered_products.fullCollection.add(model);
+      this.listenTo(this.collection, 'add change remove', function() {
+        refs.filtered_products.fullCollection.reset(obj.collection.models);
       });
-      this.listenTo(this.collection, 'change', this.render);
       this.listenTo(refs.product_categories, 'add remove change', this.render);
       this.listenTo(refs.makers, 'add remove change', this.render);
     },
     
     render: function() {
-      //console.log('products list render');
+      console.log('products list render');
       var fragment = document.createDocumentFragment(),
           obj      = this;
       this.refs.filtered_products.forEach(function(product) {
@@ -82,7 +81,7 @@ define([
       this.refs.filtered_products.state.currentPage = 0;
       this.collection.filterByCategory();
       this.render();
-      console.log('filterProductsByCat');
+      //console.log('filterProductsByCat');
     },
 
     add: function(ProductAdminView) {
