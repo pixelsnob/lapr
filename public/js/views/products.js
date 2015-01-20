@@ -13,6 +13,7 @@ define([
   return BaseView.extend({
 
     events: {
+      'click .get-previous-page': 'getPreviousPage',
       'click .get-next-page':     'getNextPage'
     },
 
@@ -30,15 +31,18 @@ define([
           obj.delegateEvents(_.extend(obj.events, events));
         });
       }
-      this.listenTo(this.collection, 'add change remove', function() {
-        refs.filtered_products.fullCollection.reset(obj.collection.models);
-      });
+      //this.listenTo(refs.filtered_products, 'add remove change', this.render);
+      /*this.listenTo(this.collection, 'add change remove', function() {
+        refs.filtered_products.reset(obj.collection.models);
+      });*/
+      // ?
       this.listenTo(refs.product_categories, 'add remove change', this.render);
       this.listenTo(refs.makers, 'add remove change', this.render);
     },
     
-    render: function(append) {
-      //console.log('products list render');
+    render: function() {
+      console.log('products list render');
+      //append = false;
       var fragment = document.createDocumentFragment(),
           obj      = this;
       this.refs.filtered_products.forEach(function(product) {
@@ -49,12 +53,7 @@ define([
         });
         fragment.appendChild(view.render().el);
       });
-      var $results = this.$el.find('.results');
-      if (append) {
-        $results.append(fragment);
-      } else {
-        $results.html(fragment);
-      }
+      this.$el.find('.results').html(fragment);
       return this;
     },
     
