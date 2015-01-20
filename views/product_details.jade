@@ -1,0 +1,24 @@
+
+div.modal
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        button.close.cancel(type="button", aria-hidden="true") &times;
+        h1.modal-title
+      div.modal-body
+        if product.image
+          .image
+            img(src="/images/products/#{product.image}", width="200")
+
+        h1= product.name
+        if product.alt_names
+          .alt-names= product.alt_names
+
+        if _.isArray(product.makers) && product.makers.length
+          .makers= product.makers.map(function(m) { return m.name; }).join(', ')
+
+        .description= product.description
+
+        .price= product.price
+
+        p= (_.isArray(product.makers) ? product.makers.join(',') : '')

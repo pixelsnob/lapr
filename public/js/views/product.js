@@ -5,10 +5,12 @@
 define([
   'views/base',
   'models/product',
+  'views/product_details',
   'template'
 ], function(
   BaseView,
   ProductModel,
+  ProductDetailsView,
   template
 ) {
   
@@ -17,6 +19,7 @@ define([
     tagName: 'li',
     
     events: {
+      'click':     'showDetails'
     },
 
     initialize: function(opts) {
@@ -31,7 +34,7 @@ define([
           var events = {
             'click a.edit': _.bind(obj.edit, obj, ProductAdminView)
           };
-          obj.delegateEvents(events);
+          obj.delegateEvents(_.extend(obj.events, events));
         });
       }
     },
@@ -50,8 +53,16 @@ define([
           return [];
         });
       }
-      this.$el.html(template.render('product_row', { product: product }));
+      this.$el.html(template.render('product_row', { product: product, user: window.cms.user }));
+      this.$el.attr('id', this.model.id);
       return this;
+    },
+    
+    showDetails: function() {
+      console.log('sd');
+      var view = new ProductDetailsView({ model: this.model });
+      view.renderModal();
+      return false;
     },
 
     edit: function(ProductAdminView) {
@@ -62,10 +73,10 @@ define([
       });
       view.renderModal();
       return false;
-    },
+    }
 
     // Only render if refs that belong to this product are changed
-    refsChange: function(model) {
+    /*refsChange: function(model) {
       var ids    = [],
           makers = this.model.get('makers');
       if (_.isArray(makers) && makers.length) {
@@ -75,7 +86,7 @@ define([
         this.render();
       }
       
-    }
+    }*/
     
   });
 });

@@ -22,23 +22,6 @@ table {
   padding: 10px;
   .products {
     padding-bottom: 10px;
-    /*.get-next-page {
-      width: 100%;
-      display: block;
-      background: #f1f1f1;
-      border: 1px solid #aaa;
-      color: #aaa;
-      text-align: center;
-      padding: 12px 0;
-      text-decoration: none;
-      &:hover {
-        background: #f7f7f7;
-      }
-      &:active {
-        background: #ddd;
-        color: #fff;
-      }
-    }*/
     .results {
       min-height: 600px;
       padding: 0;
@@ -56,6 +39,13 @@ table {
         height: 200px;
         min-width: 220px;
         border: 1px solid #eee;
+        &:hover {
+          background: #f6f6f6;
+          cursor: pointer;
+        }
+        &:active {
+          background: #eee;
+        }
         .thumbnail {
           /*float: left;
           display: block;
@@ -68,11 +58,11 @@ table {
           font-weight: bold;
         }
         .description {
-          clear: both;
           padding-top: 10px;
         }
         .makers {
-          clear: both;
+        }
+        .alt-names {
           font-style: italic;
         }
       }
