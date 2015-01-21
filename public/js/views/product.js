@@ -46,7 +46,6 @@ define([
       if (product.makers) {
         product.makers = product.makers.map(function(maker) {
           var maker = obj.products.refs.makers.findWhere({ _id: Number(maker) }); // << backbone-forms is casting this wrong, ugh
-          //console.log(maker);
           if (maker && maker.attributes) {
             return maker.toJSON();
           }
@@ -59,7 +58,6 @@ define([
     },
     
     showDetails: function() {
-      console.log('sd');
       var view = new ProductDetailsView({ model: this.model });
       view.renderModal();
       return false;

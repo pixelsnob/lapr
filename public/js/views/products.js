@@ -41,8 +41,7 @@ define([
     },
     
     render: function() {
-      console.log('products list render');
-      //append = false;
+      //console.log('products list render');
       var fragment = document.createDocumentFragment(),
           obj      = this;
       this.refs.filtered_products.forEach(function(product) {

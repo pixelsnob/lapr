@@ -1,23 +1,22 @@
 /**
- * Product item view
+ * Product details modal view
  * 
  */
 define([
   'views/base',
-  'models/product',
+  'views/product_details_image',
   'template'
 ], function(
   BaseView,
-  ProductModel,
+  ProductDetailsImageView,
   template
 ) {
   
   return BaseView.extend({
     
-    //tagName: 'li',
-    
     events: {
-      'click .close':  'closeModal'
+      'click .image img': 'showImageModal',
+      'click .close':     'closeModal'
     },
 
     initialize: function(opts) {
@@ -34,8 +33,8 @@ define([
           return maker;
         });
       }
-      console.log(product);
       this.setElement(template.render('product_details', { product: product }));
+      this.$el.addClass('product-details');
       return this;
     },
     
@@ -47,6 +46,11 @@ define([
     closeModal: function() {
       this.$el.modal('hide');
       return false;
+    },
+
+    showImageModal: function() {
+      var view = new ProductDetailsImageView({ model: this.model });
+      view.renderModal();
     }
     
   });

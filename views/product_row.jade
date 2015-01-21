@@ -9,7 +9,7 @@ if product.thumbnail
 if _.isArray(product.makers) && product.makers.length
   .makers= product.makers.map(function(m) { return m.name; }).join(', ')
 
-.description= product.description
+//- .description= product.description
 
 .price= product.price
 

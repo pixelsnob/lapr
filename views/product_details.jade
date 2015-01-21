@@ -1,24 +1,39 @@
 
-div.modal
-  div.modal-dialog
-    div.modal-content
-      div.modal-header
-        button.close.cancel(type="button", aria-hidden="true") &times;
-        h1.modal-title
-      div.modal-body
+.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type="button", aria-hidden="true") &times;
+      .modal-body
+        //- .col-md-7
         if product.image
+          //- .col-md-5
           .image
-            img(src="/images/products/#{product.image}", width="200")
+            img(src="/images/products/#{product.image}")
 
         h1= product.name
         if product.alt_names
-          .alt-names= product.alt_names
-
+          p.alt-names \(!{product.alt_names}\)
         if _.isArray(product.makers) && product.makers.length
-          .makers= product.makers.map(function(m) { return m.name; }).join(', ')
+          p.makers Mfg. by !{product.makers.join(', ')}
 
-        .description= product.description
+        p.description= product.description
+        
+        dl
+        if product.model_no
+          dt Model No.
+          dd= product.model_no
+        if product.price
+          dt Price
+          dd= product.price
+        if product.range
+          dt Range
+          dd= product.range
+        if product.sizes
+          dt Sizes
+          dd= product.sizes
 
-        .price= product.price
 
-        p= (_.isArray(product.makers) ? product.makers.join(',') : '')
+      .modal-footer
+
+
