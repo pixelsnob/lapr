@@ -13,8 +13,8 @@ define([
   return BaseView.extend({
 
     events: {
-      'click .get-previous-page': 'getPreviousPage',
-      'click .get-next-page':     'getNextPage'
+      //'click .get-previous-page': 'getPreviousPage',
+      'click .more':     'getMore'
     },
 
     initialize: function(opts) {
@@ -40,8 +40,7 @@ define([
       this.listenTo(refs.makers, 'add remove change', this.render);
     },
     
-    render: function() {
-      //console.log('products list render');
+    render: function(append) {
       var fragment = document.createDocumentFragment(),
           obj      = this;
       this.refs.filtered_products.forEach(function(product) {
@@ -52,7 +51,11 @@ define([
         });
         fragment.appendChild(view.render().el);
       });
-      this.$el.find('.results').html(fragment);
+      if (append === true) {
+        this.$el.find('.results').append(fragment);
+      } else {
+        this.$el.find('.results').html(fragment);
+      }
       return this;
     },
     
@@ -64,7 +67,16 @@ define([
       return false;
     },
 
-    getNextPage: function(ev) {
+    getNextPage: function() {
+      var state = this.refs.filtered_products.state;
+      if (state.currentPage + 1 < state.totalPages) {
+        this.refs.filtered_products.getNextPage();
+        this.render();
+      }
+      return false;
+    },
+
+    getMore: function() {
       var state = this.refs.filtered_products.state;
       if (state.currentPage + 1 < state.totalPages) {
         this.refs.filtered_products.getNextPage();

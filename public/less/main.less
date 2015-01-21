@@ -22,22 +22,41 @@ table {
   padding: 10px;
   .products {
     padding-bottom: 10px;
+    .more {
+      width: 100%;
+      margin-top: 10px;
+      display: block;
+      font-size: 1.2em;
+      color: #bbb;
+      padding: 0 7px;
+      text-decoration: none;
+      text-align: center;
+      background: #eee;
+      border: 1px solid #ccc;
+      &:hover {
+        background: #ddd;
+      }
+      &:active {
+        background: #ccc;
+      }
+    }
     .results {
       min-height: 600px;
       padding: 0;
       margin: 0;
       display: block;
+      width: 100%;
       overflow: hidden;
       li {
         list-style-type: none;
         display: block;
         float: left;
-        width: 30%;
+        width: 33%;
         padding: 10px;
-        margin: 5px;
+        margin: 0 2px 2px 0;
         overflow: hidden;
         height: 200px;
-        min-width: 220px;
+        /*min-width: 220px;*/
         border: 1px solid #eee;
         &:hover {
           background: #f6f6f6;
@@ -153,7 +172,7 @@ table {
   }
   .image {
     float: right;
-    margin-left: 10px;
+    margin: 0 0 15px 10px;
     width: 40%;
     text-align: center;
     img {
@@ -182,5 +201,24 @@ table {
   }
   img {
     width: 100%;
+  }
+}
+
+/* Small screen stuff */
+
+@media only screen and (max-width: 767px) {
+  #main {
+    .products {
+      .results {
+        li {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .modal.product-details {
+    .modal-dialog {
+      width: 95%;
+    }
   }
 }
