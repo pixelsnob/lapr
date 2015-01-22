@@ -13,7 +13,6 @@ define([
   return BaseView.extend({
 
     events: {
-      //'click .get-previous-page': 'getPreviousPage',
       'click .more':     'getMore'
     },
 
@@ -31,13 +30,11 @@ define([
           obj.delegateEvents(_.extend(obj.events, events));
         });
       }
-      //this.listenTo(refs.filtered_products, 'add remove change', this.render);
-      /*this.listenTo(this.collection, 'add change remove', function() {
-        refs.filtered_products.reset(obj.collection.models);
-      });*/
-      // ?
-      this.listenTo(refs.product_categories, 'add remove change', this.render);
-      this.listenTo(refs.makers, 'add remove change', this.render);
+      this.listenTo(refs.product_categories, 'add remove change',
+        this.render.call(this, false));
+      this.listenTo(refs.makers, 'add remove change',
+        this.render.call(this, false));
+      this.listenTo(refs.filtered_products, 'reset', this.toggleMoreLink);
     },
     
     render: function(append) {
@@ -96,6 +93,15 @@ define([
       this.collection.filterByCategory();
       this.render();
       //console.log('filterProductsByCat');
+    },
+    
+    toggleMoreLink: function() {
+      var state = this.refs.filtered_products.state;
+      if (state.lastPage == state.currentPage) {
+        this.$el.find('.more').hide();
+      } else {
+        this.$el.find('.more').show();
+      }
     },
 
     add: function(ProductAdminView) {

@@ -18,6 +18,15 @@ table {
   padding: 4px 10px;
 }
 
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 #main {
   padding: 10px;
   .products {
@@ -28,7 +37,7 @@ table {
       display: block;
       font-size: 1.2em;
       color: #bbb;
-      padding: 0 7px;
+      padding: 12px 0;
       text-decoration: none;
       text-align: center;
       background: #eee;
@@ -38,6 +47,7 @@ table {
       }
       &:active {
         background: #ccc;
+        color: #fff;
       }
     }
     .results {
@@ -48,6 +58,7 @@ table {
       width: 100%;
       overflow: hidden;
       li {
+        .noselect;
         list-style-type: none;
         display: block;
         float: left;
@@ -162,6 +173,20 @@ table {
   border: none;
 }
 
+.modal-header {
+  .close {
+    font-size: 2.1em;
+  }
+}
+
+.modal-content {
+  border-radius: 0;
+}
+
+.modal-body {
+  padding: 25px 35px;
+}
+
 .modal.product-details {
   h1 {
     font-size: 1.6em;
@@ -186,10 +211,10 @@ table {
       }
     }
   }
-  .modal-body {
+  /*.modal-body {
     overflow: hidden;
-    padding-bottom: 15px;
-  }
+    padding: 0;
+  }*/
   .modal-dialog {
     width: 60%;
   }
