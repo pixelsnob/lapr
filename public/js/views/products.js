@@ -31,9 +31,9 @@ define([
         });
       }
       this.listenTo(refs.product_categories, 'add remove change',
-        this.render.call(this, false));
+        _.bind(this.render, this, false));
       this.listenTo(refs.makers, 'add remove change',
-        this.render.call(this, false));
+        _.bind(this.render, this, false));
       this.listenTo(refs.filtered_products, 'reset', this.toggleMoreLink);
     },
     
