@@ -23,12 +23,12 @@ define([
       // Include product admin editor if admin user
       var obj = this;
       if (window.cms.user) {
-        require([ 'views/admin/product' ], function(ProductAdminView) {
-          /*var events = {
-            'click a.add-product': _.bind(obj.add, obj, ProductAdminView)
-          };
-          obj.delegateEvents(_.extend(obj.events, events));*/
+        require([ 'views/admin/product', 'views/admin/tag_categories' ],
+        function(ProductAdminView, TagCategoriesAdminView) {
+          // This is on the body so probably shouldn't be in here anyway...
           $('.add-product').on('click', _.bind(obj.add, obj, ProductAdminView));
+          $('.edit-tag-categories').on('click', _.bind(obj.editTagCategories, obj,
+            TagCategoriesAdminView));
         });
       }
       this.listenTo(refs.product_categories, 'add remove change',
@@ -110,6 +110,19 @@ define([
         model:              this.model,
         refs:               this.refs,
         mode:               'add'
+      });
+      view.renderModal();
+      var obj = this;
+      // Add to collection if save is successful
+      this.listenTo(view, 'save', function(model) {
+        obj.collection.add(model);
+      });
+      return true; // true so that BS dropdown closes
+    },
+
+    editTagCategories: function(TagCategoriesAdminView) {
+      var view = new TagCategoriesAdminView({
+        collection: this.refs.tag_categories
       });
       view.renderModal();
       var obj = this;

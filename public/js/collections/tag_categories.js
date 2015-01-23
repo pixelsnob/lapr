@@ -11,7 +11,7 @@ define([
 
     model: TagCategoryModel,
 
-    comparator: 'name',
+    comparator: 'sort_order',
 
     initialize: function() {
     }

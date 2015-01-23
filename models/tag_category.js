@@ -4,7 +4,8 @@
 var db = require('mongoose');
 
 var TagCategorySchema = new db.Schema({
-  name: String
+  name: String,
+  sort_order: Number
 }, { collection: 'tag_categories' });
 
 TagCategorySchema.pre('remove', function(next) {
