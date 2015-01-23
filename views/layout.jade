@@ -39,6 +39,12 @@ html
                 li(class="#{current}")
                   a.navigate(href="#{link.url}")= link.text
               if user
+                li 
+                  a.dropdown-toggle(href="", data-toggle="dropdown") Admin
+                  ul.dropdown-menu
+                    li
+                      a.add-product(href="javascript:void(0);") Add Product
+                      
                 li
                   a.logout(href="/logout") Logout
 
@@ -81,3 +87,5 @@ html
       require([ 'config' ], function() {
         require([ 'main' ]);
       });
+
+

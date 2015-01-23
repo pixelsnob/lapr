@@ -24,10 +24,11 @@ define([
       var obj = this;
       if (window.cms.user) {
         require([ 'views/admin/product' ], function(ProductAdminView) {
-          var events = {
+          /*var events = {
             'click a.add-product': _.bind(obj.add, obj, ProductAdminView)
           };
-          obj.delegateEvents(_.extend(obj.events, events));
+          obj.delegateEvents(_.extend(obj.events, events));*/
+          $('.add-product').on('click', _.bind(obj.add, obj, ProductAdminView));
         });
       }
       this.listenTo(refs.product_categories, 'add remove change',
@@ -116,7 +117,7 @@ define([
       this.listenTo(view, 'save', function(model) {
         obj.collection.add(model);
       });
-      return false;
+      return true; // true so that BS dropdown closes
     }
 
   });
