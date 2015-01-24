@@ -87,6 +87,7 @@ module.exports = function(app) {
       };
     },
 
+    // fix
     showProducts: function(req, res, next) {
       var json_data = res.locals.json_data;
       res.format({
@@ -112,19 +113,32 @@ module.exports = function(app) {
     },
 
     showProductsByCategory: function(req, res, next) {
-      res.format({
-        html: function() {
-          res.render('products', {
-            products:      res.locals.json_data.products.slice(0, 50), // temp
-            categories:    res.locals.json_data.categories, 
-            tags_tree:     [],//tags_tree,
-            page_count:    0,
-            item_count:    0
-          });
-        },
-        json: function() {
-          res.send(products);
+      db.model('ProductCategory').findOne({ slug: req.params.category },
+      function(err, product_category) {
+        if (err) {
+          return next(err);
         }
+        if (!product_category) {
+          return res.sendStatus(404);
+        }
+        db.model('Product').find({
+          categories: product_category._id 
+        }).populate('makers').exec(function(err, products) {
+          if (err) {
+            return next(err);
+          }
+          res.format({
+            html: function() {
+              res.render('products', {
+                products:              products,
+                product_categories:    res.locals.json_data.product_categories
+              });
+            },
+            json: function() {
+              res.send(products);
+            }
+          });
+        });
       });
     },
     
@@ -152,6 +166,7 @@ module.exports = function(app) {
       });
     },
     
+    // fix
     showProductsByTags: function(req, res, next) {
       var tags     = (typeof req.params.tags != 'undefined' ?
                       req.params.tags.split(',') : []),
@@ -180,12 +195,12 @@ module.exports = function(app) {
       res.format({
         html: function() {
           res.render('products', {
-            products:       products,
-            categories:     res.locals.json_data.categories, 
-            tags:           res.locals.json_data.tags,
-            tag_categories: res.locals.json_data.tag_categories,
-            page_count:    0,
-            item_count:    0
+            products:           products,
+            product_categories: res.locals.json_data.product_categories, 
+            tags:               res.locals.json_data.tags,
+            tag_categories:     res.locals.json_data.tag_categories
+            //page_count:         0,
+            //item_count:         0
           });
         },
         json: function() {

@@ -11,6 +11,9 @@ block content
     .products
       
       ul.results
+        each product in products
+          li
+            include product_row 
       
       a.more(href="javascript:void(0);") More
       

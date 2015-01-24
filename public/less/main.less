@@ -174,8 +174,13 @@ table {
 }
 
 .modal-header {
+  /* Prevent header from interfering with .close click/hover */
+  min-height: 20px;
+  padding: 0 7px 0 0;
+  overflow: hidden;
   .close {
-    font-size: 2.1em;
+    font-size: 2.7em;
+    clear: both;
   }
 }
 
@@ -184,7 +189,7 @@ table {
 }
 
 .modal-body {
-  padding: 25px 35px;
+  padding: 15px 35px 25px 35px;
 }
 
 .modal.product-details {
@@ -221,8 +226,22 @@ table {
 }
 
 .modal.product-details-image {
+  .modal-header .close {
+    color: #ccc;
+    opacity: 1;
+    &:hover {
+      color: #eee;
+    }
+    &:active {
+      color: #fff;
+    }
+  }
+  .modal-content {
+    background: #000;
+
+  }
   .modal-dialog {
-    width: 60%;
+    width: 75%;
   }
   img {
     width: 100%;
