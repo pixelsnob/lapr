@@ -28,7 +28,7 @@ define([
       });
       // Enable/disable depending on whether any filtered_products contain
       // the current tag
-      this.listenTo(refs.filtered_products, 'reset', this.toggleDisabled); 
+      this.listenTo(refs.filtered_products.fullCollection, 'reset', this.toggleDisabled); 
     },
     
     selectIfCurrent: function(model) {
