@@ -1,17 +1,17 @@
 
 
-if product.thumbnail
-  .thumbnail
-    img(src="/images/products/#{product.thumbnail}")
+.product
+  if product.thumbnail
+    .thumbnail
+      img(src="/images/products/#{product.thumbnail}")
 
-.name= product.name
+  h3.name= product.name
 
-if _.isArray(product.makers) && product.makers.length
-  .makers= product.makers.map(function(m) { return m.name; }).join(', ')
+  if _.isArray(product.makers) && product.makers.length
+    p.makers= product.makers.map(function(m) { return m.name; }).join(', ')
 
-//- .description= product.description
+  p.price= product.price
 
-.price= product.price
-
-if user
-  a.edit(href="/instruments/#{product.slug}/#{product.id}") Edit
+  if user
+    p
+      a.edit(href="/instruments/#{product.slug}/#{product.id}") Edit

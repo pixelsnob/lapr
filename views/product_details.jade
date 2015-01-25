@@ -11,7 +11,7 @@
           .image
             img(src="/images/products/#{product.image}")
 
-        h1= product.name
+        h2= product.name
         if product.alt_names
           p.alt-names \(!{product.alt_names}\)
         if _.isArray(product.makers) && product.makers.length
