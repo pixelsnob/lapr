@@ -87,23 +87,19 @@ module.exports = function(app) {
       };
     },
 
-    // fix
     showProducts: function(req, res, next) {
       var json_data = res.locals.json_data;
       res.format({
-        html: function() {
+        /*html: function() {
           res.render('products', {
             products:      json_data.products.slice(0, 50), // temp
-            categories:    json_data.categories, 
-            tags_tree:     [],//tags_tree,
-            page_count:    0,
-            item_count:    0
+            categories:    json_data.categories
           });
-        },
+        },*/
         json: function() {
           res.send({
             products: json_data.products,
-            product_categories: json_data.product_categories, // product_categories or categories?
+            product_categories: json_data.product_categories,
             makers: json_data.makers,
             tags: json_data.tags,
             tag_categories: json_data.tag_categories
@@ -211,7 +207,7 @@ module.exports = function(app) {
 
     // Builds JSON data that gets dumped on the page, for the front-end
     // to use
-    setProducts: function(req, res, next) {
+    getProducts: function(req, res, next) {
       var model_names = {
         'products':            'Product',
         'product_categories':  'ProductCategory',
@@ -236,6 +232,10 @@ module.exports = function(app) {
         res.locals.json_data = data;       
         next();
       });
+    },
+
+    showIndex: function(req, res, next) {
+      res.render('index');
     }
 
 

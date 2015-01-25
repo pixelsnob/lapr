@@ -34,10 +34,14 @@ html
         div.container-fluid.collapse.navbar-collapse#navbar-collapse
           nav
             ul.nav.navbar-nav
-              each link, name in nav
-                - var current = (name == body_class ? 'current' : '');
-                li(class="#{current}")
-                  a.navigate(href="#{link.url}")= link.text
+              li
+                a.dropdown-toggle(href="", data-toggle="dropdown") Instruments
+                ul.dropdown-menu
+                  each category in json_data.product_categories
+                    li
+                      a(href="/instruments/categories/#{category.slug}")= category.name
+              li
+                a.sound-search(href="/instruments/tags") Sound Search
               if user
                 li 
                   a.dropdown-toggle(href="", data-toggle="dropdown") Admin

@@ -44,7 +44,7 @@ app.locals.pretty = true;
 app.locals._ = _;
 
 app.use(function(req, res, next) {
-  res.locals.nav = require('./nav');
+  //res.locals.nav = require('./nav');
   res.locals.csrf = req.csrfToken();
   // Data to dump on the page in a script tag
   if (req.isAuthenticated()) {
@@ -63,25 +63,26 @@ app.use(jade_browser(
   { root: app.get('views'), minify: (env == 'production') }
 ));
 
+
 var routes     = require('./routes')(app),
     cms_routes = require('cms/routes');
 
-app.route('/').get(function(req, res, next) {
-  res.redirect('/instruments');
-});
+app.use(routes.getProducts);
+
+app.route('/').get(routes.showIndex);
 
 // Products
 
 app.route('/instruments')
-  .get(routes.setProducts, routes.showProducts)
-  .post(routes.setProducts, routes.showProducts)
+  .get(routes.showProducts)
+  .post(routes.showProducts)
 
 app.route('/instruments/categories/:category')
-  .get(routes.setProducts, routes.showProductsByCategory)
-  .post(routes.setProducts, routes.showProductsByCategory);
+  .get(routes.showProductsByCategory)
+  .post(routes.showProductsByCategory);
 
 app.route('/instruments/tags/:tags?')
-  .get(routes.setProducts, routes.showProductsByTags);
+  .get(routes.showProductsByTags);
 
 app.route('/instruments/:slug/:id?')
   .get(routes.showProduct)
