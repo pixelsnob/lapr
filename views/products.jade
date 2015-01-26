@@ -4,20 +4,20 @@ extends layout
 block content
   .col-md-3
     .tags-tree
-    //- a.reset-tags-tree(href="javascript:void(0);") Reset
     .categories
 
   .col-md-9
 
     .products
       
+      if heading
+        h1= heading
+
       ul.results
         each product in products
           li
             include product_row 
       
-      a.more(href="javascript:void(0);") More
+      if paginate && paginate.hasNextPages(page_count)
+        a.more(href=paginate.href()) More
       
-//- include paginate
-    
-

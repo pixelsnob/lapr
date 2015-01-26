@@ -39,7 +39,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('csurf')());
-app.use(require('express-paginate').middleware(10, 50));
+app.use(require('express-paginate').middleware(30, 60));
 app.locals.pretty = true;
 app.locals._ = _;
 
@@ -76,6 +76,10 @@ app.route('/').get(routes.showIndex);
 app.route('/instruments')
   .get(routes.showProducts)
   .post(routes.showProducts)
+
+app.route('/instruments/categories/all')
+  .get(routes.showProducts)
+  .post(routes.showProducts);
 
 app.route('/instruments/categories/:category')
   .get(routes.showProductsByCategory)

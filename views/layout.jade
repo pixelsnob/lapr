@@ -35,7 +35,8 @@ html
           nav
             ul.nav.navbar-nav
               li
-                a.dropdown-toggle(href="", data-toggle="dropdown") Instruments
+                //- a.instruments(href="/instruments") Instruments
+                a.dropdown-toggle(href="/instruments", data-toggle="dropdown") Instruments
                 ul.dropdown-menu
                   each category in json_data.product_categories
                     li

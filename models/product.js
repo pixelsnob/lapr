@@ -6,12 +6,10 @@ var mongoose   = require('mongoose'),
     _          = require('underscore');
 
 var ProductSchema = new mongoose.Schema({
-  //category:          String,
   categories:        [{ type: Number, ref: 'ProductCategory' }],
   name:              String,
   slug:              String,
   alt_names:         String,
-  //maker:             String,
   makers:            [{ type: Number, ref: 'Maker' }],
   description:       String,
   old_description:   String,
@@ -20,7 +18,6 @@ var ProductSchema = new mongoose.Schema({
   range:             String,
   thumbnail:         String,
   image:             String,
-  //images:            [ String ],
   sizes:             String,
   octaves:           Number,
   tags:              [{ type: Number, ref: 'Tag' }]
