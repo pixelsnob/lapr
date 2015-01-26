@@ -48,7 +48,6 @@ define([
     showProductsByCategory: function(category) {
       var obj = this;
       this.deferred.done(function() {
-        obj.showProductsResults();
         obj.hideTagsTree();
         obj.showCategoriesNav();
         obj.categories_view.setSelectedCategory(category);
@@ -58,14 +57,9 @@ define([
       return false;
     },
 
-    showProductsResults: function() {
-      this.$el.find('.products .results').css('visibility', 'visible');
-    },
-
     showProductsByTags: function(tags) {
       var obj = this;
       this.deferred.done(function() {
-        obj.showProductsResults();
         obj.showTagsTree();
         obj.hideCategoriesNav();
         obj.tags_tree_view.setSelectedTags(tags);

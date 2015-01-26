@@ -54,7 +54,7 @@ table {
       min-height: 600px;
       padding: 0;
       margin: 0;
-      visibility: hidden;
+      /*visibility: hidden;*/
       width: 100%;
       overflow: hidden;
       li {
@@ -278,5 +278,11 @@ table {
     .modal-dialog {
       width: 100%;
     }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  #main .categories {
+    display: none !important;
   }
 }

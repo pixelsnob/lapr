@@ -119,7 +119,7 @@ module.exports = function(app) {
         }
         db.model('Product').find({
           categories: product_category._id 
-        }).populate('makers').exec(function(err, products) {
+        }, null, { sort: { name: 1 }}).populate('makers').exec(function(err, products) {
           if (err) {
             return next(err);
           }
