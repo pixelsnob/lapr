@@ -7,12 +7,14 @@ define([
   'views/products',
   'views/tags_tree',
   'views/categories_nav',
+  'views/products_categories_search',
   'collections/products'
 ], function(
   BaseView,
   ProductsView,
   TagsTreeView,
   CategoriesNavView,
+  ProductsCategoriesSearchView,
   ProductsCollection
 ) {
   return BaseView.extend({ 
@@ -20,23 +22,15 @@ define([
     el: 'body',
 
     events: {
-      'click a.navigate': 'navigate'
+      'click nav li a': 'navigate'
     },
 
     initialize: function() {
       this.products = new ProductsCollection;
       this.deferred = this.products.fetch();
-      this.products_view = new ProductsView({
-        el:                 this.$el.find('.products'),
-        collection:         this.products
-      });
-      this.tags_tree_view = new TagsTreeView({
+      this.products_categories_search_view = new ProductsCategoriesSearchView({
         products: this.products
       });
-      this.categories_view = new CategoriesNavView({
-        products: this.products
-      });
-      //this.trigger('ready');
     },
 
     navigate: function(ev) {
@@ -48,22 +42,17 @@ define([
     showProductsByCategory: function(category) {
       var obj = this;
       this.deferred.done(function() {
-        obj.hideTagsTree();
-        obj.showCategoriesNav();
-        obj.categories_view.setSelectedCategory(category);
-        obj.products_view.filterProductsByCategory();
-
+        if (!obj.$el.find('#main .products-categories-search').length) {
+          obj.$el.find('#main').html(obj.products_categories_search_view.render().el);
+        }
+        obj.products_categories_search_view.filter(category);
       });
       return false;
     },
-
+    
     showProductsByTags: function(tags) {
       var obj = this;
       this.deferred.done(function() {
-        obj.showTagsTree();
-        obj.hideCategoriesNav();
-        obj.tags_tree_view.setSelectedTags(tags);
-        obj.products_view.filterProductsByTags();
       });
       return false;
     },
@@ -78,18 +67,6 @@ define([
     
     hideTagsTree: function() {
       this.$el.find('.tags-tree').hide();
-    },
-
-    showCategoriesNav: function() {
-      var $categories = this.$el.find('.categories');
-      if (!$categories.children().length) {
-        $categories.html(this.categories_view.render().el);
-      }
-      $categories.show();
-    },
-
-    hideCategoriesNav: function() {
-      this.$el.find('.categories').hide();
     }
 
   });

@@ -2,22 +2,4 @@
 extends layout
 
 block content
-  .col-md-3
-    .tags-tree
-    .categories
-
-  .col-md-9
-
-    .products
-      
-      if heading
-        h1= heading
-
-      ul.results
-        each product in products
-          li
-            include product_row 
-      
-      if paginate && paginate.hasNextPages(page_count)
-        a.more(href=paginate.href()) More
-      
+  include products_categories_search

@@ -1,0 +1,22 @@
+
+.col-md-3
+  .tags-tree
+  .categories
+
+.col-md-9
+
+  .products
+    
+    if heading
+      h1= heading
+
+    ul.results
+      each product in products
+        li
+          include product_row 
+    
+    - var href = 'javascript:void(0);'
+    if paginate && paginate.hasNextPages(page_count)
+      - href = paginate.href()
+    
+    a.more(href=href) More

@@ -59,7 +59,7 @@ app.use(function(req, res, next) {
 
 app.use(jade_browser(
   '/jade.js',
-  [ 'cms/*.jade', 'admin/*.jade', 'product_*.jade' ],
+  [ 'cms/*.jade', 'admin/*.jade', 'product_*.jade', 'products_*.jade' ],
   { root: app.get('views'), minify: (env == 'production') }
 ));
 

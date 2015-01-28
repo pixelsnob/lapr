@@ -19,8 +19,6 @@ define([
     initialize: function(opts) {
       this.collection = opts.collection;
       var refs = this.refs = this.collection.refs;
-      this.setElement(opts.el);
-      // Include product admin editor if admin user
       var obj = this;
       if (window.cms.user) {
         require([ 'views/admin/product', 'views/admin/tag_categories' ],
@@ -36,11 +34,16 @@ define([
       this.listenTo(refs.makers, 'add remove change',
         _.bind(this.render, this, false));
       this.listenTo(refs.filtered_products, 'reset', this.toggleMoreLink);
+      //this.listenTo(refs.filtered_products, 'reset', this.render);
     },
     
     render: function(append) {
       var fragment = document.createDocumentFragment(),
-          obj      = this;
+          obj      = this,
+          $results = this.$el.find('.results');
+      if (append !== true) {
+        $results.empty();
+      }
       this.refs.filtered_products.forEach(function(product) {
         var view = new ProductView({
           model:              product,
@@ -49,11 +52,8 @@ define([
         });
         fragment.appendChild(view.render().el);
       });
-      if (append === true) {
-        this.$el.find('.results').append(fragment);
-      } else {
-        this.$el.find('.results').html(fragment);
-      }
+      $results.append(fragment);
+      console.log('products render');
       return this;
     },
     
@@ -93,7 +93,6 @@ define([
       this.refs.filtered_products.state.currentPage = 0;
       this.collection.filterByCategory();
       this.render();
-      //console.log('filterProductsByCat');
     },
     
     toggleMoreLink: function() {
