@@ -43,7 +43,7 @@ define([
         fragment.appendChild(view.render().el);
       });
       $results.append(fragment);
-      console.log('products render');
+      //console.log('products render');
       return this;
     },
     
