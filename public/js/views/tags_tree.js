@@ -30,6 +30,7 @@ define([
       this.$el.append($reset_link);
     },
     
+    // move to collection
     setSelectedTags: function(tags) {
       var obj = this, models = [], tags = (_.isArray(tags) ? tags : []);
       this.products.refs.selected_tags.reset();

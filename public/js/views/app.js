@@ -41,7 +41,7 @@ define([
         });
       }
     },
-
+    
     navigate: function(ev) {
       var url = $(ev.currentTarget).attr('href'),
           $dd = $(ev.currentTarget).parents('.dropdown-menu');
@@ -56,10 +56,11 @@ define([
       var obj = this;
       this.deferred.done(function() {
         if (!obj.$el.find('#main .products-categories-search').length) {
+          // Make sure old references to views get deleted
+          obj.products.refs.selected_categories.unbind();
           obj.categories_search_view = new ProductsCategoriesSearchView({
             products: obj.products
           });
-          obj.products.refs.selected_categories.trigger('unbind');
           obj.$el.find('#main').html(obj.categories_search_view.render().el);
         }
         obj.categories_search_view.filter(category);
@@ -71,9 +72,8 @@ define([
       var obj = this;
       this.deferred.done(function() {
         if (!obj.$el.find('#main .products-tags-search').length) {
-          // cheat so i don't have to unbind events from old views
-          obj.products.refs.selected_tags.trigger('unbind');
-          //obj.products.refs.selected_tags = new Backbone.Collection;
+          // Make sure old references to views get deleted
+          obj.products.refs.selected_tags.unbind();
           obj.tags_search_view = new ProductsTagsSearchView({
             products: obj.products
           });

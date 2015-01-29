@@ -22,6 +22,7 @@ define([
       this.listenTo(this.products.refs.product_categories, 'add change remove', this.render);
     },
     
+    // move to collection
     setSelectedCategory: function(category) {
       this.products.refs.selected_categories.reset();
       if (!category) {

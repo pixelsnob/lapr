@@ -20,7 +20,7 @@ define([
       this.products = opts.products;
       this.listenTo(this.products.refs.selected_categories, 'add', this.selectIfCurrent);
       this.listenTo(this.products.refs.selected_categories, 'reset', this.setSelected);
-      this.listenTo(this.products.refs.selected_categories, 'unbind', this.remove);
+      //this.listenTo(this.products.refs.selected_categories, 'unbind', this.remove);
     },
     
     setSelected: function(collection) {
