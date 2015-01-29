@@ -11,6 +11,7 @@ define([
   'collections/product_categories',
   'collections/makers',
   'collections/tags',
+  'collections/selected_tags',
   'collections/tag_categories'
 ], function(
   ProductModel,
@@ -21,6 +22,7 @@ define([
   ProductCategoriesCollection,
   MakersCollection,
   TagsCollection,
+  SelectedTagsCollection,
   TagCategoriesCollection
 ) {
   return Backbone.Collection.extend({
@@ -38,9 +40,10 @@ define([
         makers:               new MakersCollection,
         tags:                 new TagsCollection,
         tag_categories:       new TagCategoriesCollection,
-        selected_tags:        new Backbone.Collection,
+        selected_tags:        new SelectedTagsCollection,
         selected_categories:  new Backbone.Collection
       };
+      this.refs.selected_tags.tags = this.refs.tags;
     },
 
     fetch: function(){
@@ -93,6 +96,8 @@ define([
         return temp_tag_ids.length == tag_ids.length;
       });
       this.refs.filtered_products.fullCollection.reset(products);
+      this.trigger('filtered');
+      console.log('?');
     },
 
     filterByCategory: function() {

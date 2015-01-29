@@ -22,7 +22,6 @@ define([
       // Select or deselect if this model exists in selected_tags
       this.listenTo(this.products.refs.selected_tags, 'add', this.selectIfCurrent);
       this.listenTo(this.products.refs.selected_tags, 'remove', this.deselectIfCurrent);
-      //this.listenTo(this.products.refs.selected_tags, 'unbind', this.remove);
       // Select/deselect on reset, just not the first time
       this.listenToOnce(this.products.refs.selected_tags, 'reset', function() {
         obj.listenTo(obj.products.refs.selected_tags, 'reset', obj.toggleSelected);

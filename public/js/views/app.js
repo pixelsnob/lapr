@@ -72,14 +72,16 @@ define([
       var obj = this;
       this.deferred.done(function() {
         if (!obj.$el.find('#main .products-tags-search').length) {
-          // Make sure old references to views get deleted
+          // Make sure references to old views get deleted
           obj.products.refs.selected_tags.unbind();
+          obj.products.unbind();
           obj.tags_search_view = new ProductsTagsSearchView({
             products: obj.products
           });
           obj.$el.find('#main').html(obj.tags_search_view.render().el);
         }
-        obj.tags_search_view.filter(tags);
+        obj.products.refs.selected_tags.setFromArray(tags);
+        obj.products.filterByTags();
       });
       return false;
     },

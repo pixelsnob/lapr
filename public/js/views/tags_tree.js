@@ -14,8 +14,6 @@ define([
   
   return BaseView.extend({
     
-    //tagName: 'ul',
-
     events: {
       'click .reset': 'reset'
     },
@@ -28,21 +26,6 @@ define([
       var $reset_link = $('<a>').attr('href', 'javascript:void(0);')
         .text('Reset').addClass('reset');
       this.$el.append($reset_link);
-    },
-    
-    // move to collection
-    setSelectedTags: function(tags) {
-      var obj = this, models = [], tags = (_.isArray(tags) ? tags : []);
-      this.products.refs.selected_tags.reset();
-      if (!tags.length) {
-        return;
-      }
-      tags.forEach(function(tag) {
-        var model = obj.products.refs.tags.findWhere({ slug: tag });
-        if (model) {
-          obj.products.refs.selected_tags.add(model);
-        }
-      });
     },
     
     render: function() {

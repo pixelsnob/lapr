@@ -28,22 +28,13 @@ define([
       });
     },
 
-    filter: function(tags) {
-      this.tags_tree_view.setSelectedTags(tags);
-      this.products_view.filterProductsByTags();
-      return false;
-    },
-    
     render: function() {
       this.$el.html(template.render('products_tags_search', {
         products: [], paginate: null, heading: ''
       }));
       this.$el.addClass('products-tags-search');
       this.products_view.setElement(this.$el.find('.products'));
-      var $tt = this.$el.find('.tags-tree');
-      if (!$tt.children().length) {
-        $tt.html(this.tags_tree_view.render().el);
-      }
+      this.$el.find('.tags-tree').html(this.tags_tree_view.render().el);
       return this;
     }
 

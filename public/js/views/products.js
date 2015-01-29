@@ -24,6 +24,7 @@ define([
       this.listenTo(refs.makers, 'add remove change',
         _.bind(this.render, this, false));
       this.listenTo(refs.filtered_products, 'reset', this.toggleMoreLink);
+      this.listenTo(this.collection, 'filtered', this.render);
     },
     
     render: function(append) {
@@ -72,11 +73,12 @@ define([
       return false;
     },
 
+      /*
     filterProductsByTags: function() {
       this.refs.filtered_products.state.currentPage = 0;
       this.collection.filterByTags();
       this.render();
-    },
+    },*/
     
     filterProductsByCategory: function() {
       this.refs.filtered_products.state.currentPage = 0;

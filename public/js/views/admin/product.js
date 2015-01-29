@@ -79,8 +79,8 @@ define([
       this.listenTo(modal_view, 'close', function() {
         // Cleanup
         $('.modal').remove();
-        this.undelegateEvents();
         this.remove();
+        this.unbind();
       });
     },
     
