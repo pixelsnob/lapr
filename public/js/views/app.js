@@ -84,22 +84,10 @@ define([
       return false;
     },
 
-    showTagsTree: function() {
-      var $tags_tree = this.$el.find('.tags-tree');
-      if (!$tags_tree.children().length) {
-        $tags_tree.html(this.tags_tree_view.render().el);
-      }
-      $tags_tree.show();
-    },
-    
-    hideTagsTree: function() {
-      this.$el.find('.tags-tree').hide();
-    },
-
     add: function(ProductAdminView) {
       var view = new ProductAdminView({
         model:              this.model,
-        refs:               this.refs,
+        refs:               this.products.refs,
         mode:               'add'
       });
       view.renderModal();
@@ -113,7 +101,7 @@ define([
 
     editTagCategories: function(TagCategoriesAdminView) {
       var view = new TagCategoriesAdminView({
-        collection: this.refs.tag_categories
+        collection: this.products.refs.tag_categories
       });
       view.renderModal();
       var obj = this;
