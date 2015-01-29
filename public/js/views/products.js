@@ -19,22 +19,11 @@ define([
     initialize: function(opts) {
       this.collection = opts.collection;
       var refs = this.refs = this.collection.refs;
-      var obj = this;
-      if (window.cms.user) {
-        require([ 'views/admin/product', 'views/admin/tag_categories' ],
-        function(ProductAdminView, TagCategoriesAdminView) {
-          // This is on the body so probably shouldn't be in here anyway...
-          $('.add-product').on('click', _.bind(obj.add, obj, ProductAdminView));
-          $('.edit-tag-categories').on('click', _.bind(obj.editTagCategories, obj,
-            TagCategoriesAdminView));
-        });
-      }
       this.listenTo(refs.product_categories, 'add remove change',
         _.bind(this.render, this, false));
       this.listenTo(refs.makers, 'add remove change',
         _.bind(this.render, this, false));
       this.listenTo(refs.filtered_products, 'reset', this.toggleMoreLink);
-      //this.listenTo(refs.filtered_products, 'reset', this.render);
     },
     
     render: function(append) {

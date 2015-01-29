@@ -20,6 +20,7 @@ define([
       this.products = opts.products;
       this.listenTo(this.products.refs.selected_categories, 'add', this.selectIfCurrent);
       this.listenTo(this.products.refs.selected_categories, 'reset', this.setSelected);
+      this.listenTo(this.products.refs.selected_categories, 'unbind', this.remove);
     },
     
     setSelected: function(collection) {
@@ -32,10 +33,10 @@ define([
 
     selectIfCurrent: function(model) {
       if (model.id == this.model.id) {
+        console.log('sel');
         this.select();
       }
     },
-    
 
     deselectIfCurrent: function(model) {
       if (model.id == this.model.id) {

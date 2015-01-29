@@ -35,14 +35,13 @@ html
           nav
             ul.nav.navbar-nav
               li
-                //- a.instruments(href="/instruments") Instruments
                 a.dropdown-toggle(href="/instruments", data-toggle="dropdown") Instruments
                 ul.dropdown-menu
                   each category in json_data.product_categories
                     li
-                      a(href="/instruments/categories/#{category.slug}")= category.name
+                      a.navigate(href="/instruments/categories/#{category.slug}")= category.name
               li
-                a.sound-search(href="/instruments/tags") Sound Search
+                a.navigate.sound-search(href="/instruments/tags") Sound Search
               if user
                 li 
                   a.dropdown-toggle(href="", data-toggle="dropdown") Admin
@@ -60,16 +59,6 @@ html
 
     footer
 
-
-    //- if json_data
-    //-   script(type="text/javascript").
-    //-    window.lapr = {};
-    //-    window.lapr.products           = !{JSON.stringify(json_data.products)};
-    //-    window.lapr.product_categories = !{JSON.stringify(json_data.product_categories)};
-    //-    window.lapr.makers             = !{JSON.stringify(json_data.makers)};
-    //-    window.lapr.tags               = !{JSON.stringify(json_data.tags)};
-    //-    window.lapr.tag_categories     = !{JSON.stringify(json_data.tag_categories)};
-      
     script(type="text/javascript").
       // Various polyfills
       [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});

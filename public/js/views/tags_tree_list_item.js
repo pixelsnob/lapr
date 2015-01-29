@@ -20,19 +20,21 @@ define([
       this.products = opts.products;
       var obj = this, refs = this.products.refs;
       // Select or deselect if this model exists in selected_tags
-      this.listenTo(refs.selected_tags, 'add', this.selectIfCurrent);
-      this.listenTo(refs.selected_tags, 'remove', this.deselectIfCurrent);
+      this.listenTo(this.products.refs.selected_tags, 'add', this.selectIfCurrent);
+      this.listenTo(this.products.refs.selected_tags, 'remove', this.deselectIfCurrent);
+      this.listenTo(this.products.refs.selected_tags, 'unbind', this.remove);
       // Select/deselect on reset, just not the first time
-      this.listenToOnce(refs.selected_tags, 'reset', function() {
-        obj.listenTo(refs.selected_tags, 'reset', obj.toggleSelected);
+      this.listenToOnce(this.products.refs.selected_tags, 'reset', function() {
+        obj.listenTo(obj.products.refs.selected_tags, 'reset', obj.toggleSelected);
       });
       // Enable/disable depending on whether any filtered_products contain
       // the current tag
-      this.listenTo(refs.filtered_products.fullCollection, 'reset', this.toggleDisabled); 
+      this.listenTo(this.products.refs.filtered_products.fullCollection, 'reset', this.toggleDisabled); 
     },
     
     selectIfCurrent: function(model) {
       if (model.id == this.model.id) {
+        console.log(this);
         this.select();
       }
     },
@@ -75,6 +77,8 @@ define([
       if ($(ev.currentTarget).parent().hasClass('disabled')) {
         return false;
       }
+      //console.log('tt toggle');
+      //console.log(this.products.refs.selected_tags);
       var tag = this.products.refs.selected_tags.findWhere({ _id: this.model.id });
       if (tag) {
         this.products.refs.selected_tags.remove(tag);
