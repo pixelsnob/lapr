@@ -30,12 +30,12 @@ define([
     initialize: function() {
       this.products = new ProductsCollection;
       this.deferred = this.products.fetch();
+      // Admin stuff if user is logged in
       var obj = this;
       if (window.cms.user) {
         require([ 'views/admin/product', 'views/admin/tag_categories' ],
         function(ProductAdminView, TagCategoriesAdminView) {
-          // This is on the body so probably shouldn't be in here anyway...
-          $('.add-product').on('click', _.bind(obj.add, obj, ProductAdminView));
+          $('.add-product').on('click', _.bind(obj.addProduct, obj, ProductAdminView));
           $('.edit-tag-categories').on('click', _.bind(obj.editTagCategories, obj,
             TagCategoriesAdminView));
         });
@@ -88,7 +88,7 @@ define([
       return false;
     },
 
-    add: function(ProductAdminView) {
+    addProduct: function(ProductAdminView) {
       var view = new ProductAdminView({
         model:              this.model,
         refs:               this.products.refs,

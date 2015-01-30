@@ -25,9 +25,9 @@ define([
         _.bind(this.render, this, false));
       this.listenTo(refs.filtered_products, 'reset', this.toggleMoreLink);
       this.listenTo(this.collection, 'filtered', this.render);
-      // move this to collection?
       var obj = this;
       this.listenTo(this.collection, 'add', function(model) {
+        // For highlighting, etc.
         model.is_new = true;
         refs.filtered_products.add(model);
         obj.render();
@@ -80,19 +80,6 @@ define([
       return false;
     },
 
-      /*
-    filterProductsByTags: function() {
-      this.refs.filtered_products.state.currentPage = 0;
-      this.collection.filterByTags();
-      this.render();
-    },*/
-    
-    /*filterProductsByCategory: function() {
-      this.refs.filtered_products.state.currentPage = 0;
-      this.collection.filterByCategory();
-      this.render();
-    },*/
-    
     toggleMoreLink: function() {
       var state = this.refs.filtered_products.state;
       if (state.lastPage == state.currentPage) {
@@ -100,34 +87,6 @@ define([
       } else {
         this.$el.find('.more').show();
       }
-    },
-
-    add: function(ProductAdminView) {
-      var view = new ProductAdminView({
-        model:              this.model,
-        refs:               this.refs,
-        mode:               'add'
-      });
-      view.renderModal();
-      var obj = this;
-      // Add to collection if save is successful
-      this.listenTo(view, 'save', function(model) {
-        obj.collection.add(model);
-      });
-      return true; // true so that BS dropdown closes
-    },
-
-    editTagCategories: function(TagCategoriesAdminView) {
-      var view = new TagCategoriesAdminView({
-        collection: this.refs.tag_categories
-      });
-      view.renderModal();
-      var obj = this;
-      // Add to collection if save is successful
-      this.listenTo(view, 'save', function(model) {
-        obj.collection.add(model);
-      });
-      return true; // true so that BS dropdown closes
     }
 
   });
