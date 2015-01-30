@@ -25,6 +25,13 @@ define([
         _.bind(this.render, this, false));
       this.listenTo(refs.filtered_products, 'reset', this.toggleMoreLink);
       this.listenTo(this.collection, 'filtered', this.render);
+      // move this to collection?
+      var obj = this;
+      this.listenTo(this.collection, 'add', function(model) {
+        model.is_new = true;
+        refs.filtered_products.add(model);
+        obj.render();
+      });
     },
     
     render: function(append) {
@@ -80,11 +87,11 @@ define([
       this.render();
     },*/
     
-    filterProductsByCategory: function() {
+    /*filterProductsByCategory: function() {
       this.refs.filtered_products.state.currentPage = 0;
       this.collection.filterByCategory();
       this.render();
-    },
+    },*/
     
     toggleMoreLink: function() {
       var state = this.refs.filtered_products.state;

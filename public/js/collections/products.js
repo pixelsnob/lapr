@@ -100,6 +100,7 @@ define([
         // tags array
         return temp_tag_ids.length == tag_ids.length;
       });
+      this.refs.filtered_products.state.currentPage = 0;
       this.refs.filtered_products.fullCollection.reset(products);
       this.trigger('filtered');
     },
@@ -120,6 +121,7 @@ define([
           return (!selected_category_id || (category.id == selected_category_id)); 
         });
       });
+      this.refs.filtered_products.state.currentPage = 0;
       this.refs.filtered_products.fullCollection.reset(products);
       this.trigger('filtered');
     },

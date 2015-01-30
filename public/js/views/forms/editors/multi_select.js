@@ -11,17 +11,16 @@ define([ 'backbone', 'backbone-forms' ], function(Backbone) {
       Backbone.Form.editors.Select.prototype.initialize.call(this, opts); 
     },
 
+    // Make sure numeric ids don't get cast as strings
     getValue: function(value) {
       var value = Backbone.Form.editors.Select.prototype.getValue.call(this); 
       if (_.isArray(value)) {
         var new_array = [];
         for (var i in value) {
-          //console.log(value[i]);
           new_array.push(Number(value[i]));
         }
         return new_array;
       }
-      //console.log(value);
       return value;
     },
 

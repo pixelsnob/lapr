@@ -7,6 +7,7 @@ define([
 
     routes: {
       'instruments':                       'showProductsByCategory',
+      'instruments/':                      'showProductsByCategory',
       'instruments/categories/:category':  'showProductsByCategory',
       'instruments/tags':                  'showProductsByTags',
       'instruments/tags/':                 'showProductsByTags',

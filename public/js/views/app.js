@@ -98,7 +98,7 @@ define([
       var obj = this;
       // Add to collection if save is successful
       this.listenTo(view, 'save', function(model) {
-        obj.collection.add(model);
+        obj.products.add(model);
       });
       return true; // true so that BS dropdown closes
     },
@@ -111,7 +111,7 @@ define([
       var obj = this;
       // Add to collection if save is successful
       this.listenTo(view, 'save', function(model) {
-        obj.collection.add(model);
+        obj.products.add(model);
       });
       return true; // true so that BS dropdown closes
     }
