@@ -57,13 +57,15 @@ define([
       this.deferred.done(function() {
         if (!obj.$el.find('#main .products-categories-search').length) {
           // Make sure old references to views get deleted
-          obj.products.refs.selected_categories.unbind();
+          obj.products.unbindRefs();
+          obj.products.unbind();
           obj.categories_search_view = new ProductsCategoriesSearchView({
             products: obj.products
           });
           obj.$el.find('#main').html(obj.categories_search_view.render().el);
         }
-        obj.categories_search_view.filter(category);
+        obj.products.refs.selected_categories.setFromSlug(category);
+        obj.products.filterByCategory();
       });
       return false;
     },
@@ -73,7 +75,7 @@ define([
       this.deferred.done(function() {
         if (!obj.$el.find('#main .products-tags-search').length) {
           // Make sure references to old views get deleted
-          obj.products.refs.selected_tags.unbind();
+          obj.products.unbindRefs();
           obj.products.unbind();
           obj.tags_search_view = new ProductsTagsSearchView({
             products: obj.products

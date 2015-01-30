@@ -6,11 +6,13 @@ define([
   'views/base',
   'views/products',
   'views/categories_nav',
+  'views/product_category_header',
   'template'
 ], function(
   BaseView,
   ProductsView,
   CategoriesNavView,
+  ProductCategoryHeaderView,
   template
 ) {
   return BaseView.extend({ 
@@ -24,6 +26,9 @@ define([
         collection:         this.products
       });
       this.categories_view = new CategoriesNavView({
+        products: this.products
+      });
+      this.product_category_header_view = new ProductCategoryHeaderView({
         products: this.products
       });
     },
@@ -49,10 +54,15 @@ define([
 
     render: function() {
       this.$el.html(template.render('products_categories_search', {
-        products: [], paginate: null, heading: null
+        products: [],
+        paginate: null,
+        heading: null
       }));
       this.$el.addClass('products-categories-search');
       this.products_view.setElement(this.$el.find('.products'));
+      this.$el.find('.categories').html(this.categories_view.render().el);
+      this.product_category_header_view.setElement(this.$el.find('h1'));
+      this.product_category_header_view.render();
       return this;
     }
 

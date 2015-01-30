@@ -11,8 +11,9 @@ define([
   'collections/product_categories',
   'collections/makers',
   'collections/tags',
+  'collections/tag_categories',
   'collections/selected_tags',
-  'collections/tag_categories'
+  'collections/selected_categories'
 ], function(
   ProductModel,
   MakerModel,
@@ -22,8 +23,9 @@ define([
   ProductCategoriesCollection,
   MakersCollection,
   TagsCollection,
+  TagCategoriesCollection,
   SelectedTagsCollection,
-  TagCategoriesCollection
+  SelectedCategoriesCollection
 ) {
   return Backbone.Collection.extend({
     
@@ -41,9 +43,10 @@ define([
         tags:                 new TagsCollection,
         tag_categories:       new TagCategoriesCollection,
         selected_tags:        new SelectedTagsCollection,
-        selected_categories:  new Backbone.Collection
+        selected_categories:  new SelectedCategoriesCollection
       };
-      this.refs.selected_tags.tags = this.refs.tags;
+      this.refs.selected_tags.tags                     = this.refs.tags;
+      this.refs.selected_categories.product_categories = this.refs.product_categories;
     },
 
     fetch: function(){
@@ -81,6 +84,8 @@ define([
       return res.products;
     },
 
+    // Filters products by tags and adds them to the filtered_products
+    // collection
     filterByTags: function() {
       var tag_ids = this.refs.selected_tags.pluck('_id');
       var products = this.filter(function(product) {
@@ -97,9 +102,10 @@ define([
       });
       this.refs.filtered_products.fullCollection.reset(products);
       this.trigger('filtered');
-      console.log('?');
     },
-
+    
+    // Filters products by categories and adds them to the filtered_products
+    // collection
     filterByCategory: function() {
       var obj                  = this,
           selected_category    = this.refs.selected_categories.at(0),
@@ -115,6 +121,13 @@ define([
         });
       });
       this.refs.filtered_products.fullCollection.reset(products);
+      this.trigger('filtered');
+    },
+
+    unbindRefs: function() {
+      for (var ref in this.refs) {
+        this.refs[ref].unbind();
+      }
     }
 
   });

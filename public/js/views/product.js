@@ -26,6 +26,7 @@ define([
       this.model                = opts.model || new ProductModel;
       this.products             = opts.products;
       this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'change', this.highlight);
       this.listenTo(this.model, 'destroy', this.remove);
       // Include product admin editor if admin user
       if (window.cms.user) {
@@ -45,7 +46,8 @@ define([
       product.id  = this.model.id;
       if (product.makers) {
         product.makers = product.makers.map(function(maker) {
-          var maker = obj.products.refs.makers.findWhere({ _id: Number(maker) }); // << backbone-forms is casting this wrong, ugh
+          //var maker = obj.products.refs.makers.findWhere({ _id: Number(maker) }); // << backbone-forms is casting this wrong, ugh
+          var maker = obj.products.refs.makers.findWhere({ _id: maker }); 
           if (maker && maker.attributes) {
             return maker.toJSON();
           }
@@ -57,6 +59,13 @@ define([
       return this;
     },
     
+    highlight: function(model) {
+      var $product = this.$el.find('.product').addClass('highlight');
+      setTimeout(function() {
+        $product.removeClass('highlight');
+      }, 5000);
+    },
+
     showDetails: function() {
       var view = new ProductDetailsView({ model: this.model });
       view.renderModal();
@@ -73,19 +82,6 @@ define([
       return false;
     }
 
-    // Only render if refs that belong to this product are changed
-    /*refsChange: function(model) {
-      var ids    = [],
-          makers = this.model.get('makers');
-      if (_.isArray(makers) && makers.length) {
-        ids = ids.concat(makers);
-      }
-      if (_.contains(ids, model.id)) {
-        this.render();
-      }
-      
-    }*/
-    
   });
 });
 
