@@ -36,6 +36,13 @@ define([
       this.products_view.setElement(this.$el.find('.products'));
       this.$el.find('.tags-tree').html(this.tags_tree_view.render().el);
       return this;
+    },
+
+    onClose: function() {
+      this.products.refs.filtered_products.reset();
+      this.products.trigger('kill');
+      this.products.unbind();
+      this.products.unbindRefs();
     }
 
   });

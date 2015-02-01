@@ -42,7 +42,6 @@ define([
             TagCategoriesAdminView));
         });
       }
-      
     },
     
     navigate: function(ev) {
@@ -59,10 +58,9 @@ define([
       var obj = this;
       this.deferred.done(function() {
         if (!obj.$el.find('#main .products-categories-search').length) {
-          obj.products.refs.filtered_products.reset();
-          obj.products.refs.filtered_products.trigger('kill');
-          obj.products.unbindRefs();
-          obj.products.unbind();
+          if (this.current_view) {
+            this.current_view.close();
+          }
           this.current_view = new ProductsCategoriesSearchView({
             products: obj.products
           });
@@ -79,14 +77,9 @@ define([
       var obj = this;
       this.deferred.done(function() {
         if (!obj.$el.find('#main .products-tags-search').length) {
-          obj.products.refs.filtered_products.trigger('kill');
-          obj.products.refs.filtered_products.reset();
-          obj.products.unbindRefs();
-          obj.products.unbind();
-          /*if (this.current_view) {
-            this.current_view.remove();
-            this.current_view.unbind();
-          }*/
+          if (this.current_view) {
+            this.current_view.close();
+          }
           this.current_view = new ProductsTagsSearchView({
             products: obj.products
           });

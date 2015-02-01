@@ -88,6 +88,10 @@ define([
       } else {
         this.$el.find('.more').show();
       }
+    },
+
+    onClose: function() {
+      
     }
 
   });

@@ -63,6 +63,13 @@ define([
       this.$el.find('.categories').html(this.categories_view.render().el);
       this.product_category_header_view.setElement(this.$el.find('h1'));
       return this;
+    },
+
+    onClose: function() {
+      this.products.trigger('kill');
+      this.products.unbind();
+      this.products.unbindRefs();
+      this.products.refs.filtered_products.reset();
     }
 
   });

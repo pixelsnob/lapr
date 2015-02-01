@@ -16,6 +16,14 @@ define([
       } else {
         dialog.alert('A server error has occurred!');
       }
+    },
+
+    close: function() {
+      if (this.onClose){
+        this.onClose();
+      }
+      this.remove();
+      this.unbind();
     }
   });
 });
