@@ -62,7 +62,6 @@ define([
       this.products_view.setElement(this.$el.find('.products'));
       this.$el.find('.categories').html(this.categories_view.render().el);
       this.product_category_header_view.setElement(this.$el.find('h1'));
-      this.product_category_header_view.render();
       return this;
     }
 

@@ -27,6 +27,8 @@ define([
       'click nav li a.navigate': 'navigate'
     },
 
+    current_view: null,
+
     initialize: function() {
       this.products = new ProductsCollection;
       this.deferred = this.products.fetch();
@@ -40,6 +42,7 @@ define([
             TagCategoriesAdminView));
         });
       }
+      
     },
     
     navigate: function(ev) {
@@ -56,13 +59,15 @@ define([
       var obj = this;
       this.deferred.done(function() {
         if (!obj.$el.find('#main .products-categories-search').length) {
-          // Make sure old references to views get deleted
+          obj.products.refs.filtered_products.reset();
+          obj.products.refs.filtered_products.trigger('kill');
           obj.products.unbindRefs();
           obj.products.unbind();
-          obj.categories_search_view = new ProductsCategoriesSearchView({
+          this.current_view = new ProductsCategoriesSearchView({
             products: obj.products
           });
-          obj.$el.find('#main').html(obj.categories_search_view.render().el);
+          obj.$el.find('#main').unbind();
+          obj.$el.find('#main').html(this.current_view.render().el);
         }
         obj.products.refs.selected_categories.setFromSlug(category);
         obj.products.filterByCategory();
@@ -74,13 +79,19 @@ define([
       var obj = this;
       this.deferred.done(function() {
         if (!obj.$el.find('#main .products-tags-search').length) {
-          // Make sure references to old views get deleted
+          obj.products.refs.filtered_products.trigger('kill');
+          obj.products.refs.filtered_products.reset();
           obj.products.unbindRefs();
           obj.products.unbind();
-          obj.tags_search_view = new ProductsTagsSearchView({
+          /*if (this.current_view) {
+            this.current_view.remove();
+            this.current_view.unbind();
+          }*/
+          this.current_view = new ProductsTagsSearchView({
             products: obj.products
           });
-          obj.$el.find('#main').html(obj.tags_search_view.render().el);
+          obj.$el.find('#main').unbind();
+          obj.$el.find('#main').html(this.current_view.render().el);
         }
         obj.products.refs.selected_tags.setFromArray(tags);
         obj.products.filterByTags();

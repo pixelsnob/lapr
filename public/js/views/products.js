@@ -19,10 +19,8 @@ define([
     initialize: function(opts) {
       this.collection = opts.collection;
       var refs = this.refs = this.collection.refs;
-      this.listenTo(refs.product_categories, 'add remove change',
-        _.bind(this.render, this, false));
-      this.listenTo(refs.makers, 'add remove change',
-        _.bind(this.render, this, false));
+      this.listenTo(refs.product_categories, 'add remove change', this.renderAppend);
+      this.listenTo(refs.makers, 'add remove change', this.renderAppend);
       this.listenTo(refs.filtered_products, 'reset', this.toggleMoreLink);
       this.listenTo(this.collection, 'filtered', this.render);
       var obj = this;
@@ -34,6 +32,10 @@ define([
       });
     },
     
+    renderAppend: function() {
+      this.render(true);
+    },
+
     render: function(append) {
       var fragment = document.createDocumentFragment(),
           obj      = this,
@@ -47,10 +49,9 @@ define([
           products:           obj.collection,
           refs:               obj.refs
         });
-        fragment.appendChild(view.render().el);
+        $results.append(view.render().el);
+
       });
-      $results.append(fragment);
-      //console.log('products render');
       return this;
     },
     

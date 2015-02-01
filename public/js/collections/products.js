@@ -88,7 +88,9 @@ define([
     // collection
     filterByTags: function() {
       var tag_ids = this.refs.selected_tags.pluck('_id');
+      //var t = (new Date).getTime();
       var products = this.filter(function(product) {
+        // If there are no tags specified, return all tagged products
         if (!tag_ids.length) {
           var tags = product.get('tags');
           return _.isArray(tags) && tags.length;
@@ -108,21 +110,20 @@ define([
     // Filters products by categories and adds them to the filtered_products
     // collection
     filterByCategory: function() {
+      //var t = (new Date).getTime();
       var obj                  = this,
           selected_category    = this.refs.selected_categories.at(0),
           selected_category_id = selected_category ? selected_category.id : null;
       var products = this.filter(function(product) { 
-        return _.some(product.get('categories'), function(id) {
-          var category = obj.refs.product_categories.findWhere({ _id: id });
-          if (!category) {
-            return;
-          }
-          // Include all products if no selected category exists
-          return (!selected_category_id || (category.id == selected_category_id)); 
-        });
+        // Return all products if no category specified
+        if (!selected_category_id) {
+          return true;
+        }
+        return _.contains(product.get('categories'), selected_category_id);
       });
       this.refs.filtered_products.state.currentPage = 0;
       this.refs.filtered_products.fullCollection.reset(products);
+      //console.log((new Date).getTime() - t);
       this.trigger('filtered');
     },
 

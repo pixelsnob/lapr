@@ -23,7 +23,7 @@ define([
     
     render: function() {
       var obj = this;
-      this.$el.unbind();
+      //this.$el.unbind();
       this.collection.forEach(function(tag) {
         var view = new TagsTreeListItemView({
           model: tag,

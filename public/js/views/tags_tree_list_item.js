@@ -18,7 +18,7 @@ define([
 
     initialize: function(opts) {
       this.products = opts.products;
-      var obj = this, refs = this.products.refs;
+      var obj = this;
       // Select or deselect if this model exists in selected_tags
       this.listenTo(this.products.refs.selected_tags, 'add', this.selectIfCurrent);
       this.listenTo(this.products.refs.selected_tags, 'remove', this.deselectIfCurrent);
@@ -29,11 +29,12 @@ define([
       // Enable/disable depending on whether any filtered_products contain
       // the current tag
       this.listenTo(this.products.refs.filtered_products.fullCollection, 'reset', this.toggleDisabled); 
+      this.listenTo(this.products.refs.filtered_products, 'kill', this.remove);
     },
     
     selectIfCurrent: function(model) {
       if (model.id == this.model.id) {
-        console.log(this);
+        //console.log(this);
         this.select();
       }
     },

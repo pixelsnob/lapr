@@ -19,7 +19,6 @@ define([
 
     render: function() {
       var selected_category = this.products.refs.selected_categories.at(0);
-      console.log(selected_category);
       if (selected_category) {
         this.$el.text(selected_category.get('name'));
       }

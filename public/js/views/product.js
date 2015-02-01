@@ -6,11 +6,13 @@ define([
   'views/base',
   'models/product',
   'views/product_details',
+  'views/image_onload',
   'template'
 ], function(
   BaseView,
   ProductModel,
   ProductDetailsView,
+  ImageOnloadView,
   template
 ) {
   
@@ -27,6 +29,8 @@ define([
       this.products             = opts.products;
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'destroy', this.remove);
+      // Important, for memory leaks
+      this.listenTo(this.products.refs.filtered_products, 'reset', this.remove);
       // Include product admin editor if admin user
       if (window.cms.user) {
         var obj = this;
@@ -55,6 +59,9 @@ define([
       this.$el.html(template.render('product_row', { product: product, user: window.cms.user }));
       this.$el.attr('id', this.model.id);
       this.highlightIfChanged();
+      var image_onload_view = new ImageOnloadView({
+        el: this.$el.find('.thumbnail img')
+      });
       return this;
     },
     
