@@ -68,10 +68,6 @@ define([
       } else {
         this.$el.find('.more').hide();
       }
-    },
-
-    onClose: function() {
-      
     }
 
   });

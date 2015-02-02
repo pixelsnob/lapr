@@ -90,8 +90,6 @@ define([
           val     = editor.getValue();
       var view = new CategoriesView({ collection: this.refs.product_categories });
       view.renderModal();
-      editor.listenTo(view, 'close', editor.refresh);
-      view.on('close', view.close);
     },
 
     editMakers: function() {
@@ -101,7 +99,6 @@ define([
       var view = new MakersView({ collection: this.refs.makers });
       view.renderModal();
       editor.listenTo(view, 'close', editor.refresh);
-      view.on('close', view.close);
     },
 
     editTags: function() {
