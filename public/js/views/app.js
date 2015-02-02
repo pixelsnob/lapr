@@ -64,7 +64,6 @@ define([
           this.current_view = new ProductsCategoriesSearchView({
             products: obj.products
           });
-          obj.$el.find('#main').unbind();
           obj.$el.find('#main').html(this.current_view.render().el);
         }
         obj.products.refs.selected_categories.setFromSlug(category);
@@ -83,7 +82,6 @@ define([
           this.current_view = new ProductsTagsSearchView({
             products: obj.products
           });
-          obj.$el.find('#main').unbind();
           obj.$el.find('#main').html(this.current_view.render().el);
         }
         obj.products.refs.selected_tags.setFromArray(tags);

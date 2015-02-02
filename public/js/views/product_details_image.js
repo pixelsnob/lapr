@@ -34,6 +34,7 @@ define([
 
     closeModal: function() {
       this.$el.modal('hide');
+      this.close();
       return false;
     }
     

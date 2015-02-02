@@ -19,10 +19,12 @@ define([
     initialize: function(opts) {
       this.collection = opts.collection;
       var refs = this.refs = this.collection.refs;
-      this.listenTo(refs.product_categories, 'add remove change', this.renderAppend);
-      this.listenTo(refs.makers, 'add remove change', this.renderAppend);
-      this.listenTo(refs.filtered_products, 'reset', this.toggleMoreLink);
-      this.listenTo(this.collection, 'filtered', this.render);
+      this.listenTo(refs.product_categories, 'add remove change', this.render);
+      this.listenTo(refs.makers, 'add remove change', this.render);
+      this.listenTo(this.collection, 'filtered', function() {
+        this.refs.filtered_products.setPage(1);
+        this.render();
+      });
       var obj = this;
       this.listenTo(this.collection, 'add', function(model) {
         // For highlighting, etc.
@@ -32,10 +34,6 @@ define([
       });
     },
     
-    renderAppend: function() {
-      this.render(true);
-    },
-
     render: function(append) {
       var fragment = document.createDocumentFragment(),
           obj      = this,
@@ -43,50 +41,32 @@ define([
       if (append !== true) {
         $results.empty();
       }
-      this.refs.filtered_products.forEach(function(product) {
+      this.refs.filtered_products.getPaged().forEach(function(product) {
         var view = new ProductView({
           model:              product,
           products:           obj.collection,
           refs:               obj.refs
         });
         $results.append(view.render().el);
-
       });
+      this.toggleMoreLink();
+      console.log('products render');
       return this;
-    },
-    
-    getPreviousPage: function(ev) {
-      if (this.refs.filtered_products.state.currentPage > 0) {
-        this.refs.filtered_products.getPreviousPage();
-        this.render();
-      }
-      return false;
-    },
-
-    getNextPage: function() {
-      var state = this.refs.filtered_products.state;
-      if (state.currentPage + 1 < state.totalPages) {
-        this.refs.filtered_products.getNextPage();
-        this.render();
-      }
-      return false;
     },
 
     getMore: function() {
-      var state = this.refs.filtered_products.state;
-      if (state.currentPage + 1 < state.totalPages) {
-        this.refs.filtered_products.getNextPage();
+      var products = this.refs.filtered_products;
+      if (products.current_page * products.per_page < products.length) {
+        products.next(); 
         this.render(true);
       }
-      return false;
     },
 
     toggleMoreLink: function() {
-      var state = this.refs.filtered_products.state;
-      if (state.lastPage == state.currentPage) {
-        this.$el.find('.more').hide();
-      } else {
+      if (this.refs.filtered_products.hasMore()) {
         this.$el.find('.more').show();
+      } else {
+        this.$el.find('.more').hide();
       }
     },
 

@@ -37,6 +37,11 @@ define([
       this.listenTo(modal_view, 'save', this.save);
       this.listenTo(modal_view, 'remove', this.destroy);
       modal_view.listenTo(this, 'save destroy', modal_view.hide);
+      this.listenTo(modal_view, 'close', function() {
+        this.close();
+        this.stopListening(this.model);
+        modal_view.remove();
+      });
     },
 
     renderAddForm: function(ev) {

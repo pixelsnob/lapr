@@ -18,17 +18,19 @@ define([
 
     initialize: function(opts) {
       this.products = opts.products;
-      var obj = this;
+      var refs = this.products.refs;
+      //var obj = this;
       // Select or deselect if this model exists in selected_tags
-      this.listenTo(this.products.refs.selected_tags, 'add', this.selectIfCurrent);
-      this.listenTo(this.products.refs.selected_tags, 'remove', this.deselectIfCurrent);
+      this.listenTo(refs.selected_tags, 'add', this.selectIfCurrent);
+      this.listenTo(refs.selected_tags, 'remove', this.deselectIfCurrent);
       // Select/deselect on reset, just not the first time
-      this.listenToOnce(this.products.refs.selected_tags, 'reset', function() {
-        obj.listenTo(obj.products.refs.selected_tags, 'reset', obj.toggleSelected);
+      this.listenToOnce(refs.selected_tags, 'reset', function() {
+        this.listenTo(refs.selected_tags, 'reset', this.toggleSelected);
       });
       // Enable/disable depending on whether any filtered_products contain
       // the current tag
-      this.listenTo(this.products.refs.filtered_products.fullCollection,
+      //this.listenTo(refs.filtered_products.fullCollection,
+      this.listenTo(refs.filtered_products,
         'reset', this.toggleDisabled); 
       this.listenTo(this.products, 'kill', this.remove);
     },

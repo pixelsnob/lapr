@@ -18,8 +18,9 @@ define([
 
     initialize: function(opts) {
       this.products = opts.products;
-      this.listenTo(this.products.refs.selected_categories, 'add', this.selectIfCurrent);
-      this.listenTo(this.products.refs.selected_categories, 'reset', this.setSelected);
+      var refs = this.products.refs;
+      this.listenTo(refs.selected_categories, 'add', this.selectIfCurrent);
+      this.listenTo(refs.selected_categories, 'reset', this.setSelected);
       this.listenTo(this.products, 'kill', this.remove);
     },
     

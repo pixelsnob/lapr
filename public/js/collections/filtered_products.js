@@ -3,11 +3,9 @@
  * 
  */
 define([
-  '../models/product',
-  '../models/maker',
-  'backbone-paginator'
-], function(ProductModel, MakerModel) {
-  return Backbone.PageableCollection.extend({
+  '../models/product'
+], function(ProductModel) {
+  return Backbone.Collection.extend({
     
     url: '/products',
 
@@ -15,13 +13,35 @@ define([
 
     comparator: 'name',
 
-    mode: 'client',
+    per_page: 9,
 
-    state: {
-      firstPage: 0,
-      currentPage: 0,
-      pageSize: 60
+    current_page: 1,
+
+    getPaged: function() {
+      return this.slice(this.getStartIndex(), this.getEndIndex());
+    },
+    
+    getStartIndex: function() {
+      var end = this.getEndIndex();
+      return (end - this.per_page >= 0 ? end - this.per_page : 0);
+    },
+
+    getEndIndex: function() {
+      return this.current_page * this.per_page;
+    },
+
+    setPage: function(page) {
+      this.current_page = page;
+    },
+    
+    next: function() {
+      this.current_page++;
+    },
+
+    hasMore: function() {
+      return this.current_page * this.per_page < this.length;
     }
-
+    
   });
 });
+

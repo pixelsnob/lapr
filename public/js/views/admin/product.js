@@ -78,9 +78,9 @@ define([
       modal_view.listenTo(this, 'save remove', modal_view.hide);
       this.listenTo(modal_view, 'close', function() {
         // Cleanup
+        modal_view.remove();
         $('.modal').remove();
-        this.remove();
-        this.unbind();
+        this.close();
       });
     },
     
@@ -91,6 +91,7 @@ define([
       var view = new CategoriesView({ collection: this.refs.product_categories });
       view.renderModal();
       editor.listenTo(view, 'close', editor.refresh);
+      view.on('close', view.close);
     },
 
     editMakers: function() {
@@ -100,6 +101,7 @@ define([
       var view = new MakersView({ collection: this.refs.makers });
       view.renderModal();
       editor.listenTo(view, 'close', editor.refresh);
+      view.on('close', view.close);
     },
 
     editTags: function() {
@@ -108,9 +110,11 @@ define([
           val     = editor.getValue();
       var view = new TagsView({ collection: this.refs.tags });
       view.renderModal();
+      /////////////////
       editor.listenTo(view, 'close', function() {
         editor.schema.options = obj.getTagOptions();
         editor.refresh();
+        view.close();
       });
     },
     
@@ -141,6 +145,13 @@ define([
           }
         }
       });
+    },
+
+    onClose: function() {
+      //console.log('onclose');
+      //this.model.unbind();
+      this.form.remove();
+      this.trigger('close');
     }
 
   });

@@ -32,7 +32,6 @@ define([
       // Important, for memory leaks
       this.listenTo(this.products.refs.filtered_products, 'reset', this.remove);
       this.listenTo(this.products, 'kill', this.remove);
-      //this.listenTo(this.products, 'kill', function() { console.log(this); });
       // Include product admin editor if admin user
       if (window.cms.user) {
         var obj = this;
@@ -43,6 +42,8 @@ define([
           obj.delegateEvents(_.extend(obj.events, events));
         });
       }
+      // Update if makers collection has changed
+      this.listenTo(this.products.refs.makers, 'add change remove', this.render);
     },
     
     render: function() {

@@ -39,10 +39,12 @@ define([
     },
 
     onClose: function() {
-      this.products.refs.filtered_products.reset();
       this.products.trigger('kill');
       this.products.unbind();
       this.products.unbindRefs();
+      this.products.refs.filtered_products.reset();
+      this.tags_tree_view.close();
+      this.products_view.close();
     }
 
   });
