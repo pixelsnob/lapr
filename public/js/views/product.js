@@ -59,7 +59,10 @@ define([
           return [];
         });
       }
-      this.$el.html(template.render('product_row', { product: product, user: window.cms.user }));
+      this.$el.html(template.render('product_row', {
+        product: product,
+        user: window.cms.user
+      }));
       this.$el.attr('id', this.model.id);
       this.highlightIfChanged();
       var image_onload_view = new ImageOnloadView({
