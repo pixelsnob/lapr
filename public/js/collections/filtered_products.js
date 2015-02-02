@@ -13,7 +13,7 @@ define([
 
     comparator: 'name',
 
-    per_page: 9,
+    per_page: 30,
 
     current_page: 1,
 
@@ -22,12 +22,12 @@ define([
     },
     
     getStartIndex: function() {
-      var end = this.getEndIndex();
-      return (end - this.per_page >= 0 ? end - this.per_page : 0);
+      return (this.current_page * this.per_page) - this.per_page;
     },
 
     getEndIndex: function() {
-      return this.current_page * this.per_page;
+      var end = this.current_page * this.per_page;
+      return (end > this.length ? this.length : end);
     },
 
     setPage: function(page) {

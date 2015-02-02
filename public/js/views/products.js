@@ -35,13 +35,13 @@ define([
     },
     
     render: function(append) {
-      var fragment = document.createDocumentFragment(),
-          obj      = this,
-          $results = this.$el.find('.results');
+      var $results = this.$el.find('.results'),
+          products = this.refs.filtered_products,
+          obj      = this;
       if (append !== true) {
         $results.empty();
       }
-      this.refs.filtered_products.getPaged().forEach(function(product) {
+      products.getPaged().forEach(function(product) {
         var view = new ProductView({
           model:              product,
           products:           obj.collection,
@@ -50,7 +50,9 @@ define([
         $results.append(view.render().el);
       });
       this.toggleMoreLink();
-      console.log('products render');
+      // temp
+      this.$el.find('.stats').html(products.getEndIndex() + ' of ' + products.length);
+      console.log(products.length);
       return this;
     },
 
