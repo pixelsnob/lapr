@@ -13,7 +13,8 @@ define([
   return BaseView.extend({
 
     events: {
-      'click .more':     'getMore'
+      'click .more':                   'getMore',
+      'click .toggle-sort-direction':  'toggleSortDirection'
     },
 
     initialize: function(opts) {
@@ -21,10 +22,8 @@ define([
       var refs = this.refs = this.collection.refs;
       this.listenTo(refs.product_categories, 'add remove change', this.render);
       this.listenTo(refs.makers, 'add remove change', this.render);
-      this.listenTo(this.collection, 'filtered', function() {
-        this.refs.filtered_products.setPage(1);
-        this.render();
-      });
+      this.listenTo(refs.filtered_products, 'filtered', this.render);
+      this.listenTo(refs.filtered_products, 'reset sort', this.toggleSortDirectionLink);
       var obj = this;
       this.listenTo(this.collection, 'add', function(model) {
         // For highlighting, etc.
@@ -51,8 +50,8 @@ define([
       });
       this.toggleMoreLink();
       // temp
-      this.$el.find('.stats').html(products.getEndIndex() + ' of ' + products.length);
-      console.log(products.length);
+      this.$el.find('.stats').html(products.length + ' Result' + (products.length != 1 ? 's' : ''));
+      //console.log('products render');
       return this;
     },
 
@@ -65,10 +64,36 @@ define([
     },
 
     toggleMoreLink: function() {
-      if (this.refs.filtered_products.hasMore()) {
-        this.$el.find('.more').show();
+      var $more = this.$el.find('.more'),
+          products = this.refs.filtered_products;
+      if (products.hasMore()) {
+        var start = products.getEndIndex() + 1,
+            end   = products.getEndIndex() + products.per_page;
+        $more.text('Next (' + start + '-' + (end > products.length ? products.length : end) + ')');
+        $more.show();
       } else {
-        this.$el.find('.more').hide();
+        $more.hide();
+      }
+    },
+
+    toggleSortDirection: function() {
+      var products   = this.refs.filtered_products;
+      if (products.sort_direction == 'asc') {
+        products.sort_direction = 'desc';
+      } else {
+        products.sort_direction = 'asc';
+      }
+      products.sort()
+      products.setPage(1);
+      this.render();
+    },
+
+    toggleSortDirectionLink: function() {
+      var $toggle = this.$el.find('.toggle-sort-direction');
+      if (this.refs.filtered_products.sort_direction == 'asc') {
+        $toggle.text('Sort Descending'); 
+      } else {
+        $toggle.text('Sort Ascending'); 
       }
     }
 

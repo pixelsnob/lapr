@@ -16,7 +16,9 @@ define([
     per_page: 30,
 
     current_page: 1,
-
+    
+    sort_direction: 'asc',
+    
     getPaged: function() {
       return this.slice(this.getStartIndex(), this.getEndIndex());
     },
@@ -40,6 +42,11 @@ define([
 
     hasMore: function() {
       return this.current_page * this.per_page < this.length;
+    },
+
+    comparator: function(a, b) {
+      var comp = a.get('name').localeCompare(b.get('name'));
+      return (this.sort_direction == 'asc' ? comp : -comp);
     }
     
   });

@@ -1,14 +1,17 @@
 
 .col-md-3
   .categories
-
+  .tags-tree
+  
 .col-md-9
 
   .products
-    
-    h1 Instruments
+
+    h1= (typeof heading != 'undefined' ? heading : '')
 
     .stats
+    .sort-direction
+      a.toggle-sort-direction(href="javascript:void(0);") Sort Descending
 
     ul.results
       each product in products

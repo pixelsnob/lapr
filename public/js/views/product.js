@@ -59,7 +59,7 @@ define([
           return [];
         });
       }
-      this.$el.html(template.render('product_row', {
+      this.$el.html(template.render('partials/product_row', {
         product: product,
         user: window.cms.user
       }));

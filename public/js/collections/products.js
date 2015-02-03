@@ -101,10 +101,9 @@ define([
         // tags array
         return temp_tag_ids.length == tag_ids.length;
       });
-      //this.refs.filtered_products.state.currentPage = 0;
-      //this.refs.filtered_products.fullCollection.reset(products);
       this.refs.filtered_products.reset(products);
-      this.trigger('filtered');
+      this.refs.filtered_products.setPage(1);
+      this.refs.filtered_products.trigger('filtered');
     },
     
     // Filters products by categories and adds them to the filtered_products
@@ -120,10 +119,9 @@ define([
         }
         return _.contains(product.get('categories'), selected_category_id);
       });
-      //this.refs.filtered_products.state.currentPage = 0;
-      //this.refs.filtered_products.fullCollection.reset(products);
       this.refs.filtered_products.reset(products);
-      this.trigger('filtered');
+      this.refs.filtered_products.setPage(1);
+      this.refs.filtered_products.trigger('filtered');
     },
 
     unbindRefs: function() {

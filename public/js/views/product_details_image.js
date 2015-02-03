@@ -21,7 +21,7 @@ define([
     },
     
     render: function() {
-      this.setElement(template.render('product_details_image', {
+      this.setElement(template.render('partials/product_details_image', {
         product: this.model.toJSON() }));
       this.$el.addClass('product-details-image');
       return this;

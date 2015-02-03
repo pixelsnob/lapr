@@ -29,8 +29,8 @@ define([
     },
 
     render: function() {
-      this.$el.html(template.render('products_tags_search', {
-        products: [], paginate: null, heading: ''
+      this.$el.html(template.render('partials/products_search', {
+        products: [], paginate: null, heading: 'Sound Search'
       }));
       this.$el.addClass('products-tags-search');
       this.products_view.setElement(this.$el.find('.products'));

@@ -33,7 +33,7 @@ define([
           return maker;
         });
       }
-      this.setElement(template.render('product_details', { product: product }));
+      this.setElement(template.render('partials/product_details', { product: product }));
       this.$el.addClass('product-details');
       return this;
     },

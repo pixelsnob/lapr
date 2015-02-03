@@ -120,7 +120,8 @@ module.exports = function(app) {
             if (err) {
               return next(err);
             }
-            res.render('products', {
+            res.render('products_search', {
+              heading:     'All Instruments',
               products:    products,
               categories:  json_data.categories,
               page_count:  page_count,
@@ -157,8 +158,9 @@ module.exports = function(app) {
           }
           res.format({
             html: function() {
-              res.render('products', {
+              res.render('products_search', {
                 products:   products,
+                heading:    '##replace##',
                 //product_categories:    res.locals.json_data.product_categories
                 page_count: 0,
                 item_count: 0
@@ -195,7 +197,8 @@ module.exports = function(app) {
         }
         res.format({
           html: function() {
-            res.render('products', {
+            res.render('products_search', {
+              heading:            'Sound Search',
               products:           products,
               page_count:         0,
               item_count:         0
