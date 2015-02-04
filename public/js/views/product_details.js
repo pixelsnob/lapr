@@ -44,7 +44,7 @@ define([
     },
 
     closeModal: function() {
-      this.$el.modal('hide');
+      this.$el.modal('hide').remove();
       this.close();
       return false;
     },

@@ -190,25 +190,26 @@ module.exports = function(app) {
       if (tag_ids.length) {
         query = { tags: { $in: tag_ids }};
       }
-      db.model('Product').find(query, null, { sort: { name: 1 }})
-      .populate('makers').exec(function(err, products) {
+      db.model('Product').paginate(query, req.query.page, req.query.limit,
+      function(err, page_count, products, item_count) {
         if (err) {
           return next(err);
         }
+        //console.log(products);
         res.format({
           html: function() {
             res.render('products_search', {
               heading:            'Sound Search',
               products:           products,
-              page_count:         0,
-              item_count:         0
+              page_count:         page_count,
+              item_count:         item_count
             });
           },
           json: function() {
             res.send(products);
           }
         });
-      });
+      }, { populate: 'makers', sortBy : { name: 1 } });
     },
 
     // Builds JSON data that gets dumped on the page, for the front-end
