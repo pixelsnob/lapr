@@ -179,7 +179,14 @@ module.exports = function(app) {
     showProductsByTags: function(req, res, next) {
       var tags  = (typeof req.params.tags != 'undefined' ?
                   req.params.tags.split(',') : []),
-          query = { 'tags.0': { $exists: true }}; // Include only tagged products
+                  // Default is to include all tagged products
+          query = { 'tags.0': { $exists: true }};
+
+      var tag_ids = res.locals.json_data.tags.filter(function(tag) {
+        return _.contains(tags, tag.slug);
+      }).map(function(tag) {
+        return Number(tag._id);
+      });
       if (tag_ids.length) {
         query = { tags: { $in: tag_ids }};
       }
