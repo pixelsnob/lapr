@@ -66,7 +66,8 @@ define([
       this.$el.attr('id', this.model.id);
       this.highlightIfChanged();
       var image_onload_view = new ImageOnloadView({
-        el: this.$el.find('.thumbnail img')
+        el:    this.$el.find('.thumbnail'),
+        src:   '/images/products/' + this.model.get('thumbnail')
       });
       return this;
     },

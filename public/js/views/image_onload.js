@@ -1,6 +1,5 @@
 /**
- * Supply an image to el and this will fade it in when the image has
- * loaded
+ * Adds an image and fades it in once it has loaded
  * 
  */
 define([
@@ -18,24 +17,27 @@ define([
 
     initialize: function(opts) {
       var obj = this;
-      if (typeof opts.el != 'undefined' && $(opts.el).length) {
+      this.src = opts.src;
+      if (this.src) {
         this.setElement(opts.el);
-        // Show if image has already been loaded, otherwise, fade in after load and
-        // add to collection
-        if (loaded_images_collection.findWhere({ src: this.$el.attr('src') })) {
-          obj.$el.show();
+        //var $img = $('<img>').attr('src', this.src);
+        if (loaded_images_collection.findWhere({ src: this.src })) {
+          this.render();
+          this.$el.find('img').show();
         } else {
           var tmp_img = new Image;
           tmp_img.onload = function() {
-            obj.$el.fadeIn(200);
-            loaded_images_collection.add({ src: obj.$el.attr('src') });
+            obj.render();
+            obj.$el.find('img').fadeIn(700);
+            loaded_images_collection.add({ src: obj.src });
           };
-          tmp_img.src = this.$el.attr('src');
+          tmp_img.src = this.src;
         }
       }
     },
     
     render: function() {
+      this.$el.html($('<img>').attr('src', this.src));
       return this;
     }
 
