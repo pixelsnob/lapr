@@ -160,7 +160,7 @@ module.exports = function(app) {
             html: function() {
               res.render('products_search', {
                 products:   products,
-                heading:    '##replace##',
+                heading:    '',
                 //product_categories:    res.locals.json_data.product_categories
                 page_count: 0,
                 item_count: 0
