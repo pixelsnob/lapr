@@ -18,9 +18,8 @@ define([
     initialize: function(opts) {
       var obj = this;
       this.src = opts.src;
+      this.setElement(opts.el);
       if (this.src) {
-        this.setElement(opts.el);
-        //var $img = $('<img>').attr('src', this.src);
         if (loaded_images_collection.findWhere({ src: this.src })) {
           this.render();
           this.$el.find('img').show();

@@ -104,7 +104,10 @@ module.exports = function(app) {
           },
           html: function() {
             product.populate('categories makers', function(err, product) {
-              res.render('product', { product: product });
+              // Convert makers array -- if any -- to list
+              var makers = (_.isArray(product.makers) ?
+                  _.pluck(product.makers, 'name').join(', ') : '');
+              res.render('product', { product: product, makers: makers });
             });
           }
         });
@@ -160,8 +163,7 @@ module.exports = function(app) {
             html: function() {
               res.render('products_search', {
                 products:   products,
-                heading:    '',
-                //product_categories:    res.locals.json_data.product_categories
+                heading:    product_category.name,
                 page_count: 0,
                 item_count: 0
               });
@@ -174,19 +176,10 @@ module.exports = function(app) {
       });
     },
     
-    
     showProductsByTags: function(req, res, next) {
       var tags  = (typeof req.params.tags != 'undefined' ?
                   req.params.tags.split(',') : []),
-          query = { 'tags.0': { $exists: true }};
-      var products = res.locals.json_data.products.filter(function(product) {
-        return _.isArray(product.tags) && product.tags.length;
-      });
-      var tag_ids = res.locals.json_data.tags.filter(function(tag) {
-        return _.contains(tags, tag.slug);
-      }).map(function(tag) {
-        return Number(tag._id);
-      });
+          query = { 'tags.0': { $exists: true }}; // Include only tagged products
       if (tag_ids.length) {
         query = { tags: { $in: tag_ids }};
       }
@@ -195,7 +188,6 @@ module.exports = function(app) {
         if (err) {
           return next(err);
         }
-        //console.log(products);
         res.format({
           html: function() {
             res.render('products_search', {

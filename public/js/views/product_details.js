@@ -24,16 +24,20 @@ define([
     },
     
     render: function() {
-      var makers  = this.model.get('makers'),
-          product = this.model.toJSON(),
-          obj    = this;
+      var makers      = this.model.get('makers'),
+          product     = this.model.toJSON(),
+          obj         = this,
+          makers_list = '';
       if (_.isArray(makers)) {
-        product.makers = makers.map(function(maker_id) {
+        makers_list = makers.map(function(maker_id) {
           var maker = obj.refs.makers.findWhere({ _id: maker_id });
           return maker;
-        });
+        }).join(', ');
       }
-      this.setElement(template.render('partials/product_details', { product: product }));
+      this.setElement(template.render('partials/product_details_modal', {
+        product: product,
+        makers:  makers_list
+      }));
       this.$el.addClass('product-details');
       return this;
     },

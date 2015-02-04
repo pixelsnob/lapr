@@ -1,9 +1,9 @@
 
-
 .product
   if product.thumbnail
     .thumbnail
-      //- img(src="/images/products/#{product.thumbnail}")
+      noscript
+        img(src="/images/products/#{product.thumbnail}")
 
   h3.name= product.name
 
@@ -15,3 +15,5 @@
   if user
     p
       a.edit(href="/instruments/#{product.slug}/#{product.id}") Edit
+  noscript
+    a.product-details(href="/instruments/#{product.slug}/#{product.id}") Details
