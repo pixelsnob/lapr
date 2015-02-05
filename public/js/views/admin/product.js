@@ -31,6 +31,7 @@ define([
     
     initialize: function(opts) {
       this.model    = opts.model || new ProductModel;
+      console.log(this.model);
       this.refs     = opts.refs;
       this.mode     = opts.mode || 'edit';
     },
@@ -78,9 +79,9 @@ define([
       modal_view.listenTo(this, 'save remove', modal_view.hide);
       this.listenTo(modal_view, 'close', function() {
         // Cleanup
-        modal_view.remove();
-        $('.modal').remove();
-        this.close();
+        //modal_view.remove();
+        //$('.modal').remove();
+        //this.close();
       });
     },
     
@@ -127,11 +128,7 @@ define([
       if (!errors) {
         this.model.save(this.model.attributes, {
           wait: true,
-          success: function() {
-            //obj.model.highlight = true;
-            //console.log('?');
-            obj.trigger('save');
-          },
+          success: _.bind(obj.trigger, obj, 'save'),
           error:   _.bind(this.showServerError, this)
         });
       } else {
@@ -158,8 +155,8 @@ define([
     onClose: function() {
       //console.log('onclose');
       //this.model.unbind();
-      this.form.remove();
-      this.trigger('close');
+      //this.form.remove();
+      //this.trigger('close');
     }
 
   });

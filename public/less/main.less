@@ -4,6 +4,15 @@
 @layout-image-dir: '/images/layout/';
 @content-image-dir: '/images/content/';
 
+body {
+  background-color: #000;
+  color: white;
+}
+
+a, p, h1, h2, h3, h4, h5, h6 {
+  color: white;
+}
+
 .clearfix:after {
   clear: both;
   content: '';
@@ -16,6 +25,11 @@ table {
 
 .navbar-nav > li > a {
   padding: 4px 10px;
+}
+
+.navbar-default {
+  background-color: transparent;
+  border: none;
 }
 
 .noselect {
@@ -45,7 +59,7 @@ table {
       text-decoration: none;
       text-align: center;
       background: #eee;
-      border: 1px solid #ccc;
+      /*border: 1px solid #ccc;*/
       &:hover {
         background: #ddd;
       }
@@ -68,10 +82,10 @@ table {
         width: 33.3%;
         padding: 2px;
         .product {
-          border: 1px solid #eee;
-          height: 180px;
+          /*border: 1px solid #eee;*/
+          /*height: 180px;*/
           padding: 10px;
-          overflow: hidden;
+          /*overflow: hidden;*/
           &:hover {
             background: #f6f6f6;
             cursor: pointer;
@@ -208,6 +222,7 @@ table {
 
 .modal-content {
   border-radius: 0;
+  background-color: #111;
 }
 
 .modal-body {

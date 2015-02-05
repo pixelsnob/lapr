@@ -18,7 +18,7 @@ define([
     },
 
     initialize: function() {
-      this.listenTo(this.model, 'destroy', this.remove);
+      //this.listenTo(this.model, 'destroy', this.remove);
       this.listenTo(this.model, 'save', this.render);
     },
 
@@ -39,7 +39,7 @@ define([
       modal_view.listenTo(this, 'save destroy', modal_view.hide);
       this.listenTo(modal_view, 'close', function() {
         //this.close();
-        //modal_view.remove();
+        modal_view.remove();
       });
     },
 

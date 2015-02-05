@@ -24,7 +24,8 @@ define([
     el: 'body',
 
     events: {
-      'click nav li a.navigate': 'navigate'
+      'click nav li a.navigate': 'navigate'//,
+      //'click .add-product':      'addProduct'
     },
 
     current_view: null,
@@ -37,9 +38,13 @@ define([
       if (window.cms.user) {
         require([ 'views/admin/product', 'views/admin/tag_categories' ],
         function(ProductAdminView, TagCategoriesAdminView) {
-          $('.add-product').on('click', _.bind(obj.addProduct, obj, ProductAdminView));
-          $('.edit-tag-categories').on('click', _.bind(obj.editTagCategories, obj,
-            TagCategoriesAdminView));
+          obj.events['click .add-product'] = function() {
+            obj.addProduct(ProductAdminView);
+          };
+          obj.events['click .edit-tag-categories'] = function() {
+            obj.editTagCategories(TagCategoriesAdminView);
+          };
+          obj.delegateEvents(obj.events);
         });
       }
     },

@@ -43,7 +43,7 @@ define([
         });
       }
       this.listenTo(this.model, 'change', this.highlightIfChanged);
-      this.listenTo(this.products, 'add', this.highlightIfChanged);
+      this.listenTo(this.products.refs.filtered_products, 'add', this.highlight);
       // Update if makers collection has changed
       this.listenTo(this.products.refs.makers, 'add change remove', this.render);
     },
@@ -66,20 +66,32 @@ define([
         user: window.cms.user
       }));
       this.$el.attr('id', this.model.id);
-      var image_onload_view = new ImageOnloadView({
-        el:    this.$el.find('.thumbnail'),
-        src:   '/images/products/' + this.model.get('thumbnail')
-      });
+      var thumbnail = this.model.get('thumbnail');
+      if (thumbnail) {
+        var image_onload_view = new ImageOnloadView({
+          el:    this.$el.find('.thumbnail'),
+          src:   '/images/products/' + thumbnail 
+        });
+        this.$el.find('.product').css('background', 'url(' + '/images/products/' + this.model.get('image') + ') no-repeat').css('background-size', '100%');
+      }
+      if (this.model.highlight) {
+        this.highlight(); 
+        delete this.model.highlight;
+      }
       return this;
     },
     
     highlightIfChanged: function(model) {
-      if (model.id == this.model.id && this.model.changedAttributes()) {
-        var $product = this.$el.find('.product').addClass('highlight');
-        setTimeout(function() {
-          $product.removeClass('highlight');
-        }, 5000);
+      if (model.changedAttributes()) {
+        this.highlight();
       }
+    },
+
+    highlight: function() {
+      var $product = this.$el.find('.product').addClass('highlight'); 
+      setTimeout(function() {
+        $product.removeClass('highlight');
+      }, 5000);
     },
 
     showDetails: function() {

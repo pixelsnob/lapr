@@ -26,11 +26,10 @@ define([
       this.listenTo(refs.filtered_products, 'reset sort', this.toggleSortDirectionLink);
       var obj = this;
       this.listenTo(this.collection, 'add', function(model) {
-        // For highlighting, etc.
         model.highlight = true;
-        console.log('dddddd');
         refs.filtered_products.add(model);
-        obj.render();
+        // should only be added if in category !?!?!?!
+        obj.render();// <<<<<
       });
     },
     
@@ -51,7 +50,8 @@ define([
       });
       this.toggleMoreLink();
       // temp
-      this.$el.find('.stats').html(products.length + ' Result' + (products.length != 1 ? 's' : ''));
+      this.$el.find('.stats').html(products.length + ' Result' +
+        (products.length != 1 ? 's' : ''));
       //console.log('products render');
       return this;
     },
@@ -70,7 +70,8 @@ define([
       if (products.hasMore()) {
         var start = products.getEndIndex() + 1,
             end   = products.getEndIndex() + products.per_page;
-        $more.text('Next (' + start + '-' + (end > products.length ? products.length : end) + ')');
+        $more.text('Next (' + start + '-' + (end > products.length ?
+          products.length : end) + ')');
         $more.show();
       } else {
         $more.hide();
