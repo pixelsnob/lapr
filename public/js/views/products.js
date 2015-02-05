@@ -27,7 +27,8 @@ define([
       var obj = this;
       this.listenTo(this.collection, 'add', function(model) {
         // For highlighting, etc.
-        model.is_new = true;
+        model.highlight = true;
+        console.log('dddddd');
         refs.filtered_products.add(model);
         obj.render();
       });

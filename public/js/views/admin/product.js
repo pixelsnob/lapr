@@ -90,6 +90,10 @@ define([
           val     = editor.getValue();
       var view = new CategoriesView({ collection: this.refs.product_categories });
       view.renderModal();
+      editor.listenTo(view, 'close', function() {
+        editor.refresh();
+        view.close();
+      });
     },
 
     editMakers: function() {
@@ -98,7 +102,10 @@ define([
           val     = editor.getValue();
       var view = new MakersView({ collection: this.refs.makers });
       view.renderModal();
-      editor.listenTo(view, 'close', editor.refresh);
+      editor.listenTo(view, 'close', function() {
+        editor.refresh();
+        view.close();
+      });
     },
 
     editTags: function() {
@@ -107,7 +114,6 @@ define([
           val     = editor.getValue();
       var view = new TagsView({ collection: this.refs.tags });
       view.renderModal();
-      /////////////////
       editor.listenTo(view, 'close', function() {
         editor.schema.options = obj.getTagOptions();
         editor.refresh();
@@ -116,11 +122,16 @@ define([
     },
     
     save: function() {
-      var errors = this.form.commit();
+      var errors = this.form.commit(),
+          obj    = this;
       if (!errors) {
         this.model.save(this.model.attributes, {
           wait: true,
-          success: _.bind(this.trigger, this, 'save', this.model),
+          success: function() {
+            //obj.model.highlight = true;
+            //console.log('?');
+            obj.trigger('save');
+          },
           error:   _.bind(this.showServerError, this)
         });
       } else {

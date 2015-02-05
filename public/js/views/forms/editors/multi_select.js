@@ -15,11 +15,7 @@ define([ 'backbone', 'backbone-forms' ], function(Backbone) {
     getValue: function(value) {
       var value = Backbone.Form.editors.Select.prototype.getValue.call(this); 
       if (_.isArray(value)) {
-        var new_array = [];
-        for (var i in value) {
-          new_array.push(Number(value[i]));
-        }
-        return new_array;
+        return value.map(function(v) { return Number(v); });
       }
       return value;
     },

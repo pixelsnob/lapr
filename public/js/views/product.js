@@ -42,6 +42,8 @@ define([
           obj.delegateEvents(_.extend(obj.events, events));
         });
       }
+      this.listenTo(this.model, 'change', this.highlightIfChanged);
+      this.listenTo(this.products, 'add', this.highlightIfChanged);
       // Update if makers collection has changed
       this.listenTo(this.products.refs.makers, 'add change remove', this.render);
     },
@@ -64,7 +66,6 @@ define([
         user: window.cms.user
       }));
       this.$el.attr('id', this.model.id);
-      this.highlightIfChanged();
       var image_onload_view = new ImageOnloadView({
         el:    this.$el.find('.thumbnail'),
         src:   '/images/products/' + this.model.get('thumbnail')
@@ -72,9 +73,8 @@ define([
       return this;
     },
     
-    highlightIfChanged: function() {
-      if (this.model.is_new || this.model.changedAttributes()) {
-        delete this.model.is_new;
+    highlightIfChanged: function(model) {
+      if (model.id == this.model.id && this.model.changedAttributes()) {
         var $product = this.$el.find('.product').addClass('highlight');
         setTimeout(function() {
           $product.removeClass('highlight');

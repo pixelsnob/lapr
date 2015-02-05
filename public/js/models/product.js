@@ -14,5 +14,6 @@ define([
         this.id = opts.id;
       }
     }
+
   });
 });
