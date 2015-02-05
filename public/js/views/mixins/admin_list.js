@@ -41,12 +41,12 @@ define([
       });
       modal_view.listenTo(modal_view, 'save', modal_view.hide);
       this.listenTo(modal_view, 'close', function() {
-        modal_view.remove();
-        modal_view.unbind();
+        //modal_view.remove();
+       // modal_view.unbind();
         // this file doesn't inherit from lapr base view so watch out (needs to be changed)
-        this.stopListening(this.collection);
-        this.remove();
-        this.unbind();
+        //this.stopListening(this.collection);
+       // this.remove();
+       // this.unbind();
         this.trigger('close');
       });
     },

@@ -38,8 +38,8 @@ define([
       this.listenTo(modal_view, 'remove', this.destroy);
       modal_view.listenTo(this, 'save destroy', modal_view.hide);
       this.listenTo(modal_view, 'close', function() {
-        this.close();
-        modal_view.remove();
+        //this.close();
+        //modal_view.remove();
       });
     },
 
