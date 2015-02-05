@@ -3,24 +3,7 @@ extends layout
 
 block content
   if product
-    h2= product.name
-    if product.alt_names
-      h3
-        em= product.alt_names
-    if product.makers && product.makers.length
-      p Mfg. by #{product.makers.map(function(m) { return m.name; }).join(', ')}
-    p= product.description
-    if product.price
-      p Rental Price: #{product.price}
-    else
-      p Contact Us for Price
-    if product.sizes
-      p Size(s): #{product.sizes}
-    if product.range
-      p Range: #{product.range}
-    if product.octaves
-      p Octaves: #{product.octaves}
-    img(src="/images/products/#{product.image}", width="400")
+    include partials/product_details    
   else
     p.error Product not found
 
