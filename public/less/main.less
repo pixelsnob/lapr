@@ -5,11 +5,11 @@
 @content-image-dir: '/images/content/';
 
 body {
-  background-color: #000;
+  background-color: #111;
   color: white;
 }
 
-a, p, h1, h2, h3, h4, h5, h6 {
+a:link, a:visited, a:hover, a:active, p, h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 
@@ -58,8 +58,6 @@ table {
       padding: 12px 0;
       text-decoration: none;
       text-align: center;
-      background: #eee;
-      /*border: 1px solid #ccc;*/
       &:hover {
         background: #ddd;
       }
@@ -69,53 +67,56 @@ table {
       }
     }
     .results {
-      min-height: 600px;
       padding: 0;
       margin: 0;
+      -moz-column-count: 3;
+      -moz-column-gap: 5px;
+      -webkit-column-count: 3;
+      -webkit-column-gap: 5px;
+      column-count: 3;
+      column-gap: 5px;
       width: 100%;
-      overflow: hidden;
       li {
         .noselect;
         list-style-type: none;
-        display: block;
-        float: left;
-        width: 33.3%;
-        padding: 2px;
-        .product {
-          /*border: 1px solid #eee;*/
-          /*height: 180px;*/
-          padding: 10px;
-          /*overflow: hidden;*/
-          &:hover {
-            background: #f6f6f6;
-            cursor: pointer;
-          }
-          &:active {
-            background: #eee;
-            border-color: #bbb;
-          }
-          &.highlight {
-            background: #ffffd3; 
-          }
-          .thumbnail {
-            float: right;
+        cursor: pointer;
+        /*padding: 2px;
+        width: 33.3%;*/
+        display: inline-block;
+        margin-bottom: 5px;
+        width: 100%;
+        background: #000;
+        position: relative;
+        img {
+          width: 100%;
+        }
+        &:hover {
+          .details {
             display: block;
-            width: 35%;
-            min-height: 60px;
-            max-width: 75px;
-            margin: 0 0 12px 12px;
-            img {
-              width: 100%;
-            }
+          }
+          img {
+            opacity: 0.7;
+          }
+        }
+        .details {
+          position: absolute;
+          bottom: 0;
+          background: rgba(1, 1, 1, 0.5);
+          width: 100%;
+          display: none; 
+          padding: 10px;
+          p {
+            /*margin: 3px;*/
+            margin: 0;
+            padding: 0;
           }
           .name {
             font-weight: bold;
             font-size: 1em;
-            line-height: 18px;
             margin-top: 0;
           }
           .description {
-            padding-top: 10px;
+            /*padding-top: 10px;*/
           }
           .makers {
             font-style: italic;
@@ -165,34 +166,30 @@ table {
             display: block;
             padding: 3px 4px;
             font-weight: normal;
-            color: #aaa;
-            background: #f1f1f1;
+            color: #fff;
+            background: #222;
             &:hover {
-              background: #f7f7f7;
+              background: #222;
             }
             &:active {
-              background: #555;
+              background: #333;
               color: #fff;
             }
           }
           &.selected a {
-            background: #666;
-            color: #fff;
+            background: #eee;
+            color: #111;
             &:hover {
-              background: #7f7f7f;
+              background: #ddd;
             }
             &:active {
-              background: #555;
+              background: #ccc;
             }
           }
           &.disabled {
-            border-color: #eee;
+            opacity: 0.2;
             a {
-              background: none;
-              color: #eee;
-            }
-            a:active {
-              background: none;
+              cursor: default;
             }
           }
         }
@@ -217,6 +214,7 @@ table {
     font-size: 2.7em;
     clear: both;
     text-shadow: none;
+    color: #fff;
   }
 }
 
@@ -263,9 +261,9 @@ table {
 }
 
 .modal.product-details-image {
-  .modal-header .close {
+  .close {
     color: #ccc;
-    opacity: 1;
+    opacity: 1 !important;
     &:hover {
       color: #eee;
     }
@@ -275,7 +273,6 @@ table {
   }
   .modal-content {
     background: #000;
-
   }
   .modal-dialog {
     width: 75%;

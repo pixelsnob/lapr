@@ -70,9 +70,9 @@ define([
       if (thumbnail) {
         var image_onload_view = new ImageOnloadView({
           el:    this.$el.find('.thumbnail'),
-          src:   '/images/products/' + thumbnail 
+          src:   '/images/products/' + this.model.get('image') 
         });
-        this.$el.find('.product').css('background', 'url(' + '/images/products/' + this.model.get('image') + ') no-repeat').css('background-size', '100%');
+        //this.$el.find('.product').css('background', 'url(' + '/images/products/' + this.model.get('image') + ') no-repeat').css('background-size', '100%');
       }
       if (this.model.highlight) {
         this.highlight(); 

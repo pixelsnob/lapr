@@ -1,10 +1,8 @@
 
-.product
-  if product.thumbnail
-    .thumbnail
-      noscript
-        img(src="/images/products/#{product.thumbnail}")
+if product.image
+  img.product-image(src="/images/products/#{product.image}")
 
+.details
   h3.name= product.name
 
   if _.isArray(product.makers) && product.makers.length

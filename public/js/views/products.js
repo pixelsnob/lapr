@@ -5,9 +5,11 @@
 define([
   'views/base',
   'views/product',
+  'masonry'
 ], function(
   BaseView,
-  ProductView
+  ProductView,
+  Masonry
 ) {
   
   return BaseView.extend({
@@ -31,6 +33,11 @@ define([
         // should only be added if in category !?!?!?!
         obj.render();// <<<<<
       });
+      /*var $container = document.querySelector('.products .results');
+      var masonry = new Masonry($container, { );
+      imagesLoaded(function() {
+        masonry.layout(); 
+      });*/
     },
     
     render: function(append) {
