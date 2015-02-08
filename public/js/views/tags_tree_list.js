@@ -31,6 +31,7 @@ define([
         });
         obj.$el.append(view.render().el);
       });
+      this.$el.addClass('buttons-list');
       return this;
     }
 
