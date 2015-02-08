@@ -3,7 +3,7 @@
  * 
  */
 define([
-  'cms/views/modal/form',
+  'views/admin/modal_form',
   'template',
   'lib/dialog'
 ], function(

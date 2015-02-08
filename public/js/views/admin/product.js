@@ -8,7 +8,7 @@ define([
   './categories',
   './makers',
   './tags',
-  'cms/views/modal/form',
+  './modal_form',
   'forms/product',
   'lib/dialog'
 ], function(

@@ -18,6 +18,7 @@ define([
     initialize: function() {
       this.setElement(template.render('admin/list'));
       this.listenTo(this.collection, 'change add', this.render);
+      //this.$el.addClass('admin-modal');
     },
 
     render: function() {
@@ -39,6 +40,7 @@ define([
         save_label: 'Close',
         hide_cancel_button: true
       });
+      modal_view.$el.addClass('admin-modal');
       modal_view.listenTo(modal_view, 'save', modal_view.hide);
       this.listenTo(modal_view, 'close', function() {
         //modal_view.remove();

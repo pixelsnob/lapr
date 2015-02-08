@@ -76,7 +76,6 @@ define([
           this.$el.find('.image img').fadeIn(200);
         });
       }
-      //this.$el.find('.product').css('background', 'url(' + '/images/products/' + this.model.get('image') + ') no-repeat fixed');
       if (this.model.highlight) {
         this.highlight(); 
         delete this.model.highlight;

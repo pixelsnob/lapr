@@ -181,14 +181,13 @@ module.exports = function(app) {
                   req.params.tags.split(',') : []),
                   // Default is to include all tagged products
           query = { 'tags.0': { $exists: true }};
-
       var tag_ids = res.locals.json_data.tags.filter(function(tag) {
         return _.contains(tags, tag.slug);
       }).map(function(tag) {
         return Number(tag._id);
       });
       if (tag_ids.length) {
-        query = { tags: { $in: tag_ids }};
+        query = { tags: { $all: tag_ids }};
       }
       db.model('Product').paginate(query, req.query.page, req.query.limit,
       function(err, page_count, products, item_count) {
