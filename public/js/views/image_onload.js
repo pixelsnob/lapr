@@ -23,12 +23,14 @@ define([
         if (loaded_images_collection.findWhere({ src: this.src })) {
           this.render();
           this.$el.find('img').show();
+          this.trigger('loaded');
         } else {
           var tmp_img = new Image;
           tmp_img.onload = function() {
             obj.render();
             obj.$el.find('img').fadeIn(700);
             loaded_images_collection.add({ src: obj.src });
+            obj.trigger('loaded');
           };
           tmp_img.src = this.src;
         }

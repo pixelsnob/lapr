@@ -33,11 +33,9 @@ define([
         // should only be added if in category !?!?!?!
         obj.render();// <<<<<
       });
-      /*var $container = document.querySelector('.products .results');
-      var masonry = new Masonry($container, { );
-      imagesLoaded(function() {
-        masonry.layout(); 
-      });*/
+      //var $container = document.querySelector('.products .results');
+      //var masonry = new Masonry($container, { itemSelector: 'li' });
+      //masonry.layout(); 
     },
     
     render: function(append) {

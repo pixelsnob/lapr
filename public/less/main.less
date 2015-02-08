@@ -1,16 +1,38 @@
 
-@import "./bootstrap.less";
+@import './bootstrap.less';
 
 @layout-image-dir: '/images/layout/';
 @content-image-dir: '/images/content/';
 
+@bg-color: #121212;
+@content-bg-color: #1c1c1c;
+@content-bg-hover-color: #222;
+
+@link-color: #ccc;
+@text-color: @link-color; 
+
+@button-bg-color: #222;
+@button-hover-bg-color: #555;
+@button-active-bg-color: #444;
+@button-selected-bg-color: #ddd;
+@button-selected-hover-bg-color: #ddd;
+@button-selected-active-bg-color: #ccc;
+
+@button-text-color: #777;
+@button-active-text-color: #fff;
+@button-hover-text-color: #eee;
+@button-selected-text-color: #111;
+@button-selected-hover-text-color: #555;
+
+@import './lists.less';
+
 body {
-  background-color: #111;
-  color: white;
+  background-color: @bg-color;
+  color: @text-color;
 }
 
-a:link, a:visited, a:hover, a:active, p, h1, h2, h3, h4, h5, h6 {
-  color: white;
+a:link, a:visited, a:hover, a:active {
+  color: @link-color;
 }
 
 .clearfix:after {
@@ -47,87 +69,7 @@ table {
     font-size: 1.2em;
     margin-top: 0;
   }
-  .products {
-    padding-bottom: 10px;
-    .more {
-      width: 100%;
-      margin-top: 10px;
-      display: block;
-      font-size: 1.2em;
-      color: #bbb;
-      padding: 12px 0;
-      text-decoration: none;
-      text-align: center;
-      &:hover {
-        background: #ddd;
-      }
-      &:active {
-        background: #ccc;
-        color: #fff;
-      }
-    }
-    .results {
-      padding: 0;
-      margin: 0;
-      -moz-column-count: 3;
-      -moz-column-gap: 5px;
-      -webkit-column-count: 3;
-      -webkit-column-gap: 5px;
-      column-count: 3;
-      column-gap: 5px;
-      width: 100%;
-      li {
-        .noselect;
-        list-style-type: none;
-        cursor: pointer;
-        /*padding: 2px;
-        width: 33.3%;*/
-        display: inline-block;
-        margin-bottom: 5px;
-        width: 100%;
-        background: #000;
-        position: relative;
-        img {
-          width: 100%;
-        }
-        &:hover {
-          .details {
-            display: block;
-          }
-          img {
-            opacity: 0.7;
-          }
-        }
-        .details {
-          position: absolute;
-          bottom: 0;
-          background: rgba(1, 1, 1, 0.5);
-          width: 100%;
-          display: none; 
-          padding: 10px;
-          p {
-            /*margin: 3px;*/
-            margin: 0;
-            padding: 0;
-          }
-          .name {
-            font-weight: bold;
-            font-size: 1em;
-            margin-top: 0;
-          }
-          .description {
-            /*padding-top: 10px;*/
-          }
-          .makers {
-            font-style: italic;
-          }
-          .alt-names {
-          }
-        }
-      }
-    }
-  }
-
+  /* Temp */
   .categories {
     ul {
       padding: 0;
@@ -160,34 +102,36 @@ table {
           display: block;
           float: left;
           margin: 2px;
-          border: 1px solid #aaa;
+          border: 1px solid #444;
           a {
             text-decoration: none;
             display: block;
             padding: 3px 4px;
             font-weight: normal;
-            color: #fff;
-            background: #222;
+            color: #777;
+            background: @button-bg-color;
             &:hover {
-              background: #222;
+              background: @button-hover-bg-color;
+              color: @button-hover-text-color;
             }
             &:active {
-              background: #333;
-              color: #fff;
+              background: @button-active-bg-color;
+              color: @button-active-text-color;
             }
           }
           &.selected a {
-            background: #eee;
-            color: #111;
+            background: @button-selected-bg-color;
+            color: @button-selected-text-color;
             &:hover {
-              background: #ddd;
+              background: @button-selected-hover-bg-color;
+              color: @button-selected-hover-text-color;
             }
             &:active {
-              background: #ccc;
+              background: @button-selected-active-bg-color;
             }
           }
           &.disabled {
-            opacity: 0.2;
+            opacity: 0.3;
             a {
               cursor: default;
             }
@@ -311,3 +255,5 @@ table {
     display: none !important;
   }
 }
+
+

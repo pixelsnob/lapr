@@ -69,11 +69,14 @@ define([
       var thumbnail = this.model.get('thumbnail');
       if (thumbnail) {
         var image_onload_view = new ImageOnloadView({
-          el:    this.$el.find('.thumbnail'),
-          src:   '/images/products/' + this.model.get('image') 
+          el:    this.$el.find('.image'),
+          src:   '/images/products/' + this.model.get('thumbnail') 
         });
-        //this.$el.find('.product').css('background', 'url(' + '/images/products/' + this.model.get('image') + ') no-repeat').css('background-size', '100%');
+        this.listenTo(image_onload_view, 'loaded', function() {
+          this.$el.find('.image img').fadeIn(200);
+        });
       }
+      //this.$el.find('.product').css('background', 'url(' + '/images/products/' + this.model.get('image') + ') no-repeat fixed');
       if (this.model.highlight) {
         this.highlight(); 
         delete this.model.highlight;

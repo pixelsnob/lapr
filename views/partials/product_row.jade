@@ -1,17 +1,20 @@
 
-if product.image
-  img.product-image(src="/images/products/#{product.image}")
+.product
+  if product.thumbnail
+    .image
+      img.product-image(src="/images/products/#{product.image}")
 
-.details
-  h3.name= product.name
+  .details
+    h3.name= product.name
 
-  if _.isArray(product.makers) && product.makers.length
-    p.makers= product.makers.map(function(m) { return m.name; }).join(', ')
+    if _.isArray(product.makers) && product.makers.length
+      p.makers
+        cite= product.makers.map(function(m) { return m.name; }).join(', ')
 
-  p.price= product.price
+    p.price= product.price
 
-  if user
-    p
-      a.edit(href="/instruments/#{product.slug}/#{product.id}") Edit
-  noscript
-    a.product-details(href="/instruments/#{product.slug}/#{product.id}") Details
+    if user
+      p
+        a.edit(href="/instruments/#{product.slug}/#{product.id}") Edit
+    noscript
+      a.product-details(href="/instruments/#{product.slug}/#{product.id}") Details
