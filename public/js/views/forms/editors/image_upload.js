@@ -5,39 +5,35 @@
 define([
   'backbone',
   'views/admin/modal_form',
+  'template',
   'backbone-forms',
   'form-editors/list'
-], function(Backbone, ModalFormView) {
+], function(Backbone, ModalFormView, template) {
   
   return Backbone.Form.editors.Text.extend({
     
     events: {
-      //'click [data-editor] input': 'uploadModal'
     },
 
     initialize: function(opts) {
-      //var List = Backbone.Form.editors.List;
-      //this.events = _.defaults(List.prototype.events, this.events);
       Backbone.Form.editors.Text.prototype.initialize.call(this, opts); 
-      //this.$el.prop('type', 'file');
-
     },
 
-    uploadModal: function(ev) {
-      ev.currentTarget.blur();
-      var form = new Backbone.Form({
-        schema: {
-          file: 'Text'
-        }
-      });
-      var modal_view = new ModalFormView({ form: form });
-      modal_view.modal({
-        title: 'Edit Product',
-        body: form.render().el,
-        save_label: 'Save'
-      });
-      //this.listenTo(modal_view, 'save', this.save);
-      //modal_view.listenTo(this, 'save', modal_view.hide);
+    render: function() {
+      this.setElement(template.render('admin/image_upload', {
+        name: this.key,
+        editor_id: this.id
+      }));
+      this.setValue(this.value);
+      return this;
+    },
+
+    getValue: function() {
+      return this.$el.find('input').val();
+    },
+
+    setValue: function(value) {
+      this.$el.find('input').val(value);
     }
 
   });

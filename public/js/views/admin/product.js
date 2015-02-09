@@ -65,6 +65,8 @@ define([
       }).render();
       this.listenTo(this.form, 'init-error', this.showServerError);
       this.setElement(this.form.el);
+      //this.$el.find('input[name=thumbnail]').parent().parent().append('xxxxxxxx');
+
       return this;
     },
     

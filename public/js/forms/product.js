@@ -73,9 +73,7 @@ define([
         type: 'TextArea'
       },
       thumbnail: { 
-        //type: ImageUploadEditor,
-        type: 'Text',
-        template: form_templates.image_upload
+        type: ImageUploadEditor
       },
       image: {
         type: 'Text'
