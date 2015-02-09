@@ -1,5 +1,5 @@
 /**
- * Product details large image popup
+ * Image upload view
  * 
  */
 define([
@@ -11,32 +11,26 @@ define([
   ModalView,
   template
 ) {
-  
   return BaseView.extend({
     
-    events: {
+    initialize: function() {
+
     },
 
-    initialize: function(opts) {
-      this.refs = this.model.collection.refs;
-    },
-    
     render: function() {
-      this.$el.html(template.render('partials/product_details_image', {
-        product: this.model.toJSON() }));
+      this.$el.html(template.render('admin/image_upload'));
       return this;
     },
-    
-    renderModal: function(opts) {
+
+    renderModal: function() {
       this.render();
       var modal_view = new ModalView;
-      modal_view.$el.addClass('product-details-image');
+      modal_view.$el.addClass('admin-modal');
       modal_view.render({
         body: this.$el
       });
       this.listenTo(modal_view, 'hide', this.close);
     }
-    
   });
 });
 

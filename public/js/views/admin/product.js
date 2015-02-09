@@ -9,6 +9,7 @@ define([
   './makers',
   './tags',
   './modal_form',
+  './image_upload',
   'forms/product',
   'lib/dialog'
 ], function(
@@ -18,6 +19,7 @@ define([
   MakersView,
   TagsView,
   ModalFormView,
+  ImageUploadView,
   ProductForm,
   dialog
 ) {
@@ -26,7 +28,8 @@ define([
     events: {
       'click .edit-categories':           'editCategories',
       'click .edit-makers':               'editMakers',
-      'click .edit-tags':                 'editTags'
+      'click .edit-tags':                 'editTags',
+      'click .upload-thumbnail':          'uploadImage'
     },
     
     initialize: function(opts) {
@@ -87,8 +90,7 @@ define([
     
     editCategories: function() {
       var obj     = this,
-          editor  = this.form.getEditor('categories'),
-          val     = editor.getValue();
+          editor  = this.form.getEditor('categories');
       var view = new CategoriesView({ collection: this.refs.product_categories });
       view.renderModal();
       editor.listenTo(view, 'close', function() {
@@ -99,8 +101,7 @@ define([
 
     editMakers: function() {
       var obj     = this,
-          editor  = this.form.getEditor('makers'),
-          val     = editor.getValue();
+          editor  = this.form.getEditor('makers');
       var view = new MakersView({ collection: this.refs.makers });
       view.renderModal();
       editor.listenTo(view, 'close', function() {
@@ -111,8 +112,7 @@ define([
 
     editTags: function() {
       var obj     = this,
-          editor  = this.form.getEditor('tags'),
-          val     = editor.getValue();
+          editor  = this.form.getEditor('tags');
       var view = new TagsView({ collection: this.refs.tags });
       view.renderModal();
       editor.listenTo(view, 'close', function() {
@@ -120,6 +120,11 @@ define([
         editor.refresh();
         view.close();
       });
+    },
+
+    uploadImage: function() {
+      var view = new ImageUploadView;
+      view.renderModal();
     },
     
     save: function() {

@@ -4,20 +4,23 @@
  */
 define([
   'backbone',
-  'cms/views/modal/form',
+  'views/admin/modal_form',
   'backbone-forms',
   'form-editors/list'
 ], function(Backbone, ModalFormView) {
-  Backbone.Form.editors.Images = Backbone.Form.editors.List.extend({
+  
+  return Backbone.Form.editors.Text.extend({
     
     events: {
-      'click [data-editor] input': 'uploadModal'
+      //'click [data-editor] input': 'uploadModal'
     },
 
     initialize: function(opts) {
-      var List = Backbone.Form.editors.List;
-      this.events = _.defaults(List.prototype.events, this.events);
-      List.prototype.initialize.call(this, opts); 
+      //var List = Backbone.Form.editors.List;
+      //this.events = _.defaults(List.prototype.events, this.events);
+      Backbone.Form.editors.Text.prototype.initialize.call(this, opts); 
+      //this.$el.prop('type', 'file');
+
     },
 
     uploadModal: function(ev) {

@@ -1,13 +1,15 @@
 /**
- * Product details modal view
+ * Product details view
  * 
  */
 define([
   'views/base',
+  'views/modal',
   'views/product_details_image',
   'template'
 ], function(
   BaseView,
+  ModalView,
   ProductDetailsImageView,
   template
 ) {
@@ -15,8 +17,7 @@ define([
   return BaseView.extend({
     
     events: {
-      'click .image img': 'showImageModal',
-      'click .close':     'closeModal'
+      'click .image': 'showImageModal'
     },
 
     initialize: function(opts) {
@@ -34,23 +35,21 @@ define([
           return maker;
         }).join(', ');
       }
-      this.setElement(template.render('partials/product_details_modal', {
+      this.$el.html(template.render('partials/product_details', {
         product: product,
         makers:  makers_list
       }));
-      this.$el.addClass('product-details');
       return this;
     },
     
     renderModal: function(opts) {
       this.render();
-      this.$el.modal();
-    },
-
-    closeModal: function() {
-      this.$el.modal('hide').remove();
-      this.close();
-      return false;
+      var modal_view = new ModalView;
+      modal_view.$el.addClass('product-details');
+      modal_view.render({
+        body: this.$el
+      });
+      this.listenTo(modal_view, 'hide', this.close);
     },
 
     showImageModal: function() {
