@@ -27,7 +27,7 @@ define([
     initialize: function(opts) {
       this.model                = opts.model || new ProductModel;
       this.products             = opts.products;
-      this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'sync', this.render);
       this.listenTo(this.model, 'destroy', this.remove);
       // Important, for memory leaks
       this.listenTo(this.products.refs.filtered_products, 'reset', this.remove);
@@ -72,9 +72,9 @@ define([
           el:    this.$el.find('.image'),
           src:   '/images/products/' + this.model.get('thumbnail') 
         });
-        this.listenTo(image_onload_view, 'loaded', function() {
-          this.$el.find('.image img').fadeIn(200);
-        });
+        //this.listenTo(image_onload_view, 'loaded', function() {
+        //  this.$el.find('.image img').fadeIn(200);
+        //});
       }
       if (this.model.highlight) {
         this.highlight(); 

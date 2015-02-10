@@ -1,4 +1,7 @@
 
 div
-  input(id="#{editor_id}", type="text", name="#{name}")
-  a(href="javascript:void(0);", class="upload") Upload
+  .image
+  input(id="tmp_#{editor_id}", type="file", name="tmp_#{name}")
+  .error
+    div(data-error)
+  input(type="hidden", id="#{editor_id}", name="#{name}")

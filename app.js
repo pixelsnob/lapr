@@ -88,11 +88,15 @@ app.route('/instruments/categories/:category')
 app.route('/instruments/tags/:tags?')
   .get(routes.showProductsByTags);
 
+app.route('/files/tmp')
+  .post(cms_routes.auth, routes.saveTempUpload);
+
 app.route('/instruments/:slug/:id?')
   .get(routes.showProduct)
   .post(cms_routes.auth, routes.add('Product'))
-  .put(cms_routes.auth, routes.update('Product'))
+  .put(cms_routes.auth, routes.saveProductFiles, routes.update('Product'))
   .delete(cms_routes.auth, routes.remove('Product'));
+
 
 // Product refs
 

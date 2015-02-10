@@ -3,6 +3,8 @@
 
 var async            = require('async'),
     db               = require('./models'),
+    fs               = require('fs'),
+    formidable       = require('formidable'),
     _                = require('underscore');
 
 module.exports = function(app) {
@@ -241,6 +243,31 @@ module.exports = function(app) {
 
     showIndex: function(req, res, next) {
       res.render('index');
+    },
+
+    saveTempUpload: function(req, res, next) {
+      var form       = new formidable.IncomingForm();
+      form.parse(req, function(err, fields, files) {
+        if (err) {
+          return next(err);
+        }
+        if (typeof files.file == 'undefined') {
+          return next(new Error('files.file is not defined'));
+        }
+        res.send(files.file);
+      });
+    },
+
+    saveProductFiles: function(req, res, next) {
+      // make this async
+      var image_dir = __dirname + '/public/images/products/';
+      if (req.body.thumbnail && req.body.tmp_thumbnail && fs.existsSync(req.body.tmp_thumbnail)) {
+        fs.renameSync(req.body.tmp_thumbnail, image_dir + req.body.thumbnail);
+      }
+      if (req.body.image && req.body.tmp_image && fs.existsSync(req.body.tmp_image)) {
+        fs.renameSync(req.body.tmp_image, image_dir + req.body.thumbnail);
+      }
+      next();
     }
 
 
