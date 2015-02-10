@@ -254,22 +254,28 @@ module.exports = function(app) {
         if (typeof files.file == 'undefined') {
           return next(new Error('files.file is not defined'));
         }
+        // Send back file stats, tmp path, etc.
         res.send(files.file);
       });
     },
 
     saveProductFiles: function(req, res, next) {
-      // make this async
       var image_dir = __dirname + '/public/images/products/';
-      if (req.body.thumbnail && req.body.tmp_thumbnail && fs.existsSync(req.body.tmp_thumbnail)) {
-        fs.renameSync(req.body.tmp_thumbnail, image_dir + req.body.thumbnail);
-      }
-      if (req.body.image && req.body.tmp_image && fs.existsSync(req.body.tmp_image)) {
-        fs.renameSync(req.body.tmp_image, image_dir + req.body.thumbnail);
-      }
-      next();
+      async.waterfall([
+        function(cb) {
+          if (req.body.image && req.body.tmp_image) {
+            return fs.rename(req.body.tmp_image, image_dir + req.body.image, cb);
+          }
+          cb();
+        },
+        function(cb) {
+          if (req.body.thumbnail && req.body.tmp_thumbnail) {
+            return fs.rename(req.body.tmp_thumbnail, image_dir + req.body.thumbnail, cb);
+          }
+          cb();
+        }
+      ], next);
     }
-
 
   };
 };

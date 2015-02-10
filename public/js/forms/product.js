@@ -8,7 +8,8 @@ define([
   '../collections/product_categories',
   '../collections/makers',
   'views/forms/editors/multi_select',
-  'views/forms/editors/image_upload',
+  'views/forms/editors/file/image',
+  'views/forms/editors/file/thumbnail',
   'views/forms/templates',
   'form-editors/list'
 ], function(
@@ -17,7 +18,8 @@ define([
   ProductCategories,
   Makers,
   MultiSelectEditor,
-  ImageUploadEditor,
+  ImageEditor,
+  ThumbnailEditor,
   form_templates
 ) {
   
@@ -73,10 +75,10 @@ define([
         type: 'TextArea'
       },
       thumbnail: { 
-        type: ImageUploadEditor
+        type: ThumbnailEditor
       },
       image: {
-        type: 'Text'
+        type: ImageEditor
       }
     }
   });

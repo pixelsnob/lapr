@@ -1,5 +1,5 @@
 /**
- * Image model
+ * Image thumbnail model
  * 
  */
 define([
@@ -19,7 +19,7 @@ define([
         return 'Image must be one of: ' + this.types.join(', ');
       }
       if (attrs.file.size > 125000) {
-        return 'Image size must be less than 250KB';
+        return 'Image size must be less than 25KB';
       }
     }
   });
