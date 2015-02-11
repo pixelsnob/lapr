@@ -83,7 +83,8 @@ define([
         type: ImageEditor
       },
       sound_file: {
-        type: SoundFileEditor
+        type: SoundFileEditor,
+        title: 'Sound File'
       }
     }
   });
