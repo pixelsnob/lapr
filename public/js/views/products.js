@@ -33,9 +33,6 @@ define([
         // should only be added if in category !?!?!?!
         obj.render();// <<<<<
       });
-      //var $container = document.querySelector('.products .results');
-      //var masonry = new Masonry($container, { itemSelector: 'li' });
-      //masonry.layout(); 
     },
     
     render: function(append) {
@@ -57,7 +54,6 @@ define([
       // temp
       this.$el.find('.stats').html(products.length + ' Result' +
         (products.length != 1 ? 's' : ''));
-      //console.log('products render');
       return this;
     },
 

@@ -279,9 +279,10 @@ module.exports = function(app) {
       async.eachSeries(Object.keys(files), function(file, cb) {
         if (req.body[file] && req.body['tmp_' + file]) {
           var path = files[file].dir + req.body[file];
-          return fs.rename(req.body['tmp_' + file], path, cb);
+          fs.rename(req.body['tmp_' + file], path, cb);
+        } else {
+          cb();
         }
-        cb();
       }, next);
     }
 

@@ -9,7 +9,6 @@ define([
   './makers',
   './tags',
   './modal_form',
-  './image_upload',
   'forms/product',
   'lib/dialog'
 ], function(
@@ -19,7 +18,6 @@ define([
   MakersView,
   TagsView,
   ModalFormView,
-  ImageUploadView,
   ProductForm,
   dialog
 ) {
@@ -124,11 +122,6 @@ define([
       });
     },
 
-    uploadImage: function() {
-      var view = new ImageUploadView;
-      view.renderModal();
-    },
-    
     save: function() {
       var errors = this.form.commit(),
           obj    = this;
