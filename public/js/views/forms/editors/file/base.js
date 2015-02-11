@@ -45,6 +45,7 @@ define([
 
     render: function() {
       this.setValue(this.value);
+      this.model.unset('tmp_' + this.key, { silent: true });
       return this;
     },
 
@@ -69,9 +70,9 @@ define([
         if (obj.file_model.isValid()) {
           obj.trigger('reader_loaded', reader);
           obj.file_model.upload();
+          obj.$error.text('');
         } else {
           obj.$error.text(obj.file_model.validationError);
-          obj.$error.delay(5000).fadeOut();
         }
       };
       reader.readAsDataURL(file);

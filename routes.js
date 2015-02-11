@@ -244,7 +244,12 @@ module.exports = function(app) {
     showIndex: function(req, res, next) {
       res.render('index');
     },
-
+    
+    /**
+     * Saves a file upload in a tmp dir and send back filename and other
+     * stats
+     * 
+     */
     saveTempUpload: function(req, res, next) {
       var form       = new formidable.IncomingForm();
       form.parse(req, function(err, fields, files) {
@@ -259,22 +264,25 @@ module.exports = function(app) {
       });
     },
 
+    /** 
+     * Moves uploaded files to their final destination
+     * 
+     */
     saveProductFiles: function(req, res, next) {
-      var image_dir = __dirname + '/public/images/products/';
-      async.waterfall([
-        function(cb) {
-          if (req.body.image && req.body.tmp_image) {
-            return fs.rename(req.body.tmp_image, image_dir + req.body.image, cb);
-          }
-          cb();
-        },
-        function(cb) {
-          if (req.body.thumbnail && req.body.tmp_thumbnail) {
-            return fs.rename(req.body.tmp_thumbnail, image_dir + req.body.thumbnail, cb);
-          }
-          cb();
+      var image_dir      = __dirname + '/public/images/products/',
+          sound_file_dir = __dirname + '/public/sound-files/products/'
+      var files = {
+        image:       { dir: image_dir },
+        thumbnail:   { dir: image_dir },
+        sound_file:  { dir: sound_file_dir }
+      };
+      async.eachSeries(Object.keys(files), function(file, cb) {
+        if (req.body[file] && req.body['tmp_' + file]) {
+          var path = files[file].dir + req.body[file];
+          return fs.rename(req.body['tmp_' + file], path, cb);
         }
-      ], next);
+        cb();
+      }, next);
     }
 
   };

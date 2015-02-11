@@ -20,7 +20,8 @@ var ProductSchema = new mongoose.Schema({
   image:             String,
   sizes:             String,
   octaves:           Number,
-  tags:              [{ type: Number, ref: 'Tag' }]
+  tags:              [{ type: Number, ref: 'Tag' }],
+  sound_file:        String
 });
 
 ProductSchema.statics.findByIdAndPopulate = function(id, cb) {
