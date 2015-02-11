@@ -264,27 +264,22 @@ module.exports = function(app) {
       });
     },
 
-    /** 
-     * Moves uploaded files to their final destination
-     * 
-     */
     saveProductFiles: function(req, res, next) {
-      var image_dir      = __dirname + '/public/images/products/',
-          sound_file_dir = __dirname + '/public/sound-files/products/'
       var files = {
-        image:       { dir: image_dir },
-        thumbnail:   { dir: image_dir },
-        sound_file:  { dir: sound_file_dir }
+        image:       '/public/images/products/',
+        thumbnail:   '/public/images/products/thumbnails/',
+        sound_file:  '/public/sound-files/products/'
       };
       async.eachSeries(Object.keys(files), function(file, cb) {
         if (req.body[file] && req.body['tmp_' + file]) {
-          var path = files[file].dir + req.body[file];
+          var path = __dirname + files[file] + req.body[file];
           fs.rename(req.body['tmp_' + file], path, cb);
         } else {
           cb();
         }
       }, next);
     }
+
 
   };
 };

@@ -21,7 +21,7 @@ define([
 
     render: function() {
       FileUploadView.prototype.render.apply(this, arguments);
-      var src = '/images/products/' + this.model.get(this.key),
+      var src = '/images/products/thumbnails/' + this.model.get(this.key),
           img = $('<img>').attr('src', src).width(200);
       this.$preview.html(img);
       return this;
