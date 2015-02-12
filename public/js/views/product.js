@@ -33,7 +33,7 @@ define([
       this.listenTo(this.products.refs.filtered_products, 'reset', this.remove);
       this.listenTo(this.products, 'kill', this.remove);
       // Include product admin editor if admin user
-      if (window.cms.user) {
+      if (window.lapr.user) {
         var obj = this;
         require([ 'views/admin/product' ], function(ProductAdminView) {
           var events = {
@@ -63,7 +63,7 @@ define([
       }
       this.$el.html(template.render('partials/product_row', {
         product: product,
-        user: window.cms.user
+        user: window.lapr.user
       }));
       this.$el.attr('id', this.model.id);
       var thumbnail = this.model.get('thumbnail');

@@ -52,7 +52,7 @@ define([
     fetch: function(){
       var stored   = sessionStorage.getItem('lapr-products'),
           deferred = new jQuery.Deferred();
-      if (stored && !window.cms.user) {
+      if (stored && !window.lapr.user) {
         stored = JSON.parse(stored);
         this.reset(stored.products),
         this.refs.product_categories.reset(stored.product_categories),

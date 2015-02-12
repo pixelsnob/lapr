@@ -9,6 +9,7 @@
 @content-bg-hover-color: #222;
 
 @link-color: #ccc;
+@link-color: #bbb;
 @text-color: @link-color; 
 
 @button-bg-color: #222;
@@ -31,8 +32,12 @@ body {
   color: @text-color;
 }
 
-a:link, a:visited, a:hover, a:active {
+a:link, a:visited, a:active {
   color: @link-color;
+}
+
+a:hover, .navbar-default .navbar-nav > li > a:hover {
+  color: @link-hover-color;
 }
 
 .clearfix:after {
@@ -111,12 +116,16 @@ table {
     }
     .image {
       width: 50%;
+      height: 100%;
       float: right;
-      margin: 0 0 5px 5px;
+      margin: 10px;
       min-height: 80px;
       img {
-        width: 100%;
+        max-width: 125px;
+        max-height: 170px;
         display: none;
+        float: right;
+        display: block;
       }
     }
     .details {

@@ -3,7 +3,7 @@
  * 
  */
 define([
-  'cms/views/modal/base',
+  'views/admin/modal/base',
   'template'
 ], function(
   ModalView,

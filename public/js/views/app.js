@@ -35,7 +35,7 @@ define([
       this.deferred = this.products.fetch();
       // Admin stuff if user is logged in
       var obj = this;
-      if (window.cms.user) {
+      if (window.lapr.user) {
         require([ 'views/admin/product', 'views/admin/tag_categories' ],
         function(ProductAdminView, TagCategoriesAdminView) {
           obj.events['click .add-product'] = function() {
