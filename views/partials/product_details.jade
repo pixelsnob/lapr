@@ -1,7 +1,7 @@
 
 if product.image
   .image
-    img(src="/images/products/#{product.image}", width="400")
+    img(src="/images/products/large/#{product.image}", width="400")
 
 h2= product.name
 if product.alt_names
@@ -24,4 +24,10 @@ if product.range
 if product.sizes
   dt Sizes
   dd= product.sizes
+
+
+if product.sound_file
+  a.sound-file(href="/sound-files/products/#{product.sound_file}")= product.sound_file_title || 'Sound Clip'
+
+
 

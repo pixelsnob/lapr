@@ -1,4 +1,5 @@
 /**
+ * Separates thumbnail images from larger images
  * 
  */
 
@@ -9,7 +10,7 @@ var async            = require('async'),
     fs               = require('fs'),
     _                = require('underscore');
 
-var image_dir = __dirname + '/../public/images/products/',
+var image_dir = __dirname + '/../public/images/products-small/',
     thumb_dir = __dirname + '/../public/images/products/thumbnails/';
 
 async.waterfall([
@@ -20,7 +21,7 @@ async.waterfall([
       }
       async.eachSeries(products, function(product, cb) {
         if (product.thumbnail) {
-          fs.rename(image_dir + product.thumbnail, thumb_dir + product.thumbnail, function(err) {
+          fs.rename(image_dir + product.image, thumb_dir + product.image, function(err) {
             if (err) {
               console.error(err);
             }

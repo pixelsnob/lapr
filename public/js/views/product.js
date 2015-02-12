@@ -70,7 +70,7 @@ define([
       if (thumbnail) {
         var image_onload_view = new ImageOnloadView({
           el:    this.$el.find('.image'),
-          src:   '/images/products/thumbnails/' + this.model.get('thumbnail') 
+          src:   '/images/products/thumbnails/' + this.model.get('image') 
         });
         //this.listenTo(image_onload_view, 'loaded', function() {
         //  this.$el.find('.image img').fadeIn(200);

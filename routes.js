@@ -266,7 +266,7 @@ module.exports = function(app) {
 
     saveProductFiles: function(req, res, next) {
       var files = {
-        image:       '/public/images/products/',
+        image:       '/public/images/products/large/',
         thumbnail:   '/public/images/products/thumbnails/',
         sound_file:  '/public/sound-files/products/'
       };

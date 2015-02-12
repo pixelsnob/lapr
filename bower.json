@@ -23,6 +23,7 @@
     "backbone-forms": "latest",
     "html5shiv": "~3.7.2",
     "vex": "~2.2.1",
-    "backbone.paginator": "~2.0.2"
+    "backbone.paginator": "~2.0.2",
+    "jplayer": "~2.9.2"
   }
 }
