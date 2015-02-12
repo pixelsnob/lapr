@@ -15,8 +15,8 @@ var
   env               = process.env.NODE_ENV || 'development';
 
 require('./lib/marked')(app);
-require('cms/lib/auth');
-require('cms/lib/view_helpers')(app);
+require('./lib/auth');
+require('./lib/view_helpers')(app);
 
 if (env == 'development') {
   app.use(express.static('public'));
@@ -59,15 +59,17 @@ app.use(function(req, res, next) {
 
 app.use(jade_browser(
   '/jade.js',
-  [ 'cms/*.jade', 'admin/*.jade', 'product_*.jade', 'products_*.jade', 'partials/*.jade' ],
+  [ 'admin/*.jade', 'product_*.jade', 'products_*.jade', 'partials/*.jade' ],
   { root: app.get('views'), minify: (env == 'production') }
 ));
 
 
-var routes     = require('./routes')(app),
-    cms_routes = require('cms/routes');
+var routes = require('./routes')(app);
 
 app.use(routes.getProducts);
+
+app.route('/login').get(routes.loginForm).post(routes.login);
+app.route('/logout').get(routes.logout);
 
 app.route('/').get(routes.showIndex);
 
@@ -89,51 +91,58 @@ app.route('/instruments/tags/:tags?')
   .get(routes.showProductsByTags);
 
 app.route('/files/tmp')
-  .post(cms_routes.auth, routes.saveTempUpload);
+  .post(routes.auth, routes.saveTempUpload);
 
 app.route('/instruments/:slug/:id?')
   .get(routes.showProduct)
-  .post(cms_routes.auth, routes.add('Product'))
-  .put(cms_routes.auth, routes.saveProductFiles, routes.update('Product'))
-  .delete(cms_routes.auth, routes.remove('Product'));
+  .post(routes.auth, routes.add('Product'))
+  .put(routes.auth, routes.saveProductFiles, routes.update('Product'))
+  .delete(routes.auth, routes.remove('Product'));
 
 
 // Product refs
 
 app.route('/categories')
   .get(routes.get('ProductCategory'))
-  .post(cms_routes.auth, routes.add('ProductCategory'));
+  .post(routes.auth, routes.add('ProductCategory'));
 
 app.route('/categories/:id')
-  .put(cms_routes.auth, routes.update('ProductCategory'))
-  .delete(cms_routes.auth, routes.remove('ProductCategory'));
+  .put(routes.auth, routes.update('ProductCategory'))
+  .delete(routes.auth, routes.remove('ProductCategory'));
 
 app.route('/makers')
   .get(routes.get('Maker'))
-  .post(cms_routes.auth, routes.add('Maker'));
+  .post(routes.auth, routes.add('Maker'));
   
 app.route('/makers/:id')
-  .put(cms_routes.auth, routes.update('Maker'))
-  .delete(cms_routes.auth, routes.remove('Maker'));
+  .put(routes.auth, routes.update('Maker'))
+  .delete(routes.auth, routes.remove('Maker'));
 
 app.route('/tags')
   .get(routes.get('Tag'))
-  .post(cms_routes.auth, routes.add('Tag'));
+  .post(routes.auth, routes.add('Tag'));
 
 app.route('/tags/:id')
-  .put(cms_routes.auth, routes.update('Tag'))
-  .delete(cms_routes.auth, routes.remove('Tag'));
+  .put(routes.auth, routes.update('Tag'))
+  .delete(routes.auth, routes.remove('Tag'));
 
 app.route('/tag-categories')
   .get(routes.get('TagCategory'))
-  .post(cms_routes.auth, routes.add('TagCategory'));
+  .post(routes.auth, routes.add('TagCategory'));
 
 app.route('/tag-categories/:id')
-  .put(cms_routes.auth, routes.update('TagCategory'))
-  .delete(cms_routes.auth, routes.remove('TagCategory'));
+  .put(routes.auth, routes.update('TagCategory'))
+  .delete(routes.auth, routes.remove('TagCategory'));
 
+app.route('/images')
+  .get(routes.get('Image'))
+  .post(routes.auth, routes.add('Image'));
 
-app.use(require('cms/router'));
+app.route('/images/:id')
+  .put(routes.auth, routes.update('Image'))
+  .delete(routes.auth, routes.remove('Image'));
+
+//app.use(require('cms/router'));
 
 app.use(function(req, res, next) {
   res.status(404).sendFile(__dirname + '/public/404.html');

@@ -5,7 +5,8 @@ var async            = require('async'),
     db               = require('./models'),
     fs               = require('fs'),
     formidable       = require('formidable'),
-    _                = require('underscore');
+    _                = require('underscore'),
+    passport         = require('passport');
 
 module.exports = function(app) {
 
@@ -221,6 +222,7 @@ module.exports = function(app) {
         'makers':              'Maker',
         'tags':                'Tag',
         'tag_categories':      'TagCategory'
+        //'images':              'Image'
       },
       data = [];
       async.each(Object.keys(model_names), function(model_name, cb) {
@@ -278,6 +280,62 @@ module.exports = function(app) {
           cb();
         }
       }, next);
+    },
+
+    loginForm: function(req, res, next) {
+      if (req.isAuthenticated()) {
+        return res.redirect('/');
+      }
+      res.render('cms/login_form');
+    },
+    
+    login: function(req, res, next) {
+      passport.authenticate('local', function(err, user, info) {
+        if (err) {
+          return next(err);
+        }
+        if (!user) {
+          req.session.messages =  [ info.message ];
+          return res.redirect('/login');
+        }
+        req.logIn(user, function(err) {
+          if (err) {
+            return next(err);
+          }
+          res.redirect('/');
+        });
+      })(req, res, next);
+    },
+    
+    logout: function(req, res, next) {
+      req.logout();
+      res.redirect('/login');
+    },
+
+    getUser: function(req, res, next) {
+      if (req.isAuthenticated()) {
+        res.format({
+          json: function() {
+            res.json(req.user);
+          }
+        });
+      }
+    },
+
+    auth: function(req, res, next) {
+      if (!req.isAuthenticated()) {
+        res.format({
+          html: function() {
+            next(new Error('You must be logged in to do that...'));
+          },
+          json: function() {
+            res.status(403);
+            res.send({ ok: 0 });
+          }
+        });
+      } else {
+        next();
+      }
     }
 
 

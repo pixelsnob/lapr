@@ -3,9 +3,8 @@
  * 
  */
 define([
-  '../models/tag',
-  '../collections/tag_categories'
-], function(TagModel, TagCategories) {
+  '../models/tag'
+], function(TagModel) {
   return Backbone.Collection.extend({
     
     url: '/tags',

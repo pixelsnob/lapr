@@ -4,7 +4,7 @@
  */
 define([
   'backbone',
-  'views/admin/modal_form',
+  'views/admin/modal/form',
   'template',
   'backbone-forms'
 ], function(
