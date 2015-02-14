@@ -95,7 +95,7 @@ app.route('/files/tmp')
 
 app.route('/instruments/:slug/:id?')
   .get(routes.showProduct)
-  .post(routes.auth, routes.add('Product'))
+  .post(routes.auth, routes.saveProductFiles, routes.add('Product'))
   .put(routes.auth, routes.saveProductFiles, routes.update('Product'))
   .delete(routes.auth, routes.remove('Product'));
 

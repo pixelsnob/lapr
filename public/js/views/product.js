@@ -72,9 +72,6 @@ define([
           el:    this.$el.find('.image'),
           src:   '/images/' + this.model.get('thumbnail') 
         });
-        //this.listenTo(image_onload_view, 'loaded', function() {
-        //  this.$el.find('.image img').fadeIn(200);
-        //});
       }
       if (this.model.highlight) {
         this.highlight(); 
