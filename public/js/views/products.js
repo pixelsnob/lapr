@@ -4,12 +4,12 @@
  */
 define([
   'views/base',
-  'views/product',
-  'masonry'
+  'views/product'
+  //'masonry'
 ], function(
   BaseView,
-  ProductView,
-  Masonry
+  ProductView
+  //Masonry
 ) {
   
   return BaseView.extend({
