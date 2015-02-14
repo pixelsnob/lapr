@@ -134,13 +134,13 @@ app.route('/tag-categories/:id')
   .put(routes.auth, routes.update('TagCategory'))
   .delete(routes.auth, routes.remove('TagCategory'));
 
-app.route('/images')
+/*app.route('/images')
   .get(routes.get('Image'))
   .post(routes.auth, routes.add('Image'));
 
 app.route('/images/:id')
   .put(routes.auth, routes.update('Image'))
-  .delete(routes.auth, routes.remove('Image'));
+  .delete(routes.auth, routes.remove('Image'));*/
 
 //app.use(require('cms/router'));
 

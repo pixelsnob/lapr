@@ -7,7 +7,7 @@ define([
   'views/products',
   'views/tags_tree',
   'views/categories_nav',
-  'views/products_categories_search',
+  'views/products_search',
   'views/products_tags_search',
   'collections/products'
 ], function(
@@ -15,7 +15,7 @@ define([
   ProductsView,
   TagsTreeView,
   CategoriesNavView,
-  ProductsCategoriesSearchView,
+  ProductsSearchView,
   ProductsTagsSearchView,
   ProductsCollection
 ) {
@@ -66,7 +66,7 @@ define([
           if (this.current_view) {
             this.current_view.close();
           }
-          this.current_view = new ProductsCategoriesSearchView({
+          this.current_view = new ProductsSearchView({
             products: obj.products
           });
           obj.$el.find('#main').html(this.current_view.render().el);

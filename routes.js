@@ -268,8 +268,8 @@ module.exports = function(app) {
 
     saveProductFiles: function(req, res, next) {
       var files = {
-        image:       '/public/images/products/large/',
-        thumbnail:   '/public/images/products/thumbnails/',
+        image:       '/public/images/',
+        thumbnail:   '/public/images/',
         sound_file:  '/public/sound-files/products/'
       };
       async.eachSeries(Object.keys(files), function(file, cb) {
