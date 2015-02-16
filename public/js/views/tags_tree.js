@@ -25,7 +25,8 @@ define([
       this.$el.append('<ul>');
       var $reset_link = $('<a>').attr('href', 'javascript:void(0);')
         .text('Reset').addClass('reset');
-      this.$el.append($reset_link);
+      var $link_container = $('<div>').addClass('tag').append($reset_link);
+      this.$el.append($link_container);
     },
     
     render: function() {

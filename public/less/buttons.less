@@ -1,0 +1,41 @@
+
+.tag {
+  display: block;
+  float: left;
+  margin: 2px;
+  border: 1px solid #444;
+  list-style: none;
+  a {
+    text-decoration: none;
+    display: block;
+    padding: 3px 4px;
+    font-weight: normal;
+    color: #777;
+    background: @button-bg-color;
+    &:hover {
+      background: @button-hover-bg-color;
+      color: @button-hover-text-color;
+    }
+    &:active {
+      background: @button-active-bg-color;
+      color: @button-active-text-color;
+    }
+  }
+  &.selected a {
+    background: @button-selected-bg-color;
+    color: @button-selected-text-color;
+    &:hover {
+      background: @button-selected-hover-bg-color;
+      color: @button-selected-hover-text-color;
+    }
+    &:active {
+      background: @button-selected-active-bg-color;
+    }
+  }
+  &.disabled {
+    opacity: 0.3;
+    a {
+      cursor: default;
+    }
+  }
+}

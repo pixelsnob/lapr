@@ -23,7 +23,6 @@ define([
     
     render: function() {
       var obj = this;
-      //this.$el.unbind();
       this.collection.forEach(function(tag) {
         var view = new TagsTreeListItemView({
           model: tag,
@@ -31,7 +30,7 @@ define([
         });
         obj.$el.append(view.render().el);
       });
-      this.$el.addClass('buttons-list');
+      this.$el.addClass('tags-list');
       return this;
     }
 
