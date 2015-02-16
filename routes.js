@@ -165,6 +165,7 @@ module.exports = function(app) {
           res.format({
             html: function() {
               res.render('products_search', {
+                heading:            product_category.name,
                 products:           products,
                 product_categories: res.locals.json_data.product_categories,
                 page_count:         page_count,
