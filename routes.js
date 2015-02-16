@@ -156,26 +156,26 @@ module.exports = function(app) {
         if (!product_category) {
           return res.sendStatus(404);
         }
-        db.model('Product').find({
-          categories: product_category._id 
-        }, null, { sort: { name: 1 }}).populate('makers').exec(function(err, products) {
+        var query = { categories: product_category._id };
+        db.model('Product').paginate(query, req.query.page, req.query.limit,
+        function(err, page_count, products, item_count) {
           if (err) {
             return next(err);
           }
           res.format({
             html: function() {
               res.render('products_search', {
-                products:   products,
-                heading:    product_category.name,
-                page_count: 0,
-                item_count: 0
+                products:           products,
+                product_categories: res.locals.json_data.product_categories,
+                page_count:         page_count,
+                item_count:         item_count
               });
             },
             json: function() {
               res.send(products);
             }
           });
-        });
+        }, { populate: 'makers', sortBy : { name: 1 } });
       });
     },
     
@@ -212,9 +212,7 @@ module.exports = function(app) {
         });
       }, { populate: 'makers', sortBy : { name: 1 } });
     },
-
-    // Builds JSON data that gets dumped on the page, for the front-end
-    // to use
+    
     getProducts: function(req, res, next) {
       var model_names = {
         'products':            'Product',
@@ -222,7 +220,6 @@ module.exports = function(app) {
         'makers':              'Maker',
         'tags':                'Tag',
         'tag_categories':      'TagCategory'
-        //'images':              'Image'
       },
       data = [];
       async.each(Object.keys(model_names), function(model_name, cb) {
@@ -247,11 +244,8 @@ module.exports = function(app) {
       res.render('index');
     },
     
-    /**
-     * Saves a file upload in a tmp dir and send back filename and other
-     * stats
-     * 
-     */
+    // Saves a file upload in a tmp dir and send back filename and other
+    // stats
     saveTempUpload: function(req, res, next) {
       var form       = new formidable.IncomingForm();
       form.parse(req, function(err, fields, files) {

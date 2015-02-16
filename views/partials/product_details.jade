@@ -5,9 +5,9 @@ if product.image
 
 h2= product.name
 if product.alt_names
-  p.alt-names \(!{product.alt_names}\)
+  p.alt-names (#{product.alt_names})
 if makers
-  p.makers Mfg. by !{makers}
+  p.makers Mfg. by #{makers}
 
 p.description= product.description
 

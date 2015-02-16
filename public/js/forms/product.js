@@ -9,7 +9,6 @@ define([
   '../collections/makers',
   'views/forms/editors/multi_select',
   'views/forms/editors/file/image',
-  //'views/forms/editors/file/thumbnail',
   'views/forms/editors/file/sound_file',
   'views/forms/templates',
   'form-editors/list'
@@ -20,7 +19,6 @@ define([
   Makers,
   MultiSelectEditor,
   ImageEditor,
-  //ThumbnailEditor,
   SoundFileEditor,
   form_templates
 ) {

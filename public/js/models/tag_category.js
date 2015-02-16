@@ -7,7 +7,7 @@ define([
 ], function(BaseModel) {
   return BaseModel.extend({
     
-    url: function() { return '/tag-categories/' + (this.id || '') },
+    url: function() { return '/api/tag-categories/' + (this.id || '') },
 
     initialize: function(opts) {
       

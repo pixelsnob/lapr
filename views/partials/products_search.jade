@@ -1,6 +1,12 @@
 
 .col-md-3
   .categories
+    if typeof product_categories != 'undefined'
+      ul
+        each category in product_categories
+          li
+            a(href="/instruments/categories/#{category.slug}")= category.name 
+
   .tags-tree
   
 .col-md-9

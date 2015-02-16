@@ -7,7 +7,7 @@ define([
 ], function(TagModel) {
   return Backbone.Collection.extend({
     
-    url: '/tags',
+    url: '/api/tags',
 
     model: TagModel,
 

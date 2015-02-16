@@ -7,7 +7,7 @@ define([
 ], function(MakerModel) {
   return Backbone.Collection.extend({
     
-    url: '/makers',
+    url: '/api/makers',
 
     model: MakerModel,
 

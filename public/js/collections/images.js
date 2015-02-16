@@ -7,7 +7,7 @@ define([
 ], function(ImageModel) {
   return Backbone.Collection.extend({
     
-    url: '/images',
+    url: '/api/images',
 
     model: ImageModel,
 

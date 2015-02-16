@@ -99,56 +99,34 @@ app.route('/instruments/:slug/:id?')
   .put(routes.auth, routes.saveProductFiles, routes.update('Product'))
   .delete(routes.auth, routes.remove('Product'));
 
+// Product refs CRUD
 
-// Product refs
+var models = {
+  ProductCategory:  '/api/categories',
+  Maker:            '/api/makers',
+  Tag:              '/api/tags',
+  TagCategory:      '/api/tag-categories',
+  Images:           '/api/images'
+};
 
-app.route('/categories')
-  .get(routes.get('ProductCategory'))
-  .post(routes.auth, routes.add('ProductCategory'));
-
-app.route('/categories/:id')
-  .put(routes.auth, routes.update('ProductCategory'))
-  .delete(routes.auth, routes.remove('ProductCategory'));
-
-app.route('/makers')
-  .get(routes.get('Maker'))
-  .post(routes.auth, routes.add('Maker'));
+for (var model in models) {
+  app.route(models[model])
+    .get(routes.get(model))
+    .post(routes.auth, routes.add(model))
   
-app.route('/makers/:id')
-  .put(routes.auth, routes.update('Maker'))
-  .delete(routes.auth, routes.remove('Maker'));
+  app.route(models[model] + '/:id')
+    .put(routes.auth, routes.update(model))
+    .delete(routes.auth, routes.remove(model));
+}
 
-app.route('/tags')
-  .get(routes.get('Tag'))
-  .post(routes.auth, routes.add('Tag'));
-
-app.route('/tags/:id')
-  .put(routes.auth, routes.update('Tag'))
-  .delete(routes.auth, routes.remove('Tag'));
-
-app.route('/tag-categories')
-  .get(routes.get('TagCategory'))
-  .post(routes.auth, routes.add('TagCategory'));
-
-app.route('/tag-categories/:id')
-  .put(routes.auth, routes.update('TagCategory'))
-  .delete(routes.auth, routes.remove('TagCategory'));
-
-/*app.route('/images')
-  .get(routes.get('Image'))
-  .post(routes.auth, routes.add('Image'));
-
-app.route('/images/:id')
-  .put(routes.auth, routes.update('Image'))
-  .delete(routes.auth, routes.remove('Image'));*/
-
-//app.use(require('cms/router'));
+// 404
 
 app.use(function(req, res, next) {
   res.status(404).sendFile(__dirname + '/public/404.html');
 });
 
 // Error page
+
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.format({

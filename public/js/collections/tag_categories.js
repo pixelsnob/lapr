@@ -7,7 +7,7 @@ define([
 ], function(TagCategoryModel) {
   return Backbone.Collection.extend({
     
-    url: '/tag-categories',
+    url: '/api/tag-categories',
 
     model: TagCategoryModel,
 

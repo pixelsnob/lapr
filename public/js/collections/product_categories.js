@@ -7,7 +7,7 @@ define([
 ], function(ProductCategoryModel) {
   return Backbone.Collection.extend({
     
-    url: '/categories',
+    url: '/api/categories',
 
     model: ProductCategoryModel,
 

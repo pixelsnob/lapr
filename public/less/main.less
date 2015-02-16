@@ -8,9 +8,9 @@
 @content-bg-color: #1c1c1c;
 @content-bg-hover-color: #222;
 
-@link-color: #ccc;
 @link-color: #bbb;
 @text-color: @link-color; 
+@heading-color: #eee;
 
 @button-bg-color: #222;
 @button-hover-bg-color: #555;
@@ -71,13 +71,12 @@ table {
 #main {
   padding: 10px;
   h1 {
-    font-size: 1.2em;
-    margin-top: 0;
+    font-size: 1.5em;
+    color: @heading-color;
   }
   .products {
     
   }
-  /* Temp */
   .categories {
     ul {
       padding: 0;
@@ -118,19 +117,22 @@ table {
       width: 45%;
       height: 100%;
       float: right;
-      /*margin: 0 0 5px 5px;*/
       min-height: 80px;
       img {
         max-width: 100%;
         max-height: 100%;
         display: none;
         float: right;
+        &.noscript {
+          display: block;
+        }
       }
     }
     .details {
       float: left;
       width: 45%;
       padding: 10px;
+      position: relative;
       p {
         margin: 0;
         padding: 0;
@@ -140,6 +142,7 @@ table {
         font-size: 1em;
         margin-top: 0;
       }
+      position: relative;
     }
   }
 }
@@ -261,8 +264,10 @@ table {
 }
 
 @media only screen and (max-width: 992px) {
-  #main .categories {
-    display: none !important;
+  #main .categories li {
+    display: inline !important;
+    margin-right: 10px;
+    margin-bottom: 20px;
   }
 }
 

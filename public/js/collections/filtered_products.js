@@ -7,8 +7,6 @@ define([
 ], function(ProductModel) {
   return Backbone.Collection.extend({
     
-    url: '/products',
-
     model: ProductModel,
 
     comparator: 'name',
