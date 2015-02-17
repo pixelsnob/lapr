@@ -13,7 +13,8 @@ define([
   'collections/tags',
   'collections/tag_categories',
   'collections/selected_tags',
-  'collections/selected_categories'
+  'collections/selected_categories',
+  'collections/images'
 ], function(
   ProductModel,
   MakerModel,
@@ -25,7 +26,8 @@ define([
   TagsCollection,
   TagCategoriesCollection,
   SelectedTagsCollection,
-  SelectedCategoriesCollection
+  SelectedCategoriesCollection,
+  ImagesCollection
 ) {
   return Backbone.Collection.extend({
     
@@ -43,7 +45,8 @@ define([
         tags:                 new TagsCollection,
         tag_categories:       new TagCategoriesCollection,
         selected_tags:        new SelectedTagsCollection,
-        selected_categories:  new SelectedCategoriesCollection
+        selected_categories:  new SelectedCategoriesCollection,
+        images:               new ImagesCollection
       };
       this.refs.selected_tags.tags                     = this.refs.tags;
       this.refs.selected_categories.product_categories = this.refs.product_categories;
@@ -59,6 +62,7 @@ define([
         this.refs.makers.reset(stored.makers),
         this.refs.tags.reset(stored.tags),
         this.refs.tag_categories.reset(stored.tag_categories)
+        this.refs.images.reset(stored.images)
         deferred.resolve();
         return deferred.promise();
       } else {
@@ -68,7 +72,8 @@ define([
             product_categories: res.product_categories,
             makers: res.makers,
             tags: res.tags,
-            tag_categories: res.tag_categories
+            tag_categories: res.tag_categories,
+            images: res.images
           };
           sessionStorage.setItem('lapr-products', JSON.stringify(data));
         });
@@ -81,6 +86,7 @@ define([
       this.refs.makers.reset(res.makers); 
       this.refs.tags.reset(res.tags); 
       this.refs.tag_categories.reset(res.tag_categories); 
+      this.refs.images.reset(res.images); 
       return res.products;
     },
 

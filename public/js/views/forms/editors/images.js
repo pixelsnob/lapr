@@ -1,17 +1,25 @@
 /**
- * Multiselect
- * 
+ * Select list of images
  * 
  */
-define([ 'backbone', 'backbone-forms' ], function(Backbone) {
+
+define([
+  'backbone',
+  'template',
+  'backbone-forms'
+], function(Backbone, template) {
+  
   return Backbone.Form.editors.Select.extend({
     
     initialize: function(opts) {
-      this.$el.prop('multiple', true);
       Backbone.Form.editors.Select.prototype.initialize.call(this, opts); 
+      this.setElement(template.render('admin/images_editor', {
+        name: this.key,
+        editor_id: this.id
+      }));
     },
 
-    // Make sure numeric ids don't get cast as strings << is this necessary anymore?
+    // Make sure numeric ids don't get cast as strings << this should be abstracted
     getValue: function(value) {
       var value = Backbone.Form.editors.Select.prototype.getValue.call(this); 
       if (_.isArray(value)) {

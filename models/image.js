@@ -4,7 +4,7 @@
 var db = require('mongoose');
 
 var ImageSchema = new db.Schema({
-  filename: String,
+  name: { type: String },
   size: Number,
   title: String
 });

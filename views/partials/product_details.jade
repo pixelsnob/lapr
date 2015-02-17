@@ -1,7 +1,6 @@
 
-if product.image
-  .image
-    img(src="/images/#{product.image}", width="400")
+.image
+  img(src="/images/#{product.large_image.name}", width="400")
 
 h2= product.name
 if product.alt_names

@@ -17,7 +17,7 @@ define([
     
     initialize: function() {
       this.setElement(template.render('admin/list'));
-      this.listenTo(this.collection, 'change add', this.render);
+      this.listenTo(this.collection, 'change add remove', this.render);
     },
 
     render: function() {

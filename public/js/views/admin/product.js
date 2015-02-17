@@ -8,6 +8,7 @@ define([
   './categories',
   './makers',
   './tags',
+  './image',
   './modal/form',
   'forms/product',
   'lib/dialog'
@@ -17,6 +18,7 @@ define([
   CategoriesView,
   MakersView,
   TagsView,
+  ImageView,
   ModalFormView,
   ProductForm,
   dialog
@@ -27,12 +29,12 @@ define([
       'click .edit-categories':           'editCategories',
       'click .edit-makers':               'editMakers',
       'click .edit-tags':                 'editTags',
-      'click .upload-thumbnail':          'uploadImage'
+      'click .edit-small_image':          'editSmallImage',
+      'click .edit-large_image':          'editLargeImage'
     },
     
     initialize: function(opts) {
       this.model    = opts.model || new ProductModel;
-      console.log(this.model);
       this.refs     = opts.refs;
       this.mode     = opts.mode || 'edit';
     },
@@ -59,12 +61,11 @@ define([
         model:               this.model,
         product_categories:  this.refs.product_categories,
         makers:              this.refs.makers,
-        tags:                this.getTagOptions()
+        tags:                this.getTagOptions(),
+        images:              this.refs.images
       }).render();
       this.listenTo(this.form, 'init-error', this.showServerError);
       this.setElement(this.form.el);
-      //this.$el.find('input[name=thumbnail]').parent().parent().append('xxxxxxxx');
-
       return this;
     },
     
@@ -117,6 +118,27 @@ define([
       view.renderModal();
       editor.listenTo(view, 'close', function() {
         editor.schema.options = obj.getTagOptions();
+        editor.refresh();
+        view.close();
+      });
+    },
+    
+    editSmallImage: function() {
+      var obj     = this,
+          editor  = this.form.getEditor('small_image');
+          image   = this.refs.images.findWhere({ _id: editor.getValue() });
+      if (image) {
+        var view = new ImageView({ model: image }); 
+        view.renderEditForm();
+      }
+    },
+
+    editLargeImage: function() {
+      var obj     = this,
+          editor  = this.form.getEditor('large_image');
+      var view = new ImagesView({ collection: this.refs.images });
+      view.renderModal();
+      editor.listenTo(view, 'close', function() {
         editor.refresh();
         view.close();
       });

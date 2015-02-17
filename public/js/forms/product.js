@@ -8,7 +8,7 @@ define([
   '../collections/product_categories',
   '../collections/makers',
   'views/forms/editors/multi_select',
-  'views/forms/editors/file/image',
+  'views/forms/editors/images',
   'views/forms/editors/file/sound_file',
   'views/forms/templates',
   'form-editors/list'
@@ -18,7 +18,7 @@ define([
   ProductCategories,
   Makers,
   MultiSelectEditor,
-  ImageEditor,
+  ImagesEditor,
   SoundFileEditor,
   form_templates
 ) {
@@ -27,9 +27,11 @@ define([
 
     initialize: function(opts) {
       Backbone.Form.prototype.initialize.apply(this, arguments);
-      this.fields.categories.schema.options = opts.product_categories;
-      this.fields.makers.schema.options     = opts.makers;
-      this.fields.tags.schema.options       = opts.tags
+      this.fields.categories.schema.options   = opts.product_categories;
+      this.fields.makers.schema.options       = opts.makers;
+      this.fields.tags.schema.options         = opts.tags;
+      this.fields.small_image.schema.options  = opts.images;
+      this.fields.large_image.schema.options  = opts.images;
     },
 
     schema: {
@@ -74,15 +76,15 @@ define([
       sizes: {
         type: 'TextArea'
       },
-      thumbnail: { 
-        type: ImageEditor
+      small_image: { 
+        type: ImagesEditor,
+        template: form_templates.editable_field,
+        options: []
       },
-      image: {
-        type: ImageEditor
-      },
-      sound_file: {
-        type: SoundFileEditor,
-        title: 'Sound File'
+      large_image: { 
+        type: ImagesEditor,
+        template: form_templates.editable_field,
+        options: []
       }
     }
   });

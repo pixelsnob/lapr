@@ -141,7 +141,8 @@ module.exports = function(app) {
             product_categories: json_data.product_categories,
             makers: json_data.makers,
             tags: json_data.tags,
-            tag_categories: json_data.tag_categories
+            tag_categories: json_data.tag_categories,
+            images: json_data.images
           });
         }
       });
@@ -220,7 +221,8 @@ module.exports = function(app) {
         'product_categories':  'ProductCategory',
         'makers':              'Maker',
         'tags':                'Tag',
-        'tag_categories':      'TagCategory'
+        'tag_categories':      'TagCategory',
+        'images':              'Image'
       },
       data = [];
       async.each(Object.keys(model_names), function(model_name, cb) {

@@ -99,14 +99,14 @@ app.route('/instruments/:slug/:id?')
   .put(routes.auth, routes.saveProductFiles, routes.update('Product'))
   .delete(routes.auth, routes.remove('Product'));
 
-// Product refs CRUD
+// Product refs and related CRUD
 
 var models = {
   ProductCategory:  '/api/categories',
   Maker:            '/api/makers',
   Tag:              '/api/tags',
   TagCategory:      '/api/tag-categories',
-  Images:           '/api/images'
+  Image:            '/api/images'
 };
 
 for (var model in models) {
