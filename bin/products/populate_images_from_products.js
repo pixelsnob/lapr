@@ -17,13 +17,24 @@ async.waterfall([
       }
       async.eachSeries(products, function(product, cb) {
         if (product.image) {
-          db.connection.model('Image').create({ name: product.image },
+          db.connection.model('Image').findOne({ name: product.image },
           function(err, image) {
             if (err) {
               return cb(err);
             }
-            product.large_image = image._id;
-            product.save(cb);
+            if (image) {
+              product.large_image = image._id;
+              product.save(cb);
+            } else {
+              db.connection.model('Image').create({ name: product.image },
+              function(err, image) {
+                if (err) {
+                  return cb(err);
+                }
+                product.large_image = image._id;
+                product.save(cb);
+              });
+            }
           });
           return;
         }
@@ -37,21 +48,32 @@ async.waterfall([
         return next(err);
       }
       async.eachSeries(products, function(product, cb) {
-        if (product.thumbnail) {
-          db.connection.model('Image').create({ name: product.thumbnail },
+        if (product.image) {
+          db.connection.model('Image').findOne({ name: product.thumbnail },
           function(err, image) {
             if (err) {
               return cb(err);
             }
-            product.small_image = image._id;
-            product.save(cb);
+            if (image) {
+              product.small_image = image._id;
+              product.save(cb);
+            } else {
+              db.connection.model('Image').create({ name: product.thumbnail },
+              function(err, image) {
+                if (err) {
+                  return cb(err);
+                }
+                product.small_image = image._id;
+                product.save(cb);
+              });
+            }
           });
           return;
         }
         cb();
       }, next);
     });
-  },
+  }
   /*function(next) {
     db.connection.model('Product').find({}, function(err, products) {
       if (err) {

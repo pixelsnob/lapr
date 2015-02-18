@@ -77,13 +77,13 @@ define([
         type: 'TextArea'
       },
       small_image: { 
+        title: 'Small Image',
         type: ImagesEditor,
-        template: form_templates.editable_field,
         options: []
       },
       large_image: { 
+        title: 'Large Image',
         type: ImagesEditor,
-        template: form_templates.editable_field,
         options: []
       }
     }

@@ -1,2 +1,6 @@
 
-select(id="tmp_#{editor_id}", name="tmp_#{name}")
+div
+  select(id="tmp_#{editor_id}", name="#{name}")
+  a(href="javascript:void(0);", class="edit") Edit
+  .preview
+    img(width="200")

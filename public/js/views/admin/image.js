@@ -24,6 +24,9 @@ define([
     
     initialize: function() {
       this.form = new ImageForm({ model: this.model });
+      this.listenTo(this.model, 'remove', function(model) {
+        console.log('remove');
+      });
     }
 
   });

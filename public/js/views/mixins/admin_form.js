@@ -59,7 +59,7 @@ define([
       if (!errors) {
         this.model.save(this.model.attributes, {
           wait: true,
-          success: _.bind(this.trigger, this, 'save'),
+          success: _.bind(this.trigger, this, 'save', this.model),
           error:   _.bind(this.showServerError, this)
         });
       } else {

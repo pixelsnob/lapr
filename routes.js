@@ -263,22 +263,33 @@ module.exports = function(app) {
       });
     },
 
-    saveProductFiles: function(req, res, next) {
-      var files = {
-        image:       '/public/images/',
-        thumbnail:   '/public/images/',
-        sound_file:  '/public/sound-files/products/'
-      };
-      async.eachSeries(Object.keys(files), function(file, cb) {
-        if (req.body[file] && req.body['tmp_' + file]) {
-          var path = __dirname + files[file] + req.body[file];
-          fs.rename(req.body['tmp_' + file], path, cb);
-        } else {
+    moveImageFile: function(req, res, next) {
+      var image_dir = __dirname + '/public/images/';
+      async.waterfall([
+        function(cb) {
+          if (req.body.tmp_name) {
+            return fs.rename(req.body.tmp_name, image_dir + req.body.name, cb);
+          }
           cb();
+        },
+        function(cb) {
+          if (req.body._id) {
+            db.model('Image').findById(req.body._id, function(err, image) {
+              if (err) {
+                return next(err);
+              }
+              if (image && image.name != req.body.name) {
+                return fs.unlink(image_dir + image.name, function(err) {
+                  cb();
+                });
+              }
+              cb();
+            });
+          }
         }
-      }, next);
+      ], next);
     },
-
+    
     loginForm: function(req, res, next) {
       if (req.isAuthenticated()) {
         return res.redirect('/');

@@ -8,7 +8,6 @@ define([
   './categories',
   './makers',
   './tags',
-  './image',
   './modal/form',
   'forms/product',
   'lib/dialog'
@@ -18,7 +17,6 @@ define([
   CategoriesView,
   MakersView,
   TagsView,
-  ImageView,
   ModalFormView,
   ProductForm,
   dialog
@@ -28,9 +26,7 @@ define([
     events: {
       'click .edit-categories':           'editCategories',
       'click .edit-makers':               'editMakers',
-      'click .edit-tags':                 'editTags',
-      'click .edit-small_image':          'editSmallImage',
-      'click .edit-large_image':          'editLargeImage'
+      'click .edit-tags':                 'editTags'
     },
     
     initialize: function(opts) {
@@ -123,27 +119,6 @@ define([
       });
     },
     
-    editSmallImage: function() {
-      var obj     = this,
-          editor  = this.form.getEditor('small_image');
-          image   = this.refs.images.findWhere({ _id: editor.getValue() });
-      if (image) {
-        var view = new ImageView({ model: image }); 
-        view.renderEditForm();
-      }
-    },
-
-    editLargeImage: function() {
-      var obj     = this,
-          editor  = this.form.getEditor('large_image');
-      var view = new ImagesView({ collection: this.refs.images });
-      view.renderModal();
-      editor.listenTo(view, 'close', function() {
-        editor.refresh();
-        view.close();
-      });
-    },
-
     save: function() {
       var errors = this.form.commit(),
           obj    = this;
