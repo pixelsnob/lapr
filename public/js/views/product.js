@@ -28,6 +28,7 @@ define([
       this.model                = opts.model || new ProductModel;
       this.products             = opts.products;
       this.listenTo(this.model, 'sync', this.render);
+      this.listenTo(this.model, 'sync', this.highlight);
       this.listenTo(this.model, 'destroy', this.remove);
       // Important, for memory leaks
       this.listenTo(this.products.refs.filtered_products, 'reset', this.remove);
@@ -42,8 +43,6 @@ define([
           obj.delegateEvents(_.extend(obj.events, events));
         });
       }
-      this.listenTo(this.model, 'change', this.highlightIfChanged);
-      this.listenTo(this.products.refs.filtered_products, 'add', this.highlight);
       // Update if makers collection has changed
       this.listenTo(this.products.refs.makers, 'add change remove', this.render);
     },
@@ -74,19 +73,9 @@ define([
           src:   '/images/' + thumbnail 
         });
       }
-      if (this.model.highlight) {
-        this.highlight(); 
-        delete this.model.highlight;
-      }
       return this;
     },
     
-    highlightIfChanged: function(model) {
-      if (model.changedAttributes()) {
-        this.highlight();
-      }
-    },
-
     highlight: function() {
       var $product = this.$el.find('.product').addClass('highlight'); 
       setTimeout(function() {

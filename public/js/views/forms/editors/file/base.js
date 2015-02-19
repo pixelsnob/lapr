@@ -38,9 +38,7 @@ define([
           // Store tmp path so that it can be moved to its permanent dest
           // on the server
           obj.model.set('tmp_' + this.key, res.path, { silent: true });
-          console.log(obj);
           obj.setValue(res.name);
-          //obj.$el.find('tmp_' + this.key).val(res.path);
         }
         obj.toggleDelete();
         obj.updateFilename();

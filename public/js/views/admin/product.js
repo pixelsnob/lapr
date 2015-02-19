@@ -149,10 +149,6 @@ define([
     },
 
     onClose: function() {
-      //console.log('onclose');
-      //this.model.unbind();
-      //this.form.remove();
-      //this.trigger('close');
     }
 
   });

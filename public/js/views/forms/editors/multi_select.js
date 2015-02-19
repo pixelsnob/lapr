@@ -17,7 +17,7 @@ define([ 'backbone', 'backbone-forms' ], function(Backbone) {
       if (_.isArray(value)) {
         return value.map(function(v) { return Number(v); });
       }
-      return Number(value);
+      return [];
     },
 
     // Refresh editor in case options have changed -- this is less messy

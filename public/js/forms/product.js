@@ -28,8 +28,6 @@ define([
       this.fields.categories.schema.options   = opts.product_categories;
       this.fields.makers.schema.options       = opts.makers;
       this.fields.tags.schema.options         = opts.tags;
-      this.fields.thumbnail.schema.options  = opts.images;
-      this.fields.image.schema.options  = opts.images;
     },
 
     schema: {
@@ -81,7 +79,11 @@ define([
       image: { 
         type: ImageEditor,
         options: []
-      }
+      }/*,
+      youtube_url: {
+        type: 'Text',
+        title: 'Youtube URL'
+      }*/
     }
   });
 });
