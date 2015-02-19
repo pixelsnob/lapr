@@ -262,7 +262,8 @@ module.exports = function(app) {
         res.send(files.file);
       });
     },
-
+    
+    // Moves tmp file to permanent destination
     moveProductImages: function(req, res, next) {
       var image_dir = __dirname + '/public/images/';
       async.waterfall([
@@ -283,8 +284,10 @@ module.exports = function(app) {
       ], next);
     },
     
-    // Auth
-
+    /**
+     * Auth stuff
+     * 
+     */
     loginForm: function(req, res, next) {
       if (req.isAuthenticated()) {
         return res.redirect('/');
