@@ -22,7 +22,6 @@ define([
 
     initialize: function() {
       Backbone.Form.editors.Text.prototype.initialize.apply(this, arguments); 
-      //this.file_model = new ImageModel;
       this.file_model = new this.file_model;
       this.setElement(template.render('admin/file_upload', {
         name: this.key,
@@ -32,16 +31,19 @@ define([
       this.$file_input        = this.$el.find('input[type="file"]');
       this.$error             = this.$el.find('[data-error]');
       this.$preview           = this.$el.find('.preview');
+      this.$filename          = this.$el.find('.filename');
       var obj = this;
       this.listenTo(this.file_model, 'upload', function(res) {
         if (typeof res.path != 'undefined') {
           // Store tmp path so that it can be moved to its permanent dest
           // on the server
           obj.model.set('tmp_' + this.key, res.path, { silent: true });
+          console.log(obj);
           obj.setValue(res.name);
-          obj.$file_input.val('');
+          //obj.$el.find('tmp_' + this.key).val(res.path);
         }
         obj.toggleDelete();
+        obj.updateFilename();
       });
     },
 
@@ -49,6 +51,7 @@ define([
       this.setValue(this.value);
       this.model.unset('tmp_' + this.key, { silent: true });
       this.toggleDelete();
+      this.updateFilename();
       return this;
     },
 
@@ -86,6 +89,7 @@ define([
     deleteFile: function() {
       this.setValue('');
       this.toggleDelete();
+      this.updateFilename();
       this.trigger('delete-file', this.model);
       return false;
     },
@@ -97,6 +101,10 @@ define([
       } else {
         a.hide();
       }
+    },
+    
+    updateFilename: function() {
+      this.$filename.text(this.getValue());
     }
     
   });

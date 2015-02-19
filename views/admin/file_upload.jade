@@ -1,8 +1,10 @@
 
 div
   .preview
-  //- a.delete-file(href="javascript:void(0);") Delete
+  .filename
+  a.delete-file(href="javascript:void(0);") Delete
   input(id="tmp_#{editor_id}", type="file", name="tmp_#{name}")
   .error
     div(data-error)
   input(type="hidden", id="#{editor_id}", name="#{name}")
+  //input(type="hidden", name="xxxxxxxxxxxxxxxxxx", value="yyyyyyyyyy")

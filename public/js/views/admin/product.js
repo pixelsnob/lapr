@@ -57,8 +57,7 @@ define([
         model:               this.model,
         product_categories:  this.refs.product_categories,
         makers:              this.refs.makers,
-        tags:                this.getTagOptions(),
-        images:              this.refs.images
+        tags:                this.getTagOptions()// << move this
       }).render();
       this.listenTo(this.form, 'init-error', this.showServerError);
       this.setElement(this.form.el);

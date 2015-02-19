@@ -23,12 +23,6 @@ define([
     
     render: function() {
       var product = this.model.toJSON();
-      if (product.large_image) {
-        var large_image = this.refs.images.findWhere({ _id: product.large_image });
-        if (large_image) {
-          product.large_image = large_image.toJSON();
-        }
-      }
       this.$el.html(template.render('partials/product_details_image', {
         product: product
       }));

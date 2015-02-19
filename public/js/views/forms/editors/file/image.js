@@ -28,7 +28,7 @@ define([
       this.showImage();
       return this;
     },
-
+    
     showImage: function() {
       if (this.getValue().length) {
         this.$preview.find('img').show();

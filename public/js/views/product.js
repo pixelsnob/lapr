@@ -67,15 +67,12 @@ define([
       }));
       this.$el.attr('id', this.model.id);
       // Image loading stuff
-      var small_image = this.model.get('small_image');
-      if (small_image) {
-        var image = this.products.refs.images.findWhere({ _id: small_image });
-        if (image) {
-          var image_onload_view = new ImageOnloadView({
-            el:    this.$el.find('.image'),
-            src:   '/images/' + image.get('name') 
-          });
-        }
+      var thumbnail = this.model.get('thumbnail');
+      if (thumbnail) {
+        var image_onload_view = new ImageOnloadView({
+          el:    this.$el.find('.image'),
+          src:   '/images/' + thumbnail 
+        });
       }
       if (this.model.highlight) {
         this.highlight(); 

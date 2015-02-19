@@ -263,33 +263,28 @@ module.exports = function(app) {
       });
     },
 
-    moveImageFile: function(req, res, next) {
+    moveProductImages: function(req, res, next) {
       var image_dir = __dirname + '/public/images/';
       async.waterfall([
         function(cb) {
-          if (req.body.tmp_name) {
-            return fs.rename(req.body.tmp_name, image_dir + req.body.name, cb);
+          if (req.body.tmp_thumbnail) {
+            return fs.rename(req.body.tmp_thumbnail, image_dir +
+              req.body.thumbnail, cb);
           }
           cb();
         },
         function(cb) {
-          if (req.body._id) {
-            db.model('Image').findById(req.body._id, function(err, image) {
-              if (err) {
-                return next(err);
-              }
-              if (image && image.name != req.body.name) {
-                return fs.unlink(image_dir + image.name, function(err) {
-                  cb();
-                });
-              }
-              cb();
-            });
+          if (req.body.tmp_image) {
+            return fs.rename(req.body.tmp_image, image_dir +
+              req.body.image, cb);
           }
+          cb();
         }
       ], next);
     },
     
+    // Auth
+
     loginForm: function(req, res, next) {
       if (req.isAuthenticated()) {
         return res.redirect('/');

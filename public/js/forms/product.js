@@ -8,18 +8,16 @@ define([
   '../collections/product_categories',
   '../collections/makers',
   'views/forms/editors/multi_select',
-  'views/forms/editors/images',
-  'views/forms/editors/file/sound_file',
-  'views/forms/templates',
-  'form-editors/list'
+  'views/forms/editors/file/image',
+  'views/forms/templates'
+  //'form-editors/list'
 ], function(
   Backbone,
   BackboneForms,
   ProductCategories,
   Makers,
   MultiSelectEditor,
-  ImagesEditor,
-  SoundFileEditor,
+  ImageEditor,
   form_templates
 ) {
   
@@ -30,8 +28,8 @@ define([
       this.fields.categories.schema.options   = opts.product_categories;
       this.fields.makers.schema.options       = opts.makers;
       this.fields.tags.schema.options         = opts.tags;
-      this.fields.small_image.schema.options  = opts.images;
-      this.fields.large_image.schema.options  = opts.images;
+      this.fields.thumbnail.schema.options  = opts.images;
+      this.fields.image.schema.options  = opts.images;
     },
 
     schema: {
@@ -76,14 +74,12 @@ define([
       sizes: {
         type: 'TextArea'
       },
-      small_image: { 
-        title: 'Small Image',
-        type: ImagesEditor,
+      thumbnail: { 
+        type: ImageEditor,
         options: []
       },
-      large_image: { 
-        title: 'Large Image',
-        type: ImagesEditor,
+      image: { 
+        type: ImageEditor,
         options: []
       }
     }

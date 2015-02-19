@@ -29,6 +29,9 @@ define([
       }));
       this.$select       = this.$el.find('select');
       this.$preview_img  = this.$el.find('.preview img');
+      console.log(this.model.collection.refs.images);
+      this.listenTo(this.model.collection.refs.images,
+        'add change remove', this.render);
     },
 
     getValue: function(value) {
@@ -46,6 +49,7 @@ define([
     render: function() {
       Backbone.Form.editors.Select.prototype.render.call(this);
       this.updatePreview();
+      this.setValue(this.value);
       return this;
     },
 
@@ -69,11 +73,11 @@ define([
         view.renderEditForm();
         this.listenTo(view, 'save', function(model) {
           image_model.set(model.attributes); // <<<< fuck!
-          this.refresh();
+          //this.refresh();
         }); 
         this.listenTo(view, 'destroy', function(model) {
           image_model.destroy();
-          this.refresh();
+          //this.refresh();
         }); 
       }
       return false;
@@ -83,6 +87,7 @@ define([
       var image = this.model.collection.refs.images.findWhere({
         _id: this.getValue()
       });
+      console.log('u.p.');
       if (image) {
         this.$preview_img.attr('src', '/images/' + image.get('name'));
       }

@@ -95,8 +95,8 @@ app.route('/files/tmp')
 
 app.route('/instruments/:slug/:id?')
   .get(routes.showProduct)
-  .post(routes.auth, routes.add('Product'))
-  .put(routes.auth, routes.update('Product'))
+  .post(routes.auth, routes.moveProductImages, routes.add('Product'))
+  .put(routes.auth, routes.moveProductImages, routes.update('Product'))
   .delete(routes.auth, routes.remove('Product'));
 
 // Product refs and related CRUD
@@ -118,6 +118,7 @@ for (var model in models) {
     .delete(routes.auth, routes.remove(model));
 }
 
+/*
 app.route('/api/images')
   .get(routes.get('Image'))
   .post(routes.auth, routes.add('Image'))
@@ -125,6 +126,7 @@ app.route('/api/images')
 app.route('/api/images/:id?')
   .put(routes.auth, routes.moveImageFile, routes.update('Image'))
   .delete(routes.auth, routes.remove('Image'));
+*/
 
 // 404
 
