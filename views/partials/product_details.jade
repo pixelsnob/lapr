@@ -26,3 +26,6 @@ if product.sizes
   dd= product.sizes
 
 .video
+  if product.youtube_videos && product.youtube_videos.length
+    h3 Video Clips
+      ul.youtube-videos

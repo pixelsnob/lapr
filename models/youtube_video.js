@@ -4,10 +4,10 @@
 var db = require('mongoose');
 
 var YoutubeVideoSchema = new db.Schema({
-  name: { type: String, index: true, unique: true },
-  size: Number,
-  title: String
-});
+  name: { type: String, index: true, unique: true, required: true },
+  youtube_id: { type: String, index: true, unique: true, required: true },
+  description: { type: String }
+}, { collection: 'youtube_videos' });
 
 module.exports = function(mai) {
   YoutubeVideoSchema.plugin(mai.plugin, {

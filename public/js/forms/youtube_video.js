@@ -14,7 +14,16 @@ define([
       name: {
         type: 'Text',
         validators: [ 'required' ]
+      },
+      youtube_id: {
+        type: 'Text',
+        title: 'Youtube ID',
+        validators: [ 'required' ]
+      },
+      description: {
+        type: 'TextArea'
       }
+
     }
     
   });
