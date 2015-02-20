@@ -5,11 +5,11 @@
 define([
   'views/base',
   'models/tag_category',
-  'views/tags_tree_category'
+  './tags_category'
 ], function(
   BaseView,
   TagCategoryModel,
-  TagsTreeCategoryView
+  TagsCategoryView
 ) {
   
   return BaseView.extend({
@@ -35,7 +35,7 @@ define([
       $ul.empty();
       this.products.refs.tag_categories.forEach(function(category) {
         var tags = obj.products.refs.tags.where({ category: category.id });
-        var view = new TagsTreeCategoryView({
+        var view = new TagsCategoryView({
           model: category,
           products: obj.products,
           tags: tags

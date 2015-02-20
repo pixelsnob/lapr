@@ -4,10 +4,10 @@
  */
 define([
   'views/base',
-  'views/tags_tree_list_item'
+  './tags_list_item'
 ], function(
   BaseView,
-  TagsTreeListItemView
+  TagsListItemView
 ) {
   
   return BaseView.extend({
@@ -24,7 +24,7 @@ define([
     render: function() {
       var obj = this;
       this.collection.forEach(function(tag) {
-        var view = new TagsTreeListItemView({
+        var view = new TagsListItemView({
           model: tag,
           products:  obj.products
         });

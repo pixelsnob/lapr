@@ -5,12 +5,12 @@
 define([
   'views/base',
   'views/products',
-  'views/tags_tree',
+  'views/navs/tags',
   'template'
 ], function(
   BaseView,
   ProductsView,
-  TagsTreeView,
+  TagsNavView,
   template
 ) {
   return BaseView.extend({ 
@@ -20,7 +20,7 @@ define([
 
     initialize: function(opts) {
       this.products = opts.products;
-      this.tags_tree_view = new TagsTreeView({
+      this.tags_nav_view = new TagsNavView({
         products: this.products
       });
       this.products_view = new ProductsView({
@@ -34,7 +34,7 @@ define([
       }));
       this.$el.addClass('products-tags-search');
       this.products_view.setElement(this.$el.find('.products'));
-      this.$el.find('.tags-tree').html(this.tags_tree_view.render().el);
+      this.$el.find('.tags-tree').html(this.tags_nav_view.render().el);
       return this;
     },
 
@@ -43,7 +43,7 @@ define([
       this.products.unbind();
       this.products.unbindRefs();
       this.products.refs.filtered_products.reset();
-      this.tags_tree_view.close();
+      this.tags_nav_view.close();
       this.products_view.close();
     }
 

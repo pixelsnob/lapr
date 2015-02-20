@@ -4,10 +4,10 @@
  */
 define([
   'views/base',
-  'views/tags_tree_list'
+  './tags_list'
 ], function(
   BaseView,
-  TagsTreeListView
+  TagsListView
 ) {
   
   return BaseView.extend({
@@ -25,7 +25,7 @@ define([
     render: function() {
       var obj = this;
       this.$el.append(this.model.get('name')); 
-      var view = new TagsTreeListView({
+      var view = new TagsListView({
         collection: this.tags,
         products: this.products
       });

@@ -4,7 +4,7 @@
  */
 define([
   'views/base',
-  'views/mixins/admin_list',
+  'views/admin/list_mixin',
   'views/admin/tag_category'
 ], function(
   BaseView,

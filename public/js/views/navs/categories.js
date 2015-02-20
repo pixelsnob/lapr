@@ -4,7 +4,7 @@
  */
 define([
   'views/base',
-  'views/categories_nav_item'
+  './categories_item'
 ], function(
   BaseView,
   CategoriesNavItemView

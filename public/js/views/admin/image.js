@@ -6,7 +6,7 @@ define([
   'views/base',
   'models/image',
   'forms/image',
-  'views/mixins/admin_form'
+  'views/admin/form_mixin'
 ], function(
   BaseView,
   ImageModel,

@@ -5,16 +5,12 @@
 define([
   'views/base',
   'views/products',
-  'views/tags_tree',
-  'views/categories_nav',
   'views/products_search',
   'views/products_tags_search',
   'collections/products'
 ], function(
   BaseView,
   ProductsView,
-  TagsTreeView,
-  CategoriesNavView,
   ProductsSearchView,
   ProductsTagsSearchView,
   ProductsCollection

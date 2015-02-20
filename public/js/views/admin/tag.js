@@ -6,7 +6,7 @@ define([
   'views/base',
   'models/tag',
   'forms/tag',
-  'views/mixins/admin_form'
+  'views/admin/form_mixin'
 ], function(
   BaseView,
   TagModel,

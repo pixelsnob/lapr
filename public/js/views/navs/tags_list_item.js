@@ -37,7 +37,6 @@ define([
     
     selectIfCurrent: function(model) {
       if (model.id == this.model.id) {
-        //console.log(this);
         this.select();
       }
     },

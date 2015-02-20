@@ -6,7 +6,7 @@ define([
   'views/base',
   'models/maker',
   'forms/maker',
-  'views/mixins/admin_form'
+  'views/admin/form_mixin'
 ], function(
   BaseView,
   MakerModel,

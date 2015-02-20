@@ -6,7 +6,7 @@ define([
   'views/base',
   'models/tag_category',
   'forms/tag_category',
-  'views/mixins/admin_form'
+  'views/admin/form_mixin'
 ], function(
   BaseView,
   TagCategoryModel,
