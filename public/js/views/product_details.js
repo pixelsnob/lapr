@@ -6,11 +6,13 @@ define([
   'views/base',
   'views/modal',
   'views/product_details_image',
+  'views/youtube_player',
   'template'
 ], function(
   BaseView,
   ModalView,
   ProductDetailsImageView,
+  YoutubePlayerView,
   template
 ) {
   
@@ -39,6 +41,14 @@ define([
         product: product,
         makers:  makers_list
       }));
+      var youtube_id = this.model.get('youtube_id');
+      if (youtube_id) {
+        var yt_view = new YoutubePlayerView({
+          youtube_id: youtube_id,
+          caption:    this.model.get('youtube_caption')
+        });
+        this.$el.find('.video').html(yt_view.render().el);
+      }
       return this;
     },
     

@@ -60,7 +60,7 @@ define([
           return [];
         });
       }
-      this.$el.html(template.render('partials/product_row', {
+      this.$el.html(template.render('partials/product', {
         product: product,
         user: window.lapr.user
       }));

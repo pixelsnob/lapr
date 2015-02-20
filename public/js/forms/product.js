@@ -79,11 +79,15 @@ define([
       image: { 
         type: ImageEditor,
         options: []
-      }/*,
-      youtube_url: {
+      },
+      youtube_id: {
         type: 'Text',
-        title: 'Youtube URL'
-      }*/
+        title: 'Youtube Video ID'
+      },
+      youtube_caption: {
+        type: 'Text',
+        title: 'Youtube Caption'
+      }
     }
   });
 });

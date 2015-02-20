@@ -16,15 +16,14 @@ var ProductSchema = new mongoose.Schema({
   model_no:          String,
   price:             String,
   range:             String,
-  //small_image:       { type: Number, ref: 'Image' },
   thumbnail:         String,
-  //large_image:       { type: Number, ref: 'Image' },
   image:             String,
   old_image:         String,
   sizes:             String,
   octaves:           Number,
   tags:              [{ type: Number, ref: 'Tag' }],
-  sound_file:        String
+  youtube_id:        String,
+  youtube_caption:   String
 });
 
 ProductSchema.statics.findByIdAndPopulate = function(id, cb) {

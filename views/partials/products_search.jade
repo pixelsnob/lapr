@@ -23,7 +23,7 @@
     ul.results
       each product in products
         li
-          include product_row 
+          include product
     
     - var href = 'javascript:void(0);'
     if paginate && paginate.hasNextPages(page_count)
