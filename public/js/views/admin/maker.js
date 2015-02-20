@@ -15,7 +15,6 @@ define([
 ) {
   
   var view = BaseView.extend({
-    tagName: 'tr',
     label: 'maker',
     title: 'Maker',
     model: new MakerModel,

@@ -9,6 +9,7 @@ define([
   'views/admin/editors/product_categories',
   'views/admin/editors/makers',
   'views/admin/editors/tags',
+  'views/admin/editors/youtube_videos',
   'views/admin/editors/file/image'
 ], function(
   Backbone,
@@ -17,6 +18,7 @@ define([
   ProductCategoriesEditor,
   MakersEditor,
   TagsEditor,
+  YoutubeVideosEditor,
   ImageEditor
 ) {
   
@@ -24,12 +26,13 @@ define([
 
     initialize: function(opts) {
       Backbone.Form.prototype.initialize.apply(this, arguments);
-      this.fields.categories.schema.options   = opts.refs.product_categories;
-      this.fields.makers.schema.options       = opts.refs.makers;
-      this.fields.tags.schema.options         = opts.refs.tags;
-      this.fields.tags.schema.tag_categories  = opts.refs.tag_categories;
+      this.fields.categories.schema.options     = opts.refs.product_categories;
+      this.fields.makers.schema.options         = opts.refs.makers;
+      this.fields.tags.schema.options           = opts.refs.tags;
+      this.fields.tags.schema.tag_categories    = opts.refs.tag_categories;
+      this.fields.youtube_videos.schema.options = opts.refs.youtube_videos;
     },
-
+    
     schema: {
       name: {
         type: 'Text',
@@ -45,7 +48,7 @@ define([
       categories: {
         type: ProductCategoriesEditor,
         validators: [ 'required' ],
-        options: [] // set in init
+        options: []
       },
       model_no: {
         title: 'Model No.',
@@ -53,12 +56,12 @@ define([
       },
       makers: {
         type: MakersEditor,
-        options: [] // set in init
+        options: []
       },
       tags: {
         title: 'Tags',
         type: TagsEditor,
-        options: [] // set in init
+        options: []
       },
       price: {
         type: 'Text'
@@ -77,13 +80,10 @@ define([
         type: ImageEditor,
         options: []
       },
-      youtube_id: {
-        type: 'Text',
-        title: 'Youtube Video ID'
-      },
-      youtube_caption: {
-        type: 'Text',
-        title: 'Youtube Caption'
+      youtube_videos: {
+        type: YoutubeVideosEditor,
+        title: 'Youtube Videos',
+        options: []
       }
     }
   });

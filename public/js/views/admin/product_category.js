@@ -15,7 +15,7 @@ define([
 ) {
   
   var view = BaseView.extend({
-    tagName: 'tr',
+    //tagName: 'tr',
     label: 'category',
     title: 'Category',
     model: new CategoryModel,

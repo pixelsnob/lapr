@@ -12,7 +12,9 @@ define([
   dialog
 ) {
   return {
-
+    
+    tagName: 'tr',
+    
     events: {
       'click .edit':    'renderEditForm'
     },

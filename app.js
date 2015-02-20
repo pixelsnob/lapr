@@ -105,7 +105,8 @@ var models = {
   ProductCategory:  '/api/categories',
   Maker:            '/api/makers',
   Tag:              '/api/tags',
-  TagCategory:      '/api/tag-categories'
+  TagCategory:      '/api/tag-categories',
+  YoutubeVideo:     '/api/youtube-videos'
 };
 
 for (var model in models) {
