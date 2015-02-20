@@ -5,29 +5,29 @@
 define([
   'backbone',
   'backbone-forms',
-  '../collections/product_categories',
-  '../collections/makers',
-  'views/forms/editors/multi_select',
-  'views/forms/editors/file/image',
-  'views/forms/templates'
-  //'form-editors/list'
+  'views/admin/editors/multi_select',
+  'views/admin/editors/product_categories',
+  'views/admin/editors/makers',
+  'views/admin/editors/tags',
+  'views/admin/editors/file/image'
 ], function(
   Backbone,
   BackboneForms,
-  ProductCategories,
-  Makers,
   MultiSelectEditor,
-  ImageEditor,
-  form_templates
+  ProductCategoriesEditor,
+  MakersEditor,
+  TagsEditor,
+  ImageEditor
 ) {
   
   return Backbone.Form.extend({
 
     initialize: function(opts) {
       Backbone.Form.prototype.initialize.apply(this, arguments);
-      this.fields.categories.schema.options   = opts.product_categories;
-      this.fields.makers.schema.options       = opts.makers;
-      this.fields.tags.schema.options         = opts.tags;
+      this.fields.categories.schema.options   = opts.refs.product_categories;
+      this.fields.makers.schema.options       = opts.refs.makers;
+      this.fields.tags.schema.options         = opts.refs.tags;
+      this.fields.tags.schema.tag_categories  = opts.refs.tag_categories;
     },
 
     schema: {
@@ -43,24 +43,21 @@ define([
         title: 'Alternate Names'
       },
       categories: {
-        type: MultiSelectEditor,
+        type: ProductCategoriesEditor,
         validators: [ 'required' ],
-        options: [], // set in init
-        template: form_templates.editable_field
+        options: [] // set in init
       },
       model_no: {
         title: 'Model No.',
         type: 'Text'
       },
       makers: {
-        type: MultiSelectEditor,
-        template: form_templates.editable_field,
+        type: MakersEditor,
         options: [] // set in init
       },
       tags: {
         title: 'Tags',
-        type: MultiSelectEditor,
-        template: form_templates.editable_field,
+        type: TagsEditor,
         options: [] // set in init
       },
       price: {

@@ -5,18 +5,12 @@
 define([
   'views/base',
   'models/product',
-  './categories',
-  './makers',
-  './tags',
   './modal/form',
   'forms/product',
   'lib/dialog'
 ], function(
   BaseView,
   ProductModel,
-  CategoriesView,
-  MakersView,
-  TagsView,
   ModalFormView,
   ProductForm,
   dialog
@@ -24,9 +18,6 @@ define([
   return BaseView.extend({
 
     events: {
-      'click .edit-categories':           'editCategories',
-      'click .edit-makers':               'editMakers',
-      'click .edit-tags':                 'editTags'
     },
     
     initialize: function(opts) {
@@ -35,29 +26,10 @@ define([
       this.mode     = opts.mode || 'edit';
     },
     
-    // Build an array of grouped options for backbone-forms
-    getTagOptions: function() {
-      var tree = [],
-          obj  = this;
-      this.refs.tag_categories.forEach(function(category) {
-        tree.push({
-          group:   category.get('name'),
-          options: obj.refs.tags.filter(function(tag) {
-            return tag.get('category') == category.id;
-          }).map(function(tag) {
-            return { val: tag.id, label: tag.get('name') };
-          })
-        });
-      });
-      return tree; 
-    },
-
     render: function() {
       this.form = new ProductForm({
-        model:               this.model,
-        product_categories:  this.refs.product_categories,
-        makers:              this.refs.makers,
-        tags:                this.getTagOptions()// << move this
+        model: this.model,
+        refs: this.refs
       }).render();
       this.listenTo(this.form, 'init-error', this.showServerError);
       this.setElement(this.form.el);
@@ -81,40 +53,6 @@ define([
         //modal_view.remove();
         //$('.modal').remove();
         //this.close();
-      });
-    },
-    
-    editCategories: function() {
-      var obj     = this,
-          editor  = this.form.getEditor('categories');
-      var view = new CategoriesView({ collection: this.refs.product_categories });
-      view.renderModal();
-      editor.listenTo(view, 'close', function() {
-        editor.refresh();
-        view.close();
-      });
-    },
-
-    editMakers: function() {
-      var obj     = this,
-          editor  = this.form.getEditor('makers');
-      var view = new MakersView({ collection: this.refs.makers });
-      view.renderModal();
-      editor.listenTo(view, 'close', function() {
-        editor.refresh();
-        view.close();
-      });
-    },
-
-    editTags: function() {
-      var obj     = this,
-          editor  = this.form.getEditor('tags');
-      var view = new TagsView({ collection: this.refs.tags });
-      view.renderModal();
-      editor.listenTo(view, 'close', function() {
-        editor.schema.options = obj.getTagOptions();
-        editor.refresh();
-        view.close();
       });
     },
     
