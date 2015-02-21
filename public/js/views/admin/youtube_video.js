@@ -15,7 +15,6 @@ define([
 ) {
   
   var view = BaseView.extend({
-    //tagName: 'tr', // <<<<
     label: 'youtube video',
     title: 'Youtube Video',
     model: new YoutubeVideoModel,

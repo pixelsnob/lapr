@@ -106,7 +106,10 @@ module.exports = function(app) {
             res.send(product);
           },
           html: function() {
-            product.populate('categories makers', function(err, product) {
+            product.populate('categories makers youtube_videos', function(err, product) {
+              if (err) {
+                return next(err);
+              }
               // Convert makers array -- if any -- to list
               var makers = (_.isArray(product.makers) ?
                   _.pluck(product.makers, 'name').join(', ') : '');

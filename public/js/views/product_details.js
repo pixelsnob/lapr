@@ -27,27 +27,30 @@ define([
     },
     
     render: function() {
-      var makers      = this.model.get('makers'),
-          product     = this.model.toJSON(),
-          obj         = this,
-          makers_list = '';
-      if (_.isArray(makers)) {
-        makers_list = makers.map(function(maker_id) {
-          var maker = obj.refs.makers.findWhere({ _id: maker_id });
-          return maker;
+      var product_makers   = this.model.get('makers'),
+          product_videos   = this.model.get('youtube_videos'),
+          product          = this.model.toJSON(),
+          obj              = this,
+          makers_list      = '';
+      if (_.isArray(product_makers)) {
+        makers_list = product_makers.map(function(maker_id) {
+          return obj.refs.makers.findWhere({ _id: maker_id });
         }).join(', ');
       }
       this.$el.html(template.render('partials/product_details', {
         product: product,
         makers:  makers_list
       }));
-      var youtube_id = this.model.get('youtube_id');
-      if (youtube_id) {
+      var $youtube_player = this.$el.find('.youtube-player');
+      $youtube_player.hide();
+      if (product_videos) {
         var yt_view = new YoutubePlayerView({
-          youtube_id: youtube_id,
-          caption:    this.model.get('youtube_caption')
+          collection: product_videos.map(function(video_id) {
+            return obj.refs.youtube_videos.findWhere({ _id: video_id });
+          })
         });
-        this.$el.find('.video').html(yt_view.render().el);
+        this.$el.find('.youtube-player').html(yt_view.render().el);
+        $youtube_player.show();
       }
       return this;
     },
@@ -65,6 +68,10 @@ define([
     showImageModal: function() {
       var view = new ProductDetailsImageView({ model: this.model });
       view.renderModal();
+    },
+
+    onClose: function() {
+      console.log('?');
     }
     
   });

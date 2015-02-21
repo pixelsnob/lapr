@@ -15,6 +15,7 @@ define([
 
     initialize: function() {
       this.setElement(template.render('partials/modal'));
+      this.$el.on('hidden.bs.modal', _.bind(this.close, this));
     },
 
     render: function(opts) {
@@ -25,7 +26,9 @@ define([
 
     closeModal: function() {
       this.$el.modal('hide');
-      this.close();
+    },
+
+    onClose: function() {
       this.trigger('close');
     }
 
