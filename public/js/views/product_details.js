@@ -68,12 +68,8 @@ define([
     showImageModal: function() {
       var view = new ProductDetailsImageView({ model: this.model });
       view.renderModal();
-    }/*,
+    }
 
-    onClose: function() {
-      console.log('?');
-    }*/
-    
   });
 });
 

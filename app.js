@@ -12,9 +12,9 @@ var
   redis_store       = require('connect-redis')(session),
   body_parser       = require('body-parser'),
   fs                = require('fs'),
+  marked            = require('./lib/marked')(app),
   env               = process.env.NODE_ENV || 'development';
 
-require('./lib/marked')(app);
 require('./lib/auth');
 require('./lib/view_helpers')(app);
 
