@@ -1,9 +1,7 @@
 
 .youtube-player
+  .player
   ul.youtube-videos
     each video in youtube_videos
       include youtube_video
-      //li
-      //  a(href="//www.youtube.com/watch?v=#{video.youtube_id}", title="#{video.description}")
-      //    img(src="http://img.youtube.com/vi/#{video.youtube_id}/mqdefault.jpg", alt="#{video.name}", height="45")
-  .player
+  .description

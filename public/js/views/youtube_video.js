@@ -1,5 +1,5 @@
 /**
- * Youtube video view
+ * Youtube video list item view
  * 
  */
 define([
@@ -28,8 +28,12 @@ define([
       return this;
     },
 
-    showVideo: function() {
+    showVideo: function(ev) {
+      if (this.$el.hasClass('selected')) {
+        return false;
+      }
       global_events.trigger('play-youtube-video', this.model);
+      this.$el.addClass('selected');
       return false;
     }
   });

@@ -5,11 +5,13 @@
 define([
   'views/base',
   'views/youtube_video',
-  'template'
+  'template',
+  'lib/events'
 ], function(
   BaseView,
   YoutubeVideoView,
-  template
+  template,
+  global_events
 ) {
   
   return BaseView.extend({
@@ -21,6 +23,7 @@ define([
 
     initialize: function(opts) {
       this.$el.addClass('youtube-videos');
+      this.listenTo(global_events, 'play-youtube-video', this.deselectAll);
     },
     
     render: function() {
@@ -30,6 +33,10 @@ define([
         obj.$el.append(video_view.render().el);
       });
       return this;
+    },
+
+    deselectAll: function() {
+      this.$el.find('li.selected').removeClass('selected');
     }
   });
   
