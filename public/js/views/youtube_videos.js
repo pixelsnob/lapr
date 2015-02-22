@@ -23,7 +23,7 @@ define([
 
     initialize: function(opts) {
       this.$el.addClass('youtube-videos');
-      this.listenTo(global_events, 'play-youtube-video', this.deselectAll);
+      this.listenTo(global_events, 'yt-play', this.deselectAll);
     },
     
     render: function() {
