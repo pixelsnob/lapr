@@ -165,7 +165,7 @@ table {
   }
   .image {
     float: right;
-    margin: 0 0 15px 10px;
+    margin: 0 0 15px 15px;
     width: 40%;
     text-align: center;
     img {
@@ -207,6 +207,16 @@ table {
       opacity: 1;
       border-color: #fff;
     }
+    &:not(.selected) a:active {
+      border-color: #bbb;
+    }
+  }
+}
+
+.youtube-player .player {
+  overflow: hidden;
+  iframe {
+    width: 100%;
   }
 }
 

@@ -21,7 +21,8 @@ define([
         validators: [ 'required' ]
       },
       description: {
-        type: 'TextArea'
+        type: 'TextArea',
+        help: '<em>Markdown Enabled</em>'
       }
 
     }

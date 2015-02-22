@@ -15,15 +15,15 @@ define([], function() {
       bootstrap:            '../bower_components/bootstrap/dist/js/bootstrap',
       template:             'lib/template',
       vex:                  '../bower_components/vex/js/vex',
-      vex_dialog:           '../bower_components/vex/js/vex.dialog'
-      //masonry:              '../bower_components/masonry/dist/masonry.pkgd'
+      vex_dialog:           '../bower_components/vex/js/vex.dialog',
+      youtube:              'https://www.youtube.com/iframe_api?noext'
     },
     shim: {
       jade:                  { exports: 'jade' },
       'backbone-forms':      { deps: [ 'backbone' ] },
       'backbone-paginator':  { deps: [ 'backbone' ] },
-      bootstrap:             { deps: [ 'jquery' ], exports: '$' }
-      //masonry:               { deps: [ 'jquery' ], exports: '$' }
+      bootstrap:             { deps: [ 'jquery' ], exports: '$' },
+      youtube:               { exports: 'YT' }
     }
   });
 });
