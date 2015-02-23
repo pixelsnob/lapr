@@ -26,6 +26,15 @@ define([
 
     events: {
     },
+    
+    yt_params: {
+      autoplay:        1,
+      enablejsapi:     1,
+      html5:           1,
+      autohide:        1,
+      modestbranding:  1,
+      showinfo:        0
+    },
 
     initialize: function(opts) {
       this.setElement(template.render('partials/youtube_player', {
@@ -40,21 +49,22 @@ define([
     render: function() {
       var videos_view = new YoutubeVideosView({ collection: this.collection });
       this.$el.find('.youtube-videos').replaceWith(videos_view.render().el);
-      this.$player.height(0);
+      this.$player.height(0).html($('<iframe frameborder="0" id="ytplayer">'));
       return this;
     },
 
     play: function(model) {
+      this.yt_params.start = model.get('start_time');
       var src = 'http://www.youtube.com/embed/' + model.get('youtube_id') +
-                '?enablejsapi=1&html5=1&autohide=1&modestbranding=1&showinfo=0&autoplay=1';
-      var $iframe = $('<iframe frameborder="0" id="ytplayer">').attr('src', src); 
-      this.$player.html($iframe);
+                '?' + $.param(this.yt_params);
+      this.$player.find('iframe').attr('src', src);
       this.$description.html(markdown(model.get('description')));
       this.$description.removeClass('preview');
       this.open = 1;
       this.player = new YT.Player('ytplayer', {
         events: {
           'onStateChange': _.bind(this.stateChange, this)
+          // error <<<<<<<<
         }
       });
     },
@@ -79,9 +89,7 @@ define([
       if (ev.data == 1) {
         this.$player.animate({
           height: this.$el.find('iframe').height() + 20
-        }, 400, function() {
-          //obj.open = true;
-        });
+        }, 400);
       }
     }
   });

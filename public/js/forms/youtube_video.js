@@ -20,6 +20,9 @@ define([
         title: 'Youtube ID',
         validators: [ 'required' ]
       },
+      start_time: {
+        type: 'Text'
+      },
       description: {
         type: 'TextArea',
         help: '<em>Markdown Enabled</em>'
