@@ -32,13 +32,24 @@ define([
       // Admin stuff if user is logged in
       var obj = this;
       if (window.lapr.user) {
-        require([ 'views/admin/product', 'views/admin/tag_categories' ],
-        function(ProductAdminView, TagCategoriesAdminView) {
+        require([
+          'views/admin/product',
+          'views/admin/tag_categories',
+          'views/admin/youtube_videos'
+        ],
+        function(
+          ProductView,
+          TagCategoriesView,
+          YoutubeVideosView
+        ) {
           obj.events['click .add-product'] = function() {
-            obj.addProduct(ProductAdminView);
+            obj.addProduct(ProductView);
           };
           obj.events['click .edit-tag-categories'] = function() {
-            obj.editTagCategories(TagCategoriesAdminView);
+            obj.editTagCategories(TagCategoriesView);
+          };
+          obj.events['click .edit-youtube-videos'] = function() {
+            obj.editYoutubeVideos(YoutubeVideosView);
           };
           obj.delegateEvents(obj.events);
         });
@@ -91,8 +102,8 @@ define([
       return false;
     },
 
-    addProduct: function(ProductAdminView) {
-      var view = new ProductAdminView({
+    addProduct: function(ProductView) {
+      var view = new ProductView({
         model:              this.model,
         refs:               this.products.refs,
         mode:               'add'
@@ -106,9 +117,22 @@ define([
       return true; // true so that BS dropdown closes
     },
 
-    editTagCategories: function(TagCategoriesAdminView) {
-      var view = new TagCategoriesAdminView({
+    editTagCategories: function(TagCategoriesView) {
+      var view = new TagCategoriesView({
         collection: this.products.refs.tag_categories
+      });
+      view.renderModal();
+      var obj = this;
+      // Add to collection if save is successful
+      this.listenTo(view, 'save', function(model) {
+        obj.products.add(model);
+      });
+      return true; // true so that BS dropdown closes
+    },
+
+    editYoutubeVideos: function(YoutubeVideosView) {
+      var view = new YoutubeVideosView({
+        collection: this.products.refs.youtube_videos
       });
       view.renderModal();
       var obj = this;
