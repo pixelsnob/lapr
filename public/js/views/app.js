@@ -20,8 +20,7 @@ define([
     el: 'body',
 
     events: {
-      'click nav li a.navigate': 'navigate'//,
-      //'click .add-product':      'addProduct'
+      'click nav li a.navigate': 'navigate'
     },
 
     current_view: null,
@@ -35,12 +34,16 @@ define([
         require([
           'views/admin/product',
           'views/admin/tag_categories',
-          'views/admin/youtube_videos'
+          'views/admin/youtube_videos',
+          'views/admin/users',
+          'collections/users'
         ],
         function(
           ProductView,
           TagCategoriesView,
-          YoutubeVideosView
+          YoutubeVideosView,
+          UsersView,
+          UsersCollection
         ) {
           obj.events['click .add-product'] = function() {
             obj.addProduct(ProductView);
@@ -51,6 +54,9 @@ define([
           obj.events['click .edit-youtube-videos'] = function() {
             obj.editYoutubeVideos(YoutubeVideosView);
           };
+          /*obj.events['click .edit-users'] = function() {
+            obj.editUsers(UsersView, UsersCollection);
+          };*/
           obj.delegateEvents(obj.events);
         });
       }
@@ -133,6 +139,19 @@ define([
     editYoutubeVideos: function(YoutubeVideosView) {
       var view = new YoutubeVideosView({
         collection: this.products.refs.youtube_videos
+      });
+      view.renderModal();
+      var obj = this;
+      // Add to collection if save is successful
+      this.listenTo(view, 'save', function(model) {
+        obj.products.add(model);
+      });
+      return true; // true so that BS dropdown closes
+    },
+
+    editUsers: function(UsersView, UsersCollection) {
+      var view = new UsersView({
+        collection: new UsersCollection
       });
       view.renderModal();
       var obj = this;
