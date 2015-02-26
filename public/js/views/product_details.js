@@ -7,7 +7,8 @@ define([
   'views/modal',
   'views/product_details_image',
   'views/youtube_player',
-  'template'
+  'template',
+  'vexflow'
 ], function(
   BaseView,
   ModalView,
@@ -24,6 +25,7 @@ define([
 
     initialize: function(opts) {
       this.refs = this.model.collection.refs;
+      console.log(Vex);
     },
     
     render: function() {

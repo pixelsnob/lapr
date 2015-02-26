@@ -16,14 +16,16 @@ define([], function() {
       template:             'lib/template',
       vex:                  '../bower_components/vex/js/vex',
       vex_dialog:           '../bower_components/vex/js/vex.dialog',
-      youtube:              'https://www.youtube.com/iframe_api?noext'
+      youtube:              'https://www.youtube.com/iframe_api?noext',
+      vexflow:              '../bower_components/vexflow/releases/vexflow-min'
     },
     shim: {
       jade:                  { exports: 'jade' },
       'backbone-forms':      { deps: [ 'backbone' ] },
       'backbone-paginator':  { deps: [ 'backbone' ] },
       bootstrap:             { deps: [ 'jquery' ], exports: '$' },
-      youtube:               { exports: 'YT' }
+      youtube:               { exports: 'YT' },
+      vexflow:               { exports: 'Vex' }
     }
   });
 });
