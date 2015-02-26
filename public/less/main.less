@@ -31,6 +31,11 @@
 body {
   background-color: @bg-color;
   color: @text-color;
+  /*background-image: url("/images/cocktail_snare.jpg");
+  background-position: top left;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;*/
 }
 
 a:link, a:visited, a:active {
@@ -80,6 +85,7 @@ table {
   }
   .categories, .tags-tree {
     margin-top: 20px;
+    overflow: hidden;
   }
   .categories {
     ul {
@@ -296,6 +302,9 @@ table {
 /* Small screen stuff */
 
 @media only screen and (max-width: 767px) {
+  body {
+    padding: 0 !important;
+  }
   #main {
     .products {
       .results {
