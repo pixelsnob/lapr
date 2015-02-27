@@ -21,7 +21,9 @@ define([
         validators: [ 'required' ]
       },
       start_time: {
-        type: 'Text'
+        type: 'Text',
+        title: 'Start Time',
+        help: '<em>In seconds</em>'
       },
       description: {
         type: 'TextArea',
