@@ -11,6 +11,7 @@ if makers
 
 p.description= product.description
 
+
 dl
 if product.model_no
   dt Model No.
@@ -24,6 +25,8 @@ if product.range
 if product.sizes
   dt Sizes
   dd= product.sizes
+
+.range
 
 .sounds
   if product.youtube_videos && product.youtube_videos.length

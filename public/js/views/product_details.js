@@ -6,13 +6,14 @@ define([
   'views/base',
   'views/modal',
   'views/product_details_image',
+  'views/product_range',
   'views/youtube_player',
-  'template',
-  'vexflow'
+  'template'
 ], function(
   BaseView,
   ModalView,
   ProductDetailsImageView,
+  RangeView,
   YoutubePlayerView,
   template
 ) {
@@ -25,12 +26,12 @@ define([
 
     initialize: function(opts) {
       this.refs = this.model.collection.refs;
-      console.log(Vex);
     },
     
     render: function() {
       var product_makers   = this.model.get('makers'),
           product_videos   = this.model.get('youtube_videos'),
+          product_range    = this.model.get('range'),
           product          = this.model.toJSON(),
           obj              = this,
           makers_list      = '';
@@ -45,7 +46,7 @@ define([
       }));
       var $youtube_player = this.$el.find('.youtube-player');
       $youtube_player.hide();
-      if (product_videos) {
+      if (product_videos.length) {
         var yt_view = new YoutubePlayerView({
           collection: product_videos.map(function(video_id) {
             return obj.refs.youtube_videos.findWhere({ _id: video_id });
@@ -53,6 +54,10 @@ define([
         });
         this.$el.find('.youtube-player').html(yt_view.render().el);
         $youtube_player.show();
+      }
+      if (product_range.length) {
+        var range_view = new RangeView({ range: product_range });
+        this.$el.find('.range').html(range_view.render().el);
       }
       return this;
     },

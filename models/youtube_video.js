@@ -10,6 +10,16 @@ var YoutubeVideoSchema = new db.Schema({
   description: { type: String }
 }, { collection: 'youtube_videos' });
 
+YoutubeVideoSchema.pre('remove', function(next) {
+  db.model('Product').update(
+    { youtube_videos: this._id },
+    { $pull: { youtube_videos: this._id }},
+    { multi: true },
+    next
+  );
+});
+
+
 module.exports = function(mai) {
   YoutubeVideoSchema.plugin(mai.plugin, {
     model: 'YoutubeVideo',

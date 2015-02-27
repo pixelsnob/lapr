@@ -67,7 +67,18 @@ define([
         type: 'Text'
       },
       range: {
-        type: 'Text'
+        type: 'Text',
+        validators: [
+          function(value, form_values) {
+            var err = {
+              //type: 'range',
+              message: 'fuck'
+            };
+            //var parsed = /^[a-g](?:#{1,2}|b{1,2})?[1-8]/i.exec(r);
+            return err;
+
+          }
+        ]
       },
       sizes: {
         type: 'TextArea'

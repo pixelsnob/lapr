@@ -64,7 +64,6 @@ define([
       var view = new this.list_view({ collection: this.schema.options });
       view.renderModal();
       this.listenTo(view, 'close', this.refresh);
-      console.log(this.schema.options);
     }
 
   });
