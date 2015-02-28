@@ -67,17 +67,17 @@ define([
         type: 'Text'
       },
       range: {
-        type: 'Text'/*,
+        type: 'Text',
         validators: [
           function(value, form_values) {
             var err = {
               //type: 'range',
-              message: 'fuck'
+              message: 'Range must look like A2-C#3 and Bb4, D3 for individual notes'
             };
             //var parsed = /^[a-g](?:#{1,2}|b{1,2})?[1-8]/i.exec(r);
             return err;
 
-          }*/
+          }
         ]
       },
       sizes: {
