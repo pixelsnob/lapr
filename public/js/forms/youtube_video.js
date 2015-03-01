@@ -3,12 +3,12 @@
  * 
  */
 define([
-  'backbone',
-  'backbone-forms'
+  'forms/base'
 ], function(
+  BaseForm
 ) {
   
-  return Backbone.Form.extend({
+  return BaseForm.extend({
 
     schema: {
       name: {
@@ -22,6 +22,7 @@ define([
       },
       start_time: {
         type: 'Text',
+        validators: [ 'number' ],
         title: 'Start Time',
         help: '<em>In seconds</em>'
       },

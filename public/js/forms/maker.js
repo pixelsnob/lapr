@@ -3,12 +3,12 @@
  * 
  */
 define([
-  'backbone',
-  'backbone-forms'
+  'forms/base'
 ], function(
+  BaseForm
 ) {
   
-  return Backbone.Form.extend({
+  return BaseForm.extend({
 
     schema: {
       name: {

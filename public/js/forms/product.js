@@ -3,8 +3,7 @@
  * 
  */
 define([
-  'backbone',
-  'backbone-forms',
+  'forms/base',
   'views/admin/editors/multi_select',
   'views/admin/editors/product_categories',
   'views/admin/editors/makers',
@@ -12,8 +11,7 @@ define([
   'views/admin/editors/youtube_videos',
   'views/admin/editors/file/image'
 ], function(
-  Backbone,
-  BackboneForms,
+  BaseForm,
   MultiSelectEditor,
   ProductCategoriesEditor,
   MakersEditor,
@@ -22,10 +20,10 @@ define([
   ImageEditor
 ) {
   
-  return Backbone.Form.extend({
+  return BaseForm.extend({
 
     initialize: function(opts) {
-      Backbone.Form.prototype.initialize.apply(this, arguments);
+      BaseForm.prototype.initialize.apply(this, arguments);
       this.fields.categories.schema.options     = opts.refs.product_categories;
       this.fields.makers.schema.options         = opts.refs.makers;
       this.fields.tags.schema.options           = opts.refs.tags;
@@ -67,7 +65,7 @@ define([
         type: 'Text'
       },
       range: {
-        type: 'Text',
+        type: 'Text'/*,
         validators: [
           function(value, form_values) {
             var err = {
@@ -78,7 +76,7 @@ define([
             return err;
 
           }
-        ]
+        ]*/
       },
       sizes: {
         type: 'TextArea'

@@ -1,16 +1,16 @@
 /**
- * maker form
+ * image form
  * 
  */
 define([
-  'backbone',
-  'views/forms/editors/file/image',//?
-  'backbone-forms'
+  'forms/base',
+  'views/forms/editors/file/image'
 ], function(
-  Backbone, ImageEditor
+  BaseForm,
+  ImageEditor
 ) {
   
-  return Backbone.Form.extend({
+  return BaseForm.extend({
 
     schema: {
       name: {

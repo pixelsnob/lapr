@@ -4,13 +4,13 @@
  */
 define([
   'collections/tag_categories',
-  'backbone',
-  'backbone-forms'
+  'forms/base'
 ], function(
-  TagCategories
+  TagCategories,
+  BaseForm
 ) {
   
-  return Backbone.Form.extend({
+  return BaseForm.extend({
 
     schema: {
       name: {
