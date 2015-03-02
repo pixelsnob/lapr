@@ -34,7 +34,7 @@ define([
         };
         var range = $.trim(value);
         if (!range.length) {
-          return true;
+          return;
         }
         range = range.replace('-', ',').split(',');
         for (var r in range) {
