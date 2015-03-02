@@ -66,25 +66,7 @@ define([
       },
       range: {
         type: 'Text',
-        validators: [
-          function(value, form_values) {
-            var err = {
-              message: 'Invalid range'
-            };
-            var range = $.trim(value);
-            if (!range.length) {
-              return true;
-            }
-            range = range.replace('-', ',').split(',');
-            for (var r in range) {
-              // Trim any whitespace around note, i.e. C4-C5, D7
-              var note = $.trim(range[r]);
-              if (note.match(/^([a-g](?:#{1,2}|b{1,2})?)([1-8])/i) === null) {
-                return err;
-              }
-            }
-          }
-        ],
+        validators: [ 'musicNotation' ],
         help: '<em>Comma-separated list of notes and note ranges. Valid example: C#2, Bb3-C7</em>'
       },
       sizes: {

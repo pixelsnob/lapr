@@ -35,7 +35,7 @@ define([
         // Trim any whitespace around note, i.e. C4-C5, D7
         var note = $.trim(range[r]);
         // Capture note value and octave
-        var parsed = /^([a-g](?:#{1,2}|b{1,2})?)([1-8])/i.exec(note);
+        var parsed = /^([a-g](?:#{1,2}|b{1,2})?)([1-8])$/i.exec(note);
         if (parsed && parsed.length == 3) {
           // Convert Bb3 => Bb/3 for notation library
           var converted_note = parsed[1] + '/' + parsed[2];
@@ -128,7 +128,7 @@ define([
       // Create an array of accidentals for this note
       var accidentals = [];
       for (var i = 0; i < keys.length; i++) {
-        var key_matches = /^[a-g](#{1,2}|b{1,2})?/i.exec(keys[i]);
+        var key_matches = /^[a-g](#{1,2}|b{1,2})?$/i.exec(keys[i]);
         if (key_matches && key_matches[1] && key_matches[1].length) {
           note.addAccidental(i, new Vex.Flow.Accidental(key_matches[1]));
         }
