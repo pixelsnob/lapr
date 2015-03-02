@@ -20,7 +20,8 @@ define([
       category: {
         title: 'Tag Category',
         type: 'Select',
-        options: new TagCategories 
+        options: new TagCategories,
+        validators: [ 'requiredArray' ]
       },
       slug: {
         title: 'Slug',

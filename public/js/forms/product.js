@@ -45,7 +45,7 @@ define([
       },
       categories: {
         type: ProductCategoriesEditor,
-        validators: [ 'required' ],
+        validators: [ 'requiredArray' ],
         options: []
       },
       model_no: {

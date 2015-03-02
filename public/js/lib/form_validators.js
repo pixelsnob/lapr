@@ -19,6 +19,18 @@ define([
       }, options);
       return Backbone.Form.validators.regexp(options);
     },
+    
+    /**
+     * Array version of "required"
+     * 
+     */
+    requiredArray: function(options) {
+      return function(value) {
+        if (!_.isArray(value) || !value.length) {
+          return { message: 'Must select at least one' }; 
+        }
+      };
+    },
 
     /**
      * Validates a list of notes in scientific music notation
@@ -29,7 +41,7 @@ define([
     musicNotation: function(options) {
       return function(value) {
         var err = {
-          type: 'range',
+          //type: 'range',
           message: 'Invalid range'
         };
         var range = $.trim(value);
@@ -44,6 +56,13 @@ define([
             return err;
           }
         }
+      };
+    },
+
+    unique: function(options) {
+      //console.log('unique');
+      return function(value) {
+        return;
       };
     }
 

@@ -107,7 +107,9 @@ var models = {
   Tag:              '/api/tags',
   TagCategory:      '/api/tag-categories',
   YoutubeVideo:     '/api/youtube-videos',
-  User:             '/api/users'
+  User:             '/api/users',
+  Page:             '/api/pages',
+  ContentBlock:     '/api/content-blocks'
 };
 
 for (var model in models) {

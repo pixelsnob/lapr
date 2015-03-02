@@ -57,9 +57,9 @@ define([
     },
     
     save: function() {
-      var errors = this.form.commit();
-      if (!errors) {
-        this.model.save(this.model.attributes, {
+      var form = this.form.getValue();
+      if (form) {
+        this.model.save(form, {
           wait: true,
           success: _.bind(this.trigger, this, 'save', this.model),
           error:   _.bind(this.showServerError, this)

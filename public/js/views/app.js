@@ -7,13 +7,15 @@ define([
   'views/products',
   'views/products_search',
   'views/products_tags_search',
-  'collections/products'
+  'collections/products',
+  'collections/pages'
 ], function(
   BaseView,
   ProductsView,
   ProductsSearchView,
   ProductsTagsSearchView,
-  ProductsCollection
+  ProductsCollection,
+  PagesCollection
 ) {
   return BaseView.extend({ 
     
@@ -35,15 +37,13 @@ define([
           'views/admin/product',
           'views/admin/tag_categories',
           'views/admin/youtube_videos',
-          'views/admin/users',
-          'collections/users'
+          'views/admin/pages'
         ],
         function(
           ProductView,
           TagCategoriesView,
           YoutubeVideosView,
-          UsersView,
-          UsersCollection
+          PagesView
         ) {
           obj.events['click .add-product'] = function() {
             obj.addProduct(ProductView);
@@ -54,9 +54,9 @@ define([
           obj.events['click .edit-youtube-videos'] = function() {
             obj.editYoutubeVideos(YoutubeVideosView);
           };
-          /*obj.events['click .edit-users'] = function() {
-            obj.editUsers(UsersView, UsersCollection);
-          };*/
+          obj.events['click .edit-pages'] = function() {
+            obj.editPages(PagesView);
+          };
           obj.delegateEvents(obj.events);
         });
       }
@@ -128,11 +128,6 @@ define([
         collection: this.products.refs.tag_categories
       });
       view.renderModal();
-      var obj = this;
-      // Add to collection if save is successful
-      this.listenTo(view, 'save', function(model) {
-        obj.products.add(model);
-      });
       return true; // true so that BS dropdown closes
     },
 
@@ -141,23 +136,14 @@ define([
         collection: this.products.refs.youtube_videos
       });
       view.renderModal();
-      var obj = this;
-      // Add to collection if save is successful
-      this.listenTo(view, 'save', function(model) {
-        obj.products.add(model);
-      });
       return true; // true so that BS dropdown closes
     },
 
-    editUsers: function(UsersView, UsersCollection) {
-      var view = new UsersView({
-        collection: new UsersCollection
-      });
-      view.renderModal();
-      var obj = this;
-      // Add to collection if save is successful
-      this.listenTo(view, 'save', function(model) {
-        obj.products.add(model);
+    editPages: function(PagesView) {
+      var pages_collection = new PagesCollection;
+      pages_collection.fetch().done(function() {
+        var view = new PagesView({ collection: pages_collection });
+        view.renderModal();
       });
       return true; // true so that BS dropdown closes
     }

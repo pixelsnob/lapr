@@ -14,7 +14,7 @@ define([
     },
     
     save: function() {
-      var errors = this.form.validate(), obj = this;
+      var errors = this.form.validate();
       if (!errors) {
         this.trigger('save');
       }
