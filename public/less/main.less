@@ -137,6 +137,7 @@ table {
         right: 0;
         max-width: 100%;
         max-height: 100%;
+        height: auto;
         display: none;
         &.noscript {
           display: block;
@@ -316,10 +317,13 @@ table {
         li {
           width: 100%;
           .product {
-            padding-bottom: 25%;
+            padding-bottom: 45%;
             .image {
               position: static;
               padding-bottom: 0;
+              img {
+                max-height: 95%;
+              }
             }
           }
         }
