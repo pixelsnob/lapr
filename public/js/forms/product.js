@@ -85,7 +85,7 @@ define([
             }
           }
         ],
-        help: '<em>Valid example: C#2, Bb3-C7</em>'
+        help: '<em>Comma-separated list of notes and note ranges. Valid example: C#2, Bb3-C7</em>'
       },
       sizes: {
         type: 'TextArea'
