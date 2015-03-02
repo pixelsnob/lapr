@@ -19,33 +19,30 @@ define([
 
     initialize: function(opts) {
       this.range = opts.range;
-      var canvas = $('<canvas>');
-      this.setElement(canvas);
     },
     
     parseRange: function() {
       var keys_treble = [],
           keys_bass   = [];
-      // Convert from one notation scheme to another and
-      // split into array:
-      // A3-C#6 becomes [ 'A/3', 'C#/6' ]
-      var range = this.range.replace(',', '-')
-        .split('-')
-        .map(function(r) { return $.trim(r); })
-        .map(function(r) {
-          var parsed = /^([a-g](?:#{1,2}|b{1,2})?)([1-8])/i.exec(r);
-          if (parsed && parsed.length == 3) {
-            return parsed[1] + '/' + parsed[2];
-          }
-        });
-      // Split notes into two arrays, one for each clef
+      var range = $.trim(this.range);
+      if (!range.length) {
+        return false;
+      }
+      // We don't care about ranges when feeding this to the notation library,
+      // just individual notes, so replace '-' with ','
+      range = range.replace('-', ',').split(',');
       for (var r in range) {
-        var r_split = range[r].split('/');
-        if (r_split.length == 2) {
-          if (r_split[1] > 3) {
-            keys_treble.push(range[r]);
+        // Trim any whitespace around note, i.e. C4-C5, D7
+        var note = $.trim(range[r]);
+        // Capture note value and octave
+        var parsed = /^([a-g](?:#{1,2}|b{1,2})?)([1-8])/i.exec(note);
+        if (parsed && parsed.length == 3) {
+          // Convert Bb3 => Bb/3 for notation library
+          var converted_note = parsed[1] + '/' + parsed[2];
+          if (parsed[2] > 3) {
+            keys_treble.push(converted_note);
           } else {
-            keys_bass.push(range[r]);
+            keys_bass.push(converted_note);
           }
         }
       }
@@ -53,6 +50,13 @@ define([
     },
 
     render: function() {
+      var range = this.parseRange();
+      if (!range) {
+        return this;
+      }
+
+      var canvas = $('<canvas>');
+      this.setElement(canvas);
 
       canvas = this.$el.get(0);
 
@@ -85,7 +89,6 @@ define([
       brace.setType(Vex.Flow.StaveConnector.type.BRACKET);
       brace.setContext(ctx).draw();
       
-      var range = this.parseRange();
 
       if (range.keys_treble.length) {
         var notes_treble = this.createNotes(range.keys_treble, 'w', 'treble'),
