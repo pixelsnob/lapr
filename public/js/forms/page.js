@@ -3,22 +3,31 @@
  * 
  */
 define([
-  'forms/base'
+  'forms/base',
+  'collections/pages'
 ], function(
-  BaseForm
+  BaseForm,
+  PagesCollection
 ) {
   
   return BaseForm.extend({
 
-    initialize: function() {
+    initialize: function(opts) {
+      this.schema.path.validators = [
+        'required',
+        {
+          type: 'unique',
+          name: 'path',
+          model: this.model,
+          collection: opts.collection
+        }
+      ];
       BaseForm.prototype.initialize.apply(this, arguments);
-      //this.fields.path.schema.validators.push({ type: 'unique', model: '2' });
     },
 
     schema: {
       path: {
-        type: 'Text',
-        validators: [ 'required', { type: 'unique' } ]
+        type: 'Text'
       },
       title: {
         type: 'Text',

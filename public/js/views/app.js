@@ -37,13 +37,15 @@ define([
           'views/admin/product',
           'views/admin/tag_categories',
           'views/admin/youtube_videos',
-          'views/admin/pages'
+          'views/admin/pages',
+          'collections/pages'
         ],
         function(
           ProductView,
           TagCategoriesView,
           YoutubeVideosView,
-          PagesView
+          PagesView,
+          PagesCollection
         ) {
           obj.events['click .add-product'] = function() {
             obj.addProduct(ProductView);
@@ -54,6 +56,8 @@ define([
           obj.events['click .edit-youtube-videos'] = function() {
             obj.editYoutubeVideos(YoutubeVideosView);
           };
+          obj.pages = new PagesCollection;
+          obj.pages.fetch();
           obj.events['click .edit-pages'] = function() {
             obj.editPages(PagesView);
           };
@@ -140,10 +144,10 @@ define([
     },
 
     editPages: function(PagesView) {
-      var pages_collection = new PagesCollection;
-      pages_collection.fetch().done(function() {
-        var view = new PagesView({ collection: pages_collection });
-        view.renderModal();
+      var view = new PagesView({ collection: this.pages });
+      view.renderModal();
+      view.listenTo(view, 'close', function() {
+        view.close();
       });
       return true; // true so that BS dropdown closes
     }

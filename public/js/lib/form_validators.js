@@ -58,11 +58,24 @@ define([
         }
       };
     },
-
+    
+    /**
+     * Checks to see that a field is not duplicated in the same collection
+     * 
+     */
     unique: function(options) {
-      //console.log('unique');
+      console.log('uq');
       return function(value) {
-        return;
+        if (!options.collection || !options.name) {
+          return { message: 'Configuration error' };
+        }
+        var others = options.collection.filter(function(model) {
+          return model.id != options.model.id &&
+                 model.get(options.name) == $.trim(value);
+        });
+        if (others.length) {
+          return { message: 'Item already exists' };
+        }
       };
     }
 

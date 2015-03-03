@@ -20,8 +20,8 @@ define([
     },
 
     initialize: function() {
-      //this.listenTo(this.model, 'destroy', this.remove);
       this.listenTo(this.model, 'save', this.render);
+      //this.listenTo(this.model, 'destroy', this.remove);
     },
 
     render: function() {
@@ -57,9 +57,9 @@ define([
     },
     
     save: function() {
-      var form = this.form.getValue();
-      if (form) {
-        this.model.save(form, {
+      var errors = this.form.commit();
+      if (!errors) {
+        this.model.save(this.form.getValue(), {
           wait: true,
           success: _.bind(this.trigger, this, 'save', this.model),
           error:   _.bind(this.showServerError, this)

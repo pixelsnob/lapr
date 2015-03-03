@@ -25,7 +25,7 @@ define([
           $table = this.$el.find('table');
       $table.empty();
       this.collection.each(function(model) {
-        var view = new obj.view({ model: model });
+        var view = new obj.view({ model: model, collection: obj.collection });
         $table.append(view.render().el);
       });
       return this;
@@ -47,7 +47,10 @@ define([
     },
 
     renderAddForm: function() {
-      var view = new this.view({ model: new this.collection.model });
+      var view = new this.view({
+        model: new this.collection.model,
+        collection: this.collection
+      });
       view.renderAddForm();
       this.collection.listenTo(view, 'add', this.collection.add);
     }
