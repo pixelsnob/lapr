@@ -19,7 +19,10 @@ define([
     title: 'Maker',
     model: new MakerModel,
     initialize: function() {
-      this.form = new MakerForm({ model: this.model });
+      this.form = new MakerForm({
+        model:      this.model,
+        collection: this.collection
+      });
     }
   });
 

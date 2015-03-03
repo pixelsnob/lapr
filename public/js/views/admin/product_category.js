@@ -15,12 +15,14 @@ define([
 ) {
   
   var view = BaseView.extend({
-    //tagName: 'tr',
     label: 'category',
     title: 'Category',
     model: new CategoryModel,
     initialize: function() {
-      this.form = new CategoryForm({ model: this.model });
+      this.form = new CategoryForm({
+        model:      this.model,
+        collection: this.collection
+      });
     }
   });
 

@@ -4,7 +4,7 @@
 var db = require('mongoose');
 
 var MakerSchema = new db.Schema({
-  name: String,
+  name: { type: String, index: true, unique: true }
 });
 
 MakerSchema.pre('remove', function(next) {

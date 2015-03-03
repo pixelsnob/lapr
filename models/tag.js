@@ -4,7 +4,7 @@
 var db = require('mongoose');
 
 var TagSchema = new db.Schema({
-  name: String,
+  name: { type: String, index: true, unique: true },
   slug: String,
   category: { type: Number, ref: 'TagCategory' }
 });

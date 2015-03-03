@@ -13,7 +13,6 @@ define([
   return BaseForm.extend({
 
     initialize: function(opts) {
-      //console.log(opts.collection);
       this.schema.name.validators = [
         'required',
         {

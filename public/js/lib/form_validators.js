@@ -64,7 +64,6 @@ define([
      * 
      */
     unique: function(options) {
-      console.log('uq');
       return function(value) {
         if (!options.collection || !options.name) {
           return { message: 'Configuration error' };
