@@ -19,7 +19,10 @@ define([
     title: 'Youtube Video',
     model: new YoutubeVideoModel,
     initialize: function() {
-      this.form = new YoutubeVideoForm({ model: this.model });
+      this.form = new YoutubeVideoForm({
+        model:      this.model,
+        collection: this.collection
+      });
     }
   });
 
