@@ -48,7 +48,32 @@ define([
       }
       return { keys_treble: keys_treble, keys_bass: keys_bass };
     },
+    
+    createNotes: function(keys, duration, clef) {
+      var note = new Vex.Flow.StaveNote({
+        keys: keys,
+        duration: duration,
+        clef: clef
+      })
+      // Create an array of accidentals for this note
+      var accidentals = [];
+      for (var i = 0; i < keys.length; i++) {
+        var key_matches = /^[a-g](#{1,2}|b{1,2})?/i.exec(keys[i]);
+        if (key_matches && key_matches[1] && key_matches[1].length) {
+          note.addAccidental(i, new Vex.Flow.Accidental(key_matches[1]));
+        }
+      }
+      return [ note ];
+    },
 
+    createVoice: function() {
+      return new Vex.Flow.Voice({
+        num_beats: 4,
+        beat_value: 4,
+        resolution: Vex.Flow.RESOLUTION
+      });
+    },
+    
     render: function() {
       var range = this.parseRange();
       if (!range) {
@@ -68,8 +93,7 @@ define([
       canvas_ctx.strokeStyle = '#fff';
       canvas_ctx.scale(0.7, 0.7);
 
-      var renderer = new Vex.Flow.Renderer(canvas,
-        Vex.Flow.Renderer.Backends.CANVAS);
+      var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
       var ctx = renderer.getContext();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
@@ -77,10 +101,10 @@ define([
       var width = 250;
       
       var treble = new Vex.Flow.Stave(start, 80, width);
-      treble.addClef("treble");
+      treble.addClef('treble');
       
       var bass = new Vex.Flow.Stave(start, 150, width);
-      bass.addClef("bass");
+      bass.addClef('bass');
 
       treble.setContext(ctx).draw();
       bass.setContext(ctx).draw();
@@ -88,7 +112,6 @@ define([
       var brace = new Vex.Flow.StaveConnector(treble, bass);
       brace.setType(Vex.Flow.StaveConnector.type.BRACKET);
       brace.setContext(ctx).draw();
-      
 
       if (range.keys_treble.length) {
         var notes_treble = this.createNotes(range.keys_treble, 'w', 'treble'),
@@ -117,31 +140,6 @@ define([
         voice_bass.draw(ctx, bass);
       }
       return this;
-    },
-
-    createNotes: function(keys, duration, clef) {
-      var note = new Vex.Flow.StaveNote({
-        keys: keys,
-        duration: duration,
-        clef: clef
-      })
-      // Create an array of accidentals for this note
-      var accidentals = [];
-      for (var i = 0; i < keys.length; i++) {
-        var key_matches = /^[a-g](#{1,2}|b{1,2})?$/i.exec(keys[i]);
-        if (key_matches && key_matches[1] && key_matches[1].length) {
-          note.addAccidental(i, new Vex.Flow.Accidental(key_matches[1]));
-        }
-      }
-      return [ note ];
-    },
-
-    createVoice: function() {
-      return new Vex.Flow.Voice({
-        num_beats: 4,
-        beat_value: 4,
-        resolution: Vex.Flow.RESOLUTION
-      });
     }
     
   });
