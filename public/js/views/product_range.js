@@ -27,28 +27,36 @@ define([
       if (!range.length) {
         return false;
       }
-      // We don't care about ranges when feeding this to the notation library,
-      // just individual notes, so replace '-' with ','
-      range = range.replace('-', ',').split(',');
-      for (var r in range) {
-        // Trim any whitespace around note, i.e. C4-C5, D7
-        var note = $.trim(range[r]);
-        // Capture note value and octave
-        var parsed = /^([a-g](#{1,2}|b{1,2})?)([1-8])$/i.exec(note);
-        if (parsed && parsed.length == 4) {
-          // Convert Bb3 => Bb/3 for notation library
-          var converted_note = parsed[1] + '/' + parsed[3];
-          notes.push({
-            converted: converted_note,
-            octave: parsed[3],
-            accidentals: parsed[2],
-            clef: (parsed[3] > 3 ? 'treble' : 'bass')
-          });
+      var note_groups = range.split(',');
+      for (var g in note_groups) {
+        var raw_notes = note_groups[g].split('-');
+        if (raw_notes.length == 2) {
+          for (var r in raw_notes) {
+            notes.push(this.parseNote(raw_notes[r], r));
+          }
+        } else if (raw_notes.length == 1) {
+          notes.push(this.parseNote(raw_notes[0]));
         }
       }
       return notes;
     },
     
+    parseNote: function(note, range_index) {
+      // Capture note value and octave
+      var parsed = /^([a-g](#{1,2}|b{1,2})?)([1-8])$/i.exec($.trim(note));
+      if (parsed && parsed.length == 4) {
+        // Convert Bb3 => Bb/3 for notation library
+        var converted_note = parsed[1] + '/' + parsed[3];
+        return {
+          converted: converted_note,
+          octave: parsed[3],
+          accidentals: parsed[2],
+          clef: (parsed[3] > 3 ? 'treble' : 'bass'),
+          range_index: range_index // is this the first or second note in a range?
+        };
+      }
+    },
+
     createNote: function(key, duration, clef) {
       var note = new Vex.Flow.StaveNote({
         keys: [ key ],
@@ -84,10 +92,10 @@ define([
     
     render: function() {
       var notes = this.parseRange();
-      if (!notes) {
+      if (!notes.length) {
         return this;
       }
-      console.log(notes);
+      //console.log(notes);
 
       var canvas = $('<canvas>');
       this.setElement(canvas);
@@ -100,21 +108,21 @@ define([
       var canvas_ctx = canvas.getContext("2d");
       canvas_ctx.fillStyle = '#fff';
       canvas_ctx.strokeStyle = '#fff';
-      canvas_ctx.scale(0.65, 0.65);
+      canvas_ctx.scale(0.6, 0.6);
 
       var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
       var ctx = renderer.getContext();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       var start = 7;
-      var width = canvas.width - 10;
+      var width = canvas.width;
       
       var treble = new Vex.Flow.Stave(start, 80, width);
-      treble.setNoteStartX(30);
+      treble.setNoteStartX(20);
       treble.addClef('treble');
       
       var bass = new Vex.Flow.Stave(start, 150, width);
-      bass.setNoteStartX(30);
+      bass.setNoteStartX(20);
       bass.addClef('bass');
 
       treble.setContext(ctx).draw();
@@ -125,22 +133,37 @@ define([
       brace.setContext(ctx).draw();
 
       var notes_treble = [],
-          notes_bass   = [];
+          notes_bass   = [],
+          stave_lines  = [];
       var voice_treble = this.createVoice(),
           voice_bass   = this.createVoice();
 
+      var previous_note;
       for (var n in notes) {
+        var note;
         if (notes[n].clef == 'treble') {
           notes_treble.push(notes[n].converted);
-          var treble_note = this.createNote(notes[n].converted, 'w', 'treble');
-          voice_treble.addTickable(treble_note);
+          note = this.createNote(notes[n].converted, 'w', 'treble');
+          voice_treble.addTickable(note);
         } else {
-          var bass_note = this.createNote(notes[n].converted, 'w', 'bass');
-          voice_bass.addTickable(bass_note);
+          note = this.createNote(notes[n].converted, 'w', 'bass');
+          voice_bass.addTickable(note);
           notes_bass.push(notes[n].converted);
-          var rest = this.createGhostNote('wr', 'treble');
+          // Also create a placeholder "ghost note" in the treble clef,
+          // to line up the voices without using rests
+          var rest = this.createGhostNote('w', 'treble');
           voice_treble.addTickable(rest);
         }
+        if (notes[n].range_index == 1 && previous_note) {
+          var stave_line = new Vex.Flow.StaveLine({
+            first_note:    previous_note,
+            last_note:     note,
+            first_indices: [0],
+            last_indices:  [0]
+          });
+          stave_lines.push(stave_line);
+        }
+        previous_note = note;
       }
       
       var voices = [];
@@ -152,8 +175,8 @@ define([
       }
       
       var formatter = new Vex.Flow.Formatter;
-      //formatter.joinVoices(voices);
-      formatter.format(voices, width - 40);
+      formatter.joinVoices(voices);
+      formatter.format(voices, width - 50);
       
       if (notes_bass.length) {
         voice_bass.draw(ctx, bass);
@@ -162,7 +185,13 @@ define([
       if (notes_treble.length) {
         voice_treble.draw(ctx, treble);
       }
-
+      
+      if (stave_lines.length) {
+        for (var s in stave_lines) {
+          stave_lines[s].setContext(ctx).draw();
+        }
+      }
+      
       return this;
     }
     
