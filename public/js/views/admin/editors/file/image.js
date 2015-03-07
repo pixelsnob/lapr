@@ -38,8 +38,11 @@ define([
     },
 
     onDelete: function() {
+      this.setValue('');
       this.$preview.find('img').hide();
       this.$file_input.val('');
+      this.$hidden_input.val('');
+      this.model.set('tmp_' + this.key, '', { silent: true });
     },
 
     setImageSrc: function(reader) {
