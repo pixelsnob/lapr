@@ -17,7 +17,7 @@ define([
     initialize: function() {
       FileUploadView.prototype.initialize.apply(this, arguments); 
       this.listenTo(this, 'reader-loaded', this.setImageSrc);
-      this.listenTo(this, 'delete-file', this.hideImage);
+      this.listenTo(this, 'delete-file', this.onDelete);
     },
 
     render: function() {
@@ -37,8 +37,9 @@ define([
       }
     },
 
-    hideImage: function() {
+    onDelete: function() {
       this.$preview.find('img').hide();
+      this.$file_input.val('');
     },
 
     setImageSrc: function(reader) {
