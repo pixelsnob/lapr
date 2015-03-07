@@ -110,7 +110,8 @@ define([
       canvas_ctx.strokeStyle = '#fff';
       canvas_ctx.scale(0.6, 0.6);
 
-      var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
+      var renderer = new Vex.Flow.Renderer(canvas,
+        Vex.Flow.Renderer.Backends.CANVAS);
       var ctx = renderer.getContext();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
@@ -154,6 +155,7 @@ define([
           var rest = this.createGhostNote('w', 'treble');
           voice_treble.addTickable(rest);
         }
+        // Create lines between two notes to represent ranges
         if (notes[n].range_index == 1 && previous_note) {
           var stave_line = new Vex.Flow.StaveLine({
             first_note:    previous_note,
