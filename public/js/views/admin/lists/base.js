@@ -20,7 +20,6 @@ define([
     },
     
     initialize: function() {
-      console.log('x');
       this.setElement(template.render('admin/list'));
       this.listenTo(this.collection, 'change add remove', this.render);
       this.$el.find('.pager').hide();

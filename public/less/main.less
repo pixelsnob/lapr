@@ -184,11 +184,15 @@ table {
     img {
       width: 100%;
       cursor: pointer;
+      display: none;
       &:hover {
         opacity: 0.7;
       }
       &:active {
         opacity: 0.6;
+      }
+      &.noscript {
+        display: block;
       }
     }
   }

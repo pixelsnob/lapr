@@ -25,12 +25,12 @@ define([
         model:      this.model,
         collection: this.collection
       });
-    },
+    }/*,
 
     render: function() {
       this.$el.append(template.render('admin/image_list_item', this.model.toJSON()));
       return this;
-    },
+    },*/
   });
   
 });

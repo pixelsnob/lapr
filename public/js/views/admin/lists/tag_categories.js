@@ -7,7 +7,6 @@ define([
   'views/admin/lists/items/tag_category'
 ], function(
   ListBaseView,
-  AdminListMixin,
   TagCategoryView
 ) {
 
