@@ -3,18 +3,16 @@
  * 
  */
 define([
-  'views/base',
+  './base',
   'models/maker',
-  'forms/maker',
-  'views/admin/form_mixin'
+  'forms/maker'
 ], function(
-  BaseView,
+  ListItemBaseView,
   MakerModel,
-  MakerForm,
-  AdminFormMixin
+  MakerForm
 ) {
   
-  var view = BaseView.extend({
+  return ListItemBaseView.extend({
     label: 'maker',
     title: 'Maker',
     model: new MakerModel,
@@ -25,7 +23,5 @@ define([
       });
     }
   });
-
-  return view.mixin(AdminFormMixin);
 });
 

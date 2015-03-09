@@ -3,16 +3,15 @@
  * 
  */
 define([
-  'views/base',
-  'views/admin/list_mixin',
+  './base',
   'views/admin/user'
 ], function(
-  BaseView,
+  ListBaseView,
   AdminListMixin,
   UserView
 ) {
 
-  var view = BaseView.extend({
+  return ListBaseView.extend({
     view: UserView,
     title: 'Users',
     

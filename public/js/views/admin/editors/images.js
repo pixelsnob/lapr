@@ -6,7 +6,7 @@
 define([
   'backbone',
   './multi_select',
-  'views/admin/images',
+  'views/admin/lists/images',
   'backbone-forms'
 ], function(
   Backbone,

@@ -3,18 +3,16 @@
  * 
  */
 define([
-  'views/base',
+  './base',
   'models/youtube_video',
-  'forms/youtube_video',
-  'views/admin/form_mixin'
+  'forms/youtube_video'
 ], function(
-  BaseView,
+  ListItemBaseView,
   YoutubeVideoModel,
-  YoutubeVideoForm,
-  AdminFormMixin
+  YoutubeVideoForm
 ) {
   
-  var view = BaseView.extend({
+  return ListItemBaseView.extend({
     label: 'youtube video',
     title: 'Youtube Video',
     model: new YoutubeVideoModel,
@@ -23,9 +21,10 @@ define([
         model:      this.model,
         collection: this.collection
       });
+      ListItemBaseView.prototype.initialize.apply(this, arguments);
+
     }
   });
-
-  return view.mixin(AdminFormMixin);
+  
 });
 

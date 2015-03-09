@@ -3,33 +3,28 @@
  * 
  */
 define([
-  'views/base',
-  'views/admin/list_mixin',
-  'views/admin/image',
+  './base',
+  './items/image',
   'collections/images_pageable'
 ], function(
-  BaseView,
-  AdminListMixin,
+  ListBaseView,
   ImageView,
   ImagesCollection
 ) {
 
-  var view = BaseView.extend({
+  return  ListBaseView.extend({
     view: ImageView,
     title: 'Images',
     paged: true,
     
     initialize: function(opts) {
-      // this is hacky
+      ListBaseView.prototype.initialize.apply(this, arguments);
       this.collection = new ImagesCollection(this.collection.models); 
       this.collection.getFirstPage();
-      // change mixin to parent class so initialize can be overridden?
       this.listenTo(this.collection, 'change add remove', this.render);
     }
 
   });
-
-  return view.mixin(AdminListMixin);
     
 });
 

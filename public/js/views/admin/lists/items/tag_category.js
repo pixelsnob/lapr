@@ -3,18 +3,16 @@
  * 
  */
 define([
-  'views/base',
+  './base',
   'models/tag_category',
-  'forms/tag_category',
-  'views/admin/form_mixin'
+  'forms/tag_category'
 ], function(
-  BaseView,
+  ListItemBaseView,
   TagCategoryModel,
-  TagCategoryForm,
-  AdminFormMixin
+  TagCategoryForm
 ) {
   
-  var view = BaseView.extend({
+  return ListItemBaseView.extend({
     label: 'tag category',
     title: 'Tag Category',
     model: new TagCategoryModel,
@@ -25,7 +23,5 @@ define([
       });
     }
   });
-
-  return view.mixin(AdminFormMixin);
 });
 

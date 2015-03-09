@@ -3,18 +3,17 @@
  * 
  */
 define([
-  'views/base',
+  './base',
   'models/page',
-  'forms/page',
-  'views/admin/form_mixin'
+  'forms/page'
 ], function(
-  BaseView,
+  ListItemBaseView,
   PageModel,
   PageForm,
   AdminFormMixin
 ) {
   
-  var view = BaseView.extend({
+  return ListItemBaseView.extend({
     label: 'page',
     title: 'Page',
     model: new PageModel,
@@ -25,7 +24,5 @@ define([
       });
     }
   });
-
-  return view.mixin(AdminFormMixin);
 });
 

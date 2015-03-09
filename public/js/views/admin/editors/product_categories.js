@@ -6,7 +6,7 @@
 define([
   'backbone',
   './multi_select',
-  'views/admin/product_categories',
+  'views/admin/lists/product_categories',
   'backbone-forms'
 ], function(
   Backbone,

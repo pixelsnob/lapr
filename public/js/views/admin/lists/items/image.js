@@ -3,18 +3,19 @@
  * 
  */
 define([
-  'views/base',
+  './base',
   'models/image',
   'forms/image',
-  'views/admin/form_mixin'
+  'template'
 ], function(
-  BaseView,
+  ListItemBaseView,
   ImageModel,
   ImageForm,
-  AdminFormMixin
+  template
 ) {
   
-  var view = BaseView.extend({
+  return ListItemBaseView.extend({
+    
     label: 'image',
     title: 'Image',
     model: new ImageModel,
@@ -27,12 +28,10 @@ define([
     },
 
     render: function() {
-      this.$el.append(template.render('admin/image_list_item', this.model.toJSON())); 
-      console.log('r');
+      this.$el.append(template.render('admin/image_list_item', this.model.toJSON()));
       return this;
     },
   });
-
-  return view.mixin(AdminFormMixin);
+  
 });
 

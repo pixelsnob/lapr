@@ -3,18 +3,16 @@
  * 
  */
 define([
-  'views/base',
+  './base',
   'models/tag',
-  'forms/tag',
-  'views/admin/form_mixin'
+  'forms/tag'
 ], function(
-  BaseView,
+  ListItemBaseView,
   TagModel,
-  TagForm,
-  AdminFormMixin
+  TagForm
 ) {
   
-  var view = BaseView.extend({
+  return ListItemBaseView.extend({
     label: 'tag',
     title: 'Tag',
     model: new TagModel,
@@ -27,6 +25,5 @@ define([
 
   });
 
-  return view.mixin(AdminFormMixin);
 });
 

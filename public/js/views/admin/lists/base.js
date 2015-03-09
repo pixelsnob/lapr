@@ -3,20 +3,24 @@
  * 
  */
 define([
+  'views/base',
   'views/admin/modal/base',
   'template',
   'backbone-paginator'
 ], function(
+  BaseView,
   ModalView,
   template
 ) {
-  return {
-    
+  
+  return BaseView.extend({
+  
     events: {
       'click .add': 'renderAddForm'
     },
     
     initialize: function() {
+      console.log('x');
       this.setElement(template.render('admin/list'));
       this.listenTo(this.collection, 'change add remove', this.render);
       this.$el.find('.pager').hide();
@@ -73,6 +77,6 @@ define([
       this.render();
     }
     
-  };
+  });
 });
 

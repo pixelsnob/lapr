@@ -6,7 +6,7 @@
 define([
   'backbone',
   './multi_select',
-  'views/admin/youtube_videos',
+  'views/admin/lists/youtube_videos',
   'backbone-forms'
 ], function(
   Backbone,

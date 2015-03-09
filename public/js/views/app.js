@@ -35,10 +35,10 @@ define([
       if (window.lapr.user) {
         require([
           'views/admin/product',
-          'views/admin/tag_categories',
-          'views/admin/youtube_videos',
-          'views/admin/pages',
-          'collections/pages'
+          'views/admin/lists/tag_categories',
+          'views/admin/lists/youtube_videos'
+          //'views/admin/pages',
+          //'collections/pages'
         ],
         function(
           ProductView,
@@ -56,11 +56,11 @@ define([
           obj.events['click .edit-youtube-videos'] = function() {
             obj.editYoutubeVideos(YoutubeVideosView);
           };
-          obj.pages = new PagesCollection;
+          /*obj.pages = new PagesCollection;
           obj.pages.fetch();
           obj.events['click .edit-pages'] = function() {
             obj.editPages(PagesView);
-          };
+          };*/
           obj.delegateEvents(obj.events);
         });
       }

@@ -113,7 +113,7 @@ var models = {
 };
 
 for (var model in models) {
-  app.route('/' + models[model])
+  app.route(models[model])
     .get(routes.get(model))
     .post(routes.auth, routes.add(model))
   

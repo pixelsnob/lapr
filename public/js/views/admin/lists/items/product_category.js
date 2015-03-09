@@ -3,18 +3,16 @@
  * 
  */
 define([
-  'views/base',
+  './base',
   'models/product_category',
-  'forms/category',
-  'views/admin/form_mixin'
+  'forms/category'
 ], function(
-  BaseView,
+  ListItemBaseView,
   CategoryModel,
-  CategoryForm,
-  AdminFormMixin
+  CategoryForm
 ) {
   
-  var view = BaseView.extend({
+  return ListItemBaseView.extend({
     label: 'category',
     title: 'Category',
     model: new CategoryModel,
@@ -25,7 +23,5 @@ define([
       });
     }
   });
-
-  return view.mixin(AdminFormMixin);
 });
 
