@@ -4,7 +4,8 @@
  */
 define([
   'views/admin/modal/base',
-  'template'
+  'template',
+  'backbone-paginator'
 ], function(
   ModalView,
   template
@@ -18,6 +19,13 @@ define([
     initialize: function() {
       this.setElement(template.render('admin/list'));
       this.listenTo(this.collection, 'change add remove', this.render);
+      this.$el.find('.pager').hide();
+      if (this.paged) {
+        this.$el.find('.pager').show();
+        this.events['click a.previous'] = 'getPreviousPage';
+        this.events['click a.next'] = 'getNextPage';
+        this.delegateEvents();
+      }
     },
 
     render: function() {
@@ -53,6 +61,16 @@ define([
       });
       view.renderAddForm();
       this.collection.listenTo(view, 'add', this.collection.add);
+    },
+
+    getPreviousPage: function() {
+      this.collection.getPreviousPage();
+      this.render();
+    },
+
+    getNextPage: function() {
+      this.collection.getNextPage();
+      this.render();
     }
     
   };

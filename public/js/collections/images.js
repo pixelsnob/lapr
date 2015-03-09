@@ -4,16 +4,17 @@
  */
 define([
   '../models/image'
-], function(ImageModel) {
+], function(
+  ImageModel
+) {
   return Backbone.Collection.extend({
     
     url: '/api/images',
 
     model: ImageModel,
 
-    comparator: 'filename',
+    comparator: 'name'
 
-    initialize: function() {
-    }
+
   });
 });

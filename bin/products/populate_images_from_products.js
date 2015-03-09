@@ -23,7 +23,7 @@ async.waterfall([
               return cb(err);
             }
             if (image) {
-              product.large_image = image._id;
+              product.images.push(image._id);
               product.save(cb);
             } else {
               db.connection.model('Image').create({ name: product.image },
@@ -31,7 +31,7 @@ async.waterfall([
                 if (err) {
                   return cb(err);
                 }
-                product.large_image = image._id;
+                product.images.push(image._id);
                 product.save(cb);
               });
             }
@@ -48,14 +48,14 @@ async.waterfall([
         return next(err);
       }
       async.eachSeries(products, function(product, cb) {
-        if (product.image) {
+        if (product.thumbnail) {
           db.connection.model('Image').findOne({ name: product.thumbnail },
           function(err, image) {
             if (err) {
               return cb(err);
             }
             if (image) {
-              product.small_image = image._id;
+              product.thumbnail_image = image._id;
               product.save(cb);
             } else {
               db.connection.model('Image').create({ name: product.thumbnail },
@@ -63,7 +63,7 @@ async.waterfall([
                 if (err) {
                   return cb(err);
                 }
-                product.small_image = image._id;
+                product.thumbnail_image = image._id;
                 product.save(cb);
               });
             }

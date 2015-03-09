@@ -1,9 +1,9 @@
 
 .product
   .image
-    if product.small_image
+    if product.thumbnail_image
       noscript
-        img.noscript(src="/images/#{product.small_image}", alt="#{product.name}")
+        img.noscript(src="/images/#{product.thumbnail_image.name}", alt="#{product.name}")
 
   .details
     h3.name= product.name

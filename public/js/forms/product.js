@@ -9,7 +9,10 @@ define([
   'views/admin/editors/makers',
   'views/admin/editors/tags',
   'views/admin/editors/youtube_videos',
-  'views/admin/editors/file/image'
+  'views/admin/editors/images',
+  'views/admin/editors/image',
+  'collections/images'
+  //'views/admin/editors/file/image'
 ], function(
   BaseForm,
   MultiSelectEditor,
@@ -17,7 +20,10 @@ define([
   MakersEditor,
   TagsEditor,
   YoutubeVideosEditor,
-  ImageEditor
+  ImagesEditor,
+  ImageEditor,
+  ImagesCollection
+  //ImageEditor
 ) {
   
   return BaseForm.extend({
@@ -29,6 +35,14 @@ define([
       this.fields.tags.schema.options           = opts.refs.tags;
       this.fields.tags.schema.tag_categories    = opts.refs.tag_categories;
       this.fields.youtube_videos.schema.options = opts.refs.youtube_videos;
+      this.fields.thumbnail_image.schema.options = opts.refs.images;
+      this.fields.images.schema.options          = opts.refs.images;
+      var obj = this;
+      // Make sure all image lists get updated
+      this.listenTo(opts.refs.images, 'add change remove', function() {
+        obj.getEditor('images').refresh();
+        obj.getEditor('thumbnail_image').refresh();
+      });
     },
     
     schema: {
@@ -72,12 +86,13 @@ define([
       sizes: {
         type: 'TextArea'
       },
-      thumbnail: { 
+      thumbnail_image: { 
+        title: 'Thumbnail',
         type: ImageEditor,
         options: []
       },
-      image: { 
-        type: ImageEditor,
+      images: { 
+        type: ImagesEditor,
         options: []
       },
       youtube_videos: {

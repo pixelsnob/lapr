@@ -4,7 +4,7 @@
  */
 define([
   'forms/base',
-  'views/forms/editors/file/image'
+  'views/admin/editors/file/image'
 ], function(
   BaseForm,
   ImageEditor

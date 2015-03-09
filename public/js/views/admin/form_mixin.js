@@ -25,7 +25,7 @@ define([
     },
 
     render: function() {
-      this.$el.append(template.render('admin/form', this.model.toJSON())); 
+      this.$el.append(template.render('admin/list_item', this.model.toJSON())); 
       return this;
     },
 

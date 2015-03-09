@@ -14,7 +14,8 @@ define([
   'collections/tag_categories',
   'collections/selected_tags',
   'collections/selected_categories',
-  'collections/youtube_videos'
+  'collections/youtube_videos',
+  'collections/images'
 ], function(
   ProductModel,
   MakerModel,
@@ -27,7 +28,8 @@ define([
   TagCategoriesCollection,
   SelectedTagsCollection,
   SelectedCategoriesCollection,
-  YoutubeVideosCollection
+  YoutubeVideosCollection,
+  ImagesCollection
 ) {
   return Backbone.Collection.extend({
     
@@ -46,7 +48,8 @@ define([
         tag_categories:       new TagCategoriesCollection,
         selected_tags:        new SelectedTagsCollection,
         selected_categories:  new SelectedCategoriesCollection,
-        youtube_videos:       new YoutubeVideosCollection
+        youtube_videos:       new YoutubeVideosCollection,
+        images:               new ImagesCollection
       };
       this.refs.selected_tags.tags                     = this.refs.tags;
       this.refs.selected_categories.product_categories = this.refs.product_categories;
@@ -63,6 +66,7 @@ define([
         this.refs.tags.reset(stored.tags),
         this.refs.tag_categories.reset(stored.tag_categories)
         this.refs.youtube_videos.reset(stored.youtube_videos)
+        this.refs.images.reset(stored.images)
         deferred.resolve();
         return deferred.promise();
       } else {
@@ -73,7 +77,8 @@ define([
             makers: res.makers,
             tags: res.tags,
             tag_categories: res.tag_categories,
-            youtube_videos: res.youtube_videos
+            youtube_videos: res.youtube_videos,
+            images: res.images
           };
           sessionStorage.setItem('lapr-products', JSON.stringify(data));
         });
@@ -87,6 +92,7 @@ define([
       this.refs.tags.reset(res.tags); 
       this.refs.tag_categories.reset(res.tag_categories); 
       this.refs.youtube_videos.reset(res.youtube_videos); 
+      this.refs.images.reset(res.images); 
       return res.products;
     },
 
