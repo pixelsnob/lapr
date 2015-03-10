@@ -9,7 +9,6 @@ define([
   './editors/makers',
   './editors/tags',
   './editors/youtube_videos',
-  './editors/images',
   './editors/file/image'
 ], function(
   BaseForm,
@@ -18,7 +17,6 @@ define([
   MakersEditor,
   TagsEditor,
   YoutubeVideosEditor,
-  ImagesEditor,
   ImageEditor
 ) {
   
