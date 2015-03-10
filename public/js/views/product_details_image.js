@@ -23,17 +23,11 @@ define([
     
     render: function() {
       var product        = this.model.toJSON(),
-          product_images = this.model.get('images'),
+          product_image  = this.model.get('image'),
           obj            = this;
-      if (product_images.length) {
-        product_images = product_images.map(function(image_id) {
-          return obj.refs.images.findWhere({ _id: image_id });
-        }).map(function(image) {
-          return image.toJSON();
-        });
+      if (product_image) {
         this.$el.html(template.render('partials/product_details_image', {
-          product: product,
-          images: product_images
+          product: product
         }));
       }
       return this;

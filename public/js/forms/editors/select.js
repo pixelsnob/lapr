@@ -26,6 +26,7 @@ define([
         editor_id: this.id
       }));
       this.$select = this.$el.find('select');
+      //this.listenTo(this.schema.options, 'add remove change', this.refresh);
     },
 
     setValue: function(value) {

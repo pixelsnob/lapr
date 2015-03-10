@@ -106,7 +106,7 @@ module.exports = function(app) {
             res.send(product);
           },
           html: function() {
-            product.populate('categories makers youtube_videos images',
+            product.populate('categories makers youtube_videos',
             function(err, product) {
               if (err) {
                 return next(err);
@@ -137,7 +137,7 @@ module.exports = function(app) {
               page_count:  page_count,
               item_count:  item_count
             });
-          }, { sortBy: { name: 1 }, populate: 'makers images thumbnail_image' });
+          }, { sortBy: { name: 1 }, populate: 'makers' });
         },
         json: function() {
           res.send({
@@ -146,8 +146,7 @@ module.exports = function(app) {
             makers: json_data.makers,
             tags: json_data.tags,
             tag_categories: json_data.tag_categories,
-            youtube_videos: json_data.youtube_videos,
-            images:         json_data.images
+            youtube_videos: json_data.youtube_videos
           });
         }
       });
@@ -182,7 +181,7 @@ module.exports = function(app) {
               res.send(products);
             }
           });
-        }, { populate: 'makers images thumbnail_image', sortBy : { name: 1 } });
+        }, { populate: 'makers', sortBy : { name: 1 } });
       });
     },
     
@@ -217,7 +216,7 @@ module.exports = function(app) {
             res.send(products);
           }
         });
-      }, { populate: 'makers images thumbnail_image', sortBy : { name: 1 } });
+      }, { populate: 'makers', sortBy : { name: 1 } });
     },
     
     getProducts: function(req, res, next) {
@@ -227,8 +226,7 @@ module.exports = function(app) {
         'makers':              'Maker',
         'tags':                'Tag',
         'tag_categories':      'TagCategory',
-        'youtube_videos':      'YoutubeVideo',
-        'images':              'Image'
+        'youtube_videos':      'YoutubeVideo'
       },
       data = [];
       async.each(Object.keys(model_names), function(model_name, cb) {
@@ -290,27 +288,6 @@ module.exports = function(app) {
       ], next);
     },
 
-    // Moves tmp file to permanent destination
-    moveImage: function(req, res, next) {
-      var image_dir = __dirname + '/public/images/';
-      async.waterfall([
-        function(cb) {
-          if (req.body.tmp_thumbnail) {
-            return fs.rename(req.body.tmp_thumbnail, image_dir +
-              req.body.thumbnail, cb);
-          }
-          cb();
-        },
-        function(cb) {
-          if (req.body.tmp_image) {
-            return fs.rename(req.body.tmp_image, image_dir +
-              req.body.image, cb);
-          }
-          cb();
-        }
-      ], next);
-    },
-    
     /**
      * Auth stuff
      * 

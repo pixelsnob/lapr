@@ -34,7 +34,7 @@ define([
       var product_makers   = this.model.get('makers'),
           product_videos   = this.model.get('youtube_videos'),
           product_range    = this.model.get('range'),
-          product_images   = this.model.get('images'),
+          product_image    = this.model.get('image'),
           product          = this.model.toJSON(),
           obj              = this,
           makers_list      = '';
@@ -63,16 +63,11 @@ define([
         this.$el.find('.range').html(range_view.render().el);
       }
       // Image loading stuff
-      if (_.isArray(product_images) && product_images.length) {
-        var image = this.refs.images.findWhere({
-          _id: product_images[0]
+      if (product_image) {
+        var image_onload_view = new ImageOnloadView({
+          el:    this.$el.find('.image'),
+          src:   '/images/' + product_image 
         });
-        if (image) {
-          var image_onload_view = new ImageOnloadView({
-            el:    this.$el.find('.image'),
-            src:   '/images/' + image.get('name') 
-          });
-        }
       }
       return this;
     },

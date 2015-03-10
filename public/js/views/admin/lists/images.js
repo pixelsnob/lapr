@@ -15,14 +15,14 @@ define([
   return  ListBaseView.extend({
     view: ImageView,
     title: 'Images',
-    paged: true,
+    paged: true/*,
     
     initialize: function(opts) {
       ListBaseView.prototype.initialize.apply(this, arguments);
       this.collection = new ImagesCollection(this.collection.models); 
       this.collection.getFirstPage();
       this.listenTo(this.collection, 'change add remove', this.render);
-    }
+    }*/
 
   });
     

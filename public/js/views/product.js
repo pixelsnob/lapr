@@ -66,13 +66,11 @@ define([
       }));
       this.$el.attr('id', this.model.id);
       // Image loading stuff
-      var thumbnail = this.products.refs.images.findWhere({
-        _id: this.model.get('thumbnail_image')
-      });
+      var thumbnail = this.model.get('thumbnail');
       if (thumbnail) {
         var image_onload_view = new ImageOnloadView({
           el:    this.$el.find('.image'),
-          src:   '/images/' + thumbnail.get('name') 
+          src:   '/images/' + thumbnail 
         });
       }
       return this;
