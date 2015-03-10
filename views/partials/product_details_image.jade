@@ -1,3 +1,9 @@
 
-img(src="/images/#{product.image}", alt="#{product.name}")
-
+if _.isArray(images) && images.length
+  ul
+    each image in images
+      li
+        img(src="/images/#{image.name}", alt="#{product.name}")
+  //-.pager
+  //-  a.glyphicon.glyphicon-chevron-left.previous
+  //-  a.glyphicon.glyphicon-chevron-right.next

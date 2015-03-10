@@ -203,8 +203,15 @@ table {
 }
 
 .product-details-image {
-  img {
-    width: 100%;
+  ul {
+    padding: 0;
+    list-style: none;
+    li {
+      margin: 0 0 20px 0;
+      img {
+        width: 100%;
+      }
+    }
   }
 }
 
@@ -309,7 +316,7 @@ table {
 
 @media only screen and (max-width: 767px) {
   body {
-    padding: 0 !important;
+    /*padding: 0 !important;*/
   }
   #main {
     .products {

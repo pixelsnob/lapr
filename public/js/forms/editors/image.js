@@ -15,8 +15,13 @@ define([
 ) {
   return SelectEditorView.extend({
     
-    list_view: ImagesView
+    list_view: ImagesView,
 
+    render: function() {
+      SelectEditorView.prototype.render.apply(this);
+      this.$select.prepend('<option value="">');
+      return this;
+    }
 
   });
 });
