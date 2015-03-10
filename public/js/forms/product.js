@@ -4,15 +4,14 @@
  */
 define([
   'forms/base',
-  'views/admin/editors/multi_select',
-  'views/admin/editors/product_categories',
-  'views/admin/editors/makers',
-  'views/admin/editors/tags',
-  'views/admin/editors/youtube_videos',
-  'views/admin/editors/images',
-  'views/admin/editors/image',
+  './editors/multi_select',
+  './editors/product_categories',
+  './editors/makers',
+  './editors/tags',
+  './editors/youtube_videos',
+  './editors/images',
+  './editors/image',
   'collections/images'
-  //'views/admin/editors/file/image'
 ], function(
   BaseForm,
   MultiSelectEditor,

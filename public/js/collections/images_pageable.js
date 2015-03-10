@@ -17,8 +17,8 @@ define([
     mode: 'client',
 
     state: {
-      pageSize: 50,
-      perPage: 50
+      pageSize: 125
+      //perPage: 50
     },
 
     comparator: 'name'
