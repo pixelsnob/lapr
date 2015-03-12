@@ -15,8 +15,10 @@ define([
   return ListItemBaseView.extend({
     label: 'tag',
     title: 'Tag',
+    
     model: new TagModel,
-    initialize: function() {
+    
+    createForm: function() {
       this.form = new TagForm({
         model:      this.model,
         collection: this.collection

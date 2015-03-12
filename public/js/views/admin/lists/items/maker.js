@@ -15,8 +15,10 @@ define([
   return ListItemBaseView.extend({
     label: 'maker',
     title: 'Maker',
+    
     model: new MakerModel,
-    initialize: function() {
+    
+    createForm: function() {
       this.form = new MakerForm({
         model:      this.model,
         collection: this.collection

@@ -67,13 +67,17 @@ define([
     },
 
     getPreviousPage: function() {
-      this.collection.getPreviousPage();
-      this.render();
+      if (this.collection.hasPreviousPage()) {
+        this.collection.getPreviousPage();
+        this.render();
+      }
     },
 
     getNextPage: function() {
-      this.collection.getNextPage();
-      this.render();
+      if (this.collection.hasNextPage()) {
+        this.collection.getNextPage();
+        this.render();
+      }
     }
     
   });

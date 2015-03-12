@@ -36,16 +36,14 @@ define([
         require([
           'views/admin/product',
           'views/admin/lists/tag_categories',
-          'views/admin/lists/youtube_videos'
-          //'views/admin/pages',
-          //'collections/pages'
+          'views/admin/lists/youtube_videos',
+          'views/admin/lists/products'
         ],
         function(
           ProductView,
           TagCategoriesView,
           YoutubeVideosView,
-          PagesView,
-          PagesCollection
+          ProductsView
         ) {
           obj.events['click .add-product'] = function() {
             obj.addProduct(ProductView);
@@ -56,11 +54,9 @@ define([
           obj.events['click .edit-youtube-videos'] = function() {
             obj.editYoutubeVideos(YoutubeVideosView);
           };
-          /*obj.pages = new PagesCollection;
-          obj.pages.fetch();
-          obj.events['click .edit-pages'] = function() {
-            obj.editPages(PagesView);
-          };*/
+          obj.events['click .edit-products'] = function() {
+            obj.editProducts(ProductsView);
+          };
           obj.delegateEvents(obj.events);
         });
       }
@@ -145,6 +141,15 @@ define([
 
     editPages: function(PagesView) {
       var view = new PagesView({ collection: this.pages });
+      view.renderModal();
+      view.listenTo(view, 'close', function() {
+        view.close();
+      });
+      return true; // true so that BS dropdown closes
+    },
+
+    editProducts: function(ProductsView) {
+      var view = new ProductsView({ collection: this.products });
       view.renderModal();
       view.listenTo(view, 'close', function() {
         view.close();

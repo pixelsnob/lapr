@@ -23,7 +23,6 @@ define([
 
     initialize: function() {
       this.listenTo(this.model, 'save', this.render);
-      //this.listenTo(this.model, 'destroy', this.remove);
     },
 
     render: function() {
@@ -32,6 +31,7 @@ define([
     },
 
     renderEditForm: function(ev) {
+      this.createForm();
       var modal_view = new ModalFormView({ form: this.form });
       modal_view.modal({
         title: 'Edit ' + this.title,
@@ -42,12 +42,12 @@ define([
       this.listenTo(modal_view, 'remove', this.destroy);
       modal_view.listenTo(this, 'save destroy', modal_view.hide);
       this.listenTo(modal_view, 'close', function() {
-        //this.close();
         modal_view.remove();
       });
     },
 
     renderAddForm: function(ev) {
+      this.createForm();
       var modal_view = new ModalFormView({ form: this.form });
       modal_view.modal({
         title: 'Add ' + this.title,
@@ -85,6 +85,14 @@ define([
             });
           }
         }
+      });
+    },
+
+    createForm: function() {
+      this.form = new this.form({
+        model: this.model,
+        collection: this.collection,
+        refs: this.collection.refs
       });
     }
     

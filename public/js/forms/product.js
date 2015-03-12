@@ -74,12 +74,10 @@ define([
       },
       thumbnail: { 
         title: 'Thumbnail',
-        type: ImageEditor,
-        options: []
+        type: ImageEditor
       },
       image: { 
-        type: ImageEditor,
-        options: []
+        type: ImageEditor
       },
       youtube_videos: {
         type: YoutubeVideosEditor,

@@ -15,14 +15,14 @@ define([
   return ListItemBaseView.extend({
     label: 'youtube video',
     title: 'Youtube Video',
+    
     model: new YoutubeVideoModel,
-    initialize: function() {
+    
+    createForm: function() {
       this.form = new YoutubeVideoForm({
         model:      this.model,
         collection: this.collection
       });
-      ListItemBaseView.prototype.initialize.apply(this, arguments);
-
     }
   });
   
