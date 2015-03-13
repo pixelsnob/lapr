@@ -8,7 +8,7 @@ var mongoose   = require('mongoose'),
 var ProductSchema = new mongoose.Schema({
   categories:        [{ type: Number, ref: 'ProductCategory' }],
   name:              String,
-  slug:              String,
+  slug:              { type: String },
   alt_names:         String,
   makers:            [{ type: Number, ref: 'Maker' }],
   description:       String,
@@ -75,10 +75,17 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
   });
 };
 
+// Add a slug if one isn't provided
+ProductSchema.pre('save', function(next) {
+  if (!this.slug) {
+    this.slug = require('../lib/slug')(this.name); 
+  }
+  next();
+});
+
 ProductSchema.plugin(require('mongoose-paginate'));
 module.exports = function(mai) {
   ProductSchema.plugin(mai.plugin, { model: 'Product', startAt: 1 });
   return mongoose.model('Product', ProductSchema);
 };
-
 
