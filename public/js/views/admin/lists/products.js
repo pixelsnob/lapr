@@ -21,12 +21,16 @@ define([
     
     initialize: function(opts) {
       ListBaseView.prototype.initialize.apply(this, arguments);
-      var refs = this.collection.refs;
-      this.collection = new PageableProductsCollection(this.collection.models); 
-      this.collection.refs = refs;
+      var coll = this.collection;
+      this.collection = new PageableProductsCollection(coll.models); 
+      this.collection.refs = coll.refs;
       this.collection.getFirstPage();
       this.listenTo(this.collection, 'change add remove', this.render);
-      refs = null;
+      this.listenTo(this.collection, 'add', function(model) {
+        coll.add(model); 
+        coll.sort();
+      });
+      //coll = null;
     }
 
   });
