@@ -36,6 +36,9 @@ define([
         type: 'Text',
         validators: [ 'required' ]
       },
+      slug: {
+        type: 'Text'
+      },
       description: {
         type: 'TextArea'
       },
