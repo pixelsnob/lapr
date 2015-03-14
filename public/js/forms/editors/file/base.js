@@ -90,6 +90,7 @@ define([
       this.toggleDelete();
       this.updateFilename();
       this.trigger('delete-file', this.model);
+      this.form.fields[this.key].clearError();
       return false;
     },
 
