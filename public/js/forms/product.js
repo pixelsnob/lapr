@@ -9,7 +9,8 @@ define([
   './editors/makers',
   './editors/tags',
   './editors/youtube_videos',
-  './editors/file/image'
+  './editors/file/image',
+  './editors/file/thumbnail'
 ], function(
   BaseForm,
   MultiSelectEditor,
@@ -17,7 +18,8 @@ define([
   MakersEditor,
   TagsEditor,
   YoutubeVideosEditor,
-  ImageEditor
+  ImageEditor,
+  ThumbnailEditor
 ) {
   
   return BaseForm.extend({
@@ -76,8 +78,7 @@ define([
         type: 'TextArea'
       },
       thumbnail: { 
-        title: 'Thumbnail',
-        type: ImageEditor
+        type: ThumbnailEditor
       },
       image: { 
         type: ImageEditor

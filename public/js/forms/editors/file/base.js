@@ -75,9 +75,10 @@ define([
         if (obj.file_model.isValid()) {
           obj.trigger('reader-loaded', reader);
           obj.file_model.upload();
-          obj.$error.text('');
+          obj.form.fields[obj.key].clearError();        
         } else {
-          obj.$error.text(obj.file_model.validationError);
+          obj.form.fields[obj.key].setError(obj.file_model.validationError);
+          obj.$file_input.val('');
         }
       };
       reader.readAsDataURL(file);
