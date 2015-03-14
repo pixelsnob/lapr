@@ -27,10 +27,10 @@ define([
       this.collection.getFirstPage();
       this.listenTo(this.collection, 'change add remove', this.render);
       this.listenTo(this.collection, 'add', function(model) {
+        model.collection = coll; 
         coll.add(model); 
         coll.sort();
       });
-      //coll = null;
     }
 
   });
