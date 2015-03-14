@@ -3,26 +3,24 @@
  * 
  */
 define([
-  'views/base',
+  './base',
   'models/user',
-  'forms/user',
-  'views/admin/form_mixin'
+  'forms/user'
 ], function(
-  BaseView,
+  ListItemBaseView,
   UserModel,
-  UserForm,
-  AdminFormMixin
+  UserForm
 ) {
   
-  var view = BaseView.extend({
-    label: 'maker',
+  return ListItemBaseView.extend({
+    label: 'user',
     title: 'User',
+    
     model: new UserModel,
-    initialize: function() {
-      this.form = new UserForm({ model: this.model });
-    }
+    
+    form: UserForm
+
   });
 
-  return view.mixin(AdminFormMixin);
 });
 

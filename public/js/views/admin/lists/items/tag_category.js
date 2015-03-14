@@ -18,12 +18,8 @@ define([
     
     model: new TagCategoryModel,
     
-    createForm: function() {
-      this.form = new TagCategoryForm({
-        model:      this.model,
-        collection: this.collection
-      });
-    }
+    form: TagCategoryForm
+    
   });
 });
 

@@ -18,12 +18,8 @@ define([
     
     model: new MakerModel,
     
-    createForm: function() {
-      this.form = new MakerForm({
-        model:      this.model,
-        collection: this.collection
-      });
-    }
+    form: MakerForm
+    
   });
 });
 

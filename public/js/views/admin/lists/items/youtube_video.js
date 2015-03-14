@@ -18,12 +18,8 @@ define([
     
     model: new YoutubeVideoModel,
     
-    createForm: function() {
-      this.form = new YoutubeVideoForm({
-        model:      this.model,
-        collection: this.collection
-      });
-    }
+    form: YoutubeVideoForm
+    
   });
   
 });

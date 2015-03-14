@@ -1,26 +1,18 @@
 /**
- * users view
+ * Users view
  * 
  */
 define([
   './base',
-  'views/admin/user'
+  './items/user'
 ], function(
   ListBaseView,
-  AdminListMixin,
   UserView
 ) {
 
   return ListBaseView.extend({
     view: UserView,
-    title: 'Users',
-    
-    initialize: function(opts) {
-      
-    }
+    title: 'Users'
   });
 
-  return view.mixin(AdminListMixin);
-    
 });
-

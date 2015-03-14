@@ -18,12 +18,8 @@ define([
     
     model: new CategoryModel,
     
-    createForm: function() {
-      this.form = new CategoryForm({
-        model:      this.model,
-        collection: this.collection
-      });
-    }
+    form: CategoryForm
+    
   });
 });
 

@@ -21,16 +21,7 @@ define([
     
     model: new ProductModel,
     
-    initialize: function() {
-    },
-
-    createForm: function() {
-      this.form = new ProductForm({
-        model: this.model,
-        collection: this.collection,
-        refs: this.collection.refs
-      });
-    }
+    form: ProductForm
 
   });
 

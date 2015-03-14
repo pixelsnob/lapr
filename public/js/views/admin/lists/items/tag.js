@@ -18,12 +18,7 @@ define([
     
     model: new TagModel,
     
-    createForm: function() {
-      this.form = new TagForm({
-        model:      this.model,
-        collection: this.collection
-      });
-    }
+    form: TagForm
 
   });
 
