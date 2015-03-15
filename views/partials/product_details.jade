@@ -19,14 +19,14 @@ if product.model_no
 if product.price
   dt Price
   dd= product.price
-if product.range
-  dt Range
-  dd= product.range
 if product.sizes
   dt Sizes
   dd= product.sizes
-
-.range
+if product.range
+  dt Range
+  dd
+    span= product.range
+    .range
 
 .sounds
   if product.youtube_videos && product.youtube_videos.length

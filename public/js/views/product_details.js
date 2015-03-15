@@ -47,6 +47,7 @@ define([
         product: product,
         makers:  makers_list
       }));
+      // Youtube videos
       var $youtube_player = this.$el.find('.youtube-player');
       $youtube_player.hide();
       if (product_videos.length) {
@@ -58,6 +59,7 @@ define([
         this.$el.find('.youtube-player').html(yt_view.render().el);
         $youtube_player.show();
       }
+      // Range notation, if any
       if (product_range.length) {
         var range_view = new RangeView({ range: product_range });
         this.$el.find('.range').html(range_view.render().el);
