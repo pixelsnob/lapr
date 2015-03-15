@@ -11,7 +11,7 @@ var TagCategorySchema = new db.Schema({
 TagCategorySchema.pre('remove', function(next) {
   db.model('Tag').update(
     { category: this._id },
-    { $pull: { category: this._id }},
+    { $set: { category: 0 }},
     { multi: true },
     next
   );
