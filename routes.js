@@ -296,7 +296,7 @@ module.exports = function(app) {
       if (req.isAuthenticated()) {
         return res.redirect('/');
       }
-      res.render('cms/login_form');
+      res.render('login_form');
     },
     
     login: function(req, res, next) {
