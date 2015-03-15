@@ -18,7 +18,7 @@ define([
     
     model: new YoutubeVideoModel,
     
-    form: YoutubeVideoForm
+    form_obj: YoutubeVideoForm
     
   });
   

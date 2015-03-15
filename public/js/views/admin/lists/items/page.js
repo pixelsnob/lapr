@@ -18,7 +18,7 @@ define([
     
     model: new PageModel,
     
-    form: PageForm
+    form_obj: PageForm
     
   });
 });

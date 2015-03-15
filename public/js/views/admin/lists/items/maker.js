@@ -18,7 +18,7 @@ define([
     
     model: new MakerModel,
     
-    form: MakerForm
+    form_obj: MakerForm
     
   });
 });

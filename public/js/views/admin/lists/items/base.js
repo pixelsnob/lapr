@@ -87,9 +87,9 @@ define([
         }
       });
     },
-
+    
     createForm: function() {
-      this.form = new this.form({
+      this.form = new this.form_obj({
         model: this.model,
         collection: this.collection,
         refs: this.collection.refs

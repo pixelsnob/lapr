@@ -21,7 +21,7 @@ define([
     
     model: new ProductModel,
     
-    form: ProductForm
+    form_obj: ProductForm
 
   });
 

@@ -18,7 +18,7 @@ define([
     
     model: new CategoryModel,
     
-    form: CategoryForm
+    form_obj: CategoryForm
     
   });
 });

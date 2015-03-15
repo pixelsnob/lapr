@@ -18,7 +18,7 @@ define([
     
     model: new UserModel,
     
-    form: UserForm
+    form_obj: UserForm
 
   });
 

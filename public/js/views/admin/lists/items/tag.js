@@ -18,7 +18,7 @@ define([
     
     model: new TagModel,
     
-    form: TagForm
+    form_obj: TagForm
 
   });
 

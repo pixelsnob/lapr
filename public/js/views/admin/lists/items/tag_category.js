@@ -18,7 +18,7 @@ define([
     
     model: new TagCategoryModel,
     
-    form: TagCategoryForm
+    form_obj: TagCategoryForm
     
   });
 });
