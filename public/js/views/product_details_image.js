@@ -5,10 +5,12 @@
 define([
   'views/base',
   'views/modal',
+  'views/image_onload',
   'template'
 ], function(
   BaseView,
   ModalView,
+  ImageOnloadView,
   template
 ) {
   
@@ -29,6 +31,10 @@ define([
         this.$el.html(template.render('partials/product_details_image', {
           product: product
         }));
+        var image_onload_view = new ImageOnloadView({
+          el:    this.$el,
+          src:   '/images/' + product_image 
+        });
       }
       return this;
     },
