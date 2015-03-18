@@ -81,12 +81,18 @@ define([
       modal_view.render({
         body: this.$el
       });
-      this.listenTo(modal_view, 'hide', this.close);
+      var obj = this;
+      this.listenTo(modal_view, 'close', _.bind(this.trigger, this, 'close'));
     },
 
     showImageModal: function() {
       var view = new ProductDetailsImageView({ model: this.model });
       view.renderModal();
+    },
+
+    close: function() {
+      BaseView.prototype.close.apply(this, arguments);      
+      this.trigger('modal-close');
     }
 
   });

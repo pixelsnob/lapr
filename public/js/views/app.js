@@ -7,6 +7,7 @@ define([
   'views/products',
   'views/products_search',
   'views/products_tags_search',
+  'views/product_details',
   'collections/products',
   'collections/pages'
 ], function(
@@ -14,6 +15,7 @@ define([
   ProductsView,
   ProductsSearchView,
   ProductsTagsSearchView,
+  ProductDetailsView,
   ProductsCollection,
   PagesCollection
 ) {
@@ -30,36 +32,14 @@ define([
     initialize: function() {
       this.products = new ProductsCollection;
       this.deferred = this.products.fetch();
-      // Admin stuff if user is logged in
-      var obj = this;
       if (window.lapr.user) {
-        require([
-          'views/admin/product',
-          'views/admin/lists/tag_categories',
-          'views/admin/lists/youtube_videos',
-          'views/admin/lists/products'
-        ],
-        function(
-          ProductView,
-          TagCategoriesView,
-          YoutubeVideosView,
-          ProductsView
-        ) {
-          obj.events['click .add-product'] = function() {
-            obj.addProduct(ProductView);
-          };
-          obj.events['click .edit-tag-categories'] = function() {
-            obj.editTagCategories(TagCategoriesView);
-          };
-          obj.events['click .edit-youtube-videos'] = function() {
-            obj.editYoutubeVideos(YoutubeVideosView);
-          };
-          obj.events['click .edit-products'] = function() {
-            obj.editProducts(ProductsView);
-          };
-          obj.delegateEvents(obj.events);
-        });
+        this.initAdmin();
       }
+      var obj = this;
+      // Remove modals on browser "back"
+      window.onpopstate = function(ev) {
+        obj.$el.removeClass('modal-open').end().find('.modal').remove();
+      };
     },
     
     navigate: function(ev) {
@@ -76,13 +56,13 @@ define([
       var obj = this;
       this.deferred.done(function() {
         if (!obj.$el.find('#main .products-categories-search').length) {
-          if (this.current_view) {
-            this.current_view.close();
+          if (obj.current_view) {
+            obj.current_view.close();
           }
-          this.current_view = new ProductsSearchView({
+          obj.current_view = new ProductsSearchView({
             products: obj.products
           });
-          obj.$el.find('#main').html(this.current_view.render().el);
+          obj.$el.find('#main').html(obj.current_view.render().el);
         }
         obj.products.refs.selected_categories.setFromSlug(category);
         obj.products.filterByCategory();
@@ -94,18 +74,84 @@ define([
       var obj = this;
       this.deferred.done(function() {
         if (!obj.$el.find('#main .products-tags-search').length) {
-          if (this.current_view) {
-            this.current_view.close();
+          if (obj.current_view) {
+            obj.current_view.close();
           }
-          this.current_view = new ProductsTagsSearchView({
+          obj.current_view = new ProductsTagsSearchView({
             products: obj.products
           });
-          obj.$el.find('#main').html(this.current_view.render().el);
+          obj.$el.find('#main').html(obj.current_view.render().el);
         }
         obj.products.refs.selected_tags.setFromArray(tags);
         obj.products.filterByTags();
       });
       return false;
+    },
+
+    // Shows product details as a modal, and "underneath" we show the 
+    // products list showing the first category the product belongs to
+    showProductDetails: function(product_id) {
+      var obj = this;
+      this.deferred.done(function() {
+        var product = obj.products.findWhere({ _id: Number(product_id) });
+        if (product) {
+          var product_view = new ProductDetailsView({
+            model: product,
+            refs: obj.products.refs
+          });
+          //obj.$el.find('#main').html(product_view.render().el);
+          var cats = product.get('categories');
+          if (_.isArray(cats) && cats.length) {
+            var category = obj.products.refs.product_categories.findWhere({
+              _id: Number(cats[0])
+            });
+            if (category) {
+              obj.showProductsByCategory(category.get('slug'));
+            }
+            obj.$el.find('.modal').remove();
+            product_view.renderModal();
+            product_view.on('close', function() {
+              Backbone.history.navigate('/instruments/categories/' +
+                category.get('slug'), { trigger: false });
+            });
+          }
+        }
+      });
+      return false;
+    },
+
+    /**
+     * Admin stuff
+     * 
+     */
+    initAdmin: function() {
+      var obj = this;
+      require([
+        'views/admin/product',
+        'views/admin/lists/tag_categories',
+        'views/admin/lists/youtube_videos',
+        'views/admin/lists/products'
+      ],
+      function(
+        ProductView,
+        TagCategoriesView,
+        YoutubeVideosView,
+        ProductsView
+      ) {
+        obj.events['click .add-product'] = function() {
+          obj.addProduct(ProductView);
+        };
+        obj.events['click .edit-tag-categories'] = function() {
+          obj.editTagCategories(TagCategoriesView);
+        };
+        obj.events['click .edit-youtube-videos'] = function() {
+          obj.editYoutubeVideos(YoutubeVideosView);
+        };
+        obj.events['click .edit-products'] = function() {
+          obj.editProducts(ProductsView);
+        };
+        obj.delegateEvents(obj.events);
+      });
     },
 
     addProduct: function(ProductView) {
@@ -128,7 +174,7 @@ define([
         collection: this.products.refs.tag_categories
       });
       view.renderModal();
-      return true; // true so that BS dropdown closes
+      return true;
     },
 
     editYoutubeVideos: function(YoutubeVideosView) {
@@ -136,7 +182,7 @@ define([
         collection: this.products.refs.youtube_videos
       });
       view.renderModal();
-      return true; // true so that BS dropdown closes
+      return true;
     },
 
     editPages: function(PagesView) {
@@ -145,7 +191,7 @@ define([
       view.listenTo(view, 'close', function() {
         view.close();
       });
-      return true; // true so that BS dropdown closes
+      return true;
     },
 
     editProducts: function(ProductsView) {
@@ -154,7 +200,7 @@ define([
       view.listenTo(view, 'close', function() {
         view.close();
       });
-      return true; // true so that BS dropdown closes
+      return true;
     }
 
   });

@@ -6,18 +6,24 @@ define([
   return Backbone.Router.extend({
 
     routes: {
+      '':                                  'showIndex',
       'instruments':                       'showProductsByCategory',
       'instruments/':                      'showProductsByCategory',
       'instruments/categories/:category':  'showProductsByCategory',
       'instruments/tags':                  'showProductsByTags',
       'instruments/tags/':                 'showProductsByTags',
-      'instruments/tags/:tags':            'showProductsByTags'
+      'instruments/tags/:tags':            'showProductsByTags',
+      'instruments/:slug/:product_id':     'showProductDetails'
     },
 
     initialize: function(opts) {
       this.app_view = opts.app_view;
     },
     
+    showIndex: function() {
+      this.app_view.showIndex();
+    },
+
     showProductsByCategory: function(category) {
       this.app_view.showProductsByCategory(category);
     },
@@ -25,6 +31,10 @@ define([
     showProductsByTags: function(tags) {
       tags = (tags && tags.length ? tags.split(',') : []);
       this.app_view.showProductsByTags(tags);
+    },
+
+    showProductDetails: function(slug, product_id) {
+      this.app_view.showProductDetails(product_id);
     }
 
   });

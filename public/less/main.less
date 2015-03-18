@@ -27,6 +27,7 @@
 
 @import './buttons.less';
 @import './lists.less';
+@import './effects.less';
 
 body {
   background-color: @bg-color;
@@ -64,6 +65,49 @@ table {
   background-color: transparent;
   border: none;
 }
+
+.thin-nav {
+  position: fixed;
+  top: 0;
+  height: 30px;
+  width: auto;
+  background-color: #000;
+  overflow: hidden;
+  ul {
+    padding: 2px 7px; 
+    width: 10000px;
+    overflow: hidden;
+  }
+  li {
+    margin: 0;
+    display: inline;
+    font-size: 11px;
+    margin-right: 4px;
+    a {
+      white-space: nowrap;
+      color: #444;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+/*
+.peekaboo-image {
+  width: 100%;
+  height: 200px;
+  background-position: 50% 50%;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  &:hover {
+    background-position: 50% 0%;
+    height: 100%;
+  }
+}
+*/
 
 .noselect {
   -webkit-touch-callout: none;
@@ -205,6 +249,7 @@ table {
 .product-details-image {
   img {
     width: 100%;
+    display: none;
   }
 }
 
