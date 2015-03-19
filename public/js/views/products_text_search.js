@@ -21,6 +21,7 @@ define([
     
     initialize: function(opts) {
       this.products = opts.products;
+      // Create products index to run searches on
       this.products_index = lunr(function() {
         this.ref('_id');
         this.field('name');
@@ -35,9 +36,9 @@ define([
     render: function() {
       var form_obj  = new TextSearchForm,
           form      = form_obj.render(),
+          $input    = form.$el.find('input'),
           obj       = this;
-      form.$el.find('input').typeahead({
-        //minLength: 3,
+      $input.typeahead({
         highlight: true
       },
       {
@@ -50,12 +51,19 @@ define([
               _id: Number(product.ref)
             });
             if (product_model) {
-              products.push({ value: product_model.get('name') });
+              products.push({ value: product_model.get('name'), model: product_model });
             }
           });
           cb(products.splice(0, 20)); 
         }
-      }); 
+      }).on('typeahead:selected', function(ev, product) {
+        // View product details
+        var url = '/instruments/' + product.model.get('slug') + '/' +
+                  product.model.id;
+        Backbone.history.navigate(url, { trigger: true });
+        $input.typeahead('val', '');
+        return false;
+      });
       return form;
     }
 
