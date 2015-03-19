@@ -96,7 +96,7 @@ define([
 
     // Shows product details as a modal, and "underneath" we show the 
     // products list showing the first category the product belongs to
-    showProductDetails: function(product_id) {
+    showProductDetails: function(product_id, previous_url) {
       var obj = this;
       this.deferred.done(function() {
         var product = obj.products.findWhere({ _id: Number(product_id) });
@@ -105,7 +105,6 @@ define([
             model: product,
             refs: obj.products.refs
           });
-          //obj.$el.find('#main').html(product_view.render().el);
           var cats = product.get('categories');
           if (_.isArray(cats) && cats.length) {
             var category = obj.products.refs.product_categories.findWhere({
@@ -116,16 +115,24 @@ define([
             }
             obj.$el.find('.modal').remove();
             product_view.renderModal();
+            // Return to previous category view, or load one of the categories
+            // this product belongs to
             product_view.on('close', function() {
-              Backbone.history.navigate('/instruments/categories/' +
-                category.get('slug'), { trigger: false });
+              var url;
+              if (previous_url && previous_url.fragment) {
+                url = '/' + previous_url.fragment;
+              } else {
+                url = (previous_url || '/instruments/categories/' +
+                      category.get('slug'));
+              }
+              Backbone.history.navigate(url, { trigger: true });
             });
           }
         }
       });
       return false;
     },
-
+    
     /**
      * Admin stuff
      * 

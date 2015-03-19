@@ -21,16 +21,21 @@ define([
     
     initialize: function(opts) {
       this.products = opts.products;
-      // Create products index to run searches on
+      this.createProductsIndex();
+    },
+
+    createProductsIndex: function() {
       this.products_index = lunr(function() {
         this.ref('_id');
         this.field('name');
         this.field('alt_names');
+        this.field('description');
       });
       var obj = this;
       this.products.each(function(product) {
         obj.products_index.add(product.toJSON()); 
       });
+
     },
 
     render: function() {
@@ -51,7 +56,10 @@ define([
               _id: Number(product.ref)
             });
             if (product_model) {
-              products.push({ value: product_model.get('name'), model: product_model });
+              products.push({
+                value: product_model.get('name'),
+                model: product_model
+              });
             }
           });
           cb(products.splice(0, 20)); 

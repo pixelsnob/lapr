@@ -18,10 +18,20 @@ define([
 
     initialize: function(opts) {
       this.app_view = opts.app_view;
+      // Keep track of history
+      this.history = [];
+      var obj = this;
+      this.listenTo(this, 'route', function (name, args) {
+        obj.history.push({
+          name : name,
+          args : args,
+          fragment : Backbone.history.fragment
+        });
+      });
     },
     
     showIndex: function() {
-      this.app_view.showIndex();
+      //this.app_view.showIndex();
     },
 
     showProductsByCategory: function(category) {
@@ -34,7 +44,11 @@ define([
     },
 
     showProductDetails: function(slug, product_id) {
-      this.app_view.showProductDetails(product_id);
+      var previous_url;
+      if (this.history.length) {
+        previous_url = this.history[this.history.length - 1];
+      }
+      this.app_view.showProductDetails(product_id, previous_url);
     }
 
   });
