@@ -24,6 +24,7 @@ define([
       this.products_index = lunr(function() {
         this.ref('_id');
         this.field('name');
+        this.field('alt_names');
       });
       var obj = this;
       this.products.each(function(product) {
@@ -45,12 +46,14 @@ define([
           var search_res = obj.products_index.search(query),
               products   = [];
           _.each(search_res, function(product) {
-            var product_model = obj.products.findWhere({ _id: Number(product.ref) });
+            var product_model = obj.products.findWhere({
+              _id: Number(product.ref)
+            });
             if (product_model) {
               products.push({ value: product_model.get('name') });
             }
           });
-          cb(products); 
+          cb(products.splice(0, 20)); 
         }
       }); 
       return form;
