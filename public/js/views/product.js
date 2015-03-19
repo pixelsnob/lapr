@@ -84,7 +84,6 @@ define([
     },
     
     onClick: function(ev) {
-      //this.showDetails();
       Backbone.history.navigate('/instruments/' + this.model.get('slug') + '/' +
         this.model.id, { trigger: true });
       return false;

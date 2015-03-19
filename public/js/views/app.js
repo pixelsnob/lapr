@@ -8,6 +8,7 @@ define([
   'views/products_search',
   'views/products_tags_search',
   'views/product_details',
+  'views/products_text_search',
   'collections/products',
   'collections/pages'
 ], function(
@@ -16,6 +17,7 @@ define([
   ProductsSearchView,
   ProductsTagsSearchView,
   ProductDetailsView,
+  TextSearchView,
   ProductsCollection,
   PagesCollection
 ) {
@@ -40,6 +42,10 @@ define([
       window.onpopstate = function(ev) {
         obj.$el.removeClass('modal-open').end().find('.modal').remove();
       };
+      this.deferred.done(function() {
+        var text_search = new TextSearchView({ products: obj.products });
+        obj.$el.find('.text-search').append(text_search.render().el);
+      });
     },
     
     navigate: function(ev) {

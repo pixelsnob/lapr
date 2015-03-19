@@ -25,6 +25,8 @@
     "vex": "~2.2.1",
     "backbone.paginator": "~2.0.2",
     "jplayer": "~2.9.2",
-    "vexflow": "~1.2.27"
+    "vexflow": "~1.2.27",
+    "lunr.js": "~0.5.7",
+    "typeahead.js": "~0.10.5"
   }
 }

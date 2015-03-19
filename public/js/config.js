@@ -17,7 +17,9 @@ define([], function() {
       vex:                  '../bower_components/vex/js/vex',
       vex_dialog:           '../bower_components/vex/js/vex.dialog',
       youtube:              'https://www.youtube.com/iframe_api?noext',
-      vexflow:              '../bower_components/vexflow/releases/vexflow-min'
+      vexflow:              '../bower_components/vexflow/releases/vexflow-min',
+      typeahead:            '../bower_components/typeahead.js/dist/typeahead.jquery',
+      lunr:                 '../bower_components/lunr.js/lunr'
     },
     shim: {
       jade:                  { exports: 'jade' },
@@ -25,7 +27,8 @@ define([], function() {
       'backbone-paginator':  { deps: [ 'backbone' ] },
       bootstrap:             { deps: [ 'jquery' ], exports: '$' },
       youtube:               { exports: 'YT' },
-      vexflow:               { exports: 'Vex' }
+      vexflow:               { exports: 'Vex' },
+      typeahead:             { deps: [ 'jquery' ], exports: '$' }
     }
   });
 });
