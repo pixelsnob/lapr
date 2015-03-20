@@ -29,6 +29,16 @@
 @import './lists.less';
 @import './effects.less';
 
+/** ???? **/
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 body {
   background-color: @bg-color;
   color: @text-color;
@@ -37,6 +47,12 @@ body {
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;*/
+}
+
+.drop-shadow {
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 a:link, a:visited, a:active {
@@ -66,67 +82,43 @@ table {
   border: none;
 }
 
-
-.text-search {
-  input[type="text"] {
-    background: #111;
-  }
-  width: 250px;
-  .tt-dropdown-menu {
-    background: #222;
-    padding: 7px;
-    font-size: 0.9em;
-    width: 400px;
-    text-align: left;
-    /* Highlighted letters in phrase */
-    .tt-highlight {
-      color: #bbb;
+header {
+  .text-search {
+    width: 320px;
+    float: right;
+    text-align: right;
+    input[type="text"] {
+      background: #111;
+      width: 320px;
+      border: 1px solid #888;
     }
-    /* Dropdown hover */
-    .tt-cursor {
-      background: #444;
+    label {
+      display: none;
     }
-    .tt-dataset-products div {
-      color: #ddd;
-      cursor: pointer;
-    }
-  }
-}
-
-.thin-nav {
-  position: fixed;
-  top: 0;
-  height: 30px;
-  width: auto;
-  background-color: #000;
-  overflow: hidden;
-  ul {
-    padding: 2px 7px; 
-    width: 10000px;
-    overflow: hidden;
-  }
-  li {
-    margin: 0;
-    display: inline;
-    font-size: 11px;
-    margin-right: 4px;
-    a {
-      white-space: nowrap;
-      color: #444;
-      &:hover {
-        text-decoration: none;
+    .tt-dropdown-menu {
+      .drop-shadow;      
+      background: #222;
+      text-align: left;
+      padding: 0;
+      div {
+        padding: 2px 7px;
+        font-size: 1em;
+      }
+      /* Highlighted letters in phrase */
+      .tt-highlight {
+        color: #bbb;
+      }
+      /* Dropdown hover */
+      .tt-cursor {
+        background: #444;
+      }
+      .tt-dataset-products div {
+        color: #ddd;
+        cursor: pointer;
       }
     }
   }
-}
 
-.noselect {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 #main {

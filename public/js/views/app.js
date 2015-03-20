@@ -30,7 +30,7 @@ define([
     },
 
     current_view: null,
-
+    
     initialize: function() {
       this.products = new ProductsCollection;
       this.deferred = this.products.fetch();
@@ -110,7 +110,8 @@ define([
             var category = obj.products.refs.product_categories.findWhere({
               _id: Number(cats[0])
             });
-            if (category) {
+            // Show products in same category if not already on the search page
+            if (category && !obj.current_view) {
               obj.showProductsByCategory(category.get('slug'));
             }
             obj.$el.find('.modal').remove();
@@ -119,13 +120,12 @@ define([
             // this product belongs to
             product_view.on('close', function() {
               var url;
-              if (previous_url && previous_url.fragment) {
-                url = '/' + previous_url.fragment;
+              if (previous_url && previous_url) {
+                url = previous_url;
               } else {
-                url = (previous_url || '/instruments/categories/' +
-                      category.get('slug'));
+                url = '/instruments/categories/' + category.get('slug');
               }
-              Backbone.history.navigate(url, { trigger: true });
+              Backbone.history.navigate(url, { trigger: false });
             });
           }
         }

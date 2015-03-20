@@ -37,7 +37,7 @@ define([
       });
 
     },
-
+    
     render: function() {
       var form_obj  = new TextSearchForm,
           form      = form_obj.render(),
@@ -62,16 +62,17 @@ define([
               });
             }
           });
-          cb(products.splice(0, 20)); 
+          cb(products.splice(0, 10)); 
         }
       }).on('typeahead:selected', function(ev, product) {
         // View product details
         var url = '/instruments/' + product.model.get('slug') + '/' +
                   product.model.id;
         Backbone.history.navigate(url, { trigger: true });
-        $input.typeahead('val', '');
         return false;
-      });
+      }).on('blur', function(ev) {
+        $input.typeahead('val', '');
+      }).attr('tabindex', 1);
       return form;
     }
 

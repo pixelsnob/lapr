@@ -3,6 +3,13 @@ define([
   'backbone'
 ], function(Backbone) {
   
+  var navigate  = Backbone.history.navigate,
+      history   = [];
+  Backbone.history.navigate = function(fragment, options){
+    navigate.apply(this, arguments);
+    history.push(fragment);
+  }
+
   return Backbone.Router.extend({
 
     routes: {
@@ -18,18 +25,8 @@ define([
 
     initialize: function(opts) {
       this.app_view = opts.app_view;
-      // Keep track of history
-      this.history = [];
-      var obj = this;
-      this.listenTo(this, 'route', function (name, args) {
-        obj.history.push({
-          name : name,
-          args : args,
-          fragment : Backbone.history.fragment
-        });
-      });
     },
-    
+
     showIndex: function() {
       //this.app_view.showIndex();
     },
@@ -44,12 +41,10 @@ define([
     },
 
     showProductDetails: function(slug, product_id) {
-      var previous_url;
-      if (this.history.length) {
-        previous_url = this.history[this.history.length - 1];
-      }
-      this.app_view.showProductDetails(product_id, previous_url);
+      this.app_view.showProductDetails(product_id, history[history.length - 1]);
     }
 
   });
 });
+
+

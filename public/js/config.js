@@ -5,8 +5,8 @@ define([], function() {
     baseUrl: '/js',
     paths: {
       jquery:               '../bower_components/jquery/dist/jquery',
-      underscore:           '../bower_components/underscore-amd/underscore',
-      backbone:             '../bower_components/backbone-amd/backbone',
+      underscore:           '../bower_components/underscore/underscore',
+      backbone:             '../bower_components/backbone/backbone',
       'backbone-forms':     '../bower_components/backbone-forms/distribution.amd/backbone-forms',
       'backbone-paginator': '../bower_components/backbone.paginator/lib/backbone.paginator',
       'form-editors':       '../bower_components/backbone-forms/distribution.amd/editors',

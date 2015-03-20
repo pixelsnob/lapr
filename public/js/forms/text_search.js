@@ -12,7 +12,8 @@ define([
 
     schema: {
       search: {
-        type: 'Text'
+        type: 'Text',
+        title: ''
       }
     }
     
