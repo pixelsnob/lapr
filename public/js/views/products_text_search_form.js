@@ -31,6 +31,7 @@ define([
       _.each(search_res, function(product) {
         products.push({
           value: product.get('name'),
+          // Pass the model along to have access other fields
           model: product
         });
       });
@@ -52,6 +53,12 @@ define([
         source: function(query, cb) {
           var products = obj.getSearchResults(query);
           cb(products.splice(0, 12)); 
+        },
+        templates: {
+          suggestion: function(data) {
+            var tpl = 'partials/products_text_search_form/suggestion';
+            return template.render(tpl, data.model.toJSON());
+          }
         }
       }).on('typeahead:selected', function(ev, product) {
         // View product details
