@@ -79,6 +79,9 @@ app.route('/instruments')
   .get(routes.showProducts)
   .post(routes.showProducts)
 
+app.route('/instruments/text-search/:search')
+  .get(routes.showProductsTextSearchResults);
+
 app.route('/instruments/categories/all')
   .get(routes.showProducts)
   .post(routes.showProducts);

@@ -20,7 +20,8 @@ define([
       'instruments/tags':                  'showProductsByTags',
       'instruments/tags/':                 'showProductsByTags',
       'instruments/tags/:tags':            'showProductsByTags',
-      'instruments/:slug/:product_id':     'showProductDetails'
+      'instruments/text-search/:search':   'showProductsByTextSearch',
+      'instruments/:slug/:product_id':     'showProductDetails',
     },
 
     initialize: function(opts) {
@@ -40,9 +41,14 @@ define([
       this.app_view.showProductsByTags(tags);
     },
 
+    showProductsByTextSearch: function(search) {
+      this.app_view.showProductsByTextSearch(search);
+    },
+
     showProductDetails: function(slug, product_id) {
       this.app_view.showProductDetails(product_id, history[history.length - 1]);
-    }
+    },
+    
 
   });
 });

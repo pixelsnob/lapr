@@ -1,17 +1,15 @@
 /**
- * Products text search form
+ * Products text search results
  * 
  */
 define([
   'views/base',
-  'forms/text_search',
-  'lunr',
-  'template',
-  'typeahead'
+  'views/products',
+  //'views/product_category_header',
+  'template'
 ], function(
   BaseView,
-  TextSearchForm,
-  lunr,
+  ProductsView,
   template
 ) {
   return BaseView.extend({ 
@@ -21,59 +19,27 @@ define([
     
     initialize: function(opts) {
       this.products = opts.products;
-      this.createProductsIndex();
+      this.products_view = new ProductsView({
+        collection:         this.products
+      });
     },
 
-    createProductsIndex: function() {
-      this.products_index = lunr(function() {
-        this.ref('_id');
-        this.field('name');
-        this.field('alt_names');
-        this.field('description');
-      });
-      var obj = this;
-      this.products.each(function(product) {
-        obj.products_index.add(product.toJSON()); 
-      });
-
-    },
-    
     render: function() {
-      var form_obj  = new TextSearchForm,
-          form      = form_obj.render(),
-          $input    = form.$el.find('input'),
-          obj       = this;
-      $input.typeahead({
-        highlight: true
-      },
-      {
-        name: 'products',
-        source: function(query, cb) {
-          var search_res = obj.products_index.search(query),
-              products   = [];
-          _.each(search_res, function(product) {
-            var product_model = obj.products.findWhere({
-              _id: Number(product.ref)
-            });
-            if (product_model) {
-              products.push({
-                value: product_model.get('name'),
-                model: product_model
-              });
-            }
-          });
-          cb(products.splice(0, 10)); 
-        }
-      }).on('typeahead:selected', function(ev, product) {
-        // View product details
-        var url = '/instruments/' + product.model.get('slug') + '/' +
-                  product.model.id;
-        Backbone.history.navigate(url, { trigger: true });
-        return false;
-      }).on('blur', function(ev) {
-        $input.typeahead('val', '');
-      }).attr('tabindex', 1);
-      return form;
+      this.$el.html(template.render('partials/products_search', {
+        products: [],
+        paginate: null,
+        heading:  'Search Results'
+      }));
+      this.$el.addClass('products-text-search');
+      this.products_view.setElement(this.$el.find('.products'));
+      return this;
+    },
+
+    onClose: function() {
+      this.products.trigger('kill');
+      this.products.unbind();
+      this.products.unbindRefs();
+      this.products.refs.filtered_products.reset();
     }
 
   });

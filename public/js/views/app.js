@@ -7,8 +7,9 @@ define([
   'views/products',
   'views/products_search',
   'views/products_tags_search',
-  'views/product_details',
   'views/products_text_search',
+  'views/products_text_search_form',
+  'views/product_details',
   'collections/products',
   'collections/pages'
 ], function(
@@ -16,8 +17,9 @@ define([
   ProductsView,
   ProductsSearchView,
   ProductsTagsSearchView,
+  ProductsTextSearchView,
+  ProductsTextSearchFormView,
   ProductDetailsView,
-  TextSearchView,
   ProductsCollection,
   PagesCollection
 ) {
@@ -43,7 +45,7 @@ define([
         obj.$el.removeClass('modal-open').end().find('.modal').remove();
       };
       this.deferred.done(function() {
-        var text_search = new TextSearchView({ products: obj.products });
+        var text_search = new ProductsTextSearchFormView({ products: obj.products });
         obj.$el.find('.text-search').append(text_search.render().el);
       });
     },
@@ -90,6 +92,23 @@ define([
         }
         obj.products.refs.selected_tags.setFromArray(tags);
         obj.products.filterByTags();
+      });
+      return false;
+    },
+
+    showProductsByTextSearch: function(search) {
+      var obj = this;
+      this.deferred.done(function() {
+        if (!obj.$el.find('#main .products-text-search').length) {
+          if (obj.current_view) {
+            obj.current_view.close();
+          }
+          obj.current_view = new ProductsTextSearchView({
+            products: obj.products
+          });
+          obj.$el.find('#main').html(obj.current_view.render().el);
+        }
+        obj.products.filterByTextSearch(search);
       });
       return false;
     },

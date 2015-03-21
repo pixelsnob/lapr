@@ -184,6 +184,28 @@ module.exports = function(app) {
         }, { populate: 'makers', sortBy : { name: 1 } });
       });
     },
+
+    showProductsTextSearchResults: function(req, res, next) {
+      var search = req.params.search;
+      db.model('Product').search({}, {}, search, function(err, products) {
+        if (err) {
+          return next(err);
+        }
+        res.format({
+          html: function() {
+            res.render('products_search', {
+              heading:            'Search Results',
+              products:           products,
+              page_count:         0,
+              item_count:         0
+            });
+          },
+          json: function() {
+            res.send(products);
+          }
+        });
+      });
+    },
     
     showProductsByTags: function(req, res, next) {
       var tags  = (typeof req.params.tags != 'undefined' ?
