@@ -22,7 +22,7 @@ define([
       if (this.src) {
         if (loaded_images_collection.findWhere({ src: this.src })) {
           this.render();
-          this.$el.find('img').fadeIn(1000);
+          this.$el.find('img').show();
           this.trigger('loaded');
         } else {
           var tmp_img = new Image;
