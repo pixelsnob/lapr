@@ -29,17 +29,18 @@ define([
           products   = [],
           obj        = this;
       _.each(search_res, function(product) {
+        product = product.toJSON();
         if (_.isArray(product.makers) && product.makers.length) {
           product.makers = product.makers.map(function(maker_id) {
             return obj.products.refs.makers.findWhere({
               _id: Number(maker_id)
-            });
+            }).toJSON();
           });
         }
         products.push({
-          value: product.get('name'),
+          value: product.name,
           // Pass the model along to have access other fields
-          model: product
+          product: product
         });
       });
       return products;
@@ -63,15 +64,14 @@ define([
         },
         templates: {
           suggestion: function(data) {
-            //console.log(data.model.toJSON());
             var tpl = 'partials/products_text_search_form/suggestion';
-            return template.render(tpl, data.model.toJSON());
+            return template.render(tpl, data.product);
           }
         }
-      }).on('typeahead:selected', function(ev, product) {
+      }).on('typeahead:selected', function(ev, data) {
         // View product details
-        var url = '/instruments/' + product.model.get('slug') + '/' +
-                  product.model.id;
+        var url = '/instruments/' + data.product.slug + '/' +
+                  data.product._id;
         Backbone.history.navigate(url, { trigger: true });
         return false;
       }).on('keypress', function(ev) {
