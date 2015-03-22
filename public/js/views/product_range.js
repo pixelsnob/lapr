@@ -90,21 +90,33 @@ define([
       return voice;
     },
     
+    getMinOctave: function() {
+      var notes = this.parseRange();
+      return _.min(_.pluck(notes, 'octave'));
+    },
+
+    getMaxOctave: function() {
+      var notes = this.parseRange();
+      return _.max(_.pluck(notes, 'octave'));
+    },
+
     render: function() {
       var notes = this.parseRange();
       if (!notes.length) {
         return this;
       }
-      //console.log(notes);
 
       var canvas = $('<canvas>');
       this.setElement(canvas);
 
       canvas = this.$el.get(0);
 
+      var min_octave = this.getMinOctave(),
+          max_octave = this.getMaxOctave();
+
       canvas.width = 340;
-      canvas.height = 210;
-      
+      canvas.height = (max_octave >= 7 || min_octave < 2 ? 170 : 130);
+
       var canvas_ctx = canvas.getContext("2d");
       canvas_ctx.fillStyle = '#fff';
       canvas_ctx.strokeStyle = '#fff';
@@ -118,11 +130,19 @@ define([
       var start = 7;
       var width = canvas.width;
       
-      var treble = new Vex.Flow.Stave(start, 80, width);
+      var treble = new Vex.Flow.Stave(
+        start,
+        (max_octave >= 7 ? 70 : 30),
+        width
+      );
       treble.setNoteStartX(20);
       treble.addClef('treble');
       
-      var bass = new Vex.Flow.Stave(start, 150, width);
+      var bass = new Vex.Flow.Stave(
+        start,
+        (max_octave >= 7 ? 140 : 100),
+        width
+      );
       bass.setNoteStartX(20);
       bass.addClef('bass');
 
