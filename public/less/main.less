@@ -50,9 +50,9 @@ body {
 }
 
 .drop-shadow {
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.8);
 }
 
 a:link, a:visited, a:active {
@@ -96,25 +96,31 @@ header {
       display: none;
     }
     .tt-dropdown-menu {
+      border: 2px solid #222;
+      width: 320px;
       .drop-shadow;      
       background: #222;
       text-align: left;
+      margin: 0;
       padding: 0;
-      div {
-        padding: 2px 7px;
-        font-size: 12px;
-      }
       /* Highlighted letters in phrase */
-      .tt-highlight {
-        color: #bbb;
-      }
+      /*.tt-highlight {
+        color: #fff;
+      }*/
       /* Dropdown hover */
       .tt-cursor {
         background: #444;
       }
-      .tt-dataset-products div {
-        color: #ddd;
+      .tt-dataset-products {
+        color: #ccc;
         cursor: pointer;
+        .product {
+          font-size: 13px;
+          padding: 4px 7px; 
+          .alt-names {
+            color: #777;
+          }
+        }
       }
     }
   }

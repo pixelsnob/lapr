@@ -29,6 +29,13 @@ define([
           products   = [],
           obj        = this;
       _.each(search_res, function(product) {
+        if (_.isArray(product.makers) && product.makers.length) {
+          product.makers = product.makers.map(function(maker_id) {
+            return obj.products.refs.makers.findWhere({
+              _id: Number(maker_id)
+            });
+          });
+        }
         products.push({
           value: product.get('name'),
           // Pass the model along to have access other fields
@@ -45,17 +52,18 @@ define([
           obj       = this;
       var products = [];
       $input.typeahead({
-        highlight: true,
+        highlight: false,
         hint: false
       },
       {
         name: 'products',
         source: function(query, cb) {
           var products = obj.getSearchResults(query);
-          cb(products.splice(0, 12)); 
+          cb(products.splice(0, 15)); 
         },
         templates: {
           suggestion: function(data) {
+            //console.log(data.model.toJSON());
             var tpl = 'partials/products_text_search_form/suggestion';
             return template.render(tpl, data.model.toJSON());
           }

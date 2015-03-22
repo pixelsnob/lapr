@@ -1,5 +1,11 @@
 
+
 .product
-  .name= name
-    //- if alt_names
-    //-   \(#{alt_names}\)
+  .name
+    #{name}
+  if alt_names
+    span.alt-names
+      \(#{alt_names}\)
+
+  .makers= makers
+
