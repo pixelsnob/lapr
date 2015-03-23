@@ -36,16 +36,22 @@ define([
     initialize: function() {
       this.products = new ProductsCollection;
       this.deferred = this.products.fetch();
-      if (window.lapr.user) {
-        this.initAdmin();
-      }
       var obj = this;
+      if (window.lapr.user) {
+        require([ 'views/admin/app' ], function(AdminApp) {
+          new AdminApp({
+            el: obj.$el,
+            products: obj.products
+          });
+        });
+      }
       // Remove modals on browser "back"
       window.onpopstate = function(ev) {
         obj.$el.removeClass('modal-open').end().find('.modal').remove();
       };
       this.deferred.done(function() {
-        var text_search = new ProductsTextSearchFormView({ products: obj.products });
+        var text_search = new ProductsTextSearchFormView({
+          products: obj.products });
         obj.$el.find('.text-search').append(text_search.render().el);
       });
     },
@@ -150,89 +156,6 @@ define([
         }
       });
       return false;
-    },
-    
-    /**
-     * Admin stuff
-     * 
-     */
-    initAdmin: function() {
-      var obj = this;
-      require([
-        'views/admin/product',
-        'views/admin/lists/tag_categories',
-        'views/admin/lists/youtube_videos',
-        'views/admin/lists/products'
-      ],
-      function(
-        ProductView,
-        TagCategoriesView,
-        YoutubeVideosView,
-        ProductsView
-      ) {
-        obj.events['click .add-product'] = function() {
-          obj.addProduct(ProductView);
-        };
-        obj.events['click .edit-tag-categories'] = function() {
-          obj.editTagCategories(TagCategoriesView);
-        };
-        obj.events['click .edit-youtube-videos'] = function() {
-          obj.editYoutubeVideos(YoutubeVideosView);
-        };
-        obj.events['click .edit-products'] = function() {
-          obj.editProducts(ProductsView);
-        };
-        obj.delegateEvents(obj.events);
-      });
-    },
-
-    addProduct: function(ProductView) {
-      var view = new ProductView({
-        model:              this.model,
-        refs:               this.products.refs,
-        mode:               'add'
-      });
-      view.renderModal();
-      var obj = this;
-      // Add to collection if save is successful
-      this.listenTo(view, 'save', function(model) {
-        obj.products.add(model);
-      });
-      return true; // true so that BS dropdown closes
-    },
-
-    editTagCategories: function(TagCategoriesView) {
-      var view = new TagCategoriesView({
-        collection: this.products.refs.tag_categories
-      });
-      view.renderModal();
-      return true;
-    },
-
-    editYoutubeVideos: function(YoutubeVideosView) {
-      var view = new YoutubeVideosView({
-        collection: this.products.refs.youtube_videos
-      });
-      view.renderModal();
-      return true;
-    },
-
-    editPages: function(PagesView) {
-      var view = new PagesView({ collection: this.pages });
-      view.renderModal();
-      view.listenTo(view, 'close', function() {
-        view.close();
-      });
-      return true;
-    },
-
-    editProducts: function(ProductsView) {
-      var view = new ProductsView({ collection: this.products });
-      view.renderModal();
-      view.listenTo(view, 'close', function() {
-        view.close();
-      });
-      return true;
     }
 
   });
