@@ -3,9 +3,9 @@
 .product
   .name
     #{name}
+    if alt_names
+      span.alt-names
+        \(#{alt_names}\)
     if _.isArray(makers) && makers.length
       em.makers - #{_.pluck(makers, 'name').join(', ')}
-  if alt_names
-    span.alt-names
-      \(#{alt_names}\)
   
