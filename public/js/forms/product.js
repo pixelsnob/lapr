@@ -44,6 +44,11 @@ define([
       description: {
         type: 'TextArea'
       },
+      more_info: {
+        type: 'TextArea',
+        title: 'More Info',
+        help: '<em>Markdown enabled</em>'
+      },
       alt_names: {
         type: 'Text',
         title: 'Alternate Names'

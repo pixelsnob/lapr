@@ -6,6 +6,7 @@ define([
   'views/base',
   'views/modal',
   'views/product_details_image',
+  'views/product_details_more_info',
   'views/product_range',
   'views/youtube_player',
   'views/image_onload',
@@ -14,6 +15,7 @@ define([
   BaseView,
   ModalView,
   ProductDetailsImageView,
+  ProductDetailsMoreInfoView,
   RangeView,
   YoutubePlayerView,
   ImageOnloadView,
@@ -23,7 +25,8 @@ define([
   return BaseView.extend({
     
     events: {
-      'click .image': 'showImageModal'
+      'click .image':      'showImageModal',
+      'click .more-info':  'showMoreInfoModal'
     },
 
     initialize: function(opts) {
@@ -71,6 +74,9 @@ define([
           src:   '/images/' + product_image 
         });
       }
+      if (product.more_info) {
+        this.$el.find('.more-info').show();
+      }
       return this;
     },
     
@@ -87,6 +93,11 @@ define([
 
     showImageModal: function() {
       var view = new ProductDetailsImageView({ model: this.model });
+      view.renderModal();
+    },
+
+    showMoreInfoModal: function() {
+      var view = new ProductDetailsMoreInfoView({ model: this.model });
       view.renderModal();
     },
 
