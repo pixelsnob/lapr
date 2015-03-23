@@ -7,13 +7,17 @@ define([
   'views/admin/product',
   'views/admin/lists/tag_categories',
   'views/admin/lists/youtube_videos',
-  'views/admin/lists/products'
+  'views/admin/lists/products',
+  'views/admin/lists/content_blocks',
+  'collections/content_blocks'
 ], function(
   BaseView,
   ProductView,
   TagCategoriesView,
   YoutubeVideosView,
-  ProductsView
+  ProductsView,
+  ContentBlocksView,
+  ContentBlocksCollection
 ) {
   return BaseView.extend({ 
     
@@ -23,11 +27,14 @@ define([
       'click .add-product':          'addProduct',
       'click .edit-tag-categories':  'editTagCategories',
       'click .edit-youtube-videos':  'editYoutubeVideos',
-      'click .edit-products':        'editProducts'
+      'click .edit-products':        'editProducts',
+      'click .edit-content-blocks':  'editContentBlocks'
     },
 
     initialize: function(opts) {
       this.products = opts.products;
+      this.content_blocks = new ContentBlocksCollection;
+      this.content_blocks_deferred = this.content_blocks.fetch();
     },
 
     addProduct: function() {
@@ -75,6 +82,18 @@ define([
       view.renderModal();
       view.listenTo(view, 'close', function() {
         view.close();
+      });
+      return true;
+    },
+
+    editContentBlocks: function() {
+      var obj = this;
+      this.content_blocks_deferred.done(function(collection) {
+        var view = new ContentBlocksView({ collection: obj.content_blocks });
+        view.renderModal();
+        view.listenTo(view, 'close', function() {
+          view.close();
+        });
       });
       return true;
     }

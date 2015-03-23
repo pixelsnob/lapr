@@ -5,13 +5,11 @@
 define([
   'views/base',
   'forms/text_search',
-  'lunr',
   'template',
   'typeahead'
 ], function(
   BaseView,
   TextSearchForm,
-  lunr,
   template
 ) {
   return BaseView.extend({ 
