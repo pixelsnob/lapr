@@ -73,11 +73,16 @@ define([
       this.$player.show();
     },
     
-    showPreview: function(model) {
+    showPreview: function(model, show_again_link) {
       if (this.open) {
         return;
       }
-      this.$description.html(markdown(model.get('description')));
+      var $desc = $(markdown(model.get('description')));
+      if (show_again_link) {
+        var $again_link = $('<a>').addClass('again').text('Play Again');
+        $desc.append($again_link);
+      }
+      this.$description.html($desc);
       this.$description.addClass('preview');
     },
 
