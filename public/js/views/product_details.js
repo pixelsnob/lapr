@@ -34,28 +34,23 @@ define([
     },
     
     render: function() {
-      var product_makers   = this.model.get('makers'),
-          product_videos   = this.model.get('youtube_videos'),
-          product_range    = this.model.get('range'),
-          product_image    = this.model.get('image'),
-          product          = this.model.toJSON(),
-          obj              = this,
-          makers_list      = '';
-      if (_.isArray(product_makers)) {
-        makers_list = product_makers.map(function(maker_id) {
+      var product          = this.model.toJSON(),
+          obj              = this;
+
+      if (_.isArray(product.makers) && product.makers.length) {
+        product.makers = product.makers.map(function(maker_id) {
           return obj.refs.makers.findWhere({ _id: maker_id });
         }).join(', ');
       }
       this.$el.html(template.render('partials/product_details', {
-        product: product,
-        makers:  makers_list
+        product: product
       }));
       // Youtube videos
       var $youtube_player = this.$el.find('.youtube-player');
       $youtube_player.hide();
-      if (product_videos.length) {
+      if (_.isArray(product.youtube_videos) && product.youtube_videos.length) {
         var yt_view = new YoutubePlayerView({
-          collection: product_videos.map(function(video_id) {
+          collection: product.youtube_videos.map(function(video_id) {
             return obj.refs.youtube_videos.findWhere({ _id: video_id });
           })
         });
@@ -63,15 +58,15 @@ define([
         $youtube_player.show();
       }
       // Range notation, if any
-      if (product_range.length) {
-        var range_view = new RangeView({ range: product_range });
+      if (product.range && product.range.length) {
+        var range_view = new RangeView({ range: product.range });
         this.$el.find('.range').html(range_view.render().el);
       }
       // Image loading stuff
-      if (product_image) {
+      if (product.image && product.image.length) {
         var image_onload_view = new ImageOnloadView({
           el:    this.$el.find('.image'),
-          src:   '/images/' + product_image 
+          src:   '/images/' + product.image
         });
       }
       if (product.more_info) {

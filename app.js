@@ -112,7 +112,8 @@ var models = {
   YoutubeVideo:     '/api/youtube-videos',
   User:             '/api/users',
   Page:             '/api/pages',
-  ContentBlock:     '/api/content-blocks'
+  ContentBlock:     '/api/content-blocks',
+  ProductType:      '/api/product-types'
 };
 
 for (var model in models) {

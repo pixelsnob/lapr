@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mongoimport -d lapr -c temp_product_types --type csv --file /var/www/lapr/var/product_types.csv --headerline --drop --upsert --upsertFields name
+
+echo 'Transforming data...'
+node bin/products/transform_product_types.js
