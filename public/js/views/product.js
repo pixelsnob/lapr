@@ -86,12 +86,13 @@ define([
     onClick: function(ev) {
       Backbone.history.navigate('/instruments/' + this.model.get('slug') + '/' +
         this.model.id, { trigger: true, modal: true });
+      //console.log(this.$el);
       return false;
     },
 
     showDetails: function() {
       var view = new ProductDetailsView({ model: this.model });
-      view.renderModal();
+      //view.renderModal();
       return false;
     },
 

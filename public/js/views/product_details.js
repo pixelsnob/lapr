@@ -76,6 +76,9 @@ define([
     },
     
     renderModal: function(opts) {
+      $('.content-tray').addClass('product-details').html(this.render().el).animate({ left: 0 }, 600);
+      $('#main').fadeTo(.3, 600);
+      return;
       this.render();
       var modal_view = new ModalView;
       modal_view.$el.addClass('product-details');
