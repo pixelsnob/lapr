@@ -140,6 +140,7 @@ module.exports = function(app) {
           }, { sortBy: { name: 1 }, populate: 'makers' });
         },
         json: function() {
+          console.log(_.map(arr, function(o) { return _.omit(o, '__v'); }));
           res.send({
             products: json_data.products,
             product_categories: json_data.product_categories,

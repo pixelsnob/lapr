@@ -1,4 +1,6 @@
 
+@admin-link-color: #555;
+
 select, input, textarea {
   border: 1px solid #bbb;
 }
@@ -27,9 +29,21 @@ select, input, textarea {
   padding-top: 4px;
 }
 
-.product.highlight {
-  background-color: #444 !important;
+.edit-link a {
+  color: @admin-link-color; 
 }
+
+.product {
+  &.highlight {
+    background-color: #444 !important;
+  }
+  .edit {
+    position: absolute;
+    bottom: 5px;
+    left: 12px;
+  }
+}
+
 
 .admin-modal {
   .modal-content {

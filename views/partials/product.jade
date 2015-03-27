@@ -8,15 +8,14 @@
   .details
     h3.name= product.name
 
-    if user
-      p.edit-link
-        a.edit(href="/instruments/#{product.slug}/#{product.id}") Edit
-
     if _.isArray(product.makers) && product.makers.length
       p.makers
         cite= product.makers.map(function(m) { return m.name; }).join(', ')
 
-    //- p.price= product.price
-
     noscript
       a.product-details(href="/instruments/#{product.slug}/#{product.id}") Details
+
+  if user
+    p.edit-link
+      a.edit(href="/instruments/#{product.slug}/#{product.id}") Edit
+

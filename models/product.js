@@ -12,20 +12,20 @@ var ProductSchema = new mongoose.Schema({
   alt_names:         String,
   makers:            [{ type: Number, ref: 'Maker' }],
   description:       String,
-  //old_description:   String,
   more_info:         String,
   model_no:          String,
   price:             String,
   range:             String,
   thumbnail:         String,
-  //thumbnail_image:   { type: Number, ref: 'Image' },
   image:             String,
-  //images:            [{ type: Number, ref: 'Image' }],
-  //old_image:         String,
   sizes:             String,
   octaves:           Number,
   tags:              [{ type: Number, ref: 'Tag' }],
   youtube_videos:    [{ type: Number, ref: 'YoutubeVideo' }]
+  //old_description:   String,
+  //thumbnail_image:   { type: Number, ref: 'Image' },
+  //images:            [{ type: Number, ref: 'Image' }],
+  //old_image:         String,
 });
 
 ProductSchema.statics.findByIdAndPopulate = function(id, cb) {
