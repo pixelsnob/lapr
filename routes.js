@@ -140,8 +140,12 @@ module.exports = function(app) {
           }, { sortBy: { name: 1 }, populate: 'makers' });
         },
         json: function() {
+          var products = json_data.products.map(function(p) {
+            return _.omit(p.toJSON(), [ 'old_description' ]);
+          });
+          //console.log(products);
           res.send({
-            products: json_data.products,
+            products: products,
             product_categories: json_data.product_categories,
             makers: json_data.makers,
             tags: json_data.tags,
@@ -252,7 +256,7 @@ module.exports = function(app) {
       },
       data = [];
       async.each(Object.keys(model_names), function(model_name, cb) {
-        db.model(model_names[model_name]).find({}, null, { sort: { name: 1 }},
+        db.model(model_names[model_name]).find({}, { __v: 0 }, { sort: { name: 1 }},
         function(err, docs) {
           if (err) {
             return cb(err);
