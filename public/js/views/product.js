@@ -69,8 +69,9 @@ define([
       var thumbnail = this.model.get('thumbnail');
       if (thumbnail) {
         var image_onload_view = new ImageOnloadView({
-          el:    this.$el.find('.image'),
-          src:   '/images/' + thumbnail 
+          el:        this.$el.find('.image'),
+          src:       '/images/' + thumbnail,
+          maxHeight: this.$el.parentsUntil('.product').height()
         });
       }
       return this;
