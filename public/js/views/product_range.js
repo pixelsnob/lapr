@@ -114,13 +114,13 @@ define([
       var min_octave = this.getMinOctave(),
           max_octave = this.getMaxOctave();
 
-      canvas.width = 340;
+      canvas.width = 280;
       canvas.height = (max_octave >= 7 || min_octave < 2 ? 170 : 130);
 
       var canvas_ctx = canvas.getContext("2d");
       canvas_ctx.fillStyle = '#fff';
       canvas_ctx.strokeStyle = '#fff';
-      canvas_ctx.scale(0.6, 0.6);
+      canvas_ctx.scale(0.55, 0.55);
 
       var renderer = new Vex.Flow.Renderer(canvas,
         Vex.Flow.Renderer.Backends.CANVAS);

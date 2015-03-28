@@ -31,6 +31,10 @@ define([
 
     initialize: function(opts) {
       this.refs = this.model.collection.refs;
+      var obj = this;
+      $(window).on('resize', function(ev) {
+        obj.$el.find('.image img').css({ width: '100%', position: 'static' });
+      });
     },
     
     render: function() {
@@ -76,9 +80,8 @@ define([
     },
     
     renderModal: function(opts) {
-      $('.content-tray').addClass('product-details').html(this.render().el).animate({ left: 0 }, 600);
-      $('#main').fadeTo(.3, 600);
-      return;
+      //$('.content-tray').addClass('product-details').animate({ left: 0 }, 200).html(this.render().el);
+      //return;
       this.render();
       var modal_view = new ModalView;
       modal_view.$el.addClass('product-details');
@@ -90,8 +93,20 @@ define([
     },
 
     showImageModal: function() {
-      var view = new ProductDetailsImageView({ model: this.model });
-      view.renderModal();
+      //var view = new ProductDetailsImageView({ model: this.model });
+      //view.renderModal();
+      var $img  = this.$el.find('.image img'),
+          $tray = $('.content-tray'),
+          w     = $tray.width(),
+          h     = $tray.height();
+      console.log(w, h);
+      if ($img.width() >= $img.height()) {
+        console.log('w');
+        $img.animate({ width: w - 20 }, 400);
+      } else {
+        console.log('h');
+        $img.animate({ height: h - 20 }, 400);
+      }
     },
 
     showMoreInfoModal: function() {

@@ -43,11 +43,6 @@ body {
   background-color: @bg-color;
   color: @text-color;
   position: relative;
-  /*background-image: url("/images/cocktail_snare.jpg");
-  background-position: top left;
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;*/
 }
 
 .drop-shadow {
@@ -181,13 +176,8 @@ header {
     }
     .image {
       width: 45%;
-      height: 0;
-      padding-bottom: 75%;
-      float: right;
-      position: relative;
+      overflow: hidden;
       img {
-        position: absolute;
-        right: 0;
         max-width: 100%;
         max-height: 100%;
         height: auto;
@@ -230,21 +220,18 @@ header {
   dt, dd {
   }
   .image {
-    /*float: right;
-    margin: 0 0 30px 30px;
-    width: 40%;*/
-    width: 100%;
-    text-align: center;
     img {
+      position: absolute;
+      top: 0;
       width: 100%;
       cursor: pointer;
       display: none;
-      &:hover {
-        opacity: 0.7;
+      /*&:hover {
+        opacity: 0.8;
       }
       &:active {
-        opacity: 0.6;
-      }
+        opacity: 0.7;
+      }*/
       &.noscript {
         display: block;
       }
@@ -311,16 +298,28 @@ header {
 
 .content-tray {
   height: 100%;
-  width: 30%;
-  min-width: 450px;
+  width: 50%;
   position: fixed;
   top: 0;
-  left: -450px;
+  left: -50%;
   z-index: 500;
-  background-color: #111;
+  background-color: rgba(11,11,11,0.97);
   padding: 15px;
   .drop-shadow;
+  .content-tray-inner {
+    overflow: scroll;
+  }
 }
+
+/*@media only screen and (max-width: 992px) {
+  .content-tray {
+    width: 100%;
+    height: auto;
+    position: absolute;
+  }
+}*/
+
+
 
 /* Modals */
 
