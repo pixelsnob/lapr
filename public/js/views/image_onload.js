@@ -18,6 +18,7 @@ define([
     initialize: function(opts) {
       var obj = this;
       this.src = opts.src;
+      this.maxHeight = opts.maxHeight;
       this.setElement(opts.el);
       if (this.src) {
         if (loaded_images_collection.findWhere({ src: this.src })) {
@@ -39,6 +40,9 @@ define([
     
     render: function() {
       this.$el.html($('<img>').attr('src', this.src));
+      if (this.maxHeight) {
+        this.$el.find('img').css({ maxHeight: this.maxHeight });
+      }
       return this;
     }
 

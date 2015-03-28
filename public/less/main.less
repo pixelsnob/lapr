@@ -231,12 +231,13 @@ header {
   .image {
     float: right;
     margin: 0 0 30px 30px;
-    width: 40%;
+    width: 35%;
     text-align: center;
     img {
-      width: 100%;
       cursor: pointer;
       display: none;
+      /*max-height: 400px;*/
+      max-width: 100%;
       &:hover {
         opacity: 0.7;
       }
@@ -249,8 +250,8 @@ header {
     }
   }
   .range {
-    width: 50%;
-    overflow: hidden;
+    /*width: 50%;
+    overflow: hidden;*/
   }
   .more-info {
     display: none;
@@ -258,8 +259,10 @@ header {
 }
 
 .product-details-image {
+  text-align: center;
   img {
-    width: 100%;
+    /*width: 100%;*/
+    max-width: 100%;
     display: none;
   }
 }
@@ -398,10 +401,8 @@ header {
       width: 95%;
     }
   }
-  .modal.product-details-image {
-    .modal-dialog {
-      width: 100%;
-    }
+  .modal-dialog {
+    width: 100%;
   }
 }
 

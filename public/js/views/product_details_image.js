@@ -33,7 +33,8 @@ define([
         }));
         var image_onload_view = new ImageOnloadView({
           el:    this.$el,
-          src:   '/images/' + product_image 
+          src:   '/images/' + product_image, 
+          maxHeight: window.innerHeight * 0.8
         });
       }
       return this;
