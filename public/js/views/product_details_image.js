@@ -28,9 +28,10 @@ define([
           product_image  = this.model.get('image'),
           obj            = this;
       if (product_image) {
-        this.$el.html(template.render('partials/product_details_image', {
+        this.setElement(template.render('partials/product_details_image', {
           product: product
         }));
+        console.log(this.$el);
         var image_onload_view = new ImageOnloadView({
           el:    this.$el,
           src:   '/images/' + product_image, 
