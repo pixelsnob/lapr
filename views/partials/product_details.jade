@@ -1,37 +1,40 @@
 
-.image
-  if product.image
-    img(src="/images/#{product.image}", width="400", title="#{product.name}")
+.container-fluid 
+  .col-xs-7
+    h2= product.name
+    if product.alt_names
+      p.alt-names (#{product.alt_names})
+    if product.makers.length
+      p.makers Mfg. by #{product.makers}
 
-h2= product.name
-if product.alt_names
-  p.alt-names (#{product.alt_names})
-if product.makers.length
-  p.makers Mfg. by #{product.makers}
+    p.description= product.description
 
-p.description= product.description
+    p
+      a.more-info(href="javascript:void(0);") More Infomation
 
-p
-  a.more-info(href="javascript:void(0);") More Infomation
+    dl
+    if product.model_no
+      dt Model No.
+      dd= product.model_no
+    if product.price
+      dt Price
+      dd= product.price
+    if product.sizes
+      dt Sizes
+      dd= product.sizes
+    if product.range
+      dt Range
+      dd
+        span= product.range
+        .range
 
-dl
-if product.model_no
-  dt Model No.
-  dd= product.model_no
-if product.price
-  dt Price
-  dd= product.price
-if product.sizes
-  dt Sizes
-  dd= product.sizes
-if product.range
-  dt Range
-  dd
-    span= product.range
-    .range
+    .sounds
+      if _.isArray(product.youtube_videos) && product.youtube_videos.length
+        h3 Sounds
+        - var youtube_videos = product.youtube_videos
+        include youtube_player
+  .col-xs-5
+    .image
+      if product.image
+        img(src="/images/#{product.image}", width="400", title="#{product.name}")
 
-.sounds
-  if _.isArray(product.youtube_videos) && product.youtube_videos.length
-    h3 Sounds
-    - var youtube_videos = product.youtube_videos
-    include youtube_player

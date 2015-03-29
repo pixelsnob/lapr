@@ -155,7 +155,10 @@ header {
     }
   }
   .tags-tree  {
+    position: fixed;
+    width: inherit;
     font-size: 12px;
+    padding-right: 12px;
     & > li {
       margin-bottom: 10px;
     }
@@ -210,14 +213,13 @@ header {
         font-size: 1em;
         margin-top: 0;
       }
-      position: relative;
     }
   }
 }
 
 .product-details {
   h2 {
-    font-size: 1.6em;
+    font-size: 1.3em;
     margin-top: 0;
   }
   h3 {
@@ -229,9 +231,9 @@ header {
   dt, dd {
   }
   .image {
-    float: right;
+    /*float: right;
     margin: 0 0 30px 30px;
-    width: 45%;
+    width: 45%;*/
     text-align: center;
     img {
       cursor: pointer;
@@ -314,7 +316,7 @@ header {
 /*.modal-backdrop { bottom: 0; }*/
 
 .modal-backdrop.in {
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .modal-header, .modal-footer {
@@ -343,10 +345,25 @@ header {
 }
 
 .modal-body {
-  padding: 15px 30px 25px 30px;
+  /*padding: 15px 30px 25px 30px;*/
+  padding: 0;
 }
 
-.modal.product-details {
+.modal {
+  .close {
+    color: #ccc;
+    opacity: 1 !important;
+    &:hover {
+      color: #eee;
+    }
+    &:active {
+      color: #fff;
+    }
+  }
+  .modal-content {
+    /*background: #000;*/
+    width: 100%;
+  }
 }
 
 .modal.product-details-image {
@@ -364,10 +381,6 @@ header {
   }
   .modal-body {
     padding: 12px;
-    width: 100%;
-  }
-  .modal-content {
-    background: #000;
     width: 100%;
   }
 }
@@ -388,6 +401,7 @@ header {
             .image {
               padding-bottom: 35%;
               height: 100%;
+              text-align: center;
               img {
                 max-height: 100%;
               }
@@ -412,6 +426,9 @@ header {
   }
   #main {
     padding: 0;
+  }
+  .tags-tree {
+    display: none;
   }
 }
 
