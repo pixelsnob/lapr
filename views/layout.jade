@@ -14,81 +14,85 @@ html
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
 
   body
-
-    header
-      
-      div.navbar.navbar-default(role="navigation")
-        div.navbar-left
+    #site-wrapper
+      #site-canvas 
+        #site-menu
+          ul
+            each category in json_data.product_categories
+              li
+                a.navigate(href="/instruments/categories/#{category.slug}")= category.name 
+          
+        header
+          .navbar-header.navbar-default
+            button#toggle-site-menu.hidden-md(type="button", class="navbar-toggle")
+              span.sr-only Toggle Nav
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+          
           .logo
             a(href="/", title="L.A. Percussion Rentals")
               span L.A. Percussion Rentals
 
-        .navbar-header
-          button(type="button", data-target="#navbar-collapse", data-toggle="collapse", class="navbar-toggle")
-            span.sr-only Toggle Nav
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
+            .container-fluid
+              nav
+                ul.nav.navbar-nav
+                  li.visible-md
+                    a.dropdown-toggle(href="/instruments", data-toggle="dropdown") Instruments
+                    ul.dropdown-menu
+                      each category in json_data.product_categories
+                        li
+                          a.navigate(href="/instruments/categories/#{category.slug}")= category.name 
+                  li.visible-md
+                    a.navigate(href="/instruments/tags") Sound Search
+                  if user
+                    li 
+                      a.dropdown-toggle(href="", data-toggle="dropdown") Admin
+                      ul.dropdown-menu
+                        li
+                          a.add-product(href="javascript:void(0);") Add Product
+                        li
+                          a.edit-tag-categories(href="javascript:void(0);") Edit Tag Categories
+                        li
+                          a.edit-youtube-videos(href="javascript:void(0);") Edit Youtube Videos
+                        li
+                          a.edit-products(href="javascript:void(0);") Edit Products
+                        li
+                          a.edit-content-blocks(href="javascript:void(0);") Edit Content Blocks
+                          
+                    li
+                      a.logout(href="/logout") Logout
+            
+              .text-search
+            
+        #main
+          block content 
 
-        div.container-fluid.collapse.navbar-collapse#navbar-collapse
-          nav
-            ul.nav.navbar-nav
-              li
-                a.dropdown-toggle(href="/instruments", data-toggle="dropdown") Instruments
-                ul.dropdown-menu
-                  each category in json_data.product_categories
-                    li
-                      a.navigate(href="/instruments/categories/#{category.slug}")= category.name
-              li
-                a.navigate.sound-search(href="/instruments/tags") Sound Search
-              if user
-                li 
-                  a.dropdown-toggle(href="", data-toggle="dropdown") Admin
-                  ul.dropdown-menu
-                    li
-                      a.add-product(href="javascript:void(0);") Add Product
-                    li
-                      a.edit-tag-categories(href="javascript:void(0);") Edit Tag Categories
-                    li
-                      a.edit-youtube-videos(href="javascript:void(0);") Edit Youtube Videos
-                    li
-                      a.edit-products(href="javascript:void(0);") Edit Products
-                    li
-                      a.edit-content-blocks(href="javascript:void(0);") Edit Content Blocks
-                      
-                li
-                  a.logout(href="/logout") Logout
+        footer
+
+        script(type="text/javascript").
+          // Various polyfills
+          [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});
+          Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r};
+          Array.isArray||(Array.isArray=function(a){return''+a!==a&&{}.toString.call(a)=='[object Array]'});
+          window.lapr = { env: '#{settings.env}' };
         
-          .text-search
+        block script
+
+        if user
+          script(type="text/javascript").
+            window.lapr.user = !{JSON.stringify(user)};
+            window.lapr.markdown_opts = !{JSON.stringify(marked_opts)};
         
-    #main
-      block content 
+        if settings.env == 'production'
+          script(type="text/javascript", src="/dist/js/main.js")
+        else
+          script(type="text/javascript", src="/bower_components/requirejs/require.js")
 
-    footer
-
-    script(type="text/javascript").
-      // Various polyfills
-      [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});
-      Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r};
-      Array.isArray||(Array.isArray=function(a){return''+a!==a&&{}.toString.call(a)=='[object Array]'});
-      window.lapr = { env: '#{settings.env}' };
-    
-    block script
-
-    if user
-      script(type="text/javascript").
-        window.lapr.user = !{JSON.stringify(user)};
-        window.lapr.markdown_opts = !{JSON.stringify(marked_opts)};
-    
-    if settings.env == 'production'
-      script(type="text/javascript", src="/dist/js/main.js")
-    else
-      script(type="text/javascript", src="/bower_components/requirejs/require.js")
-
-    script(type="text/javascript").
-      require.config({ baseUrl: '/js' });
-      require([ 'config' ], function() {
-        require([ 'main' ]);
-      });
+        script(type="text/javascript").
+          require.config({ baseUrl: '/js' });
+          require([ 'config' ], function() {
+            require([ 'main' ]);
+          });
 
 

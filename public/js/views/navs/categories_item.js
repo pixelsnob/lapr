@@ -3,9 +3,11 @@
  * 
  */
 define([
-  'views/base'
+  'views/base',
+  'lib/events'
 ], function(
-  BaseView
+  BaseView,
+  global_events
 ) {
   
   return BaseView.extend({
@@ -48,6 +50,7 @@ define([
       this.products.refs.selected_categories.reset(this.model);
       var url = '/instruments/categories/' + this.model.get('slug');
       Backbone.history.navigate(url, true);
+      global_events.trigger('categories-nav-select');
       return false;
     },
     

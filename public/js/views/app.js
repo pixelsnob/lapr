@@ -10,8 +10,10 @@ define([
   'views/products_text_search',
   'views/products_text_search_form',
   'views/product_details',
+  //'views/navs/categories',
   'collections/products',
-  'collections/pages'
+  'collections/pages',
+  'lib/events'
 ], function(
   BaseView,
   ProductsView,
@@ -20,19 +22,22 @@ define([
   ProductsTextSearchView,
   ProductsTextSearchFormView,
   ProductDetailsView,
+  //CategoriesNavView,
   ProductsCollection,
-  PagesCollection
+  PagesCollection,
+  global_events
 ) {
   return BaseView.extend({ 
     
     el: 'body',
 
     events: {
-      'click nav li a.navigate': 'navigate'
+      'click a.navigate':         'navigate',
+      'click #toggle-site-menu':    'toggleSiteMenu'
     },
-
-    current_view: null,
     
+    current_view: null,
+     
     initialize: function() {
       this.products = new ProductsCollection;
       this.deferred = this.products.fetch();
@@ -51,9 +56,15 @@ define([
       };
       this.deferred.done(function() {
         var text_search = new ProductsTextSearchFormView({
-          products: obj.products });
+          products: obj.products
+        });
         obj.$el.find('.text-search').append(text_search.render().el);
+        /*var categories_nav = new CategoriesNavView({
+          products: obj.products
+        });
+        obj.$el.find('#site-menu').html(categories_nav.render().el);*/
       });
+      this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
     },
     
     navigate: function(ev) {
@@ -63,6 +74,7 @@ define([
         $dd.prev('.dropdown-toggle').dropdown('toggle');
       }
       Backbone.history.navigate(url, true);
+      this.hideSiteMenu();
       return false;
     },
     
@@ -156,6 +168,23 @@ define([
         }
       });
       return false;
+    },
+
+    showSiteMenu: function(ev) {
+      this.$el.find('#site-wrapper').addClass('show-nav');
+    },
+
+    hideSiteMenu: function(ev) {
+      this.$el.find('#site-wrapper').removeClass('show-nav');
+    },
+
+    toggleSiteMenu: function(ev) {
+      var wrapper = this.$el.find('#site-wrapper');
+      if (wrapper.hasClass('show-nav')) {
+        wrapper.removeClass('show-nav');
+      } else {
+        wrapper.addClass('show-nav');
+      }
     }
 
   });
