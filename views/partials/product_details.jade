@@ -8,7 +8,7 @@
       if product.makers.length
         p.makers Mfg. by #{product.makers}
 
-      p.description= product.description
+      p.description!= product.description
 
       p
         a.more-info(href="javascript:void(0);") More Infomation

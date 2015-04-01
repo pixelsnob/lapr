@@ -10,7 +10,8 @@ define([
   'views/product_range',
   'views/youtube_player',
   'views/image_onload',
-  'template'
+  'template',
+  'lib/markdown'
 ], function(
   BaseView,
   ModalView,
@@ -19,7 +20,8 @@ define([
   RangeView,
   YoutubePlayerView,
   ImageOnloadView,
-  template
+  template,
+  markdown
 ) {
   
   return BaseView.extend({
@@ -41,6 +43,9 @@ define([
         product.makers = product.makers.map(function(maker_id) {
           return obj.refs.makers.findWhere({ _id: maker_id });
         }).join(', ');
+      }
+      if (product.description && product.description.length) {
+        product.description = markdown(product.description);
       }
       this.$el.html(template.render('partials/product_details', {
         product: product

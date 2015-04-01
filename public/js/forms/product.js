@@ -42,7 +42,8 @@ define([
         type: 'Text'
       },
       description: {
-        type: 'TextArea'
+        type: 'TextArea',
+        help: '<em>Markdown enabled</em>'
       },
       more_info: {
         type: 'TextArea',
