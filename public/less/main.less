@@ -1,4 +1,5 @@
 
+
 @import './bootstrap.less';
 
 @layout-image-dir: '/images/layout/';
@@ -401,6 +402,16 @@ header {
   }
 }
 
+/* "Hamburger" menu */
+#toggle-site-menu {
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  line-height: 20px;
+  width: 20px;
+}
+
 /* Small screen stuff */
 
 @media only screen and (max-width: 767px) {
@@ -438,7 +449,7 @@ header {
 }
 
 @media only screen and (max-width: 992px) {
-  #main .categories li {
+  /*#main .categories li {
     display: inline !important;
     margin-right: 20px;
     margin-bottom: 20px;
@@ -448,7 +459,7 @@ header {
   }
   .tags-tree {
     display: none;
-  }
+  }*/
 }
 
 
