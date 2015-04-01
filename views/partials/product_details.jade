@@ -6,7 +6,7 @@
       if product.alt_names
         p.alt-names.secondary (#{product.alt_names})
       if product.makers.length
-        p.makers.secondary
+        p.makers
           cite Mfg. by #{product.makers}
 
       p.description!= product.description

@@ -10,7 +10,6 @@ define([
   'views/products_text_search',
   'views/products_text_search_form',
   'views/product_details',
-  //'views/navs/categories',
   'collections/products',
   'collections/pages',
   'lib/events'
@@ -22,7 +21,6 @@ define([
   ProductsTextSearchView,
   ProductsTextSearchFormView,
   ProductDetailsView,
-  //CategoriesNavView,
   ProductsCollection,
   PagesCollection,
   global_events
@@ -59,10 +57,6 @@ define([
           products: obj.products
         });
         obj.$el.find('.text-search').append(text_search.render().el);
-        /*var categories_nav = new CategoriesNavView({
-          products: obj.products
-        });
-        obj.$el.find('#site-menu').html(categories_nav.render().el);*/
       });
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
     },
@@ -70,9 +64,11 @@ define([
     navigate: function(ev) {
       var url = $(ev.currentTarget).attr('href'),
           $dd = $(ev.currentTarget).parents('.dropdown-menu');
-      if ($dd.length) {
-        $dd.prev('.dropdown-toggle').dropdown('toggle');
-      }
+      var $menu = this.$el.find('nav .dropdown-menu');
+      menu.dropdown('toggle');
+      //if ($dd.length) {
+      //  $dd.prev('.dropdown-toggle').dropdown('toggle');
+     // }
       Backbone.history.navigate(url, true);
       this.hideSiteMenu();
       return false;
