@@ -64,11 +64,8 @@ define([
     navigate: function(ev) {
       var url = $(ev.currentTarget).attr('href'),
           $dd = $(ev.currentTarget).parents('.dropdown-menu');
-      var $menu = this.$el.find('nav .dropdown-menu');
-      menu.dropdown('toggle');
-      //if ($dd.length) {
-      //  $dd.prev('.dropdown-toggle').dropdown('toggle');
-     // }
+      var $menu = this.$el.find('nav .open .dropdown-toggle');
+      $menu.dropdown('toggle');
       Backbone.history.navigate(url, true);
       this.hideSiteMenu();
       return false;

@@ -1,32 +1,35 @@
 
-.col-md-3.visible-md-block.visible-lg-block
-  .categories
-    if typeof product_categories != 'undefined'
-      ul
-        each category in product_categories
-          li
-            a(href="/instruments/categories/#{category.slug}")= category.name 
+.container-fluid.products
+  .row
+    .col-md-9.col-md-offset-3
+      h1= (typeof heading != 'undefined' ? heading : '')
+      .stats.secondary #{products.length} Results
+      .sort-direction
+        a.toggle-sort-direction(href="javascript:void(0);") Sort Descending
 
-  .tags-tree
-  
-.col-md-9
+  .row
+    .col-md-3.visible-md-block.visible-lg-block
+      .categories
+        if typeof product_categories != 'undefined'
+          ul
+            each category in product_categories
+              li
+                a(href="/instruments/categories/#{category.slug}")= category.name 
 
-  .products.boxes-list
+       .tags-tree
+      
+    .col-md-9
 
-    h1= (typeof heading != 'undefined' ? heading : '')
+      .boxes-list
 
-    .stats #{products.length} Results
 
-    .sort-direction
-      a.toggle-sort-direction(href="javascript:void(0);") Sort Descending
-
-    ul.results
-      each product in products
-        li
-          include product
-    
-    - var href = 'javascript:void(0);'
-    if paginate && paginate.hasNextPages(page_count)
-      - href = paginate.href()
-    .more-container 
-      a.more(href=href) More
+        ul.results
+          each product in products
+            li
+              include product
+        
+        - var href = 'javascript:void(0);'
+        if paginate && paginate.hasNextPages(page_count)
+          - href = paginate.href()
+        .more-container 
+          a.more(href=href) More

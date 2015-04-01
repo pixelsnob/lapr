@@ -5,11 +5,9 @@
 define([
   'views/base',
   'views/product'
-  //'masonry'
 ], function(
   BaseView,
   ProductView
-  //Masonry
 ) {
   
   return BaseView.extend({
@@ -51,9 +49,6 @@ define([
         $results.append(view.render().el);
       });
       this.toggleMoreLink();
-      // temp
-      this.$el.find('.stats').html(products.length + ' Result' +
-        (products.length != 1 ? 's' : ''));
       return this;
     },
 

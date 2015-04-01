@@ -6,11 +6,13 @@ define([
   'views/base',
   'views/products',
   'views/navs/tags',
+  'views/products_search_stats',
   'template'
 ], function(
   BaseView,
   ProductsView,
   TagsNavView,
+  ProductsSearchStatsView,
   template
 ) {
   return BaseView.extend({ 
@@ -26,6 +28,9 @@ define([
       this.products_view = new ProductsView({
         collection:         this.products
       });
+      this.stats_view = new ProductsSearchStatsView({
+        products: this.products
+      });
     },
 
     render: function() {
@@ -35,6 +40,7 @@ define([
       this.$el.addClass('products-tags-search');
       this.products_view.setElement(this.$el.find('.products'));
       this.$el.find('.tags-tree').html(this.tags_nav_view.render().el);
+      this.stats_view.setElement(this.$el.find('.stats'));
       return this;
     },
 
@@ -44,6 +50,7 @@ define([
       this.products.unbindRefs();
       this.products.refs.filtered_products.reset();
       this.tags_nav_view.close();
+      this.stats_view.close();
       this.products_view.close();
     }
 
