@@ -101,20 +101,24 @@ table {
 
 header {
   .text-search {
-    width: 320px;
+    width: 100%;
     float: right;
     text-align: right;
     input[type="text"] {
       background: #111;
-      width: 320px;
+      width: 100%;
       border: 1px solid #888;
+    }
+    [data-editor], .twitter-typeahead {
+      width: 100%;
+      display: block;
     }
     label {
       display: none;
     }
     .tt-dropdown-menu {
       border: 2px solid #222;
-      width: 320px;
+      width: 100%;
       .drop-shadow;      
       background: #222;
       text-align: left;
