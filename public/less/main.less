@@ -11,6 +11,7 @@
 
 @link-color: #bbb;
 @text-color: @link-color; 
+@text-secondary-color: #777;
 @heading-color: #eee;
 
 @button-bg-color: #222;
@@ -69,35 +70,44 @@ a:hover, .navbar-default .navbar-nav > li > a:hover {
   color: @link-hover-color;
 }
 
-.navbar-default .navbar-toggle {
-  float: left;
-  border: none;
-  &, &:hover, &:active, &:focus {
-    background-color: transparent;
-  }
-  .icon-bar {
-    background-color: #fff;
-  }
-}
-
-.clearfix:after {
-  clear: both;
-  content: '';
-  display: table;
-}
-
 table {
   .table;
 }
 
 .navbar-nav > li > a {
   padding: 4px 10px;
+  &:link, &:hover, &:active, &:focus {
+    background-color: transparent;
+  }
 }
 
+.navbar-nav > li > .dropdown-menu {
+  background-color: #222;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  & > li > a {
+    &:link, &:visited, &:active {
+      color: #aaa;
+
+    }
+    &:hover {
+      background-color: #333;
+      color: @text-color;
+    }
+  }
+}
+
+.secondary {
+  color: @text-secondary-color;
+}
+
+/*
 .navbar-default {
   background-color: transparent;
   border: none;
 }
+*/
 
 header {
   .text-search {
@@ -139,7 +149,7 @@ header {
           font-size: 13px;
           padding: 4px 7px; 
           .alt-names, .makers {
-            color: #777;
+            color: @text-secondary-color;
           }
         }
       }
@@ -249,9 +259,9 @@ header {
   h3 {
     font-size: 1.1em;
   }
-  .makers {
+  /*.makers {
     font-style: italic;
-  }
+  }*/
   dt, dd {
   }
   .image {

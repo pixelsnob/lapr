@@ -9,7 +9,7 @@
     h3.name= product.name
 
     if _.isArray(product.makers) && product.makers.length
-      p.makers
+      p.makers.secondary
         cite= product.makers.map(function(m) { return m.name; }).join(', ')
 
     noscript

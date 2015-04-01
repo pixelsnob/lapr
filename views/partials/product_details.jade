@@ -4,9 +4,10 @@
     .col-xs-7
       h2= product.name
       if product.alt_names
-        p.alt-names (#{product.alt_names})
+        p.alt-names.secondary (#{product.alt_names})
       if product.makers.length
-        p.makers Mfg. by #{product.makers}
+        p.makers.secondary
+          cite Mfg. by #{product.makers}
 
       p.description!= product.description
 
