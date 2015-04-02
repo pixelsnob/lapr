@@ -15,20 +15,20 @@
         a.more-info(href="javascript:void(0);") More Infomation
 
       dl
-      if product.model_no
-        dt Model No.
-        dd= product.model_no
-      if product.price
-        dt Price
-        dd= product.price
-      if product.sizes
-        dt Sizes
-        dd= product.sizes
-      if product.range
-        dt Range
-        dd
-          span= product.range
-          .range
+        if product.model_no
+          dt Model No.
+          dd= product.model_no
+        if product.price
+          dt Price
+          dd= product.price
+        if product.sizes
+          dt Sizes
+          dd= product.sizes
+        if product.range
+          dt Range
+          dd
+            span= product.range
+            .range
 
     .col-xs-5
       .image

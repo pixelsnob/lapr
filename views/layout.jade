@@ -37,8 +37,8 @@ html
               .col-xs-5.visible-md-block.visible-lg-block
                 nav
                   ul.nav.navbar-nav
-                    li
-                      a.dropdown-toggle(href="/instruments", data-toggle="dropdown") Instruments
+                    li.dropdown
+                      a.dropdown-toggle(href="/instruments") Instruments
                       ul.dropdown-menu
                         each category in json_data.product_categories
                           li
@@ -47,7 +47,7 @@ html
                       a.navigate(href="/instruments/tags") Sound Search
                     if user
                       li 
-                        a.dropdown-toggle(href="", data-toggle="dropdown") Admin
+                        a.dropdown-toggle(href="javascript:void(0);") Admin
                         ul.dropdown-menu
                           li
                             a.add-product(href="javascript:void(0);") Add Product

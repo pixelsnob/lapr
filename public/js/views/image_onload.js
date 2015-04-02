@@ -23,13 +23,13 @@ define([
       if (this.src) {
         if (loaded_images_collection.findWhere({ src: this.src })) {
           this.render();
-          this.$el.find('img').show();
+          this.show();
           this.trigger('loaded');
         } else {
           var tmp_img = new Image;
           tmp_img.onload = function() {
             obj.render();
-            obj.$el.find('img').fadeIn(1000);
+            obj.show();
             loaded_images_collection.add({ src: obj.src });
             obj.trigger('loaded');
           };
@@ -44,6 +44,11 @@ define([
         this.$el.find('img').css({ maxHeight: this.maxHeight });
       }
       return this;
+    },
+
+    show: function() {
+      var delay = Math.round(Math.random() * 500);
+      this.$el.find('img').delay(Math.round(Math.random() * 500)).fadeIn(1000);
     }
 
   });

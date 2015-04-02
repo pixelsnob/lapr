@@ -30,8 +30,11 @@ define([
     el: 'body',
 
     events: {
-      'click a.navigate':         'navigate',
-      'click #toggle-site-menu':    'toggleSiteMenu'
+      'click a.navigate':               'navigate',
+      'mouseenter .dropdown':      'showNavDropdown',
+      'mouseleave .dropdown':      'hideNavDropdown',
+      'click .dropdown':           'hideNavDropdown',
+      'click #toggle-site-menu':        'toggleSiteMenu'
     },
     
     current_view: null,
@@ -61,11 +64,21 @@ define([
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
     },
     
+    showNavDropdown: function(ev) {
+      $(ev.currentTarget).addClass('open');
+    },
+
+    hideNavDropdown: function(ev) {
+      $(ev.currentTarget).removeClass('open');
+    },
+
     navigate: function(ev) {
       var url = $(ev.currentTarget).attr('href'),
           $dd = $(ev.currentTarget).parents('.dropdown-menu');
-      var $menu = this.$el.find('nav .open .dropdown-toggle');
-      $menu.dropdown('toggle');
+      //var $menu = this.$el.find('nav .open .dropdown-toggle');
+      //$menu.dropdown('toggle');
+      //this.$el.find('.dropdown-menu').hide();
+      this.$el.find('.dropdown.open').removeClass('open');
       Backbone.history.navigate(url, true);
       this.hideSiteMenu();
       return false;
