@@ -80,14 +80,21 @@ define([
         validators: [ 'musicNotation' ],
         help: '<em>Comma-separated list of notes and note ranges. Valid example: C#2, Bb3-C7</em>'
       },
+      octave_shift: {
+        type: 'Text',
+        validators: [ 'number' ],
+        title: 'Octave Shift'
+      },
       sizes: {
         type: 'TextArea'
       },
       thumbnail: { 
-        type: ThumbnailEditor
+        type: ThumbnailEditor,
+        help: '<em>Thumbnail must be < 50KB in size, and < 180px wide</em>'
       },
       image: { 
-        type: ImageEditor
+        type: ImageEditor,
+        help: '<em>Image must be < 225KB in size, and < 1000px wide</em>'
       },
       youtube_videos: {
         type: YoutubeVideosEditor,

@@ -21,11 +21,8 @@ var ProductSchema = new mongoose.Schema({
   sizes:             String,
   octaves:           Number,
   tags:              [{ type: Number, ref: 'Tag' }],
-  youtube_videos:    [{ type: Number, ref: 'YoutubeVideo' }]
-  //old_description:   String,
-  //thumbnail_image:   { type: Number, ref: 'Image' },
-  //images:            [{ type: Number, ref: 'Image' }],
-  //old_image:         String,
+  youtube_videos:    [{ type: Number, ref: 'YoutubeVideo' }],
+  octave_shift:      Number,
 });
 
 ProductSchema.statics.findByIdAndPopulate = function(id, cb) {

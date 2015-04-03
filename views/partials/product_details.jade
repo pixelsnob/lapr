@@ -28,7 +28,13 @@
           dt Range
           dd
             span= product.range
-            .range
+
+      .range
+
+      if product.octave_shift
+        .range-notice.secondary
+          - var s = (product.octave_shift > 1 ? 's' : '')
+          em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
 
     .col-xs-5
       .image
