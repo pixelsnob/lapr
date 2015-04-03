@@ -33,6 +33,17 @@ define([
 
     initialize: function(opts) {
       this.refs = this.model.collection.refs;
+      // Include product admin editor if admin user
+      if (window.lapr.user) {
+        var obj = this;
+        require([ 'views/admin/product' ], function(ProductAdminView) {
+          var events = {
+            'click a.edit': _.bind(obj.edit, obj, ProductAdminView)
+          };
+          obj.delegateEvents(_.extend(obj.events, events));
+          obj.listenTo(obj.model, 'change', obj.render);
+        });
+      }
     },
     
     render: function() {
@@ -48,7 +59,8 @@ define([
         product.description = markdown(product.description);
       }
       this.$el.html(template.render('partials/product_details', {
-        product: product
+        product: product,
+        user: window.lapr.user
       }));
       // Youtube videos
       var $youtube_player = this.$el.find('.youtube-player');
@@ -100,6 +112,16 @@ define([
     showMoreInfoModal: function() {
       var view = new ProductDetailsMoreInfoView({ model: this.model });
       view.renderModal();
+    },
+
+    edit: function(ProductAdminView) {
+      var view = new ProductAdminView({
+        model:              this.model,
+        refs:               this.model.collection.refs,
+        mode:               'edit'
+      });
+      view.renderModal();
+      return false;
     },
 
     close: function() {
