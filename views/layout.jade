@@ -13,6 +13,33 @@ html
     meta(name="csrf-param", content="#{csrf}")
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
 
+    script(type="text/javascript").
+      // Various polyfills
+      [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});
+      Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r};
+      Array.isArray||(Array.isArray=function(a){return''+a!==a&&{}.toString.call(a)=='[object Array]'});
+      window.lapr = { env: '#{settings.env}' };
+    
+    block script
+
+    if user
+      script(type="text/javascript").
+        window.lapr.user = !{JSON.stringify(user)};
+        window.lapr.markdown_opts = !{JSON.stringify(marked_opts)};
+    
+    if settings.env == 'production'
+      script(type="text/javascript", src="/dist/js/main.js")
+    else
+      script(type="text/javascript", src="/bower_components/requirejs/require.js")
+
+    script(type="text/javascript").
+      require.config({ baseUrl: '/js' });
+      require([ 'config' ], function() {
+        require([ 'main' ]);
+      });
+
+
+
   body
     #site-wrapper
       #site-canvas 
@@ -33,7 +60,7 @@ html
                 .logo
                   a(href="/", title="L.A. Percussion Rentals")
                     span L.A. Percussion Rentals
-
+                
               .col-xs-4.visible-md-block.visible-lg-block
                 nav
                   ul.nav.navbar-nav
@@ -45,6 +72,8 @@ html
                             a.navigate(href="/instruments/categories/#{category.slug}")= category.name 
                     li
                       a.navigate(href="/instruments/tags") Sound Search
+                    li
+                      a(href="/contact") Contact Us
                     if user
                       li.dropdown 
                         a.dropdown-toggle(href="javascript:void(0);") Admin
@@ -70,30 +99,4 @@ html
           block content 
 
         footer
-
-        script(type="text/javascript").
-          // Various polyfills
-          [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});
-          Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r};
-          Array.isArray||(Array.isArray=function(a){return''+a!==a&&{}.toString.call(a)=='[object Array]'});
-          window.lapr = { env: '#{settings.env}' };
-        
-        block script
-
-        if user
-          script(type="text/javascript").
-            window.lapr.user = !{JSON.stringify(user)};
-            window.lapr.markdown_opts = !{JSON.stringify(marked_opts)};
-        
-        if settings.env == 'production'
-          script(type="text/javascript", src="/dist/js/main.js")
-        else
-          script(type="text/javascript", src="/bower_components/requirejs/require.js")
-
-        script(type="text/javascript").
-          require.config({ baseUrl: '/js' });
-          require([ 'config' ], function() {
-            require([ 'main' ]);
-          });
-
 

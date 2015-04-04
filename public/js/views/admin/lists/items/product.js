@@ -6,12 +6,14 @@ define([
   './base',
   'views/admin/modal/form',
   'models/product',
-  'forms/product'
+  'forms/product',
+  'template'
 ], function(
   ListItemBaseView,
   ModalFormView,
   ProductModel,
-  ProductForm
+  ProductForm,
+  template
 ) {
   
   return ListItemBaseView.extend({
@@ -21,7 +23,13 @@ define([
     
     model: new ProductModel,
     
-    form_obj: ProductForm
+    form_obj: ProductForm,
+
+    render: function() {
+      this.$el.append(template.render('admin/product_list_item', this.model.toJSON())); 
+      return this;
+    },
+
 
   });
 

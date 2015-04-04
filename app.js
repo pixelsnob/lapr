@@ -136,6 +136,10 @@ app.route('/api/images/:id')
   .delete(routes.auth, routes.remove('Image'));
 */
 
+app.route('/contact')
+  .get(routes.getContentBlocks, routes.showContactForm);
+
+
 // 404
 
 app.use(function(req, res, next) {

@@ -272,6 +272,16 @@ module.exports = function(app) {
       });
     },
 
+    getContentBlocks: function(req, res, next) {
+      db.model('ContentBlock').find({}, function(err, content_blocks) {
+        if (err) {
+          return next(err);
+        }
+        res.locals.content_blocks = content_blocks;
+        next();
+      });
+    },
+
     showIndex: function(req, res, next) {
       res.render('index');
     },
@@ -311,6 +321,10 @@ module.exports = function(app) {
           cb();
         }
       ], next);
+    },
+    
+    showContactForm: function(req, res, next) {
+      res.render('contact_form');
     },
 
     /**
