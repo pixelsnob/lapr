@@ -97,7 +97,7 @@ define([
     showProductsByTags: function(tags) {
       var obj = this;
       this.deferred.done(function() {
-        obj.loadMainView('.products-tags-search', ProductsSearchView);
+        obj.loadMainView('.products-tags-search', ProductsTagsSearchView);
         obj.products.refs.selected_tags.setFromArray(tags);
         obj.products.filterByTags();
       });
