@@ -324,7 +324,7 @@ module.exports = function(app) {
     },
     
     showContactForm: function(req, res, next) {
-      res.render('contact_form');
+      res.render('contact');
     },
 
     /**

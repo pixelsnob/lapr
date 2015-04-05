@@ -22,6 +22,7 @@ define([
       'instruments/tags/:tags':            'showProductsByTags',
       'instruments/text-search/:search':   'showProductsByTextSearch',
       'instruments/:slug/:product_id':     'showProductDetails',
+      'contact':                           'showContact'
     },
 
     initialize: function(opts) {
@@ -49,6 +50,9 @@ define([
       this.app_view.showProductDetails(product_id, history[history.length - 1]);
     },
     
+    showContact: function() {
+      this.app_view.showContact();
+    }
 
   });
 });

@@ -73,7 +73,7 @@ html
                     li
                       a.navigate(href="/instruments/tags") Sound Search
                     li
-                      a(href="/contact") Contact Us
+                      a.navigate(href="/contact") Contact Us
                     if user
                       li.dropdown 
                         a.dropdown-toggle(href="javascript:void(0);") Admin
@@ -88,9 +88,8 @@ html
                             a.edit-products(href="javascript:void(0);") Edit Products
                           li
                             a.edit-content-blocks(href="javascript:void(0);") Edit Content Blocks
-                            
-                      li
-                        a.logout(href="/logout") Logout
+                          li
+                            a.logout(href="/logout") Logout
               
               .col-xs-4.hidden-xs.pull-right
                 .text-search

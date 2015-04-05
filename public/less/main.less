@@ -81,10 +81,6 @@ dl {
   }
 }
 
-/*.navbar-nav > .dropdown:hover .dropdown-menu {
-  display: block;
-}*/
-
 .navbar-nav > li > a {
   padding: 4px 10px;
   &:link, &:hover, &:active, &:focus {
@@ -162,6 +158,24 @@ header {
         }
       }
     }
+  }
+}
+
+#main {
+  padding: 10px;
+  h1 {
+    font-size: 1.5em;
+    color: @heading-color;
+  }
+  .products {
+    
+  }
+  .categories, .tags-tree {
+    margin-top: 20px;
+    overflow: hidden;
+  }
+  input, textarea, select {
+    background-color: @bg-color;
   }
 }
 
@@ -247,21 +261,6 @@ header {
       font-size: 1em;
       margin-top: 0;
     }
-  }
-}
-
-#main {
-  padding: 10px;
-  h1 {
-    font-size: 1.5em;
-    color: @heading-color;
-  }
-  .products {
-    
-  }
-  .categories, .tags-tree {
-    margin-top: 20px;
-    overflow: hidden;
   }
 }
 

@@ -10,6 +10,7 @@ define([
   'views/products_text_search',
   'views/products_text_search_form',
   'views/product_details',
+  'views/contact',
   'collections/products',
   'collections/pages',
   'lib/events'
@@ -21,6 +22,7 @@ define([
   ProductsTextSearchView,
   ProductsTextSearchFormView,
   ProductDetailsView,
+  ContactView,
   ProductsCollection,
   PagesCollection,
   global_events
@@ -55,6 +57,7 @@ define([
       window.onpopstate = function(ev) {
         obj.$el.removeClass('modal-open').end().find('.modal').remove();
       };
+      // Maybe move this to render()
       this.deferred.done(function() {
         var text_search = new ProductsTextSearchFormView({
           products: obj.products
@@ -62,6 +65,7 @@ define([
         obj.$el.find('.text-search').append(text_search.render().el);
       });
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
+      this.$main = this.$el.find('#main');
     },
     
     showNavDropdown: function(ev) {
@@ -73,11 +77,7 @@ define([
     },
 
     navigate: function(ev) {
-      var url = $(ev.currentTarget).attr('href'),
-          $dd = $(ev.currentTarget).parents('.dropdown-menu');
-      //var $menu = this.$el.find('nav .open .dropdown-toggle');
-      //$menu.dropdown('toggle');
-      //this.$el.find('.dropdown-menu').hide();
+      var url = $(ev.currentTarget).attr('href');
       this.$el.find('.dropdown.open').removeClass('open');
       Backbone.history.navigate(url, true);
       this.hideSiteMenu();
@@ -87,15 +87,7 @@ define([
     showProductsByCategory: function(category) {
       var obj = this;
       this.deferred.done(function() {
-        if (!obj.$el.find('#main .products-categories-search').length) {
-          if (obj.current_view) {
-            obj.current_view.close();
-          }
-          obj.current_view = new ProductsSearchView({
-            products: obj.products
-          });
-          obj.$el.find('#main').html(obj.current_view.render().el);
-        }
+        obj.loadMainView('.products-categories-search', ProductsSearchView);
         obj.products.refs.selected_categories.setFromSlug(category);
         obj.products.filterByCategory();
       });
@@ -105,15 +97,7 @@ define([
     showProductsByTags: function(tags) {
       var obj = this;
       this.deferred.done(function() {
-        if (!obj.$el.find('#main .products-tags-search').length) {
-          if (obj.current_view) {
-            obj.current_view.close();
-          }
-          obj.current_view = new ProductsTagsSearchView({
-            products: obj.products
-          });
-          obj.$el.find('#main').html(obj.current_view.render().el);
-        }
+        obj.loadMainView('.products-tags-search', ProductsSearchView);
         obj.products.refs.selected_tags.setFromArray(tags);
         obj.products.filterByTags();
       });
@@ -123,15 +107,7 @@ define([
     showProductsByTextSearch: function(search) {
       var obj = this;
       this.deferred.done(function() {
-        if (!obj.$el.find('#main .products-text-search').length) {
-          if (obj.current_view) {
-            obj.current_view.close();
-          }
-          obj.current_view = new ProductsTextSearchView({
-            products: obj.products
-          });
-          obj.$el.find('#main').html(obj.current_view.render().el);
-        }
+        obj.loadMainView('.products-text-search', ProductsTextSearchView);
         obj.products.filterByTextSearch(search);
       });
       return false;
@@ -176,6 +152,11 @@ define([
       return false;
     },
 
+    showContact: function() {
+      var view = new ContactView;
+      this.loadMainView('.contact', ContactView);
+    },
+
     showSiteMenu: function(ev) {
       this.$el.find('#site-wrapper').addClass('show-nav');
     },
@@ -191,8 +172,19 @@ define([
       } else {
         wrapper.addClass('show-nav');
       }
+    },
+    
+    loadMainView: function(class_name, View) {
+      if (!this.$main.find(class_name).length) {
+        if (this.current_view) {
+          this.current_view.close();
+        }
+        this.current_view = new View({
+          products: this.products
+        });
+        this.$main.html(this.current_view.render().el);
+      }
     }
-
   });
 });
 
