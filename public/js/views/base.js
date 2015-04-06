@@ -8,7 +8,6 @@ define([
 ], function(Backbone, dialog) {
   return Backbone.View.extend({
     showServerError: function(model, xhr) {
-          console.log(arguments);
       if (typeof xhr != 'object') {
         dialog.alert('An error has occurred!');
         return;

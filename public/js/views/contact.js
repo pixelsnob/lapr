@@ -40,10 +40,11 @@ define([
     },
 
     send: function(ev) {
-      var errors = this.form.commit();
+      var errors = this.form.commit(),
+          obj    = this;
       if (!errors) {
         this.model.save().done(function() {
-          console.log(arguments);
+          obj.$el.find('.form').html('Thanks'); 
         }).fail(this.showServerError);
       }
       return false;
