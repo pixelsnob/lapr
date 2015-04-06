@@ -11,7 +11,8 @@ var transporter = mail.createTransport(smtp_transport({
   auth: {
     user: 'snob',
     pass: 'slipper411#corps'
-  }
+  },
+  tls: { rejectUnauthorized: false }
 }));
 
 var Schema = new db.Schema({
@@ -23,10 +24,12 @@ var Schema = new db.Schema({
 
 Schema.post('save', function(doc) {
   transporter.sendMail({
-    from: 'null@pixelsnob.com',
+    from: 'lapr@pixelsnob.com',
     to: 'snob@pixelsnob.com',
-    subject: 'hello',
-    text: 'hello world!'
+    subject: 'New Contact',
+    text: 'x'
+  }, function() {
+    console.log(arguments);
   });
 });
 
@@ -37,5 +40,4 @@ module.exports = function(mai) {
   });
   return db.model('Contact', Schema);
 };
-
 

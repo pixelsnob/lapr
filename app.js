@@ -113,8 +113,8 @@ var models = {
   User:             '/api/users',
   Page:             '/api/pages',
   ContentBlock:     '/api/content-blocks',
-  ProductType:      '/api/product-types',
-  Contact:          '/api/contacts'
+  ProductType:      '/api/product-types'
+  //Contact:          '/api/contacts'
 };
 
 for (var model in models) {
@@ -127,6 +127,9 @@ for (var model in models) {
     .delete(routes.auth, routes.remove(model));
 }
 
+app.route('/api/contacts')
+  .get(routes.get('Contact'))
+  .post(routes.add('Contact'));
 /*
 app.route('/api/images')
   .get(routes.get('Image'))
