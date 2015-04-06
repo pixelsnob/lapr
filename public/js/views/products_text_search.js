@@ -5,11 +5,12 @@
 define([
   'views/base',
   'views/products',
-  //'views/product_category_header',
+  'views/products_search_stats',
   'template'
 ], function(
   BaseView,
   ProductsView,
+  ProductsSearchStatsView,
   template
 ) {
   return BaseView.extend({ 
@@ -22,6 +23,9 @@ define([
       this.products_view = new ProductsView({
         collection:         this.products
       });
+      this.stats_view = new ProductsSearchStatsView({
+        products: this.products
+      });
     },
 
     render: function() {
@@ -32,6 +36,7 @@ define([
       }));
       this.$el.addClass('products-text-search');
       this.products_view.setElement(this.$el.find('.products'));
+      this.stats_view.setElement(this.$el.find('.stats'));
       return this;
     },
 
@@ -39,6 +44,7 @@ define([
       this.products.trigger('kill');
       this.products.unbind();
       this.products.unbindRefs();
+      this.stats_view.close();
       this.products.refs.filtered_products.reset();
     }
 

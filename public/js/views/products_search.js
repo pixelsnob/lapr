@@ -20,7 +20,6 @@ define([
   return BaseView.extend({ 
     
     events: {
-      //'click .toggle-sort-direction':  'toggleSortDirection'
     },
     
     initialize: function(opts) {
