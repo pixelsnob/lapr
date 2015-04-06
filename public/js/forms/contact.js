@@ -21,7 +21,7 @@ define([
       },
       email: {
         type: 'Text',
-        validators: [ 'required' ]
+        validators: [ 'required', 'email' ]
       },
       phone: {
         type: 'Text',
