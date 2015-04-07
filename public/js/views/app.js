@@ -32,11 +32,11 @@ define([
     el: 'body',
 
     events: {
-      'click a.navigate':               'navigate',
+      'click a.navigate':          'navigate',
       'mouseenter .dropdown':      'showNavDropdown',
       'mouseleave .dropdown':      'hideNavDropdown',
       'click .dropdown':           'hideNavDropdown',
-      'click #toggle-site-menu':        'toggleSiteMenu'
+      'click #toggle-site-menu':   'toggleSiteMenu'
     },
     
     current_view: null,

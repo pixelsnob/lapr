@@ -6,11 +6,13 @@ define([
   'views/base',
   'models/contact',
   'forms/contact',
+  'views/content_blocks',
   'template'
 ], function(
   BaseView,
   ContactModel,
   ContactForm,
+  ContentBlocksView,
   template
 ) {
   
@@ -28,7 +30,10 @@ define([
     },
     
     render: function() {
-      this.setElement(template.render('partials/contact'))
+      this.setElement(template.render('partials/contact', {
+      }));
+      //var view = new ContentBlocksView({ name: 'contact' });
+      //this.setElement(view.render().el);
       
       this.form = new ContactForm({ model: this.model });
       $form = this.form.render().el;

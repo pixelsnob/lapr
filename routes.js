@@ -6,7 +6,8 @@ var async            = require('async'),
     fs               = require('fs'),
     formidable       = require('formidable'),
     _                = require('underscore'),
-    passport         = require('passport');
+    passport         = require('passport'),
+    mail             = require('./lib/mail');
 
 module.exports = function(app) {
 
@@ -325,6 +326,26 @@ module.exports = function(app) {
     
     showContactForm: function(req, res, next) {
       res.render('contact');
+    },
+
+    addContact: function(req, res, next) {
+      var data  = _.omit(req.body, [ 'id', '_id' ]);
+      db.model('Contact').create(data, function(err, contact) {
+        if (err) {
+          return next(err);
+        }
+        mail.transporter.sendMail({
+          from:     'lapr@pixelsnob.com',
+          to:       'snob@pixelsnob.com',
+          subject:  'New LAPR Contact',
+          text:     'x'
+        }, function(err) {
+          if (err) {
+            return next(err);
+          }
+          res.send(contact);
+        });
+      });
     },
 
     /**

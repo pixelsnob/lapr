@@ -10,7 +10,6 @@
     "async": "~0.2.10",
     "bcrypt": "latest",
     "body-parser": "^1.0.2",
-    "cms": "git+ssh://git@github.com:pixelsnob/cms.git",
     "connect-redis": "^2.0.0",
     "cookie-parser": "^1.0.1",
     "csurf": "^1.6.2",
