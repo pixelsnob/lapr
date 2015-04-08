@@ -83,7 +83,7 @@ define([
       if (product.image && product.image.length) {
         var image_onload_view = new ImageOnloadView({
           el:    this.$el.find('.image'),
-          src:   '/images/' + product.image,
+          src:   '/images/products/' + product.image,
           maxHeight: window.innerHeight * 0.7
         });
       }

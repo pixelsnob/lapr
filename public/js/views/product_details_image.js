@@ -31,10 +31,9 @@ define([
         this.setElement(template.render('partials/product_details_image', {
           product: product
         }));
-        console.log(this.$el);
         var image_onload_view = new ImageOnloadView({
           el:    this.$el,
-          src:   '/images/' + product_image, 
+          src:   '/images/products/' + product_image, 
           maxHeight: window.innerHeight * 0.8
         });
       }

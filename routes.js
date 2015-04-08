@@ -315,7 +315,7 @@ module.exports = function(app) {
     
     // Moves tmp file to permanent destination
     moveProductImages: function(req, res, next) {
-      var image_dir = __dirname + '/public/images/';
+      var image_dir = __dirname + '/public/images/products/';
       async.waterfall([
         function(cb) {
           if (req.body.tmp_thumbnail) {

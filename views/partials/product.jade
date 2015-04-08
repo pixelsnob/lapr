@@ -3,7 +3,7 @@
   .image
     if product.thumbnail_image
       noscript
-        img.noscript(src="/images/#{product.thumbnail}", alt="#{product.name}")
+        img.noscript(src="/images/products/#{product.thumbnail}", alt="#{product.name}")
 
   .details
     h3.name= product.name

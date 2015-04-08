@@ -13,7 +13,6 @@ define([
     // looks at array values and not whether the keys/values are the same
     changedAttributes: function(attrs) {
       var attrs = Backbone.Model.prototype.changedAttributes.call(this, attrs);
-      //console.log(attrs);
       if (attrs === false) {
         return attrs;
       }
