@@ -30,15 +30,15 @@ define([
     },
     
     render: function() {
-      this.setElement(template.render('partials/contact', {
-      }));
-      //var view = new ContentBlocksView({ name: 'contact' });
-      //this.setElement(view.render().el);
+      this.setElement(template.render('partials/contact'));
+      
+      var view = new ContentBlocksView({ name: 'contact', el: this.$el });
+      view.render();
       
       this.form = new ContactForm({ model: this.model });
       $form = this.form.render().el;
       this.$el.find('.form').html($form);
-
+      
       var $button = $('<button>').text('Send').addClass('send');
       this.$el.find('form').append($button);
       return this;

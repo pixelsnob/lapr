@@ -31,7 +31,7 @@ app.use(body_parser.json({ extended: true }));
 app.use(require('cookie-parser')());
 app.use(session({
   store: new redis_store,
-  secret: 'blah*99p3c20',
+  secret: 'blah*99p3c20', // <<<<<<<<<
   proxy: true,
   cookie: { secure: (env == 'production') },
   resave: true,
@@ -165,7 +165,6 @@ var models = {
   Page:             '/api/pages',
   ContentBlock:     '/api/content-blocks',
   ProductType:      '/api/product-types'
-  //Contact:          '/api/contacts'
 };
 
 for (var model in models) {
@@ -181,6 +180,10 @@ for (var model in models) {
 app.route('/api/contacts')
   .get(routes.get('Contact'))
   .post(routes.addContact);
+
+app.route('/api/content-blocks/name/:name')
+  .get(routes.getContentBlockByName);
+
 /*
 app.route('/api/images')
   .get(routes.get('Image'))
@@ -193,7 +196,6 @@ app.route('/api/images/:id')
 
 app.route('/contact')
   .get(routes.getContentBlocks, routes.showContactForm);
-
 
 // 404
 

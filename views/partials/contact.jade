@@ -3,6 +3,6 @@
   .row
     .col-xs-9.col-xs-offset-3
       h1 Contact Us
-      //- .content-block.contact
-      != outputContentBlock('contact', content_blocks)
+      .content-block(data-content-block-name="contact")
+        .content
       .form

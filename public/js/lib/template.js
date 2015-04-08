@@ -5,7 +5,7 @@
 define([ 'jade' ], function(jade) {
   return {
     render: function(template_path, opts) {
-      opts = _.extend(opts, {
+      opts = _.extend(opts || {}, {
         // Don't output content here, but do return an element to later
         // attach it to
         outputContentBlock: function() {
