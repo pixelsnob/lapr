@@ -55,58 +55,11 @@ app.use(function(req, res, next) {
   } else {
     delete res.locals.user;
   }
+  res.locals.markdown = app.locals.markdown;
   next();
 });
 
-/**
- * Override res.render to do any pre/post processing
- */
-/*app.use(function(req, res, next) {
-  var render = res.render;
-  res.render = function(view, options, fn) {
-    var self = this,
-      options = options || {},
-      req = this.req,
-      app = req.app,
-      defaultFn;
-
-    if ('function' == typeof options) {
-      fn = options, options = {};
-    }
-
-    defaultFn = function(err, str){
-      if (err) return req.next(err);
-      self.send(str);
-    };
-
-    if ('function' != typeof fn) {
-      fn = defaultFn;
-    }
-
-    render.call(self, view, options, function(err, str) {
-      jsdom.env(
-        str, 
-        [ '//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js' ],
-        function(err, window) {
-          if (err) {
-            return cb(err);
-          }
-          if (!window) {
-            return cb('window object is missing');
-          }
-          var $ = window.$, $html = $('*');
-          $html.find('script.jsdom').remove();
-          var content_blocks = $('.content-block');
-          $('.content-block').forEach(function() {
-            console.log(arguments);
-          });
-          fn(err, '<html>' + $html.html() + '</html>');
-        }
-      );
-    });
-  };
-  next();
-});*/
+app.use(require('./lib/post_render'));
 
 app.use(jade_browser(
   '/jade.js',
