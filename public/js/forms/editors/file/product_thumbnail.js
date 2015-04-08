@@ -3,8 +3,8 @@
  * 
  */
 define([
-  './image',
-  'models/file/thumbnail'
+  './product_image',
+  'models/file/product_thumbnail'
 ], function(
   ImageUploadView,
   ThumbnailModel

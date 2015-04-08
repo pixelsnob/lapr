@@ -334,6 +334,14 @@ module.exports = function(app) {
       ], next);
     },
     
+    moveImage: function(req, res, next) {
+      var image_dir = __dirname + '/public/images/global/';
+      if (req.body.tmp_name) {
+        return fs.rename(req.body.tmp_name, image_dir + req.body.name, next);
+      }
+      next();
+    },
+
     showContactForm: function(req, res, next) {
       res.render('contact');
     },

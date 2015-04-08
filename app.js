@@ -137,7 +137,6 @@ app.route('/api/contacts')
 app.route('/api/content-blocks/name/:name')
   .get(routes.getContentBlockByName);
 
-/*
 app.route('/api/images')
   .get(routes.get('Image'))
   .post(routes.auth, routes.moveImage, routes.add('Image'));
@@ -145,7 +144,6 @@ app.route('/api/images')
 app.route('/api/images/:id')
   .put(routes.auth, routes.moveImage, routes.update('Image'))
   .delete(routes.auth, routes.remove('Image'));
-*/
 
 app.route('/contact')
   .get(routes.getContentBlocks, routes.showContactForm);

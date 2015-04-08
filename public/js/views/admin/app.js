@@ -9,7 +9,9 @@ define([
   'views/admin/lists/youtube_videos',
   'views/admin/lists/products',
   'views/admin/lists/content_blocks',
-  'collections/content_blocks'
+  'views/admin/lists/images',
+  'collections/content_blocks',
+  'collections/images'
 ], function(
   BaseView,
   ProductView,
@@ -17,7 +19,9 @@ define([
   YoutubeVideosView,
   ProductsView,
   ContentBlocksView,
-  ContentBlocksCollection
+  ImagesView,
+  ContentBlocksCollection,
+  ImagesCollection
 ) {
   return BaseView.extend({ 
     
@@ -28,13 +32,16 @@ define([
       'click .edit-tag-categories':  'editTagCategories',
       'click .edit-youtube-videos':  'editYoutubeVideos',
       'click .edit-products':        'editProducts',
-      'click .edit-content-blocks':  'editContentBlocks'
+      'click .edit-content-blocks':  'editContentBlocks',
+      'click .edit-images':          'editImages'
     },
 
     initialize: function(opts) {
-      this.products = opts.products;
-      this.content_blocks = new ContentBlocksCollection;
+      this.products                = opts.products;
+      this.content_blocks          = new ContentBlocksCollection;
       this.content_blocks_deferred = this.content_blocks.fetch();
+      this.images                  = new ImagesCollection;
+      this.images_deferred         = this.images.fetch();
     },
 
     addProduct: function() {
@@ -96,6 +103,19 @@ define([
         });
       });
       return true;
+    },
+    
+    editImages: function() {
+      var obj = this;
+      this.images_deferred.done(function(collection) {
+        var view = new ImagesView({ collection: obj.images });
+        view.renderModal();
+        view.listenTo(view, 'close', function() {
+          view.close();
+        });
+      });
+      return true;
     }
+    
   });
 });

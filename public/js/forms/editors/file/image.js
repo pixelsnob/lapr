@@ -12,6 +12,8 @@ define([
   
   return FileUploadView.extend({
     
+    image_path: '/images/global/',
+    
     file_model: ImageModel,
 
     initialize: function() {
@@ -22,7 +24,7 @@ define([
 
     render: function() {
       FileUploadView.prototype.render.apply(this, arguments);
-      var src = '/images/' + this.model.get(this.key),
+      var src = this.image_path + this.model.get(this.key),
           img = $('<img>').attr('src', src).width(200);
       this.$preview.html(img);
       this.showImage();
