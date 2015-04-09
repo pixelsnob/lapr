@@ -10,7 +10,7 @@ define([
   
   return ImageView.extend({
     
-    image_dir: '/images/products/'
+    image_path: '/images/products/'
     
   });
 });
