@@ -100,6 +100,10 @@ define([
         type: YoutubeVideosEditor,
         title: 'Youtube Videos',
         options: []
+      },
+      hide_sizes_in_lists: {
+        type: 'Checkbox',
+        title: 'Hide Sizes in List Views'
       }
     }
   });
