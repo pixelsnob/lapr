@@ -12,7 +12,9 @@ define([ 'jade' ], function(jade) {
           return jade.render('partials/content_block', { content: '' });
         },
         // Front end gets content blocks on an as-needed basis
-        content_blocks: []
+        content_blocks: [],
+        // Used to show logged-in stuff
+        user: window.lapr.user
       });
       return $(jade.render(template_path, opts));
     }

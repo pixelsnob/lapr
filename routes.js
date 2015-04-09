@@ -293,6 +293,16 @@ module.exports = function(app) {
       });
     },
 
+    getContentBlockById: function(req, res, next) {
+      db.model('ContentBlock').findOne({ _id: req.params.id },
+      function(err, content_block) {
+        if (err) {
+          return next(err);
+        }
+        res.send(content_block);
+      });
+    },
+
     showIndex: function(req, res, next) {
       res.render('index');
     },

@@ -3,24 +3,31 @@
  * 
  */
 define([
-  'forms/base'
+  'forms/base',
+  'forms/editors/content_block'
 ], function(
-  BaseForm
+  BaseForm,
+  ContentBlockEditor
 ) {
   
   return BaseForm.extend({
 
     initialize: function(opts) {
-      this.schema.name.validators = [
-        'required',
-        {
-          type: 'unique',
-          name: 'name',
-          model: this.model,
-          collection: opts.collection
-        }
-      ];
+      if (opts.check_unique) {
+        this.schema.name.validators = [
+          'required',
+          {
+            type: 'unique',
+            name: 'name',
+            model: this.model,
+            collection: opts.collection
+          }
+        ];
+      }
       BaseForm.prototype.initialize.apply(this, arguments);
+      if (opts.name_disabled) {
+        this.fields.name.editor.$el.attr('disabled', true);
+      }
     },
 
     schema: {
@@ -28,7 +35,8 @@ define([
         type: 'Text'
       },
       content: {
-        type: 'TextArea',
+        //type: 'TextArea',
+        type: ContentBlockEditor,
         validators: [ 'required' ]
       },
       type: {

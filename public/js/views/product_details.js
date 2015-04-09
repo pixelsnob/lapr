@@ -59,8 +59,7 @@ define([
         product.description = markdown(product.description);
       }
       this.$el.html(template.render('partials/product_details', {
-        product: product,
-        user: window.lapr.user
+        product: product
       }));
       // Youtube videos
       var $youtube_player = this.$el.find('.youtube-player');

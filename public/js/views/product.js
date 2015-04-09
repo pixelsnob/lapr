@@ -61,8 +61,8 @@ define([
         });
       }
       this.$el.html(template.render('partials/product', {
-        product: product,
-        user: window.lapr.user
+        product: product
+        //user: window.lapr.user
       }));
       this.$el.attr('id', this.model.id);
       // Image loading stuff
