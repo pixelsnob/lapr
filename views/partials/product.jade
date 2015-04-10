@@ -12,7 +12,7 @@
       p.makers.secondary
         cite= product.makers.map(function(m) { return m.name; }).join(', ')
     if product.sizes && product.sizes.length && !product.hide_sizes_in_lists
-      p.sizes.secondary!= markdown(product.sizes)
+      .sizes.secondary!= markdown(product.sizes)
     noscript
       a.product-details(href="/instruments/#{product.slug}/#{product.id}") Details
 
