@@ -35,7 +35,8 @@ ProductSchema.statics.findByIdAndPopulate = function(id, cb) {
 
 // Runs a product "full text" search
 ProductSchema.statics.search = function(query, opts, str, cb) {
-  this.find(query, null, opts).populate('categories makers').exec(function(err, products) {
+  this.find(query, null, opts).populate('categories makers')
+  .exec(function(err, products) {
     if (err) {
       return cb(err);
     }
