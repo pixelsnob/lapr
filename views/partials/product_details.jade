@@ -23,7 +23,7 @@
           dd= product.price
         if product.sizes
           dt Sizes
-          dd= product.sizes
+          dd!= markdown(product.sizes)
         if product.range
           dt Range
           dd

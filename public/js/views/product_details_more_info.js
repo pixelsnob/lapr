@@ -5,13 +5,11 @@
 define([
   'views/base',
   'views/modal',
-  'template',
-  'lib/markdown'
+  'template'
 ], function(
   BaseView,
   ModalView,
-  template,
-  markdown
+  template
 ) {
   
   return BaseView.extend({
@@ -25,7 +23,6 @@ define([
     
     render: function() {
       var product = this.model.toJSON();
-      product.more_info = markdown(product.more_info);
       this.$el.html(template.render('partials/product_details_more_info', {
         product: product
       }));

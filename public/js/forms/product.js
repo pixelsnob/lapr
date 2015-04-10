@@ -86,7 +86,8 @@ define([
         title: 'Octave Shift'
       },
       sizes: {
-        type: 'TextArea'
+        type: 'TextArea',
+        help: '<em>Markdown enabled</em>'
       },
       thumbnail: { 
         type: ProductThumbnailEditor,

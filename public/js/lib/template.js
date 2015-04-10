@@ -2,7 +2,7 @@
  * Template access
  * 
  */
-define([ 'jade' ], function(jade) {
+define([ 'jade', './markdown' ], function(jade, markdown) {
   return {
     render: function(template_path, opts) {
       opts = _.extend(opts || {}, {
@@ -14,7 +14,8 @@ define([ 'jade' ], function(jade) {
         // Front end gets content blocks on an as-needed basis
         content_blocks: [],
         // Used to show logged-in stuff
-        user: window.lapr.user
+        user: window.lapr.user,
+        markdown: markdown
       });
       return $(jade.render(template_path, opts));
     }
