@@ -51,15 +51,6 @@ define([
       if (!errors) {
         this.trigger('save');
       }
-      /*if (!errors) {
-        this.model.save(this.model.attributes, {
-          wait: true,
-          success: _.bind(obj.trigger, obj, 'save'),
-          error:   _.bind(this.showServerError, this)
-        });
-      } else {
-        this.showServerError();
-      }*/
     }
 
   });

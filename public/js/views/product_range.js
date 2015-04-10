@@ -132,7 +132,7 @@ define([
       
       var treble = new Vex.Flow.Stave(
         start,
-        (max_octave >= 7 ? 70 : 30),
+        (max_octave >= 7 ? 75 : 30),
         width
       );
       treble.setNoteStartX(20);
@@ -140,7 +140,7 @@ define([
       
       var bass = new Vex.Flow.Stave(
         start,
-        (max_octave >= 7 ? 140 : 100),
+        (max_octave >= 7 ? 145 : 100),
         width
       );
       bass.setNoteStartX(20);
