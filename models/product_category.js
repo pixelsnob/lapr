@@ -5,7 +5,8 @@ var db = require('mongoose');
 
 var ProductCategorySchema = new db.Schema({
   name: { type: String, unique: true },
-  slug: { type: String, unique: true }
+  slug: { type: String, unique: true },
+  more_info_content_block: { type: Number, ref: 'ContentBlock' }
 }, { collection: 'product_categories' });
 
 ProductCategorySchema.pre('remove', function(next) {

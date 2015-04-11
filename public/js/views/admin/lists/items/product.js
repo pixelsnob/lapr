@@ -28,7 +28,7 @@ define([
     render: function() {
       this.$el.append(template.render('admin/product_list_item', this.model.toJSON())); 
       return this;
-    },
+    }
 
 
   });

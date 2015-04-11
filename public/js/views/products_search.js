@@ -7,6 +7,7 @@ define([
   'views/products',
   'views/navs/categories',
   'views/product_category_header',
+  'views/product_category_more_info',
   'views/products_search_stats',
   'template'
 ], function(
@@ -14,6 +15,7 @@ define([
   ProductsView,
   CategoriesNavView,
   ProductCategoryHeaderView,
+  ProductCategoryMoreInfoView,
   ProductsSearchStatsView,
   template
 ) {
@@ -34,6 +36,9 @@ define([
       this.stats_view = new ProductsSearchStatsView({
         products: this.products
       });
+      this.product_category_more_info_view = new ProductCategoryMoreInfoView({
+        products: this.products
+      });
     },
 
     render: function() {
@@ -47,6 +52,8 @@ define([
       this.$el.find('.categories').html(this.nav_view.render().el);
       this.product_category_header_view.setElement(this.$el.find('h1'));
       this.stats_view.setElement(this.$el.find('.stats'));
+      this.product_category_more_info_view.setElement(
+        this.$el.find('.more-info-container'));
       return this;
     },
     

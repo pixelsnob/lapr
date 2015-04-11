@@ -3,7 +3,12 @@ extends layout
 
 block content
   if product
-    include partials/product_details    
+    .container-fluid
+      .row
+        .col-xs-3
+        .col-xs-9
+          .product-details
+            include partials/product_details    
   else
     p.error Product not found
 

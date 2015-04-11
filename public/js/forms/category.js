@@ -3,9 +3,11 @@
  * 
  */
 define([
-  'forms/base'
+  'forms/base',
+  'collections/content_blocks'
 ], function(
-  BaseForm
+  BaseForm,
+  ContentBlocksCollection
 ) {
   
   return BaseForm.extend({
@@ -21,11 +23,16 @@ define([
         }
       ];
       BaseForm.prototype.initialize.apply(this, arguments);
+      this.fields.more_info_content_block.schema.options = new ContentBlocksCollection;
     },
 
     schema: {
       name: {
         type: 'Text'
+      },
+      more_info_content_block: {
+        type: 'Select',
+        options: []
       },
       slug: {
         type: 'Text'

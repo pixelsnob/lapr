@@ -5,11 +5,13 @@
 define([
   './base',
   'models/page',
-  'forms/page'
+  'forms/page',
+  'template'
 ], function(
   ListItemBaseView,
   PageModel,
-  PageForm
+  PageForm,
+  template
 ) {
   
   return ListItemBaseView.extend({
@@ -18,7 +20,13 @@ define([
     
     model: new PageModel,
     
-    form_obj: PageForm
+    form_obj: PageForm,
+
+    render: function() {
+      this.$el.append(template.render('admin/page_list_item', this.model.toJSON())); 
+      return this;
+    }
+
     
   });
 });

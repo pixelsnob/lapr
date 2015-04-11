@@ -10,8 +10,10 @@ define([
   'views/admin/lists/products',
   'views/admin/lists/content_blocks',
   'views/admin/lists/images',
+  'views/admin/lists/pages',
   'collections/content_blocks',
-  'collections/images'
+  'collections/images',
+  'collections/pages'
 ], function(
   BaseView,
   ProductView,
@@ -20,8 +22,10 @@ define([
   ProductsView,
   ContentBlocksView,
   ImagesView,
+  PagesView,
   ContentBlocksCollection,
-  ImagesCollection
+  ImagesCollection,
+  PagesCollection
 ) {
   return BaseView.extend({ 
     
@@ -33,7 +37,8 @@ define([
       'click .edit-youtube-videos':  'editYoutubeVideos',
       'click .edit-products':        'editProducts',
       'click .edit-content-blocks':  'editContentBlocks',
-      'click .edit-images':          'editImages'
+      'click .edit-images':          'editImages',
+      'click .edit-pages':           'editPages'
     },
 
     initialize: function(opts) {
@@ -42,6 +47,8 @@ define([
       this.content_blocks_deferred = this.content_blocks.fetch();
       this.images                  = new ImagesCollection;
       this.images_deferred         = this.images.fetch();
+      this.pages                   = new PagesCollection;
+      this.pages_deferred          = this.pages.fetch();
     },
 
     addProduct: function() {
@@ -109,6 +116,18 @@ define([
       var obj = this;
       this.images_deferred.done(function(collection) {
         var view = new ImagesView({ collection: obj.images });
+        view.renderModal();
+        view.listenTo(view, 'close', function() {
+          view.close();
+        });
+      });
+      return true;
+    },
+
+    editPages: function() {
+      var obj = this;
+      this.pages_deferred.done(function(collection) {
+        var view = new PagesView({ collection: obj.pages });
         view.renderModal();
         view.listenTo(view, 'close', function() {
           view.close();

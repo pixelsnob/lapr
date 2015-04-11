@@ -119,11 +119,19 @@ define([
       var obj = this;
       this.deferred.done(function() {
         var product = obj.products.findWhere({ _id: Number(product_id) });
-        if (product) {
+        if (!product) {
+          obj.showServerError();
+        } else {
           var product_view = new ProductDetailsView({
             model: product,
             refs: obj.products.refs
           });
+          // If user landed here directly, .product-details will be populated.
+          // If not, continue and show product details modal.
+          if (obj.$el.find('.product-details').length) {
+            obj.$el.find('.product-details').html(product_view.render().el);
+            return;
+          }
           var cats = product.get('categories');
           if (_.isArray(cats) && cats.length) {
             var category = obj.products.refs.product_categories.findWhere({
@@ -134,7 +142,10 @@ define([
               obj.showProductsByCategory(category.get('slug'));
             }
             obj.$el.find('.modal').remove();
-            product_view.renderModal();
+            if (obj.$el.find('.product-details').length) {
+            } else {
+              product_view.renderModal();
+            }
             // Return to previous category view, or load one of the categories
             // this product belongs to
             product_view.on('close', function() {

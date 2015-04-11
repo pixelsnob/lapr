@@ -113,9 +113,11 @@ module.exports = function(app) {
                 return next(err);
               }
               // Convert makers array -- if any -- to list
-              var makers = (_.isArray(product.makers) ?
+              product = product.toJSON();
+              product.makers = (_.isArray(product.makers) ?
                   _.pluck(product.makers, 'name').join(', ') : '');
-              res.render('product', { product: product, makers: makers });
+                  console.log(product.makers);
+              res.render('product', { product: product });
             });
           }
         });

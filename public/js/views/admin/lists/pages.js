@@ -10,7 +10,7 @@ define([
   PageView
 ) {
 
-  BaseView.extend({
+  return ListBaseView.extend({
     view: PageView,
     title: 'Pages'
     
