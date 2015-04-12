@@ -22,6 +22,7 @@ define([
   return BaseView.extend({ 
     
     events: {
+      'click .more-info':  'showCategoryMoreInfo'
     },
     
     initialize: function(opts) {
@@ -39,8 +40,10 @@ define([
       this.product_category_more_info_view = new ProductCategoryMoreInfoView({
         products: this.products
       });
+      this.listenTo(this.products.refs.selected_categories, 'add',
+        this.toggleMoreInfoLink);
     },
-
+    
     render: function() {
       this.$el.html(template.render('partials/products_search', {
         products: [],
@@ -52,13 +55,25 @@ define([
       this.$el.find('.categories').html(this.nav_view.render().el);
       this.product_category_header_view.setElement(this.$el.find('h1'));
       this.stats_view.setElement(this.$el.find('.stats'));
-      this.product_category_more_info_view.setElement(
-        this.$el.find('.more-info-container'));
       return this;
     },
     
     toggleSortDirection: function(ev) {
       this.products_view.toggleSortDirection();
+    },
+
+    toggleMoreInfoLink: function() {
+      var selected_category = this.products.refs.selected_categories.at(0),
+          $more_info        = this.$el.find('.more-info-container');
+      if (selected_category && selected_category.get('more_info_content_block')) {
+        $more_info.removeClass('hide');
+      } else {
+        $more_info.addClass('hide');
+      }
+    },
+    
+    showCategoryMoreInfo: function() {
+      this.product_category_more_info_view.renderModal();
     },
 
     onClose: function() {

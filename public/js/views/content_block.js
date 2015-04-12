@@ -50,7 +50,8 @@ define([
         if (obj.model.get('type') == 'markdown') {
           content = markdown(content);
         }
-        obj.$el.find('.content').hide().html(content).fadeIn(500);
+        obj.$el.html(template.render('partials/content_block'));
+        obj.$el.find('.content').html(content);
       });
       return this;
     },

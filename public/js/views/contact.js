@@ -32,6 +32,7 @@ define([
     render: function() {
       this.setElement(template.render('partials/contact'));
       
+      //console.log(this.$el);
       var view = new ContentBlocksView({ name: 'contact', el: this.$el });
       view.render();
       

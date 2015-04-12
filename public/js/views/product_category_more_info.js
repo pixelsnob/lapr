@@ -3,31 +3,38 @@
  * 
  */
 define([
-  'views/base'
+  'views/base',
+  'views/modal'
 ], function(
-  BaseView
+  BaseView,
+  ModalView
 ) {
   return BaseView.extend({ 
     
     events: {
+      'click a':    'renderModal'
     },
     
     initialize: function(opts) {
       this.products = opts.products;
-      this.listenTo(this.products.refs.selected_categories, 'add reset', this.render);
     },
-
+    
     render: function() {
-      var selected_category = this.products.refs.selected_categories.at(0);
-      if (selected_category && selected_category.get('more_info_content_block')) {
-        this.$el.removeClass('hide');
-        console.log(this.$el);
-      } else {
-        this.$el.addClass('hide');
-      }
-      return this;
+      this.setElement(template.render('partials/product_category_more_info',
+        this.model.toJSON()));
+      return this; 
+    },
+    
+    renderModal: function() {
+      var modal_view = new ModalView;
+      modal_view.$el.addClass('product-category-more-info');
+      modal_view.render({
+        body: this.$el
+      });
+      this.listenTo(modal_view, 'close', _.bind(this.trigger, this, 'close'));
     }
-
+    
   });
 });
+
 

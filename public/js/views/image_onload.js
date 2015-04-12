@@ -41,7 +41,7 @@ define([
     render: function() {
       this.$el.html($('<img>').attr('src', this.src));
       if (this.maxHeight) {
-        this.$el.find('img').css({ maxHeight: this.maxHeight });
+        //this.$el.find('img').css({ maxHeight: this.maxHeight });
       }
       return this;
     },

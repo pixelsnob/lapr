@@ -94,7 +94,6 @@ define([
       modal_view.render({
         body: this.$el
       });
-      var obj = this;
       this.listenTo(modal_view, 'close', _.bind(this.trigger, this, 'close'));
     },
 
@@ -107,7 +106,7 @@ define([
       var view = new ProductDetailsMoreInfoView({ model: this.model });
       view.renderModal();
     },
-
+    
     edit: function(ProductAdminView) {
       var view = new ProductAdminView({
         model:              this.model,
