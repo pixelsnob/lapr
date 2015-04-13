@@ -29,10 +29,15 @@ define([
         var model = new ContentBlockModel,
             view  = new ContentBlockView({ model: model }),
             $el   = $(this),
-            name  = $el.attr('data-name');
-        model.fetch({
-          url: '/api/content-blocks/name/' + name
-        }).done(function() {
+            name  = $el.attr('data-name'),
+            id    = $el.attr('data-id'),
+            url   = '/api/content-blocks/';
+        if (name) {
+          url += 'name/' + name;
+        } else {
+          url += id;
+        }
+        model.fetch({ url: url }).done(function() {
           $el.html(view.render().el);
         });
       });

@@ -141,9 +141,6 @@ app.route('/api/content-blocks/name/:name')
 app.route('/api/content-blocks/:id')
   .get(routes.getContentBlockById);
 
-//app.route('/api/content-blocks/:id')
-//  .get(routes.get('ContentBlock'));
-
 app.route('/api/images')
   .get(routes.get('Image'))
   .post(routes.auth, routes.moveImage, routes.add('Image'));

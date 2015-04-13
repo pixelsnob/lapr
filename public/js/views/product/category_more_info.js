@@ -6,14 +6,16 @@ define([
   'views/base',
   'views/modal',
   'models/content_block',
-  'views/content_block',
-  'lib/markdown'
+  'views/content_blocks',
+  'lib/markdown',
+  'template'
 ], function(
   BaseView,
   ModalView,
   ContentBlockModel,
-  ContentBlockView,
-  markdown
+  ContentBlocksView,
+  markdown,
+  template
 ) {
   return BaseView.extend({ 
     
@@ -30,14 +32,12 @@ define([
           content_block_id  = selected_category.get('more_info_content_block'),
           obj               = this;
       if (selected_category && content_block_id) {
-        var model  = new ContentBlockModel,
-            view   = new ContentBlockView({ model: model }),
-            obj    = this;
-        model
-          .fetch({ url: model.url() + content_block_id })
-          .done(function() {
-            obj.$el.html(view.render().el);
-          });
+        this.$el.html(template.render('partials/product_category_more_info', {
+          id: content_block_id
+        }));
+        var content_blocks_view = new ContentBlocksView({ el: this.$el });
+        console.log(content_blocks_view.render().$el.html());
+
       }
       return this; 
     },

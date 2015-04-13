@@ -169,7 +169,8 @@ header {
 #main {
   padding: 10px;
   h1 {
-    font-size: 1.5em;
+    font-size: 1.6em;
+    /*font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;*/
     color: @heading-color;
   }
   .products {
@@ -359,7 +360,6 @@ header {
     width: 100%;
     p { width: 100%; }
     img {
-      max-width: 100%;
 
     }
   }
@@ -417,6 +417,17 @@ header {
   .modal-body {
     padding: 15px;
   }
+  .content-block {
+    h2, h3, h4 {
+      font-size: 1.5em;
+      color: @heading-color;
+    }
+    img {
+      width: 50%;
+      float: right;
+      margin: 0 0 10px 10px;
+    }
+  }
 }
 
 .modal.product-details-image {
@@ -455,9 +466,6 @@ header {
 @media only screen and (max-width: 767px) {
   body {
   }
-  /*.logo-container {
-    .pull-right
-  }*/
   #main {
     .products {
       .results {
@@ -497,6 +505,9 @@ header {
 @media only screen and (max-width: 992px) {
   #main {
     padding: 0;
+  }
+  .logo-container, .logo-container .logo {
+    .pull-right
   }
 }
 
