@@ -465,8 +465,10 @@ header {
 
 @media only screen and (max-width: @screen-sm) {
   body {
+    padding: 0 !important;
   }
   #main {
+    padding: 0;
     .products {
       .results {
         li {
@@ -486,6 +488,10 @@ header {
         }
       }
     }
+    [class*='col-'] {
+      padding-left: 7px;
+      padding-right: 7px;
+    }
   }
   .product-details {
     h2 {
@@ -493,11 +499,12 @@ header {
     }
   }
   .modal {
-    .modal-body {
+    /*.modal-body {
       padding: 7px 5px 5px 5px;
-    }
+    }*/
     .modal-dialog {
       width: 100% !important;
+      margin: 5px;
     }
   }
 }
