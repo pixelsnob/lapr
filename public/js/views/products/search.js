@@ -6,9 +6,9 @@ define([
   'views/base',
   'views/products',
   'views/navs/categories',
-  'views/product_category_header',
-  'views/product_category_more_info',
-  'views/products_search_stats',
+  'views/product/category_header',
+  'views/product/category_more_info',
+  './search_stats',
   'template'
 ], function(
   BaseView,

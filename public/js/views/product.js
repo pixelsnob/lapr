@@ -5,8 +5,8 @@
 define([
   'views/base',
   'models/product',
-  'views/product_details',
-  'views/image_onload',
+  './product/details',
+  './image_onload',
   'template'
 ], function(
   BaseView,

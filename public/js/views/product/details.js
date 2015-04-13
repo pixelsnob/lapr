@@ -5,9 +5,9 @@
 define([
   'views/base',
   'views/modal',
-  'views/product_details_image',
-  'views/product_details_more_info',
-  'views/product_range',
+  './details_image',
+  './details_more_info',
+  './range',
   'views/youtube_player',
   'views/image_onload',
   'template'
