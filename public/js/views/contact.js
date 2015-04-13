@@ -27,15 +27,10 @@ define([
     },
 
     initialize: function(opts) {
+      this.setElement(template.render('partials/contact'));
     },
     
     render: function() {
-      this.setElement(template.render('partials/contact'));
-      
-      //console.log(this.$el);
-      var view = new ContentBlocksView({ name: 'contact', el: this.$el });
-      view.render();
-      
       this.form = new ContactForm({ model: this.model });
       $form = this.form.render().el;
       this.$el.find('.form').html($form);

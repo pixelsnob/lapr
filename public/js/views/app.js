@@ -11,6 +11,7 @@ define([
   'views/products_text_search_form',
   'views/product_details',
   'views/contact',
+  'views/content_blocks',
   'collections/products',
   'collections/pages',
   'lib/events'
@@ -23,6 +24,7 @@ define([
   ProductsTextSearchFormView,
   ProductDetailsView,
   ContactView,
+  ContentBlocksView,
   ProductsCollection,
   PagesCollection,
   global_events
@@ -44,6 +46,7 @@ define([
     initialize: function() {
       this.products = new ProductsCollection;
       this.deferred = this.products.fetch();
+      this.$main    = this.$el.find('#main');
       var obj = this;
       if (window.lapr.user) {
         require([ 'views/admin/app' ], function(AdminApp) {
@@ -65,7 +68,7 @@ define([
         obj.$el.find('.text-search').append(text_search.render().el);
       });
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
-      this.$main = this.$el.find('#main');
+      this.content_blocks_view = new ContentBlocksView({ el: this.$main });
     },
     
     showNavDropdown: function(ev) {
@@ -142,8 +145,7 @@ define([
               obj.showProductsByCategory(category.get('slug'));
             }
             obj.$el.find('.modal').remove();
-            if (obj.$el.find('.product-details').length) {
-            } else {
+            if (!obj.$el.find('.product-details').length) {
               product_view.renderModal();
             }
             // Return to previous category view, or load one of the categories
@@ -164,8 +166,14 @@ define([
     },
 
     showContact: function() {
-      var view = new ContactView;
-      this.loadMainView('.contact', ContactView);
+      if (this.$main.find('.contact').length) {
+        var view = new ContactView;
+        view.setElement(this.$main);
+        view.render();
+      } else {
+        this.loadMainView('.contact', ContactView);
+      }
+      this.content_blocks_view.render();
     },
 
     showSiteMenu: function(ev) {
@@ -194,7 +202,9 @@ define([
           products: this.products
         });
         this.$main.html(this.current_view.render().el);
+        return true; 
       }
+      return false;
     }
   });
 });

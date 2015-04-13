@@ -51,7 +51,8 @@ define([
           content = markdown(content);
         }
         obj.$el.html(template.render('partials/content_block'));
-        obj.$el.find('.content').html(content);
+        var $content = obj.$el.find('.content');
+        $content.html(content);
       });
       return this;
     },

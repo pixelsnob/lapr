@@ -3,7 +3,8 @@ bower_components
 *.swp
 public/dist
 public/user
-public/images
+public/images/products
+public/images/global
 public/sound-files
 config/local.js
 
