@@ -22,11 +22,6 @@ define([
     },
     
     initialize: function(opts) {
-      this.model = new ContentBlockModel;
-      var name = this.$el.attr('data-name');
-      this.deferred = this.model.fetch({
-        url: '/api/content-blocks/name/' + name
-      });
       // Content block editor if logged in
       if (window.lapr.user) {
         var obj = this;
@@ -44,29 +39,23 @@ define([
     },
     
     render: function() {
-      var obj = this;
-      this.deferred.done(function() {
-        var content = obj.model.get('content');
-        if (obj.model.get('type') == 'markdown') {
-          content = markdown(content);
-        }
-        obj.$el.html(template.render('partials/content_block'));
-        var $content = obj.$el.find('.content');
-        $content.html(content);
-      });
+      var content = this.model.get('content');
+      if (this.model.get('type') == 'markdown') {
+        content = markdown(content);
+      }
+      this.$el.html(template.render('partials/content_block'));
+      var $content = this.$el.find('.content');
+      $content.html(content);
       return this;
     },
 
     edit: function(ContentBlockAdminView) {
-      var obj = this;
-      this.deferred.done(function() {
-        var view = new ContentBlockAdminView({ model: obj.model });
-        view.renderModal();
-        view.listenTo(view, 'save', function() {
-          if (obj.model.hasChanged()) {
-            obj.showEditLinks();
-          }
-        });
+      var view = new ContentBlockAdminView({ model: this.model });
+      view.renderModal();
+      this.listenTo(view, 'save', function() {
+        if (this.model.hasChanged()) {
+          this.showEditLinks();
+        }
       });
     },
 

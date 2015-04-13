@@ -4,10 +4,16 @@
  */
 define([
   'views/base',
-  'views/modal'
+  'views/modal',
+  'models/content_block',
+  'views/content_block',
+  'lib/markdown'
 ], function(
   BaseView,
-  ModalView
+  ModalView,
+  ContentBlockModel,
+  ContentBlockView,
+  markdown
 ) {
   return BaseView.extend({ 
     
@@ -20,18 +26,29 @@ define([
     },
     
     render: function() {
-      this.setElement(template.render('partials/product_category_more_info',
-        this.model.toJSON()));
+      var selected_category = this.products.refs.selected_categories.at(0),
+          content_block_id  = selected_category.get('more_info_content_block'),
+          obj               = this;
+      if (selected_category && content_block_id) {
+        var model  = new ContentBlockModel,
+            view   = new ContentBlockView({ model: model }),
+            obj    = this;
+        model
+          .fetch({ url: model.url() + content_block_id })
+          .done(function() {
+            obj.$el.html(view.render().el);
+          });
+      }
       return this; 
     },
     
     renderModal: function() {
-      var modal_view = new ModalView;
-      modal_view.$el.addClass('product-category-more-info');
-      modal_view.render({
-        body: this.$el
+      var view = new ModalView;
+      view.$el.addClass('product-category-more-info');
+      view.render({
+        body: this.render().$el
       });
-      this.listenTo(modal_view, 'close', _.bind(this.trigger, this, 'close'));
+      this.listenTo(view, 'close', _.bind(this.trigger, this, 'close'));
     }
     
   });

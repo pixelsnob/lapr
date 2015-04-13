@@ -5,7 +5,7 @@
 define([
   'views/base',
   'views/products',
-  'views/products/search',
+  'views/products/categories_search',
   'views/products/tags_search',
   'views/products/text_search',
   'views/products/text_search_form',

@@ -37,9 +37,6 @@ define([
       this.stats_view = new ProductsSearchStatsView({
         products: this.products
       });
-      this.product_category_more_info_view = new ProductCategoryMoreInfoView({
-        products: this.products
-      });
       this.listenTo(this.products.refs.selected_categories, 'add',
         this.toggleMoreInfoLink);
     },
@@ -73,6 +70,9 @@ define([
     },
     
     showCategoryMoreInfo: function() {
+      this.product_category_more_info_view = new ProductCategoryMoreInfoView({
+        products: this.products
+      });
       this.product_category_more_info_view.renderModal();
     },
 

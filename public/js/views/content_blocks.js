@@ -5,10 +5,12 @@
 define([
   'views/base',
   'views/content_block',
+  'models/content_block',
   'template'
 ], function(
   BaseView,
   ContentBlockView,
+  ContentBlockModel,
   template
 ) {
   
@@ -21,10 +23,18 @@ define([
     },
     
     render: function() {
-      var $content_blocks = this.$el.find('.content-block');
+      var $content_blocks = this.$el.find('.content-block'),
+          obj             = this;
       $content_blocks.each(function() {
-        var view = new ContentBlockView({ el: $(this) });
-        view.render();
+        var model = new ContentBlockModel,
+            view  = new ContentBlockView({ model: model }),
+            $el   = $(this),
+            name  = $el.attr('data-name');
+        model.fetch({
+          url: '/api/content-blocks/name/' + name
+        }).done(function() {
+          $el.html(view.render().el);
+        });
       });
       return this;
     }
