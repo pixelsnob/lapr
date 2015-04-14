@@ -8,7 +8,7 @@
         a.toggle-sort-direction(href="javascript:void(0);") Sort Descending
 
   .row
-    .col-md-3.visible-md-block.visible-lg-block
+    .col-md-3.visible-md-block.visible-lg-block#sidebar
       .categories
         if typeof product_categories != 'undefined'
           ul
@@ -21,7 +21,7 @@
       .more-info-container.hide
         a.more-info(href="javascript:void(0);") More Info
       
-    .col-md-9
+    .col-md-9.col-md-offset-3
 
       .boxes-list
 

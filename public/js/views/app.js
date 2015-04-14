@@ -181,15 +181,14 @@ define([
     },
 
     hideSiteMenu: function(ev) {
-      this.$el.find('#site-wrapper').removeClass('show-nav');
+      this.$el.removeClass('show-nav');
     },
 
     toggleSiteMenu: function(ev) {
-      var wrapper = this.$el.find('#site-wrapper');
-      if (wrapper.hasClass('show-nav')) {
-        wrapper.removeClass('show-nav');
+      if (this.$el.hasClass('show-nav')) {
+        this.$el.removeClass('show-nav');
       } else {
-        wrapper.addClass('show-nav');
+        this.$el.addClass('show-nav');
       }
     },
     
