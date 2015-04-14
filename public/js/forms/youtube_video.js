@@ -38,6 +38,12 @@ define([
         title: 'Start Time',
         help: '<em>In seconds</em>'
       },
+      end_time: {
+        type: 'Text',
+        validators: [ 'number' ],
+        title: 'End Time',
+        help: '<em>In seconds</em>'
+      },
       description: {
         type: 'TextArea',
         help: '<em>Markdown Enabled</em>'

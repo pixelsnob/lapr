@@ -7,6 +7,7 @@ var YoutubeVideoSchema = new db.Schema({
   name: { type: String, index: true, unique: true, required: true },
   youtube_id: { type: String, index: true, required: true },
   start_time: { type: Number },
+  end_time: { type: Number },
   description: { type: String }
 }, { collection: 'youtube_videos' });
 
