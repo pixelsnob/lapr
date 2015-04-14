@@ -458,13 +458,13 @@ h2, h3, h4, h5, h6 {
       margin: 0 0 10px 10px;
     }
   }
-  .modal-backdrop {
+  /*.modal-backdrop {
     position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
-  }
+  }*/
 }
 
 .modal.product-details-image {
@@ -505,7 +505,6 @@ h2, h3, h4, h5, h6 {
     padding: 0 !important;
   }
   #main {
-    padding: 0;
     .products {
       .results {
         li {
@@ -548,10 +547,13 @@ h2, h3, h4, h5, h6 {
 
 @media only screen and (max-width: @screen-md) {
   #main {
-    padding: 0;
+    padding-top: 0;
   }
   .logo-container, .logo-container .logo {
     .pull-right
+  }
+  header {
+    position: static;
   }
 }
 
