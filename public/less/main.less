@@ -10,7 +10,7 @@
 @content-bg-hover-color: #2c2c2c;
 @content-bg-active-color: #333;
 
-@link-color: #bbb;
+@link-color: #aaa;
 @text-color: @link-color; 
 @text-secondary-color: #777;
 @heading-color: #eee;
@@ -75,6 +75,11 @@ dl {
   }
 }
 
+.error label, .error [data-error] {
+  color: red;
+  font-weight: bold;
+}
+
 .navbar-nav > li > a {
   padding: 4px 10px;
   &:link, &:hover, &:active, &:focus {
@@ -110,6 +115,12 @@ dl {
 }
 
 header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: @bg-color;
+  z-index: 50;
+  min-height: 58px;
   .logo {
     height: 58px;
     width: 85px;
@@ -122,6 +133,9 @@ header {
         .hide;
       }
     }
+  }
+  nav {
+    padding-top: 10px;
   }
   .text-search {
     width: 100%;
@@ -166,13 +180,21 @@ header {
   }
 }
 
+h1, h2, h3, h4, h5, h6 {
+}
+
+h1 {
+  font-size: 1.6em;
+  color: @heading-color;
+}
+
+h2, h3, h4, h5, h6 {
+  font-size: 1.3em;
+}
+
 #main {
   padding: 10px;
-  h1 {
-    font-size: 1.6em;
-    /*font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;*/
-    color: @heading-color;
-  }
+  padding-top: 70px;
   .products {
     
   }
@@ -352,6 +374,14 @@ header {
   }
 }
 
+.contact {
+  .form {
+    input, textarea {
+      width: 90%;
+    }
+  }
+}
+
 /* Content blocks and such */
 
 .content-block {
@@ -427,6 +457,13 @@ header {
       float: right;
       margin: 0 0 10px 10px;
     }
+  }
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
   }
 }
 

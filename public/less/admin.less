@@ -20,12 +20,11 @@ select, input, textarea {
   }
   textarea {
     height: 100px;
+    &[name="content"] {
+      height: 300px;
+      font-size: 1em;
+    }
   }
-}
-
-.error label, .error [data-error] {
-  color: red;
-  font-weight: bold;
 }
 
 [data-fields] > div {
