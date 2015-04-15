@@ -95,7 +95,7 @@ define([
       },
       image: { 
         type: ProductImageEditor,
-        help: '<em>Image must be < 225KB in size, and < 1000px wide</em>'
+        help: '<em>Image must be < 250KB in size, and < 1000px wide</em>'
       },
       youtube_videos: {
         type: YoutubeVideosEditor,

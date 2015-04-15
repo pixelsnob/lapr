@@ -15,7 +15,8 @@ define([
     schema: {
       name: {
         type: ImageEditor,
-        validators: [ 'required' ]
+        validators: [ 'required' ],
+        help: '<em>Image must be < 250KB in size, and < 1000px wide</em>'
       }
     }
     

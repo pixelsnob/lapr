@@ -19,7 +19,7 @@ define([
         return 'File must be one of: ' + this.types.join(', ');
       }
       if (attrs.file.size > 125000) {
-        return 'File size must be less than 25KB';
+        return 'File size must be less than 50KB';
       }
     }
   });
