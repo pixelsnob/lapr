@@ -36,8 +36,7 @@ define([
           id: content_block_id
         }));
         var content_blocks_view = new ContentBlocksView({ el: this.$el });
-        console.log(content_blocks_view.render().$el.html());
-
+        content_blocks_view.render();
       }
       return this; 
     },

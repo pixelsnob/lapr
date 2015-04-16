@@ -96,7 +96,7 @@ define([
       });
       this.listenTo(modal_view, 'close', _.bind(this.trigger, this, 'close'));
     },
-
+    
     showImageModal: function() {
       var view = new ProductDetailsImageView({ model: this.model });
       view.renderModal();
