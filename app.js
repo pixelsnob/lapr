@@ -59,7 +59,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(require('./lib/pages'));
+//app.use(require('./lib/pages'));
 app.use(require('./lib/post_render'));
 
 app.use(jade_browser(
