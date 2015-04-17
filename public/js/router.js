@@ -30,7 +30,7 @@ define([
     },
 
     showIndex: function() {
-      //this.app_view.showIndex();
+      this.app_view.showIndex();
     },
 
     showProductsByCategory: function(category) {

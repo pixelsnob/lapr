@@ -176,6 +176,18 @@ define([
       this.content_blocks_view.render();
     },
 
+    showIndex: function() {
+      if (this.$main.find('.index').length) {
+        var view = new ContactView;
+        view.setElement(this.$main);
+        view.render();
+      } else {
+        this.loadMainView('.index', ContactView);
+      }
+      this.content_blocks_view.render();
+      
+    },
+    
     showSiteMenu: function(ev) {
       this.$el.find('#site-wrapper').addClass('show-nav');
     },
