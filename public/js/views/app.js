@@ -12,6 +12,7 @@ define([
   'views/product/details',
   'views/contact',
   'views/content_blocks',
+  'views/index',
   'collections/products',
   'collections/pages',
   'lib/events'
@@ -25,6 +26,7 @@ define([
   ProductDetailsView,
   ContactView,
   ContentBlocksView,
+  IndexView,
   ProductsCollection,
   PagesCollection,
   global_events
@@ -178,7 +180,7 @@ define([
 
     showIndex: function() {
       if (this.$main.find('.index').length) {
-        var view = new ContactView;
+        var view = new IndexView;
         view.setElement(this.$main);
         view.render();
       } else {

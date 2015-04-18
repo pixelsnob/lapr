@@ -1,9 +1,34 @@
 
 .blur {
-  -webkit-filter: blur(1px); 
-  -moz-filter: blur(1px); 
-  -ms-filter: blur(1px);
-  filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='1');
+  filter: blur(5px); 
+  -webkit-filter: blur(5px); 
+  -moz-filter: blur(5px); 
+  -ms-filter: blur(5px);
+  -o-filter: blur(5px);
+}
+
+.unblur {
+  filter: blur(0); 
+  -webkit-filter: blur(0); 
+  -moz-filter: blur(0); 
+  -ms-filter: blur(0);
+  -o-filter: blur(0);
+}
+
+.grayscale {
+  filter: grayscale(1); 
+  -webkit-filter: grayscale(1); 
+  -moz-filter: grayscale(1); 
+  -ms-filter: grayscale(1);
+  -o-filter: grayscale(1);
+}
+
+.ungrayscale {
+  filter: grayscale(0); 
+  -webkit-filter: grayscale(0); 
+  -moz-filter: grayscale(0); 
+  -ms-filter: grayscale(0);
+  -o-filter: grayscale(0);
 }
 
 .drop-shadow {

@@ -306,7 +306,12 @@ module.exports = function(app) {
     },
 
     showIndex: function(req, res, next) {
-      res.render('index');
+      db.model('Image').find({ include_in_slideshow: true }, function(err, images) {
+        if (err) {
+          return next(err);
+        }
+        res.render('index', { images: images });
+      });
     },
     
     // Saves a file upload in a tmp dir and send back filename and other
