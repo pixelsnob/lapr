@@ -16,19 +16,22 @@ define([
     },
 
     initialize: function(opts) {
-      var obj = this;
       this.src = opts.src;
       this.maxHeight = opts.maxHeight;
       this.setElement(opts.el);
+    },
+
+    render: function() {
+      var obj = this;
       if (this.src) {
         if (loaded_images_collection.findWhere({ src: this.src })) {
-          this.render();
+          this.renderImg();
           this.show();
           this.trigger('loaded');
         } else {
           var tmp_img = new Image;
           tmp_img.onload = function() {
-            obj.render();
+            obj.renderImg();
             obj.show();
             loaded_images_collection.add({ src: obj.src });
             obj.trigger('loaded');
@@ -38,7 +41,7 @@ define([
       }
     },
     
-    render: function() {
+    renderImg: function() {
       this.$el.html($('<img>').attr('src', this.src));
       if (this.maxHeight) {
         this.$el.find('img').css({ maxHeight: this.maxHeight });
@@ -48,7 +51,7 @@ define([
 
     show: function() {
       var delay = Math.round(Math.random() * 500);
-      this.$el.find('img').delay(Math.round(Math.random() * 500)).fadeIn(1000);
+      this.$el.find('img').delay(delay).fadeIn(1000);
     }
 
   });

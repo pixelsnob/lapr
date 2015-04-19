@@ -83,6 +83,7 @@ define([
           src:   '/images/products/' + product.image,
           maxHeight: $(window).height() * 0.8
         });
+        image_onload_view.render();
       }
       if (product.more_info) {
         this.$el.find('.more-info').show();

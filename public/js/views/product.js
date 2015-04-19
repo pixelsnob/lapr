@@ -73,6 +73,7 @@ define([
           src:       '/images/products/' + thumbnail,
           maxHeight: this.$el.parentsUntil('.product').height()
         });
+        image_onload_view.render();
       }
       return this;
     },

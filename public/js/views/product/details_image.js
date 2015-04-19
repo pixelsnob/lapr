@@ -36,6 +36,7 @@ define([
           src:   '/images/products/' + product_image, 
           maxHeight: window.innerHeight * 0.8
         });
+        image_onload_view.render();
       }
       return this;
     },
