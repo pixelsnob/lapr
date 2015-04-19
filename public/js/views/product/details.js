@@ -10,6 +10,7 @@ define([
   './range',
   'views/youtube_player',
   'views/image_onload',
+  'views/content_blocks',
   'template'
 ], function(
   BaseView,
@@ -19,6 +20,7 @@ define([
   RangeView,
   YoutubePlayerView,
   ImageOnloadView,
+  ContentBlocksView,
   template
 ) {
   
@@ -67,6 +69,7 @@ define([
         });
         this.$el.find('.youtube-player').html(yt_view.render().el);
         $youtube_player.show();
+        this.$el.find('.sounds-disclaimer').removeClass('hide');
       }
       // Range notation, if any
       if (product.range && product.range.length) {
@@ -84,6 +87,8 @@ define([
       if (product.more_info) {
         this.$el.find('.more-info').show();
       }
+      var content_blocks_view = new ContentBlocksView({ el: this.$el });
+      content_blocks_view.render();
       return this;
     },
     

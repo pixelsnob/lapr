@@ -48,10 +48,12 @@
           h3 Sounds
           - var youtube_videos = product.youtube_videos
           include youtube_player
+          .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
+            .content
 
   .row
     .col-xs-12
       if user
         p.edit-link
-          a.edit(href="/instruments/#{product.slug}/#{product._id}") Edit
+          a.edit(href="/instruments/#{product.slug}/#{product._id}") Edit Product
 

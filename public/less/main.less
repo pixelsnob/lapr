@@ -102,10 +102,9 @@ dl {
   border-radius: 0;
   opacity: 1;
   background-color: #222;
-  .drop-shadow;      
   & > li > a {
     .transition-color;
-    color: @text-secondary-color;
+    color: @link-color;
     &:link, &:visited, &:active {
     }
     &:hover {
@@ -161,7 +160,7 @@ header {
     .tt-dropdown-menu {
       border: 2px solid #222;
       width: 100%;
-      .drop-shadow;      
+      /*.drop-shadow;*/
       background: #222;
       text-align: left;
       margin: 0;
@@ -382,6 +381,10 @@ h2, h3, h4, h5, h6 {
   }
   .more-info {
     display: none;
+  }
+  .sounds-disclaimer {
+    font-size: 0.9em;
+    color: @text-secondary-color;
   }
 }
 
