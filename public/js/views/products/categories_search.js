@@ -64,6 +64,7 @@ define([
           $more_info        = this.$el.find('.more-info-container');
       if (selected_category && selected_category.get('more_info_content_block')) {
         $more_info.removeClass('hide');
+        $more_info.find('a').text(selected_category.get('more_info_title'));
       } else {
         $more_info.addClass('hide');
       }

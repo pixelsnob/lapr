@@ -32,7 +32,12 @@ define([
       },
       more_info_content_block: {
         type: 'Select',
+        title: 'More Info Content Block',
         options: []
+      },
+      more_info_title: {
+        type: 'Text',
+        title: 'More Info Title'
       },
       slug: {
         type: 'Text'
