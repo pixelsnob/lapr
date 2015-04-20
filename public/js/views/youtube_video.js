@@ -15,9 +15,7 @@ define([
   return BaseView.extend({
     
     events: {
-      'click a':       'play',
-      'mouseover a':   'showPreview',
-      'mouseout a':    'hidePreview'
+      'click a':       'play'
     },
 
     initialize: function(opts) {
@@ -37,17 +35,8 @@ define([
       global_events.trigger('yt-play', this.model);
       this.$el.addClass('selected');
       return false;
-    },
-
-    showPreview: function(ev) {
-      global_events.trigger('yt-show-preview', this.model);
-      return false;
-    },
-
-    hidePreview: function(ev) {
-      global_events.trigger('yt-hide-preview', this.model);
-      return false;
     }
+
   });
   
 });

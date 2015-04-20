@@ -33,8 +33,7 @@ define([
         }));
         var image_onload_view = new ImageOnloadView({
           el:    this.$el,
-          src:   '/images/products/' + product_image, 
-          maxHeight: window.innerHeight * 0.8
+          src:   '/images/products/' + product_image
         });
         image_onload_view.render();
       }

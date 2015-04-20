@@ -80,8 +80,7 @@ define([
       if (product.image && product.image.length) {
         var image_onload_view = new ImageOnloadView({
           el:    this.$el.find('.image'),
-          src:   '/images/products/' + product.image,
-          maxHeight: $(window).height() * 0.8
+          src:   '/images/products/' + product.image
         });
         image_onload_view.render();
       }

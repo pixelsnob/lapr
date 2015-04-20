@@ -17,7 +17,6 @@ define([
 
     initialize: function(opts) {
       this.src = opts.src;
-      this.maxHeight = opts.maxHeight;
       this.setElement(opts.el);
     },
 
@@ -43,9 +42,6 @@ define([
     
     renderImg: function() {
       this.$el.html($('<img>').attr('src', this.src));
-      if (this.maxHeight) {
-        this.$el.find('img').css({ maxHeight: this.maxHeight });
-      }
       return this;
     },
 

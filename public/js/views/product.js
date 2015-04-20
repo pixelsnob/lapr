@@ -70,8 +70,7 @@ define([
       if (thumbnail) {
         var image_onload_view = new ImageOnloadView({
           el:        this.$el.find('.image'),
-          src:       '/images/products/' + thumbnail,
-          maxHeight: this.$el.parentsUntil('.product').height()
+          src:       '/images/products/' + thumbnail
         });
         image_onload_view.render();
       }

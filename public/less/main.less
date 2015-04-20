@@ -366,6 +366,7 @@ h2, h3, h4, h5, h6 {
       cursor: pointer;
       display: none;
       max-width: 100%;
+      max-height: 400px;
       &:hover {
         opacity: 0.7;
       }
@@ -402,19 +403,28 @@ h2, h3, h4, h5, h6 {
   li {
     display: block;
     float: left;
-    margin: 0 5px 5px 0;
+    margin: 0 5px 15px 0;
+    color: @text-secondary-color;
+    p {
+      margin: 0;
+    }
     a {
       opacity: 0.5;
       border: 2px solid #222;
       display: block;
+      float: left;
+      margin-right: 15px;
       &:hover {
         border-color: #444;
         opacity: 0.7;
       }
     }
-    &.selected a {
-      opacity: 1;
-      border-color: #fff;
+    &.selected {
+      color: @text-color;
+      a {
+        opacity: 1;
+        border-color: #fff;
+      }
     }
     &:not(.selected) a:active {
       border-color: #bbb;
@@ -460,9 +470,6 @@ h2, h3, h4, h5, h6 {
 
 /* Modals */
 
-/* This broke in bootstrap 3.3.4 or before... */
-.modal-backdrop { bottom: 0 !important; }
-
 .modal-backdrop.in {
   opacity: 0.8;
 }
@@ -486,7 +493,6 @@ h2, h3, h4, h5, h6 {
     color: #fff;
   }
 }
-
 
 .modal {
   .close {
@@ -521,10 +527,6 @@ h2, h3, h4, h5, h6 {
       margin: 0 0 10px 10px;
     }
   }
-  /*.modal-backdrop {
-    position: fixed;
-    bottom: 0;
-  }*/
 }
 
 .modal.product-details-image {

@@ -60,7 +60,8 @@ define([
       }
       // Remove modals on browser "back"
       window.onpopstate = function(ev) {
-        obj.$el.removeClass('modal-open').end().find('.modal').remove();
+        obj.$el.removeClass('modal-open').end()
+          .find('.modal, .modal-backdrop').remove();
       };
       // Maybe move this to render()
       this.deferred.done(function() {

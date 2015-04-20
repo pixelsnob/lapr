@@ -116,7 +116,6 @@ module.exports = function(app) {
               product = product.toJSON();
               product.makers = (_.isArray(product.makers) ?
                   _.pluck(product.makers, 'name').join(', ') : '');
-                  console.log(product.makers);
               res.render('product', { product: product });
             });
           }
