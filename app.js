@@ -68,7 +68,6 @@ app.use(jade_browser(
   { root: app.get('views'), minify: (env == 'production') }
 ));
 
-
 var routes = require('./routes')(app);
 
 app.use(routes.getProducts);
@@ -106,6 +105,9 @@ app.route('/instruments/:slug/:id?')
   .post(routes.auth, routes.moveProductImages, routes.add('Product'))
   .put(routes.auth, routes.moveProductImages, routes.update('Product'))
   .delete(routes.auth, routes.remove('Product'));
+
+app.route('/api/slideshow-images')
+  .get(routes.getSlideshowImages);
 
 // Product refs and related CRUD
 

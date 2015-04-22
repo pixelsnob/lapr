@@ -313,6 +313,15 @@ module.exports = function(app) {
       });
     },
     
+    getSlideshowImages: function(req, res, next) {
+      db.model('Image').find({ include_in_slideshow: true }, function(err, images) {
+        if (err) {
+          return next(err);
+        }
+        res.send(images);
+      });
+    },
+
     // Saves a file upload in a tmp dir and send back filename and other
     // stats
     saveTempUpload: function(req, res, next) {

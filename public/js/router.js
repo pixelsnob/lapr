@@ -14,6 +14,7 @@ define([
 
     routes: {
       '':                                  'showIndex',
+      '/':                                 'showIndex',
       'instruments':                       'showProductsByCategory',
       'instruments/':                      'showProductsByCategory',
       'instruments/categories/:category':  'showProductsByCategory',

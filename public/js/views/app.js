@@ -185,7 +185,7 @@ define([
         view.setElement(this.$main);
         view.render();
       } else {
-        this.loadMainView('.index', ContactView);
+        this.loadMainView('.index', IndexView);
       }
       this.content_blocks_view.render();
       

@@ -47,11 +47,11 @@ html
         .row
           .col-xs-1.hidden-lg.hidden-md
             a#toggle-site-menu
-              span.glyphicon.glyphicon-align-justify
+              span.glyphicon.glyphicon-menu-hamburger
 
           .col-xs-3.logo-container
             .logo
-              a(href="/", title="L.A. Percussion Rentals")
+              a.navigate(href="/", title="L.A. Percussion Rentals")
                 span L.A. Percussion Rentals
         
             
@@ -94,6 +94,11 @@ html
 
     #site-menu
       ul
+        li
+          a.navigate(href="/") Home
+        li
+          a.navigate(href="/contact") Contact Us
+          
         each category in json_data.product_categories
           li
             a.navigate(href="/instruments/categories/#{category.slug}")= category.name 

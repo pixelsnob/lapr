@@ -217,7 +217,7 @@ h2, h3, h4, h5, h6 {
   height: 100%;
   position: fixed;
   min-height: 550px;
-  top: 0;
+  top: 50px;
   left: -300px;
   -webkit-transform: translateX(0);
   transform: translateX(0);
@@ -552,12 +552,13 @@ h2, h3, h4, h5, h6 {
 
 /* "Hamburger" menu */
 #toggle-site-menu {
-  font-size: 20px;
+  font-size: 24px;
   text-decoration: none;
   cursor: pointer;
   display: block;
   line-height: 20px;
   width: 20px;
+  margin-top: 5px;
 }
 
 /* Small screen stuff */
@@ -567,6 +568,8 @@ h2, h3, h4, h5, h6 {
     padding: 0 !important;
   }
   #main {
+    padding-left: 0;
+    padding-right: 0;
     .products {
       .results {
         li {
