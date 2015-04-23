@@ -105,6 +105,10 @@ define([
       hide_sizes_in_lists: {
         type: 'Checkbox',
         title: 'Hide Sizes in List Views'
+      },
+      include_in_slideshow: {
+        type: 'Checkbox',
+        title: 'Include in Slideshow'
       }
     }
   });

@@ -6,8 +6,7 @@ var db = require('mongoose');
 var ImageSchema = new db.Schema({
   name: { type: String, index: true, unique: true },
   size: Number,
-  title: String,
-  include_in_slideshow: Boolean
+  title: String
 });
 
 module.exports = function(mai) {

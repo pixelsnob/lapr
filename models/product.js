@@ -6,24 +6,25 @@ var mongoose   = require('mongoose'),
     _          = require('underscore');
 
 var ProductSchema = new mongoose.Schema({
-  categories:          [{ type: Number, ref: 'ProductCategory' }],
-  name:                String,
-  slug:                { type: String },
-  alt_names:           String,
-  makers:              [{ type: Number, ref: 'Maker' }],
-  description:         String,
-  more_info:           String,
-  model_no:            String,
-  price:               String,
-  range:               String,
-  thumbnail:           String,
-  image:               String,
-  sizes:               String,
-  octaves:             Number,
-  tags:                [{ type: Number, ref: 'Tag' }],
-  youtube_videos:      [{ type: Number, ref: 'YoutubeVideo' }],
-  octave_shift:        Number,
-  hide_sizes_in_lists: Boolean
+  categories:           [{ type: Number, ref: 'ProductCategory' }],
+  name:                 String,
+  slug:                 { type: String },
+  alt_names:            String,
+  makers:               [{ type: Number, ref: 'Maker' }],
+  description:          String,
+  more_info:            String,
+  model_no:             String,
+  price:                String,
+  range:                String,
+  thumbnail:            String,
+  image:                String,
+  sizes:                String,
+  octaves:              Number,
+  tags:                 [{ type: Number, ref: 'Tag' }],
+  youtube_videos:       [{ type: Number, ref: 'YoutubeVideo' }],
+  octave_shift:         Number,
+  hide_sizes_in_lists:  Boolean,
+  include_in_slideshow: Boolean
 });
 
 ProductSchema.statics.findByIdAndPopulate = function(id, cb) {

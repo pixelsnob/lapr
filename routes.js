@@ -305,20 +305,22 @@ module.exports = function(app) {
     },
 
     showIndex: function(req, res, next) {
-      db.model('Image').find({ include_in_slideshow: true }, function(err, images) {
+      db.model('Product').find({ include_in_slideshow: true },
+      function(err, products) {
         if (err) {
           return next(err);
         }
-        res.render('index', { images: images });
+        res.render('index', { products: products });
       });
     },
     
     getSlideshowImages: function(req, res, next) {
-      db.model('Image').find({ include_in_slideshow: true }, function(err, images) {
+      db.model('Product').find({ include_in_slideshow: true },
+      function(err, products) {
         if (err) {
           return next(err);
         }
-        res.send(images);
+        res.send(products);
       });
     },
 

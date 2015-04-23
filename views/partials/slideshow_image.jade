@@ -1,3 +1,4 @@
 
 li
-  img(src="/images/global/#{image.name}", alt="LAPR Image")
+  a(href="/instruments/#{product.slug}/#{product._id}")
+    img(src="/images/products/#{product.image}", alt="#{product.name}", title="#{product.name}")

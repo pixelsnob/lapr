@@ -1,4 +1,5 @@
 
 ul.slideshow
-  each image in images
-    include slideshow_image
+  if typeof products != 'undefined'
+    each product in products
+      include slideshow_image

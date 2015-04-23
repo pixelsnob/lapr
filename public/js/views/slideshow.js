@@ -71,7 +71,6 @@ define([
     },
     
     setNext: function() {
-      console.log('setnext');
       var next = this.$el.find('.current').next();
       if (next.length) {
         this.setCurrent(next);

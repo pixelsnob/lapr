@@ -21,7 +21,7 @@ define([
     
     render: function() {
       this.setElement(template.render('partials/slideshow_image', {
-        image: this.model.toJSON() }));
+        product: this.model.toJSON() }));
       return this;
     }
 

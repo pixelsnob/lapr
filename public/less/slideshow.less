@@ -19,6 +19,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 0;
     img {
       max-height: 100%;
       max-width: 100%;
@@ -29,13 +30,16 @@
       -webkit-transition: all 2.5s;
       -ms-transition: all 2.5s;
     }
-    &.current img {
-      opacity: 1;
-      transition: all 2.5s;
-      -moz-transition: all 2.5s;
-      -webkit-transition: all 2.5s;
-      -ms-transition: all 2.5s;
-      .unblur;
+    &.current {
+      z-index: 20;
+      img {
+        opacity: 1;
+        transition: all 2.5s;
+        -moz-transition: all 2.5s;
+        -webkit-transition: all 2.5s;
+        -ms-transition: all 2.5s;
+        .unblur;
+      }
     }
   }
 }
