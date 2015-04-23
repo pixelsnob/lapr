@@ -93,19 +93,32 @@ html
             .text-search
 
     #site-menu
-      ul
-        li
-          a.navigate(href="/") Home
-        li
-          a.navigate(href="/contact") Contact Us
-          
-        each category in json_data.product_categories
+      nav
+        ul
           li
-            a.navigate(href="/instruments/categories/#{category.slug}")= category.name 
+            a.navigate(href="/") Home
+          li
+            a.navigate(href="/contact") Contact Us
+            
+          each category in json_data.product_categories
+            li
+              a.navigate(href="/instruments/categories/#{category.slug}")= category.name 
           
 
     #main
       block content 
 
     footer
+      div &copy;!{(new Date).getFullYear()} L.A. Percussion Rentals
+      nav
+        ul
+          li
+            a.navigate(href="/") Home
+          li
+            a.navigate(href="/instruments") Instruments
+          li
+            a.navigate(href="/contact") Contact Us
+
+
+
 
