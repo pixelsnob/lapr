@@ -5,7 +5,8 @@
 define([
   'views/base',
   'template',
-  'bootstrap'
+  'bootstrap',
+  'lib/stacked_modals_fix'
 ], function(BaseView, template) {
   return BaseView.extend({
     
