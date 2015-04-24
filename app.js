@@ -23,6 +23,8 @@ if (env == 'development') {
   app.use(express.static('public'));
 }
 
+var config = require('./local.config.js');
+
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.set('view cache', (env == 'production'));
@@ -31,7 +33,7 @@ app.use(body_parser.json({ extended: true }));
 app.use(require('cookie-parser')());
 app.use(session({
   store: new redis_store,
-  secret: 'blah*99p3c20', // <<<<<<<<<
+  secret: config.session_secret, // <<<<<<<<<
   proxy: true,
   cookie: { secure: (env == 'production') },
   resave: true,
