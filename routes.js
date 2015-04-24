@@ -383,7 +383,7 @@ module.exports = function(app) {
           from:     'lapr@pixelsnob.com',
           to:       'snob@pixelsnob.com',
           subject:  'New LAPR Contact',
-          text:     'x'
+          text:     'x' // <<<<<<<<<<<<<<
         }, function(err) {
           if (err) {
             return next(err);

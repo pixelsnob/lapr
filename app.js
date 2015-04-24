@@ -106,10 +106,13 @@ app.route('/instruments/:slug/:id?')
   .put(routes.auth, routes.moveProductImages, routes.update('Product'))
   .delete(routes.auth, routes.remove('Product'));
 
-app.route('/api/slideshow-images')
-  .get(routes.getSlideshowImages);
+app.route('/contact')
+  .get(routes.getContentBlocks, routes.showContactForm);
 
 // Product refs and related CRUD
+
+app.route('/api/slideshow-images')
+  .get(routes.getSlideshowImages);
 
 var models = {
   ProductCategory:  '/api/categories',
@@ -151,8 +154,6 @@ app.route('/api/images/:id')
   .put(routes.auth, routes.moveImage, routes.update('Image'))
   .delete(routes.auth, routes.remove('Image'));
 
-app.route('/contact')
-  .get(routes.getContentBlocks, routes.showContactForm);
 
 // 404
 

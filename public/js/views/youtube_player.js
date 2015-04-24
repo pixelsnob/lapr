@@ -53,6 +53,7 @@ define([
     },
     
     play: function(model) {
+      this.model = model;
       this.yt_params.start = model.get('start_time');
       this.yt_params.end   = model.get('end_time');
       var src = 'http://www.youtube.com/embed/' + model.get('youtube_id') +
@@ -61,25 +62,28 @@ define([
       this.player = new YT.Player('ytplayer', {
         startSeconds: model.get('start_time'),
         events: {
-          onReady:       _.bind(this.ready, this),
-          onStateChange: _.bind(this.stateChange, this)
-          // error <<<<<<<<
+          onReady:         _.bind(this.ready, this),
+          onStateChange:   _.bind(this.stateChange, this),
+          onError:         _.bind(this.error, this)
         }
       });
-      this.$player.show();
+      this.$player.fadeIn(2000);
     },
 
     ready: function(ev) {
       ev.target.playVideo();
-      console.log('ready');
     },
 
     stateChange: function(ev) {
       if (ev.data == 0) {
-        this.$player.fadeOut(2000);
         global_events.trigger('yt-stop');
       }
+    },
+
+    error: function(ev) {
+      // <<<<<<<<< 
     }
+
   });
   
 });

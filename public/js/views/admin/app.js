@@ -76,7 +76,8 @@ define([
 
     editYoutubeVideos: function() {
       var view = new YoutubeVideosView({
-        collection: this.products.refs.youtube_videos
+        collection: this.products.refs.youtube_videos,
+        products:   this.products
       });
       view.renderModal();
       return true;

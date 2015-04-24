@@ -14,7 +14,6 @@ define([
 
     initialize: function(opts) {
       SelectEditor.prototype.initialize.call(this, opts); 
-      //this.schema.options = [];
       this.setElement(template.render('admin/multi_select', {
         name: this.key,
         editor_id: this.id

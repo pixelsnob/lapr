@@ -15,6 +15,13 @@ define([
 
     toString: function() {
       return this.get('name');
+    },
+
+    // Used to check video availability
+    getVideoJSON: function() {
+      var yt_url = 'http://gdata.youtube.com/feeds/api/videos/' +
+                    this.get('youtube_id') + '?v=2&alt=jsonc';
+      return $.getJSON(yt_url);
     }
 
   });

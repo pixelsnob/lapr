@@ -1,6 +1,6 @@
 
-li
+li.hide
   a(href="//www.youtube.com/watch?v=#{video.youtube_id}")
     img(src="http://img.youtube.com/vi/#{video.youtube_id}/mqdefault.jpg", alt="#{video.name}", height="45")
-  if video.description
-    !{markdown(video.description)}
+  if video.description && video.description.length
+    span!= markdown(video.description)

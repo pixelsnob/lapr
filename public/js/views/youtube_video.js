@@ -22,9 +22,15 @@ define([
       this.setElement(template.render('partials/youtube_video', {
         video: this.model.toJSON()
       }));
+      console.log(this.model);
     },
     
     render: function() {
+      // Show only if video is available
+      var obj = this;
+      this.model.getVideoJSON().done(function() {
+        obj.$el.removeClass('hide');
+      });
       return this;
     },
 
