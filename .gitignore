@@ -6,7 +6,8 @@ public/user
 public/images/products
 public/images/global
 public/sound-files
-config/local.js
+
+config.js
 
 *.grunt
 

@@ -23,7 +23,7 @@ if (env == 'development') {
   app.use(express.static('public'));
 }
 
-var config = require('./local.config.js');
+var config = require('./config');
 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
