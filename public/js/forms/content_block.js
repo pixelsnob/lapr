@@ -35,7 +35,6 @@ define([
         type: 'Text'
       },
       content: {
-        //type: 'TextArea',
         type: ContentBlockEditor,
         validators: [ 'required' ]
       },
