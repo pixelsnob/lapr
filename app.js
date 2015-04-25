@@ -33,7 +33,7 @@ app.use(body_parser.json({ extended: true }));
 app.use(require('cookie-parser')());
 app.use(session({
   store: new redis_store,
-  secret: config.session_secret, // <<<<<<<<<
+  secret: config.session_secret,
   proxy: true,
   cookie: { secure: (env == 'production') },
   resave: true,
