@@ -154,12 +154,7 @@ define([
             // Return to previous category view, or load one of the categories
             // this product belongs to
             product_view.on('close', function() {
-              var url;
-              if (previous_url && previous_url) {
-                url = previous_url;
-              } else {
-                url = '/instruments/categories/' + category.get('slug');
-              }
+              var url = previous_url || ('/instruments/categories/' + category.get('slug'));
               Backbone.history.navigate(url, { trigger: false });
             });
           }
