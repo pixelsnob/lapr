@@ -27,8 +27,7 @@ define([
   return BaseView.extend({
     
     events: {
-      'click .image':      'showImageModal',
-      'click .more-info':  'showMoreInfoModal'
+      'click .show-more-info':  'showMoreInfo'
     },
 
     initialize: function(opts) {
@@ -85,7 +84,7 @@ define([
         image_onload_view.render();
       }
       if (product.more_info) {
-        this.$el.find('.more-info').show();
+        this.$el.find('.more-info-container').removeClass('hide');
       }
       var content_blocks_view = new ContentBlocksView({ el: this.$el });
       content_blocks_view.render();
@@ -101,15 +100,12 @@ define([
       });
       this.listenTo(modal_view, 'close', _.bind(this.trigger, this, 'close'));
     },
-    
-    showImageModal: function() {
-      var view = new ProductDetailsImageView({ model: this.model });
-      view.renderModal();
-    },
 
-    showMoreInfoModal: function() {
-      var view = new ProductDetailsMoreInfoView({ model: this.model });
-      view.renderModal();
+    showMoreInfo: function() {
+      this.$el.find('.more-info')
+        .removeClass('hide')
+        .addClass('expand').end()
+        .find('.show-more-info').hide();
     },
     
     edit: function(ProductAdminView) {
