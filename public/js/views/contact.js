@@ -49,6 +49,11 @@ define([
         }).fail(this.showServerError);
       }
       return false;
+    },
+
+    onClose: function() {
+      this.model.unbind();
+      this.form.unbind();
     }
 
   });
