@@ -32,10 +32,10 @@ define([
         this.model.toJSON())); 
       var obj = this;
       // Show a message if there's an issue accessing the video
-      this.model.getVideoJSON().fail(function() {
+      /*this.model.getVideoJSON().fail(function() {
         var warning = $('<span>').addClass('label label-danger').text('Problem!');
         obj.$el.find('.warning-container').append(warning);
-      });
+      });*/
       this.products.map(function(product) {
         var product = product.toJSON();
         if (product.youtube_videos && _.isArray(product.youtube_videos)) {
