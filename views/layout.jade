@@ -1,7 +1,10 @@
 doctype html
 html
   head
-    title 
+    title= title 
+
+    if description
+      meta(name="description", content="#{description}")
 
     link(rel="stylesheet", href="/dist/css/main.css")
     if user

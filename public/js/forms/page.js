@@ -34,17 +34,13 @@ define([
         validators: [ 'required' ]
       },
       description: {
-        type: 'Text',
+        type: 'TextArea',
         validators: [ ]
       },
       view: {
         type: 'Text',
         validators: [ ]
-      }/*,
-      content_blocks: {
-        type: 'Text',
-        validators: [ 'required' ]
-      }*/
+      }
     }
     
   });
