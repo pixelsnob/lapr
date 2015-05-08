@@ -33,9 +33,12 @@ define([
         this.model.toJSON())); 
       var obj = this;
       // Show a message if there's an issue accessing the video
-      this.model.getVideoJSON().fail(function() {
-        var warning = $('<span>').addClass('label label-danger').text('Problem!');
-        obj.$el.find('.warning-container').append(warning);
+      this.model.getVideoJSON().done(function() {
+        var badge = $('<span>').addClass('label label-success').text('OK');
+        obj.$el.find('.warning-container').append(badge);
+      }).fail(function() {
+        var badge = $('<span>').addClass('label label-danger').text('Problem!');
+        obj.$el.find('.warning-container').append(badge);
       });
       this.products.map(function(product) {
         var product = product.toJSON();

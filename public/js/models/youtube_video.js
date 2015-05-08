@@ -30,6 +30,7 @@ define([
         cache: false,
         dataType: 'json'
       }).always(function(data) {
+        // If video is valid, items array will have one object
         if (data && _.isArray(data.items) && data.items.length) {
           deferred.resolve();
         } else {
