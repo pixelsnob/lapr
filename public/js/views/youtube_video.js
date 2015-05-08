@@ -22,7 +22,6 @@ define([
       this.setElement(template.render('partials/youtube_video', {
         video: this.model.toJSON()
       }));
-      console.log(this.model);
     },
     
     render: function() {

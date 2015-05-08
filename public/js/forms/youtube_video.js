@@ -3,9 +3,11 @@
  * 
  */
 define([
-  'forms/base'
+  'forms/base',
+  'forms/editors/text_number'
 ], function(
-  BaseForm
+  BaseForm,
+  TextNumberEditor
 ) {
   
   return BaseForm.extend({
@@ -33,13 +35,13 @@ define([
         validators: [ 'required' ]
       },
       start_time: {
-        type: 'Text',
+        type: TextNumberEditor,
         validators: [ 'number' ],
         title: 'Start Time',
         help: '<em>In seconds</em>'
       },
       end_time: {
-        type: 'Text',
+        type: TextNumberEditor,
         validators: [ 'number' ],
         title: 'End Time',
         help: '<em>In seconds</em>'
