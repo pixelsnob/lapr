@@ -22,7 +22,7 @@ define([
     },
 
     initialize: function() {
-      this.listenTo(this.model, 'save', this.render);
+      //this.listenTo(this.model, 'change', this.render);
     },
 
     render: function() {
@@ -59,11 +59,14 @@ define([
     },
     
     save: function() {
-      var errors = this.form.commit();
+      var errors = this.form.commit(),
+          obj    = this;
       if (!errors) {
         this.model.save(this.form.getValue(), {
           wait: true,
-          success: _.bind(this.trigger, this, 'save', this.model),
+          success: function(model) {
+            obj.trigger('save', model);
+          },
           error:   _.bind(this.showServerError, this)
         });
       } else {
@@ -94,6 +97,9 @@ define([
         collection: this.collection,
         refs: this.collection.refs
       });
+    },
+
+    onClose: function() {
     }
     
   });

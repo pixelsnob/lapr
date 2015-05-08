@@ -54,6 +54,7 @@ define([
       modal_view.listenTo(modal_view, 'save', modal_view.hide);
       this.listenTo(modal_view, 'close', function() {
         this.trigger('close');
+        this.close();
       });
     },
 
@@ -78,6 +79,10 @@ define([
         this.collection.getNextPage();
         this.render();
       }
+    },
+
+    onClose: function() {
+      this.collection.unbind();
     }
     
   });
