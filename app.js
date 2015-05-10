@@ -47,9 +47,7 @@ app.locals.pretty = true;
 app.locals._ = _;
 
 app.use(function(req, res, next) {
-  //res.locals.nav = require('./nav');
   res.locals.csrf = req.csrfToken();
-  // Data to dump on the page in a script tag
   if (req.isAuthenticated()) {
     res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
     // Disable caching if logged in

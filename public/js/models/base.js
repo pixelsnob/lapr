@@ -7,7 +7,7 @@ define([
 ], function(Backbone) {
   return Backbone.Model.extend({
     
-    idAttribute: '_id',
+    idAttribute: '_id'/*,
 
     // Makes it so that reordered arrays don't count as "changed" --
     // looks at array values and not whether the keys/values are the same
@@ -25,7 +25,7 @@ define([
         }
       }
       return (_.isEmpty(attrs) ? false : attrs);
-    }
+    }*/
 
   });
 });

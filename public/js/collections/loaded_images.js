@@ -11,7 +11,6 @@ define([
     }
     
   });
-  // Makes this a "singleton"
   return new collection;
 });
 
