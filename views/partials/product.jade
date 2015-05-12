@@ -1,9 +1,8 @@
 
 .product
   .image
-    if product.thumbnail_image
-      noscript
-        img.noscript(src="/images/products/#{product.thumbnail}", alt="#{product.name}")
+    if product.thumbnail
+      img(src="/images/products/#{product.thumbnail}", alt="#{product.name}", rel="prefetch")
 
   .details
     h3.name= product.name
