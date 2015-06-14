@@ -33,17 +33,6 @@
 @import './effects.less';
 @import './slideshow.less';
 
-
-/** ???? **/
-.noselect {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 body, html {
   height: 100%;
 }
@@ -51,6 +40,7 @@ body, html {
 body {
   background-color: @bg-color;
   color: @text-color;
+  font-family: "Open Sans", sans-serif;
   /*background-image: url("/images/cocktail_snare.jpg");
   background-position: top left;
   background-size: cover;
@@ -81,41 +71,25 @@ dl {
   font-weight: bold;
 }
 
-.navbar-nav > li > a {
-  padding: 4px 10px;
-  &:link, &:hover, &:active, &:focus {
-    background-color: transparent;
-  }
-}
-
 [data-fields] > div {
   padding-top: 12px;
 }
 
-.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-  background-color: transparent;
-}
-
-.navbar-nav > li > .dropdown-menu {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  opacity: 1;
-  background-color: #222;
-  & > li > a {
-    .transition-color;
-    color: @link-color;
-    &:link, &:visited, &:active {
-    }
-    &:hover {
-      background-color: @content-bg-hover-color;
-      color: @text-color;
-    }
-  }
-}
-
 .secondary {
   color: @text-secondary-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat';
+}
+
+h1 {
+  font-size: 1.6em;
+  color: @heading-color;
+}
+
+h2, h3, h4, h5, h6 {
+  font-size: 1.3em;
 }
 
 header {
@@ -140,6 +114,34 @@ header {
   }
   nav {
     padding-top: 10px;
+    .navbar-nav > li > a {
+      padding: 4px 10px;
+      font-weight: bold;
+      font-family: 'Montserrat';
+      &:link, &:hover, &:active, &:focus {
+        background-color: transparent;
+      }
+    }
+    .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+      background-color: transparent;
+    }
+    .navbar-nav > li > .dropdown-menu {
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
+      opacity: 1;
+      background-color: #222;
+      & > li > a {
+        .transition-color;
+        color: @link-color;
+        &:link, &:visited, &:active {
+        }
+        &:hover {
+          background-color: @content-bg-hover-color;
+          color: @text-color;
+        }
+      }
+    }
   }
   .text-search {
     width: 100%;
@@ -182,18 +184,6 @@ header {
       }
     }
   }
-}
-
-h1, h2, h3, h4, h5, h6 {
-}
-
-h1 {
-  font-size: 1.6em;
-  color: @heading-color;
-}
-
-h2, h3, h4, h5, h6 {
-  font-size: 1.3em;
 }
 
 #main {

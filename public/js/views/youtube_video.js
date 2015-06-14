@@ -22,6 +22,7 @@ define([
       this.setElement(template.render('partials/youtube_video', {
         video: this.model.toJSON()
       }));
+      this.listenTo(global_events, 'yt-stop', this.deselect);
     },
     
     render: function() {
@@ -40,6 +41,10 @@ define([
       global_events.trigger('yt-play', this.model);
       this.$el.addClass('selected');
       return false;
+    },
+
+    deselect: function() {
+      this.$el.removeClass('selected');
     }
 
   });
