@@ -109,6 +109,8 @@ app.route('/instruments/:slug/:id?')
 app.route('/contact')
   .get(routes.getContentBlocks, routes.showContactForm);
 
+app.route('/style-guide').get(routes.showStyleGuide);
+
 // Product refs and related CRUD
 
 app.route('/api/slideshow-images')
