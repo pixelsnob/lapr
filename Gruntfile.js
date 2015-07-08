@@ -31,7 +31,8 @@ module.exports = function(grunt) {
           mainConfigFile: 'public/js/config.js',
           paths: {
             require_lib: '../bower_components/requirejs/require',
-            jade: 'empty:'
+            jade: 'empty:',
+            youtube: 'empty:'
           },
           dir: 'public/dist/js',
           preserveLicenseComments: false,
