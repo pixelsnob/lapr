@@ -136,7 +136,7 @@ define([
           // If not, continue and show product details modal.
           if (obj.$el.find('.product-details').length) {
             obj.$el.find('.product-details').html(product_view.render().el);
-            return;
+            return false;
           }
           var cats = product.get('categories');
           if (_.isArray(cats) && cats.length) {
@@ -164,26 +164,13 @@ define([
     },
 
     showContact: function() {
-      if (this.$main.find('.contact').length) {
-        var view = new ContactView;
-        view.setElement(this.$main);
-        view.render();
-      } else {
-        this.loadMainView('.contact', ContactView);
-      }
+      this.loadMainView('.contact', ContactView);
       this.content_blocks_view.render();
     },
 
     showIndex: function() {
-      if (this.$main.find('.index').length) {
-        var view = new IndexView;
-        view.setElement(this.$main);
-        view.render();
-      } else {
-        this.loadMainView('.index', IndexView);
-      }
+      this.loadMainView('.index', IndexView);
       this.content_blocks_view.render();
-      
     },
     
     showSiteMenu: function(ev) {
@@ -204,6 +191,8 @@ define([
     
     loadMainView: function(class_name, View) {
       if (!this.$main.find(class_name).length) {
+        // This view is currently not being displayed, so make it the current
+        // view
         if (this.current_view) {
           this.current_view.close();
         }
@@ -211,7 +200,13 @@ define([
           products: this.products
         });
         this.$main.html(this.current_view.render().el);
-        return true; 
+      } else {
+        // This view is already being displayed on the page, probably via first
+        // page load (the user hit the url for this view directly and it loaded
+        // from the server)
+        var view = new View({ products: this.products });
+        view.setElement(this.$main);
+        view.render();
       }
       return false;
     }
