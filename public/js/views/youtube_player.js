@@ -42,7 +42,7 @@ define([
       this.setElement(template.render('partials/youtube_player', {
         youtube_videos: [] }));
       this.listenTo(global_events, 'yt-play', this.play); 
-      this.listenTo(global_events, 'yt-play', this.poll); 
+      //this.listenTo(global_events, 'yt-play', this.poll); 
       this.$player      = this.$el.find('.player');
       this.$description = this.$el.find('.description');
       this.$player.hide();
@@ -82,9 +82,8 @@ define([
     },
 
     stateChange: function(ev) {
-      console.log('data', ev.data);
       if (ev.data == 0) {
-        clearInterval(this.poll_interval_id);
+        //clearInterval(this.poll_interval_id);
         global_events.trigger('yt-stop');
         this.$player.hide();
       }
@@ -101,7 +100,7 @@ define([
             clearInterval(obj.poll_interval_id);
             obj.orig_vol = obj.player.getVolume();
             obj.fadeVolumeOut();
-            console.log('start fade');
+            //console.log('start fade');
           }
         }
       }, 1000);

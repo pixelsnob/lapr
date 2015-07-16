@@ -5,10 +5,10 @@ define([
   
   var navigate  = Backbone.history.navigate,
       history   = [];
-  Backbone.history.navigate = function(fragment, options){
+  Backbone.history.navigate = function(fragment, opts) {
     navigate.apply(this, arguments);
     history.push(fragment);
-  }
+  };
 
   return Backbone.Router.extend({
 
@@ -27,35 +27,36 @@ define([
     },
 
     initialize: function(opts) {
-      this.app_view = opts.app_view;
+      this.controller = opts.controller;
     },
 
     showIndex: function() {
-      this.app_view.showIndex();
+      this.controller.showIndex();
     },
 
     showProductsByCategory: function(category) {
-      this.app_view.showProductsByCategory(category);
+      this.controller.showProductsByCategory(category);
     },
     
     showProductsByTags: function(tags) {
       tags = (tags && tags.length ? tags.split(',') : []);
-      this.app_view.showProductsByTags(tags);
+      this.controller.showProductsByTags(tags);
     },
 
     showProductsByTextSearch: function(search) {
-      this.app_view.showProductsByTextSearch(search);
+      this.controller.showProductsByTextSearch(search);
     },
 
     showProductDetails: function(slug, product_id) {
-      this.app_view.showProductDetails(product_id, history[history.length - 1]);
+      this.controller.showProductDetails(product_id, history[history.length - 1]);
     },
     
     showContact: function() {
-      this.app_view.showContact();
+      this.controller.showContact();
     }
 
   });
+
 });
 
 

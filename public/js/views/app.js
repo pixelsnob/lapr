@@ -13,7 +13,7 @@ define([
   'views/contact',
   'views/content_blocks',
   'views/index',
-  'collections/products',
+  'views/content_panel',
   'collections/pages',
   'lib/events'
 ], function(
@@ -27,7 +27,7 @@ define([
   ContactView,
   ContentBlocksView,
   IndexView,
-  ProductsCollection,
+  ContentPanelView,
   PagesCollection,
   global_events
 ) {
@@ -40,38 +40,36 @@ define([
       'mouseenter .dropdown':      'showNavDropdown',
       'mouseleave .dropdown':      'hideNavDropdown',
       'click .dropdown':           'hideNavDropdown',
-      'click #toggle-site-menu':   'toggleSiteMenu'
+      'click #toggle-site-menu':   'toggleSiteMenu',
+      'click #test-content-panel': 'showContentPanel'
     },
     
     current_view: null,
      
-    initialize: function() {
-      this.products = new ProductsCollection;
-      this.deferred = this.products.fetch();
+    initialize: function(opts) {
+      this.products = opts.products;
       this.$main    = this.$el.find('#main');
-      var obj = this;
-      if (window.lapr.user) {
-        require([ 'views/admin/app' ], function(AdminApp) {
-          new AdminApp({
-            el: obj.$el,
-            products: obj.products
-          });
-        });
-      }
       // Remove modals on browser "back"
       window.onpopstate = function(ev) {
         obj.$el.removeClass('modal-open').end()
           .find('.modal, .modal-backdrop').remove();
       };
-      // Maybe move this to render()
-      this.deferred.done(function() {
+      this.content_blocks_view = new ContentBlocksView({ el: this.$main });
+      this.content_panel_view = new ContentPanelView({
+        el: this.$el.find('#content-panel')
+      });
+      // move site menu to its own view
+      this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
+    },
+
+    render: function() {
+      var obj = this;
+      this.products.deferred.done(function() {
         var text_search = new ProductsTextSearchFormView({
           products: obj.products
         });
         obj.$el.find('.text-search').append(text_search.render().el);
       });
-      this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
-      this.content_blocks_view = new ContentBlocksView({ el: this.$main });
     },
     
     showNavDropdown: function(ev) {
@@ -80,6 +78,10 @@ define([
 
     hideNavDropdown: function(ev) {
       $(ev.currentTarget).removeClass('open');
+    },
+
+    showContentPanel: function() {
+      this.content_panel_view.show();
     },
 
     navigate: function(ev) {
@@ -92,7 +94,7 @@ define([
     
     showProductsByCategory: function(category) {
       var obj = this;
-      this.deferred.done(function() {
+      this.products.deferred.done(function() {
         obj.loadMainView('.products-categories-search', ProductsSearchView);
         obj.products.refs.selected_categories.setFromSlug(category);
         obj.products.filterByCategory();
@@ -102,7 +104,7 @@ define([
     
     showProductsByTags: function(tags) {
       var obj = this;
-      this.deferred.done(function() {
+      this.products.deferred.done(function() {
         obj.loadMainView('.products-tags-search', ProductsTagsSearchView);
         obj.products.refs.selected_tags.setFromArray(tags);
         obj.products.filterByTags();
@@ -112,7 +114,7 @@ define([
 
     showProductsByTextSearch: function(search) {
       var obj = this;
-      this.deferred.done(function() {
+      this.products.deferred.done(function() {
         obj.loadMainView('.products-text-search', ProductsTextSearchView);
         obj.products.filterByTextSearch(search);
       });
@@ -121,9 +123,9 @@ define([
 
     // Shows product details as a modal, and "underneath" we show the 
     // products list showing the first category the product belongs to
-    showProductDetails: function(product_id, previous_url) {
+    showProductDetails: function(product_id/*, previous_url*/) {
       var obj = this;
-      this.deferred.done(function() {
+      this.products.deferred.done(function() {
         var product = obj.products.findWhere({ _id: Number(product_id) });
         if (!product) {
           obj.showServerError();
@@ -153,10 +155,10 @@ define([
             }
             // Return to previous category view, or load one of the categories
             // this product belongs to
-            product_view.on('close', function() {
+            /*product_view.on('close', function() {
               var url = previous_url || ('/instruments/categories/' + category.get('slug'));
               Backbone.history.navigate(url, { trigger: false });
-            });
+            });*/
           }
         }
       });

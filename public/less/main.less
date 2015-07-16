@@ -221,7 +221,7 @@ header {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   background: @bg-color;
-  z-index: 50;
+  z-index: 55;
   ul {
     margin: 0;
     padding: 0;
@@ -269,6 +269,23 @@ header {
     a:active {
       font-weight: bold !important;
     }
+  }
+}
+
+#content-panel {
+  position: fixed;
+  height: 100%;
+  width: 80%;
+  left: -80%;
+  background: @content-bg-color;
+  z-index: 100;
+  -webkit-transition: left 400ms linear;
+  -moz-transition: left 400ms linear;
+  -ms-transition: left 400ms linear;
+  -o-transition: left 400ms linear;
+  transition: left 400ms linear;
+  &.visible {
+    left: 0;
   }
 }
 
