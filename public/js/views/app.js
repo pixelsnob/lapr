@@ -49,17 +49,20 @@ define([
     initialize: function(opts) {
       this.products = opts.products;
       this.$main    = this.$el.find('#main');
-      // Remove modals on browser "back"
-      window.onpopstate = function(ev) {
-        obj.$el.removeClass('modal-open').end()
-          .find('.modal, .modal-backdrop').remove();
-      };
       this.content_blocks_view = new ContentBlocksView({ el: this.$main });
+      /*this.content_panel_view = new ContentPanelView({
+        el: this.$el.find('#content-panel')
+      });*/
+      // move site menu to its own view
+      this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
       this.content_panel_view = new ContentPanelView({
         el: this.$el.find('#content-panel')
       });
-      // move site menu to its own view
-      this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
+      // Remove modals on browser "back"
+      //window.onpopstate = function(ev) {
+      //  obj.$el.removeClass('modal-open').end()
+      //    .find('.modal, .modal-backdrop').remove();
+      //};
     },
 
     render: function() {
@@ -80,9 +83,9 @@ define([
       $(ev.currentTarget).removeClass('open');
     },
 
-    showContentPanel: function() {
-      this.content_panel_view.show();
-    },
+    //showContentPanel: function() {
+    //  this.content_panel_view.show();
+    //},
 
     navigate: function(ev) {
       var url = $(ev.currentTarget).attr('href');
@@ -121,9 +124,7 @@ define([
       return false;
     },
 
-    // Shows product details as a modal, and "underneath" we show the 
-    // products list showing the first category the product belongs to
-    showProductDetails: function(product_id/*, previous_url*/) {
+    showProductDetails: function(product_id, previous_url) {
       var obj = this;
       this.products.deferred.done(function() {
         var product = obj.products.findWhere({ _id: Number(product_id) });
@@ -134,32 +135,12 @@ define([
             model: product,
             refs: obj.products.refs
           });
-          // If user landed here directly, .product-details will be populated.
-          // If not, continue and show product details modal.
-          if (obj.$el.find('.product-details').length) {
-            obj.$el.find('.product-details').html(product_view.render().el);
-            return false;
-          }
-          var cats = product.get('categories');
-          if (_.isArray(cats) && cats.length) {
-            var category = obj.products.refs.product_categories.findWhere({
-              _id: Number(cats[0])
-            });
-            // Show products in same category if not already on the search page
-            if (category && !obj.current_view) {
-              obj.showProductsByCategory(category.get('slug'));
-            }
-            obj.$el.find('.modal').remove();
-            if (!obj.$el.find('.product-details').length) {
-              product_view.renderModal();
-            }
-            // Return to previous category view, or load one of the categories
-            // this product belongs to
-            /*product_view.on('close', function() {
-              var url = previous_url || ('/instruments/categories/' + category.get('slug'));
-              Backbone.history.navigate(url, { trigger: false });
-            });*/
-          }
+          obj.content_panel_view.render(product_view.render().el);
+          obj.content_panel_view.show();
+          obj.listenTo(obj.content_panel_view, 'hidden', function() {
+            Backbone.history.navigate(previous_url, { trigger: false });
+            obj.stopListening(obj.content_panel_view);
+          });
         }
       });
       return false;

@@ -20,29 +20,31 @@ define([
   AppView
 ) {
   
-  //$(function() {
-  var products = new ProductsCollection;
-  products.deferred = products.fetch();
+  // Run on dom ready
+  $(function() {
 
-  var app_view = new AppView({ products: products });
-  app_view.render();
+    var products = new ProductsCollection;
+    products.deferred = products.fetch();
 
-  new Router({ controller: controller(app_view) });
-  
-  Backbone.history.start({
-    pushState: true,
-    hashChange: false,
-    silent: false 
-  });
+    var app_view = new AppView({ products: products });
+    app_view.render();
 
-  if (window.lapr.user) {
-    require([ 'views/admin/app' ], function(AdminApp) {
-      new AdminApp({
-        el:       app_view.$el,
-        products: products
-      });
+    new Router({ controller: controller(app_view) });
+    
+    Backbone.history.start({
+      pushState: true,
+      hashChange: false,
+      silent: false 
     });
-  }
-  //});
+
+    if (window.lapr.user) {
+      require([ 'views/admin/app' ], function(AdminApp) {
+        new AdminApp({
+          el:       app_view.$el,
+          products: products
+        });
+      });
+    }
+  });
 });
 

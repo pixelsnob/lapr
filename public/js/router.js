@@ -4,7 +4,8 @@ define([
 ], function(Backbone) {
   
   var navigate  = Backbone.history.navigate,
-      history   = [];
+      history   = [ window.location.pathname ];
+
   Backbone.history.navigate = function(fragment, opts) {
     navigate.apply(this, arguments);
     history.push(fragment);

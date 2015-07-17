@@ -26,8 +26,8 @@ define([
         app_view.showProductsByTextSearch(search);
       },
 
-      showProductDetails: function(product_id) {
-        app_view.showProductDetails(product_id);
+      showProductDetails: function(product_id, previous_url) {
+        app_view.showProductDetails(product_id, previous_url);
       },
       
       showContact: function() {

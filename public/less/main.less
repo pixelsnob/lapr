@@ -275,17 +275,28 @@ header {
 #content-panel {
   position: fixed;
   height: 100%;
-  width: 80%;
-  left: -80%;
+  width: 100%;
+  top: -100%;
   background: @content-bg-color;
   z-index: 100;
-  -webkit-transition: left 400ms linear;
-  -moz-transition: left 400ms linear;
-  -ms-transition: left 400ms linear;
-  -o-transition: left 400ms linear;
-  transition: left 400ms linear;
+  /*-webkit-transition: top 400ms linear;
+  -moz-transition: top 400ms linear;
+  -ms-transition: top 400ms linear;
+  -o-transition: top 400ms linear;
+  transition: top 400ms linear;
   &.visible {
+    top: 0;
+  }*/
+  #content-panel-inner {
+    overflow-y: auto;
+    position: absolute;
+    bottom: 0;
     left: 0;
+    right: 0;
+    top: 0; 
+    .content {
+      
+    }
   }
 }
 
@@ -365,11 +376,11 @@ header {
   dt, dd {
   }
   .image {
-    text-align: center;
     img {
       display: none;
       max-width: 100%;
-      max-height: 400px;
+      /*max-height: 200px;*/
+      max-height: 300px;
       &.noscript {
         display: block;
       }

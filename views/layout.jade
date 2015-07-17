@@ -85,11 +85,12 @@ html
               a.navigate(href="/instruments/categories/#{category.slug}")= category.name 
           
     #content-panel
+      #content-panel-inner
+        a.content-panel-close(href="javascript:void(0);") Close
+        .content
 
     #main
       block content 
-
-    #test-content-panel(style="border:1px solid red") Open content panel
 
     footer
       div &copy;!{(new Date).getFullYear()} L.A. Percussion Rentals
