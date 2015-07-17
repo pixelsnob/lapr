@@ -84,6 +84,10 @@ html
             li
               a.navigate(href="/instruments/categories/#{category.slug}")= category.name 
           
+    #content-panel
+      #content-panel-inner
+        a.content-panel-close(href="javascript:void(0);") Close
+        .content
 
     #main
       block content 

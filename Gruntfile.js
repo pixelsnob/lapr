@@ -10,7 +10,6 @@ module.exports = function(grunt) {
         },
         files: {
           'public/dist/css/main.css': 'public/less/main.less',
-          //'public/dist/css/cms.css': 'public/less/cms/main.less',
           'public/dist/css/admin.css': 'public/less/admin.less'
         }
       }
@@ -41,10 +40,7 @@ module.exports = function(grunt) {
             {
               name: 'main',
               include: [ 'config', 'require_lib' ]
-            }/*, {
-              name: 'admin',
-              exclude: [ 'main' ]
-            }*/
+            }
           ]
         }
       }

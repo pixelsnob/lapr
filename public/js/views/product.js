@@ -7,13 +7,15 @@ define([
   'models/product',
   './product/details',
   './image_onload',
-  'template'
+  'template',
+  'lib/events'
 ], function(
   BaseView,
   ProductModel,
   ProductDetailsView,
   ImageOnloadView,
-  template
+  template,
+  global_events
 ) {
   
   return BaseView.extend({
@@ -92,7 +94,8 @@ define([
 
     showDetails: function() {
       var view = new ProductDetailsView({ model: this.model });
-      view.renderModal();
+      //view.renderModal();
+      global_events.trigger('content-panel:show', view);
       return false;
     },
 

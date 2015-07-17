@@ -13,7 +13,7 @@ define([
   'views/contact',
   'views/content_blocks',
   'views/index',
-  'collections/products',
+  'views/content_panel',
   'collections/pages',
   'lib/events'
 ], function(
@@ -27,7 +27,7 @@ define([
   ContactView,
   ContentBlocksView,
   IndexView,
-  ProductsCollection,
+  ContentPanelView,
   PagesCollection,
   global_events
 ) {
@@ -40,38 +40,39 @@ define([
       'mouseenter .dropdown':      'showNavDropdown',
       'mouseleave .dropdown':      'hideNavDropdown',
       'click .dropdown':           'hideNavDropdown',
-      'click #toggle-site-menu':   'toggleSiteMenu'
+      'click #toggle-site-menu':   'toggleSiteMenu',
+      'click #test-content-panel': 'showContentPanel'
     },
     
     current_view: null,
      
-    initialize: function() {
-      this.products = new ProductsCollection;
-      this.deferred = this.products.fetch();
+    initialize: function(opts) {
+      this.products = opts.products;
       this.$main    = this.$el.find('#main');
-      var obj = this;
-      if (window.lapr.user) {
-        require([ 'views/admin/app' ], function(AdminApp) {
-          new AdminApp({
-            el: obj.$el,
-            products: obj.products
-          });
-        });
-      }
+      this.content_blocks_view = new ContentBlocksView({ el: this.$main });
+      /*this.content_panel_view = new ContentPanelView({
+        el: this.$el.find('#content-panel')
+      });*/
+      // move site menu to its own view
+      this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
+      this.content_panel_view = new ContentPanelView({
+        el: this.$el.find('#content-panel')
+      });
       // Remove modals on browser "back"
-      window.onpopstate = function(ev) {
-        obj.$el.removeClass('modal-open').end()
-          .find('.modal, .modal-backdrop').remove();
-      };
-      // Maybe move this to render()
-      this.deferred.done(function() {
+      //window.onpopstate = function(ev) {
+      //  obj.$el.removeClass('modal-open').end()
+      //    .find('.modal, .modal-backdrop').remove();
+      //};
+    },
+
+    render: function() {
+      var obj = this;
+      this.products.deferred.done(function() {
         var text_search = new ProductsTextSearchFormView({
           products: obj.products
         });
         obj.$el.find('.text-search').append(text_search.render().el);
       });
-      this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
-      this.content_blocks_view = new ContentBlocksView({ el: this.$main });
     },
     
     showNavDropdown: function(ev) {
@@ -81,6 +82,10 @@ define([
     hideNavDropdown: function(ev) {
       $(ev.currentTarget).removeClass('open');
     },
+
+    //showContentPanel: function() {
+    //  this.content_panel_view.show();
+    //},
 
     navigate: function(ev) {
       var url = $(ev.currentTarget).attr('href');
@@ -92,7 +97,7 @@ define([
     
     showProductsByCategory: function(category) {
       var obj = this;
-      this.deferred.done(function() {
+      this.products.deferred.done(function() {
         obj.loadMainView('.products-categories-search', ProductsSearchView);
         obj.products.refs.selected_categories.setFromSlug(category);
         obj.products.filterByCategory();
@@ -102,7 +107,7 @@ define([
     
     showProductsByTags: function(tags) {
       var obj = this;
-      this.deferred.done(function() {
+      this.products.deferred.done(function() {
         obj.loadMainView('.products-tags-search', ProductsTagsSearchView);
         obj.products.refs.selected_tags.setFromArray(tags);
         obj.products.filterByTags();
@@ -112,18 +117,16 @@ define([
 
     showProductsByTextSearch: function(search) {
       var obj = this;
-      this.deferred.done(function() {
+      this.products.deferred.done(function() {
         obj.loadMainView('.products-text-search', ProductsTextSearchView);
         obj.products.filterByTextSearch(search);
       });
       return false;
     },
 
-    // Shows product details as a modal, and "underneath" we show the 
-    // products list showing the first category the product belongs to
     showProductDetails: function(product_id, previous_url) {
       var obj = this;
-      this.deferred.done(function() {
+      this.products.deferred.done(function() {
         var product = obj.products.findWhere({ _id: Number(product_id) });
         if (!product) {
           obj.showServerError();
@@ -132,58 +135,25 @@ define([
             model: product,
             refs: obj.products.refs
           });
-          // If user landed here directly, .product-details will be populated.
-          // If not, continue and show product details modal.
-          if (obj.$el.find('.product-details').length) {
-            obj.$el.find('.product-details').html(product_view.render().el);
-            return;
-          }
-          var cats = product.get('categories');
-          if (_.isArray(cats) && cats.length) {
-            var category = obj.products.refs.product_categories.findWhere({
-              _id: Number(cats[0])
-            });
-            // Show products in same category if not already on the search page
-            if (category && !obj.current_view) {
-              obj.showProductsByCategory(category.get('slug'));
-            }
-            obj.$el.find('.modal').remove();
-            if (!obj.$el.find('.product-details').length) {
-              product_view.renderModal();
-            }
-            // Return to previous category view, or load one of the categories
-            // this product belongs to
-            product_view.on('close', function() {
-              var url = previous_url || ('/instruments/categories/' + category.get('slug'));
-              Backbone.history.navigate(url, { trigger: false });
-            });
-          }
+          obj.content_panel_view.render(product_view.render().el);
+          obj.content_panel_view.show();
+          obj.listenTo(obj.content_panel_view, 'hidden', function() {
+            Backbone.history.navigate(previous_url, { trigger: false });
+            obj.stopListening(obj.content_panel_view);
+          });
         }
       });
       return false;
     },
 
     showContact: function() {
-      if (this.$main.find('.contact').length) {
-        var view = new ContactView;
-        view.setElement(this.$main);
-        view.render();
-      } else {
-        this.loadMainView('.contact', ContactView);
-      }
+      this.loadMainView('.contact', ContactView);
       this.content_blocks_view.render();
     },
 
     showIndex: function() {
-      if (this.$main.find('.index').length) {
-        var view = new IndexView;
-        view.setElement(this.$main);
-        view.render();
-      } else {
-        this.loadMainView('.index', IndexView);
-      }
+      this.loadMainView('.index', IndexView);
       this.content_blocks_view.render();
-      
     },
     
     showSiteMenu: function(ev) {
@@ -204,6 +174,8 @@ define([
     
     loadMainView: function(class_name, View) {
       if (!this.$main.find(class_name).length) {
+        // This view is currently not being displayed, so make it the current
+        // view
         if (this.current_view) {
           this.current_view.close();
         }
@@ -211,7 +183,13 @@ define([
           products: this.products
         });
         this.$main.html(this.current_view.render().el);
-        return true; 
+      } else {
+        // This view is already being displayed on the page, probably via first
+        // page load (the user hit the url for this view directly and it loaded
+        // from the server)
+        var view = new View({ products: this.products });
+        view.setElement(this.$main);
+        view.render();
       }
       return false;
     }
