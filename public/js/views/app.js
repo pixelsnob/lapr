@@ -138,10 +138,7 @@ define([
             // This doesn't exist so render() and display in the content panel
             obj.content_panel_view.render(product_view.render().el);
             obj.content_panel_view.show();
-            //window.onpopstate = _.bind(obj.content_panel_view.hide,
-            //                           obj.content_panel_view);
             obj.listenTo(obj.content_panel_view, 'hidden', function() {
-              //window.onpopstate = null;
               Backbone.history.navigate(previous_url, { trigger: false });
               obj.stopListening(obj.content_panel_view);
             });
