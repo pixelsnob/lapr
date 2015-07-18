@@ -279,14 +279,6 @@ header {
   top: -100%;
   background: @content-bg-color;
   z-index: 100;
-  /*-webkit-transition: top 400ms linear;
-  -moz-transition: top 400ms linear;
-  -ms-transition: top 400ms linear;
-  -o-transition: top 400ms linear;
-  transition: top 400ms linear;
-  &.visible {
-    top: 0;
-  }*/
   #content-panel-inner {
     overflow-y: auto;
     position: absolute;
@@ -295,7 +287,19 @@ header {
     right: 0;
     top: 0; 
     .content {
-      
+      clear: both; 
+    }
+    .content-panel-close {
+      float: right;
+      overflow: hidden;
+      padding: 10px;
+      a:link {
+        z-index: 1000;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 26px;
+        font-family: Helvetica, sans-serif;
+      }
     }
   }
 }

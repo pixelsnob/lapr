@@ -11,7 +11,7 @@ define([
   return BaseView.extend({
     
     events: {
-      'click .content-panel-close':    'hide'
+      'click .content-panel-close a':    'hide'
     },
     
     initialize: function() {

@@ -10,10 +10,14 @@ define([
     navigate.apply(this, arguments);
     history.push(fragment);
   };
-
-  window.addEventListener('popstate', function(e) {
-    Backbone.history.navigate(Backbone.history.getFragment(), { trigger: true, replace: true });
-  });
+  
+  var onStateChange = function(ev) {
+    Backbone.history.navigate(Backbone.history.getFragment(),
+      { trigger: true, replace: true });
+      console.log('navigation');
+  };
+  window.addEventListener('popstate', onStateChange);
+  window.addEventListener('pushstate', onStateChange);
 
   return Backbone.Router.extend({
 
