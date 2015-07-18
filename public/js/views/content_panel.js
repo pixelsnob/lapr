@@ -20,40 +20,46 @@ define([
       this.on('hidden', function() {
         obj.$el.find('.content').empty();
       });
-      //window.onpopstate = _.bind(this.hide, this);
+      this.shown = false;
     },
     
     show: function(ev) {
-      console.log('show()');
-      //this.disableDocumentScroll();
-      this.$el.animate({ top: 0 }, _.bind(this.trigger, this, 'shown'));
+      var obj = this;
+      this.$el.animate({ top: 0 }, function() {
+        obj.trigger('shown');
+        obj.shown = true;
+      });
       return false;
     },
     
-    hide: function(ev) {
-      console.log('hide()');
+    hide: function(silent) {
       this.enableDocumentScroll();
-      this.$el.animate({ top: '-100%' }, _.bind(this.trigger, this, 'hidden'));
+      var obj = this;
+      this.$el.animate({ top: '-100%' }, function() {
+        obj.trigger('hidden');
+        obj.shown = false;
+      });
       return false;
     },
     
     disableDocumentScroll: function() {
       document.documentElement.style.overflow = 'hidden';  // firefox, chrome
-      console.log('dds');
       document.body.scroll = 'no'; // ie only
     },
 
     enableDocumentScroll: function() {
       document.documentElement.style.overflow = 'visible'; 
-      console.log('eds');
       document.body.scroll = 'yes'; 
     },
     
+    onHistoryBack: function() {
+      this.hide();
+    },
+
     render: function(child_el) {
       this.$el.find('.content').html(child_el);
       return this;
     }
-    
 
   });
 
