@@ -141,7 +141,7 @@ define([
             //window.onpopstate = _.bind(obj.content_panel_view.hide,
             //                           obj.content_panel_view);
             obj.listenTo(obj.content_panel_view, 'hidden', function() {
-              window.onpopstate = null;
+              //window.onpopstate = null;
               Backbone.history.navigate(previous_url, { trigger: false });
               obj.stopListening(obj.content_panel_view);
             });

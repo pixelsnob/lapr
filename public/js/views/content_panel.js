@@ -24,9 +24,9 @@ define([
     },
     
     show: function(ev) {
+      this.trigger('shown');
       var obj = this;
       this.$el.animate({ top: 0 }, function() {
-        obj.trigger('shown');
         obj.shown = true;
       });
       return false;
@@ -35,8 +35,8 @@ define([
     hide: function(silent) {
       this.enableDocumentScroll();
       var obj = this;
+      this.trigger('hidden');
       this.$el.animate({ top: '-100%' }, function() {
-        obj.trigger('hidden');
         obj.shown = false;
       });
       return false;
