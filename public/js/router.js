@@ -4,17 +4,17 @@ define([
 ], function(Backbone) {
   
   var navigate  = Backbone.history.navigate,
-      history   = [ window.location.pathname ];
+      history   = [ window.location.pathname ]; // Initial load
 
   Backbone.history.navigate = function(fragment, opts) {
     navigate.apply(this, arguments);
     history.push(fragment);
   };
   
+  // Mimic back and forward history functionality
   var onStateChange = function(ev) {
     Backbone.history.navigate(Backbone.history.getFragment(),
       { trigger: true, replace: true });
-      console.log('navigation');
   };
   window.addEventListener('popstate', onStateChange);
   window.addEventListener('pushstate', onStateChange);

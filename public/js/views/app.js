@@ -51,9 +51,7 @@ define([
       this.content_blocks_view = new ContentBlocksView({ el: this.$main });
       // move site menu to its own view
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
-      this.content_panel_view = new ContentPanelView({
-        el: this.$el.find('#content-panel')
-      });
+      this.content_panel_view = new ContentPanelView;
       // Remove modals on browser "back"
       //window.onpopstate = function(ev) {
       //  obj.$el.removeClass('modal-open').end()
@@ -62,6 +60,7 @@ define([
     },
 
     render: function() {
+      this.$el.prepend(this.content_panel_view.render().el);
       var obj = this;
       this.products.deferred.done(function() {
         var text_search = new ProductsTextSearchFormView({
@@ -130,9 +129,10 @@ define([
             model: product,
             refs: obj.products.refs
           });
-          if (obj.$el.find('.product-details').length) {
-            // This was loaded from the server, just add the functionality
-            product_view.setElement(obj.$el.find('.product-details'));
+          if (obj.$main.find('.product-details').length) {
+            // This was loaded from the server and is displayed directly on
+            // the page, so let's add some functionality
+            product_view.setElement(obj.$main.find('.product-details'));
             product_view.render();
           } else {
             // This doesn't exist so render() and display in the content panel
