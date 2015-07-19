@@ -278,14 +278,17 @@ header {
   width: 100%;
   /*top: -100%;*/
   top: 0;
+  left: 0;
   display: none;
-  background: @content-bg-color;
+  background: transparent;
   z-index: 100;
+  background: rgba(14, 14, 14, 0.95);
   #content-panel-inner {
+    background: @content-bg-color;
     overflow-y: auto;
     position: absolute;
+    width: 66%;
     bottom: 0;
-    left: 0;
     right: 0;
     top: 0; 
     .content {
@@ -650,6 +653,9 @@ footer {
     h2 {
       font-size: 1.2em;
     }
+  }
+  #content-panel #content-panel-inner {
+    width: 100%;
   }
   .modal {
     /*.modal-body {
