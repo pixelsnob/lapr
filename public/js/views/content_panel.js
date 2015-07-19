@@ -15,7 +15,6 @@ define([
     },
     
     initialize: function() {
-      this.on('shown', _.bind(this.disableDocumentScroll, this));
       var obj = this;
       this.on('hidden', function() {
         obj.$el.find('.content').empty();
@@ -25,19 +24,25 @@ define([
     
     show: function(ev) {
       this.trigger('shown');
+      this.$el.css('display', 'block');
+      this.shown = true;
       var obj = this;
-      this.$el.animate({ top: 0 }, function() {
-        obj.shown = true;
+      this.$el.stop().animate({ opacity: 1 }, function() {
+        obj.disableDocumentScroll();
       });
       return false;
     },
     
-    hide: function(silent) {
+    hide: function(ev) {
+      if (!this.shown) {
+        return false;
+      }
+      this.shown = false;
+      this.trigger('hidden');
       this.enableDocumentScroll();
       var obj = this;
-      this.trigger('hidden');
-      this.$el.animate({ top: '-100%' }, function() {
-        obj.shown = false;
+      this.$el.stop().animate({ opacity: 0 }, function() {
+        obj.$el.css('display', 'none');
       });
       return false;
     },
