@@ -3,9 +3,11 @@
  * 
  */
 define([
-  'views/base'
+  'views/base',
+  'template'
 ], function(
-  BaseView
+  BaseView,
+  template
 ) {
   
   return BaseView.extend({
@@ -20,6 +22,7 @@ define([
         obj.$el.find('.content').empty();
       });
       this.shown = false;
+      this.setElement(template.render('partials/content_panel'));
     },
     
     show: function(ev) {
