@@ -1,8 +1,16 @@
 
 .index.container-fluid
   .row
-    .col-md-7.slideshow-container
+    .col-md-12.slideshow-container
       include ./slideshow
-    .col-md-5
-      .content-block(data-name="featured-product")
-        .content
+    .col-md-12
+      .col-xs-4
+        .content-block(data-name="index-left")
+          .content
+      .col-xs-4
+        .content-block(data-name="index-middle")
+          .content
+      .col-xs-4
+        .content-block(data-name="index-right")
+          .content
+
