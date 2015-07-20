@@ -51,12 +51,14 @@ define([
     },
     
     disableDocumentScroll: function() {
-      document.documentElement.style.overflow = 'hidden';  // firefox, chrome
+      //document.documentElement.style.overflow = 'hidden';  // firefox, chrome
+      $('body').css('position', 'fixed');
       document.body.scroll = 'no'; // ie only
     },
 
     enableDocumentScroll: function() {
-      document.documentElement.style.overflow = 'visible'; 
+      //document.documentElement.style.overflow = 'visible'; 
+      $('body').css('position', 'static');
       document.body.scroll = 'yes'; 
     },
     
