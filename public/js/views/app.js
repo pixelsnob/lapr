@@ -52,11 +52,6 @@ define([
       // move site menu to its own view
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
       this.content_panel_view = new ContentPanelView;
-      // Remove modals on browser "back"
-      //window.onpopstate = function(ev) {
-      //  obj.$el.removeClass('modal-open').end()
-      //    .find('.modal, .modal-backdrop').remove();
-      //};
     },
 
     render: function() {
