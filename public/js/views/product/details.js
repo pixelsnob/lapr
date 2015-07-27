@@ -40,9 +40,6 @@ define([
             'click a.edit': _.bind(obj.edit, obj, ProductAdminView)
           };
           obj.delegateEvents(_.extend(obj.events, events));
-          /*obj.listenTo(obj.model, 'change', function() {
-            setTimeout(_.bind(obj.render, obj), 500);
-          });*/
         });
       }
     },
