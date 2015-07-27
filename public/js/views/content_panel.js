@@ -30,7 +30,7 @@ define([
       this.$el.css('display', 'block');
       this.shown = true;
       var obj = this;
-      this.$el.stop().animate({ opacity: 1 }, function() {
+      this.$el.stop().animate({ opacity: 1, right: 0 }, function() {
         obj.disableDocumentScroll();
       });
       return false;
@@ -45,7 +45,7 @@ define([
       this.enableDocumentScroll();
       var obj = this;
       this.$el.stop().animate({ opacity: 0 }, function() {
-        obj.$el.css('display', 'none');
+        obj.$el.css('right', '-100%');
       });
       return false;
     },

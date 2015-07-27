@@ -26,7 +26,7 @@ html
       .container-fluid
         .row
           .col-xs-1.hidden-lg.hidden-md
-            a#toggle-site-menu
+            a#show-mobile-menu
               span.glyphicon.glyphicon-menu-hamburger
 
           .col-xs-3.logo-container
@@ -72,18 +72,6 @@ html
           .col-xs-4.hidden-xs.hidden-sm
             .text-search
 
-    #site-menu
-      nav
-        ul
-          li
-            a.navigate(href="/") Home
-          li
-            a.navigate(href="/contact") Contact Us
-            
-          each category in json_data.product_categories
-            li
-              a.navigate(href="/instruments/categories/#{category.slug}")= category.name 
-          
 
     #main
       block content 

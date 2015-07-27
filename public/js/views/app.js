@@ -14,6 +14,7 @@ define([
   'views/content_blocks',
   'views/index',
   'views/content_panel',
+  'views/mobile_menu',
   'collections/pages',
   'lib/events'
 ], function(
@@ -28,6 +29,7 @@ define([
   ContentBlocksView,
   IndexView,
   ContentPanelView,
+  MobileMenuView,
   PagesCollection,
   global_events
 ) {
@@ -40,7 +42,7 @@ define([
       'mouseenter .dropdown':      'showNavDropdown',
       'mouseleave .dropdown':      'hideNavDropdown',
       'click .dropdown':           'hideNavDropdown',
-      'click #toggle-site-menu':   'toggleSiteMenu'
+      'click #show-mobile-menu':   'showMobileMenu'
     },
     
     current_view: null,
@@ -52,9 +54,16 @@ define([
       // move site menu to its own view
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
       this.content_panel_view = new ContentPanelView;
+      var obj = this;
+      this.products.deferred.done(function() {
+        obj.mobile_menu_view = new MobileMenuView({
+          collection: obj.products.refs.product_categories
+        });
+      });
     },
 
-    render: function() {
+    render: function() { 
+      this.mobile_menu_view.render();
       this.$el.prepend(this.content_panel_view.render().el);
       var obj = this;
       this.products.deferred.done(function() {
@@ -64,6 +73,23 @@ define([
         obj.$el.find('.text-search').append(text_search.render().el);
       });
     },
+
+    showMobileMenu: function(ev) {
+      this.mobile_menu_view.show();
+    },
+
+    hideMobileMenu: function(ev) {
+      this.mobile_menu_view.hide();
+    },
+
+    toggleSiteMenu: function(ev) {
+      if (this.$el.hasClass('show-nav')) {
+        this.$el.removeClass('show-nav');
+      } else {
+        this.$el.addClass('show-nav');
+      }
+    },
+    
     
     showNavDropdown: function(ev) {
       $(ev.currentTarget).addClass('open');
@@ -77,7 +103,7 @@ define([
       var url = $(ev.currentTarget).attr('href');
       this.$el.find('.dropdown.open').removeClass('open');
       Backbone.history.navigate(url, true);
-      this.hideSiteMenu();
+      this.hideMobileMenu();
       return false;
     },
     
@@ -153,22 +179,6 @@ define([
       this.loadMainView('.index', IndexView);
       this.content_blocks_view.render();
       this.content_panel_view.hide();
-    },
-    
-    showSiteMenu: function(ev) {
-      this.$el.find('#site-wrapper').addClass('show-nav');
-    },
-
-    hideSiteMenu: function(ev) {
-      this.$el.removeClass('show-nav');
-    },
-
-    toggleSiteMenu: function(ev) {
-      if (this.$el.hasClass('show-nav')) {
-        this.$el.removeClass('show-nav');
-      } else {
-        this.$el.addClass('show-nav');
-      }
     },
     
     loadMainView: function(class_name, View) {
