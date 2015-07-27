@@ -41,11 +41,6 @@ body {
   background-color: @bg-color;
   color: @text-color;
   font-family: "Open Sans", sans-serif;
-  /*background-image: url("/images/cocktail_snare.jpg");
-  background-position: top left;
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;*/
 }
 
 a:link, a:visited, a:active {
@@ -188,22 +183,7 @@ header {
   }
 }
 
-#main {
-  padding: 10px;
-  padding-top: 70px;
-  .products {
-    
-  }
-  .categories, .tags-tree {
-    margin-top: 20px;
-    overflow: hidden;
-  }
-  input, textarea, select {
-    background-color: @bg-color;
-    border: 1px solid #888;
-  }
-}
-
+/* Rename to "mobile" menu, etc. */
 #site-menu {
   width: 300px;
   height: 100%;
@@ -244,6 +224,7 @@ header {
   }
 }
 
+/* Is this in use? */
 #sidebar {
   position: fixed;
   left: 0;
@@ -256,6 +237,17 @@ header {
   
   -webkit-transform: translate3d(300px, 0, 0);
   transform: translate3d(300px, 0, 0);
+}
+
+/* "Hamburger" menu */
+#toggle-site-menu {
+  font-size: 24px;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  line-height: 20px;
+  width: 20px;
+  margin-top: 5px;
 }
 
 .categories {
@@ -271,6 +263,22 @@ header {
     a:active {
       font-weight: bold !important;
     }
+  }
+}
+
+#main {
+  padding: 10px;
+  padding-top: 70px;
+  .products {
+    
+  }
+  .categories, .tags-tree {
+    margin-top: 20px;
+    overflow: hidden;
+  }
+  input, textarea, select {
+    background-color: @bg-color;
+    border: 1px solid #888;
   }
 }
 
@@ -312,7 +320,6 @@ header {
 }
 
 .tags-tree  {
-  /*position: fixed;*/
   font-size: 12px;
   padding-right: 12px;
   width: 100%;
@@ -556,16 +563,13 @@ header {
     padding: 15px;
   }
   .content-block {
-    /*h2, h3, h4 {
-      font-size: 1.5em;
-    }*/
     img {
       width: 50%;
       float: right;
       margin: 0 0 10px 10px;
     }
   }
-  &.product-details-image {
+  /*&.product-details-image {
     .close {
       color: #ccc;
       opacity: 1 !important;
@@ -584,18 +588,7 @@ header {
     .modal-dialog {
       width: 70%;
     }
-  }
-}
-
-/* "Hamburger" menu */
-#toggle-site-menu {
-  font-size: 24px;
-  text-decoration: none;
-  cursor: pointer;
-  display: block;
-  line-height: 20px;
-  width: 20px;
-  margin-top: 5px;
+  }*/
 }
 
 footer {
@@ -660,15 +653,12 @@ footer {
   #content-panel #content-panel-inner {
     width: 100%;
   }
-  .modal {
-    /*.modal-body {
-      padding: 7px 5px 5px 5px;
-    }*/
+  /*.modal {
     .modal-dialog {
       width: 100% !important;
       margin: 0; 
     }
-  }
+  }*/
 }
 
 @media only screen and (max-width: @screen-md) {
