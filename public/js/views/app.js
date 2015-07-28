@@ -63,7 +63,6 @@ define([
     },
 
     render: function() { 
-      this.mobile_menu_view.render();
       this.$el.prepend(this.content_panel_view.render().el);
       var obj = this;
       this.products.deferred.done(function() {
@@ -71,6 +70,7 @@ define([
           products: obj.products
         });
         obj.$el.find('.text-search').append(text_search.render().el);
+        obj.mobile_menu_view.render();
       });
     },
 
