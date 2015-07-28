@@ -55,11 +55,11 @@ define([
     },
     
     select: function() {
-      this.$el.find('a').css({ fontWeight: 'bold' }); 
+      this.$el.find('a').addClass('selected'); 
     },
     
     deselect: function() {
-      this.$el.find('a').css({ fontWeight: 'normal' }); 
+      this.$el.find('a').removeClass('selected'); 
     },
 
     render: function() {
