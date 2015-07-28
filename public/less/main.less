@@ -28,6 +28,7 @@
 @button-selected-text-color: #333;
 @button-selected-hover-text-color: #555;
 
+@import './fonts.less';
 @import './buttons.less';
 @import './lists.less';
 @import './effects.less';
@@ -40,7 +41,7 @@ body, html {
 body {
   background-color: @bg-color;
   color: @text-color;
-  font-family: "Open Sans", sans-serif;
+  font-family: FSEmericWeb-Book, sans-serif;
 }
 
 a:link, a:visited, a:active {
@@ -75,7 +76,6 @@ dl {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Montserrat';
 }
 
 h1 {
@@ -114,7 +114,6 @@ header {
     .navbar-nav > li > a {
       padding: 4px 10px;
       font-weight: bold;
-      font-family: 'Montserrat';
       &:link, &:hover, &:active, &:focus {
         background-color: transparent;
       }
@@ -263,7 +262,6 @@ header {
         font-weight: bold;
         text-decoration: none;
         font-size: 26px;
-        font-family: Helvetica, sans-serif;
       }
     }
   }
