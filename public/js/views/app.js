@@ -90,7 +90,6 @@ define([
       }
     },
     
-    
     showNavDropdown: function(ev) {
       $(ev.currentTarget).addClass('open');
     },

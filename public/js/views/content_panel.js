@@ -26,11 +26,11 @@ define([
     },
     
     show: function(ev) {
-      this.trigger('shown');
       this.$el.css('display', 'block');
+      this.trigger('shown');
       this.shown = true;
       var obj = this;
-      this.$el.stop().animate({ opacity: 1 }, function() {
+      this.$el.animate({ opacity: 1 }, 400, function() {
         obj.disableDocumentScroll();
       });
       return false;
@@ -44,7 +44,7 @@ define([
       this.trigger('hidden');
       this.enableDocumentScroll();
       var obj = this;
-      this.$el.stop().animate({ opacity: 0 }, function() {
+      this.$el.stop().animate({ opacity: 0 }, 300, function() {
         obj.$el.css('display', 'none');
       });
       return false;
