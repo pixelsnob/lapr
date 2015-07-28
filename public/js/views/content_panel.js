@@ -30,7 +30,7 @@ define([
       this.trigger('shown');
       this.shown = true;
       var obj = this;
-      this.$el.animate({ opacity: 1 }, 400, function() {
+      this.$el.stop().animate({ opacity: 1 }, 400, function() {
         obj.disableDocumentScroll();
       });
       return false;
