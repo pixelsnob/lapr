@@ -12,12 +12,12 @@ define([
   };
   
   // Mimic back and forward history functionality
-  var onStateChange = function(ev) {
+  /*var onStateChange = function(ev) {
     Backbone.history.navigate(Backbone.history.getFragment(),
       { trigger: true, replace: true });
-  };
-  window.addEventListener('popstate', onStateChange);
-  window.addEventListener('pushstate', onStateChange);
+  };*/
+  //window.addEventListener('popstate', onStateChange);
+  //window.addEventListener('pushstate', onStateChange);
 
   return Backbone.Router.extend({
 
