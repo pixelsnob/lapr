@@ -10,6 +10,12 @@ define([
     navigate.apply(this, arguments);
     history.push(fragment);
   };
+
+  Backbone.history.back = function() {
+    //navigate.apply(this, arguments);
+    console.log(history);
+    Backbone.history.navigate(history[history.length - 2], { trigger: false });
+  };
   
   // Mimic back and forward history functionality
   /*var onStateChange = function(ev) {

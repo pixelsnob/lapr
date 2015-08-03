@@ -8,6 +8,7 @@ define([
   'views/navs/categories',
   'views/product/category_header',
   'views/product/category_more_info',
+  'views/content_panel',
   './search_stats',
   'template'
 ], function(
@@ -16,6 +17,7 @@ define([
   CategoriesNavView,
   ProductCategoryHeaderView,
   ProductCategoryMoreInfoView,
+  ContentPanelView,
   ProductsSearchStatsView,
   template
 ) {
@@ -64,7 +66,7 @@ define([
           $more_info        = this.$el.find('.more-info-container');
       if (selected_category && selected_category.get('more_info_content_block')) {
         $more_info.removeClass('hide');
-        $more_info.find('a').text(selected_category.get('more_info_title'));
+        $more_info.find('a').text(selected_category.get('more_info_title'));// <<<<
       } else {
         $more_info.addClass('hide');
       }
@@ -74,7 +76,8 @@ define([
       this.product_category_more_info_view = new ProductCategoryMoreInfoView({
         products: this.products
       });
-      this.product_category_more_info_view.renderModal();
+      //this.product_category_more_info_view.renderModal();
+
     },
 
     onClose: function() {

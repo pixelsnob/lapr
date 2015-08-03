@@ -11,7 +11,7 @@ define([
 
     comparator: 'name',
 
-    per_page: 60,
+    per_page: 30,
 
     current_page: 1,
     
