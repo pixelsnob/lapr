@@ -3,27 +3,35 @@ define([
   'backbone'
 ], function(Backbone) {
   
-  var navigate  = Backbone.history.navigate,
-      history   = [ window.location.pathname ]; // Initial load
+  var history = [],
+      navigate = Backbone.history.navigate;
+
+  function addToHistory(fragment) {
+    fragment = fragment.replace(/^\//, '');
+    if (history[history.length - 1] != fragment) {
+      history.push(fragment);
+      console.dir(JSON.stringify({ previous: history[history.length - 2], current: history[history.length - 1] }));
+    }
+  }
+
+  addToHistory(window.location.pathname);
 
   Backbone.history.navigate = function(fragment, opts) {
     navigate.apply(this, arguments);
-    history.push(fragment);
+    addToHistory(fragment);
   };
 
-  Backbone.history.back = function() {
-    //navigate.apply(this, arguments);
-    console.log(history);
-    Backbone.history.navigate(history[history.length - 2], { trigger: false });
+  Backbone.history.back = function(trigger) {
+    var previous = history[history.length - 2];
+    if (previous) {
+      Backbone.history.navigate(previous, { trigger: !!trigger });
+    }
   };
-  
-  // Mimic back and forward history functionality
-  /*var onStateChange = function(ev) {
-    Backbone.history.navigate(Backbone.history.getFragment(),
-      { trigger: true, replace: true });
-  };*/
-  //window.addEventListener('popstate', onStateChange);
-  //window.addEventListener('pushstate', onStateChange);
+
+  // Store history on browser back/forward
+  $(window).on('popstate', function(ev) {
+    addToHistory(Backbone.history.getFragment());
+  });
 
   return Backbone.Router.extend({
 
@@ -63,7 +71,7 @@ define([
     },
 
     showProductDetails: function(slug, product_id) {
-      this.controller.showProductDetails(product_id, history[history.length - 1]);
+      this.controller.showProductDetails(product_id);
     },
     
     showContact: function() {

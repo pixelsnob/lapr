@@ -48,21 +48,16 @@ define([
     current_view: null,
      
     initialize: function(opts) {
+      var obj = this;
       this.products = opts.products;
       this.$main    = this.$el.find('#main');
       this.content_blocks_view = new ContentBlocksView({ el: this.$main });
       // move site menu to its own view
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
       this.content_panel_view = new ContentPanelView;
-      var obj = this;
-      global_events.on('content-panel:show', function(el) {
-        obj.content_panel_view.render(el);
-        obj.content_panel_view.show();
-        obj.listenTo(obj.content_panel_view, 'hidden', function() {
-          //Backbone.history.navigate(previous_url, { trigger: false });
-          obj.stopListening(obj.content_panel_view);
-          Backbone.history.back();
-        });
+      this.content_panel_view.on('hidden', Backbone.history.back);
+      $(window).on('popstate', function(ev) {
+        obj.content_panel_view.hide(false);
       });
       this.products.deferred.done(function() {
         obj.mobile_menu_view = new MobileMenuView({
@@ -121,7 +116,6 @@ define([
         obj.loadMainView('.products-categories-search', ProductsSearchView);
         obj.products.refs.selected_categories.setFromSlug(category);
         obj.products.filterByCategory();
-        obj.content_panel_view.hide();
       });
       return false;
     },
@@ -132,7 +126,6 @@ define([
         obj.loadMainView('.products-tags-search', ProductsTagsSearchView);
         obj.products.refs.selected_tags.setFromArray(tags);
         obj.products.filterByTags();
-        obj.content_panel_view.hide();
       });
       return false;
     },
@@ -142,12 +135,11 @@ define([
       this.products.deferred.done(function() {
         obj.loadMainView('.products-text-search', ProductsTextSearchView);
         obj.products.filterByTextSearch(search);
-        obj.content_panel_view.hide();
       });
       return false;
     },
 
-    showProductDetails: function(product_id, previous_url) {
+    showProductDetails: function(product_id) {
       var obj = this;
       this.products.deferred.done(function() {
         var product = obj.products.findWhere({ _id: Number(product_id) });
@@ -165,13 +157,12 @@ define([
             product_view.render();
           } else {
             // This doesn't exist so render() and display in the content panel
-            /*obj.content_panel_view.render(product_view.render().el);
+            obj.content_panel_view.render(product_view.render().el);
             obj.content_panel_view.show();
-            obj.listenTo(obj.content_panel_view, 'hidden', function() {
-              Backbone.history.navigate(previous_url, { trigger: false });
-              obj.stopListening(obj.content_panel_view);
+            /*obj.content_panel_view.on('hidden', function() {
+              Backbone.history.back();
+              //obj.stopListening(obj.content_panel_view);
             });*/
-            global_events.trigger('content-panel:show', product_view.render().el);
           }
         }
       });
@@ -181,13 +172,11 @@ define([
     showContact: function() {
       this.loadMainView('.contact', ContactView);
       this.content_blocks_view.render();
-      this.content_panel_view.hide();
     },
 
     showIndex: function() {
       this.loadMainView('.index', IndexView);
       this.content_blocks_view.render();
-      this.content_panel_view.hide();
     },
     
     loadMainView: function(class_name, View) {

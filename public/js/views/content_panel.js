@@ -36,12 +36,14 @@ define([
       return false;
     },
     
-    hide: function(ev) {
+    hide: function(trigger) {
       if (!this.shown) {
         return false;
       }
       this.shown = false;
-      this.trigger('hidden');
+      if (trigger !== false) {
+        this.trigger('hidden');
+      }
       this.enableDocumentScroll();
       var obj = this;
       this.$el.stop().animate({ opacity: 0 }, 300, function() {
@@ -60,9 +62,9 @@ define([
       document.body.scroll = 'yes';
     },
     
-    onHistoryBack: function() {
+    /*onHistoryBack: function() {
       this.hide();
-    },
+    },*/
 
     render: function(child_el) {
       this.$el.find('.content').html(child_el);
