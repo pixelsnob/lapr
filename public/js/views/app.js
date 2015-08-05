@@ -11,7 +11,6 @@ define([
   'views/products/text_search_form',
   'views/product/details',
   'views/contact',
-  'views/content_blocks',
   'views/index',
   'views/content_panel',
   'views/mobile_menu',
@@ -26,7 +25,6 @@ define([
   ProductsTextSearchFormView,
   ProductDetailsView,
   ContactView,
-  ContentBlocksView,
   IndexView,
   ContentPanelView,
   MobileMenuView,
@@ -51,11 +49,21 @@ define([
       var obj = this;
       this.products = opts.products;
       this.$main    = this.$el.find('#main');
-      this.content_blocks_view = new ContentBlocksView({ el: this.$main });
       // move site menu to its own view
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
       this.content_panel_view = new ContentPanelView;
-      this.content_panel_view.on('hidden', Backbone.history.back);
+      global_events.on('content-panel:show', function(el, back) {
+        var cp = obj.content_panel_view.render(el);
+        obj.content_panel_view.back = back;
+        obj.$el.prepend(cp.el);
+        cp.show();
+      });
+      this.content_panel_view.on('hidden', function() {
+        if (obj.content_panel_view.back === true) {
+          obj.content_panel_view.back = false;
+          Backbone.history.back();
+        }
+      });
       $(window).on('popstate', function(ev) {
         obj.content_panel_view.hide(false);
       });
@@ -156,13 +164,7 @@ define([
             product_view.setElement(obj.$main.find('.product-details'));
             product_view.render();
           } else {
-            // This doesn't exist so render() and display in the content panel
-            obj.content_panel_view.render(product_view.render().el);
-            obj.content_panel_view.show();
-            /*obj.content_panel_view.on('hidden', function() {
-              Backbone.history.back();
-              //obj.stopListening(obj.content_panel_view);
-            });*/
+            global_events.trigger('content-panel:show', product_view.render().el, true);
           }
         }
       });
@@ -171,12 +173,10 @@ define([
 
     showContact: function() {
       this.loadMainView('.contact', ContactView);
-      this.content_blocks_view.render();
     },
 
     showIndex: function() {
       this.loadMainView('.index', IndexView);
-      this.content_blocks_view.render();
     },
     
     loadMainView: function(class_name, View) {

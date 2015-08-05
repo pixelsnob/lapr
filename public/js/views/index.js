@@ -5,10 +5,12 @@
 define([
   'views/base',
   'views/slideshow',
+  'views/content_blocks',
   'template'
 ], function(
   BaseView,
   SlideshowView,
+  content_blocks_view,
   template
 ) {
   
@@ -34,6 +36,7 @@ define([
         this.slideshow_view.setElement(this.getSlideshowContainer());
         this.slideshow_view.start();
       }
+      content_blocks_view.setElement(this.$el).render();
       return this;
     },
 

@@ -20,7 +20,7 @@ define([
   RangeView,
   YoutubePlayerView,
   ImageOnloadView,
-  ContentBlocksView,
+  content_blocks_view,
   template
 ) {
   
@@ -85,8 +85,7 @@ define([
       if (product.more_info) {
         this.$el.find('.more-info-container').removeClass('hide');
       }
-      var content_blocks_view = new ContentBlocksView({ el: this.$el });
-      content_blocks_view.render();
+      content_blocks_view.setElement(this.$el).render();
       return this;
     },
     

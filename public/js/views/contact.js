@@ -12,7 +12,7 @@ define([
   BaseView,
   ContactModel,
   ContactForm,
-  ContentBlocksView,
+  content_blocks_view,
   template
 ) {
   
@@ -43,6 +43,7 @@ define([
                     '?q=26450+Ruether+Ave.,+%23208+Santa+Clarita,+CA+91350' +
                     '&key=AIzaSyAjUkPxGyadh5relom7cM9JgAAm7dLa3l8';
       $iframe.prop('src', src);
+      content_blocks_view.setElement(this.$el).render();
       return this;
     },
 

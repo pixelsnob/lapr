@@ -13,7 +13,7 @@ define([
   BaseView,
   ModalView,
   ContentBlockModel,
-  ContentBlocksView,
+  content_blocks_view,
   markdown,
   template
 ) {
@@ -35,8 +35,7 @@ define([
         this.$el.html(template.render('partials/product_category_more_info', {
           id: content_block_id
         }));
-        var content_blocks_view = new ContentBlocksView({ el: this.$el });
-        content_blocks_view.render();
+        content_blocks_view.setElement(this.$el).render();
       }
       return this; 
     },
@@ -48,7 +47,9 @@ define([
         body: this.render().$el
       });
       this.listenTo(view, 'close', _.bind(this.trigger, this, 'close'));
-    }
+    },
+
+    onClose: function() { console.log('closing bitches'); }
     
   });
 });

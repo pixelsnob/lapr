@@ -10,7 +10,8 @@ define([
   'views/product/category_more_info',
   'views/content_panel',
   './search_stats',
-  'template'
+  'template',
+  'lib/events'
 ], function(
   BaseView,
   ProductsView,
@@ -19,12 +20,12 @@ define([
   ProductCategoryMoreInfoView,
   ContentPanelView,
   ProductsSearchStatsView,
-  template
+  template,
+  global_events
 ) {
   return BaseView.extend({ 
     
     events: {
-      'click .more-info':  'showCategoryMoreInfo'
     },
     
     initialize: function(opts) {
@@ -54,30 +55,29 @@ define([
       this.$el.find('.categories').html(this.nav_view.render().el);
       this.product_category_header_view.setElement(this.$el.find('h1'));
       this.stats_view.setElement(this.$el.find('.stats'));
+      //this.delegateEvents(this.events);
+      this.$el.find('.more-info').on('click', _.bind(this.showCategoryMoreInfo, this));
       return this;
     },
     
-    toggleSortDirection: function(ev) {
-      this.products_view.toggleSortDirection();
-    },
-
     toggleMoreInfoLink: function() {
       var selected_category = this.products.refs.selected_categories.at(0),
           $more_info        = this.$el.find('.more-info-container');
       if (selected_category && selected_category.get('more_info_content_block')) {
         $more_info.removeClass('hide');
-        $more_info.find('a').text(selected_category.get('more_info_title'));// <<<<
+        $more_info.find('a').text(selected_category.get('more_info_title'));
       } else {
         $more_info.addClass('hide');
       }
     },
     
-    showCategoryMoreInfo: function() {
-      this.product_category_more_info_view = new ProductCategoryMoreInfoView({
+    showCategoryMoreInfo: function(ev) {
+      var more_info_view = new ProductCategoryMoreInfoView({
         products: this.products
       });
-      //this.product_category_more_info_view.renderModal();
-
+      global_events.trigger('content-panel:show', more_info_view.render().$el);
+      global_events.on('content-panel:hidden', _.bind(more_info_view.close,
+        more_info_view));
     },
 
     onClose: function() {

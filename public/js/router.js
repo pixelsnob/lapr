@@ -10,7 +10,6 @@ define([
     fragment = fragment.replace(/^\//, '');
     if (history[history.length - 1] != fragment) {
       history.push(fragment);
-      console.dir(JSON.stringify({ previous: history[history.length - 2], current: history[history.length - 1] }));
     }
   }
 

@@ -62,10 +62,6 @@ define([
       document.body.scroll = 'yes';
     },
     
-    /*onHistoryBack: function() {
-      this.hide();
-    },*/
-
     render: function(child_el) {
       this.$el.find('.content').html(child_el);
       return this;
