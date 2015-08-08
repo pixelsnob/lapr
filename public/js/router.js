@@ -29,7 +29,10 @@ define([
 
   // Store history on browser back/forward
   $(window).on('popstate', function(ev) {
-    addToHistory(Backbone.history.getFragment());
+    var fragment = Backbone.history.getFragment();
+    //if (fragment) {
+      addToHistory(fragment);
+    //}
   });
 
   return Backbone.Router.extend({

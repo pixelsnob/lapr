@@ -12,31 +12,33 @@ define([
   
   return BaseView.extend({
     
+    el: 'body',
+
     events: {
       'click .content-panel-close a':    'hide'
     },
     
     initialize: function() {
       var obj = this;
-      this.on('hidden', function() {
-        obj.$el.find('.content').empty();
-      });
       this.shown = false;
-      this.setElement(template.render('partials/content_panel'));
+      $(window).on('popstate', function() {
+        obj.hide(false);
+      });
     },
     
     show: function(ev) {
-      this.$el.css('display', 'block');
+      this.$tpl.css('display', 'block');
       this.trigger('shown');
       this.shown = true;
       var obj = this;
-      this.$el.stop().animate({ opacity: 1 }, 400, function() {
+      this.$tpl.stop().animate({ opacity: 1 }, 400, function() {
         obj.disableDocumentScroll();
       });
       return false;
     },
     
     hide: function(trigger) {
+      this.enableDocumentScroll();
       if (!this.shown) {
         return false;
       }
@@ -44,10 +46,10 @@ define([
       if (trigger !== false) {
         this.trigger('hidden');
       }
-      this.enableDocumentScroll();
       var obj = this;
-      this.$el.stop().animate({ opacity: 0 }, 300, function() {
-        obj.$el.css('display', 'none');
+      this.$tpl.stop().animate({ opacity: 0 }, 300, function() {
+        obj.$tpl.css('display', 'none');
+        obj.$tpl.remove();
       });
       return false;
     },
@@ -63,8 +65,21 @@ define([
     },
     
     render: function(child_el) {
-      this.$el.find('.content').html(child_el);
+      this.$tpl = template.render('partials/content_panel');
+      this.$tpl.find('.content').html(child_el);
+      this.$el.prepend(this.$tpl);
       return this;
+    },
+    
+    // Override close method so we don't remove() the entire body
+    close: function() {
+      this.enableDocumentScroll();
+      var $tpl = this.$tpl;
+      $tpl.stop().animate({
+        opacity: 0
+      }, 300, function() {
+        $tpl.remove();
+      });
     }
 
   });

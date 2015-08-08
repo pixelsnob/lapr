@@ -55,7 +55,6 @@ define([
       this.$el.find('.categories').html(this.nav_view.render().el);
       this.product_category_header_view.setElement(this.$el.find('h1'));
       this.stats_view.setElement(this.$el.find('.stats'));
-      //this.delegateEvents(this.events);
       this.$el.find('.more-info').on('click', _.bind(this.showCategoryMoreInfo, this));
       return this;
     },
@@ -75,9 +74,8 @@ define([
       var more_info_view = new ProductCategoryMoreInfoView({
         products: this.products
       });
-      global_events.trigger('content-panel:show', more_info_view.render().$el);
-      global_events.on('content-panel:hidden', _.bind(more_info_view.close,
-        more_info_view));
+      this.content_panel_view = new ContentPanelView;
+      this.content_panel_view.render(more_info_view.render().el).show();
     },
 
     onClose: function() {
@@ -88,6 +86,9 @@ define([
       this.stats_view.close();
       this.nav_view.close();
       this.products_view.close();
+      if (this.content_panel_view) {
+        this.content_panel_view.close();
+      }
     }
 
   });

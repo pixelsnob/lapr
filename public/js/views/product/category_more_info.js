@@ -1,17 +1,15 @@
 /**
- * Product category "more info" link and modal
+ * Product category "more info" link
  * 
  */
 define([
   'views/base',
-  'views/modal',
   'models/content_block',
   'views/content_blocks',
   'lib/markdown',
   'template'
 ], function(
   BaseView,
-  ModalView,
   ContentBlockModel,
   content_blocks_view,
   markdown,
@@ -38,18 +36,7 @@ define([
         content_blocks_view.setElement(this.$el).render();
       }
       return this; 
-    },
-    
-    renderModal: function() {
-      var view = new ModalView;
-      view.$el.addClass('product-category-more-info');
-      view.render({
-        body: this.render().$el
-      });
-      this.listenTo(view, 'close', _.bind(this.trigger, this, 'close'));
-    },
-
-    onClose: function() { console.log('closing bitches'); }
+    }
     
   });
 });

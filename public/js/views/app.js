@@ -51,22 +51,11 @@ define([
       this.$main    = this.$el.find('#main');
       // move site menu to its own view
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
-      this.content_panel_view = new ContentPanelView;
-      global_events.on('content-panel:show', function(el, back) {
-        var cp = obj.content_panel_view.render(el);
-        obj.content_panel_view.back = back;
-        obj.$el.prepend(cp.el);
-        cp.show();
-      });
-      this.content_panel_view.on('hidden', function() {
-        if (obj.content_panel_view.back === true) {
-          obj.content_panel_view.back = false;
-          Backbone.history.back();
+      /*$(window).on('popstate', function(ev) {
+        if (obj.content_panel_view) {
+          obj.content_panel_view.hide(false);
         }
-      });
-      $(window).on('popstate', function(ev) {
-        obj.content_panel_view.hide(false);
-      });
+      });*/
       this.products.deferred.done(function() {
         obj.mobile_menu_view = new MobileMenuView({
           collection: obj.products.refs.product_categories
@@ -75,7 +64,6 @@ define([
     },
 
     render: function() { 
-      this.$el.prepend(this.content_panel_view.render().el);
       var obj = this;
       this.products.deferred.done(function() {
         var text_search = new ProductsTextSearchFormView({
@@ -164,7 +152,14 @@ define([
             product_view.setElement(obj.$main.find('.product-details'));
             product_view.render();
           } else {
-            global_events.trigger('content-panel:show', product_view.render().el, true);
+            obj.content_panel_view = new ContentPanelView;
+            obj.content_panel_view.render(product_view.render().el).show();
+            obj.content_panel_view.on('hidden', function() {
+              Backbone.history.back();
+              product_view.close();
+              obj.content_panel_view.close();
+              //console.log('s');
+            });
           }
         }
       });
