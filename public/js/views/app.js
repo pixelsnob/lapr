@@ -51,11 +51,6 @@ define([
       this.$main    = this.$el.find('#main');
       // move site menu to its own view
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
-      /*$(window).on('popstate', function(ev) {
-        if (obj.content_panel_view) {
-          obj.content_panel_view.hide(false);
-        }
-      });*/
       this.products.deferred.done(function() {
         obj.mobile_menu_view = new MobileMenuView({
           collection: obj.products.refs.product_categories
@@ -152,13 +147,12 @@ define([
             product_view.setElement(obj.$main.find('.product-details'));
             product_view.render();
           } else {
-            obj.content_panel_view = new ContentPanelView;
-            obj.content_panel_view.render(product_view.render().el).show();
-            obj.content_panel_view.on('hidden', function() {
-              Backbone.history.back();
+            var content_panel_view = new ContentPanelView;
+            content_panel_view.render(product_view.render().el).show();
+            content_panel_view.on('hidden', function() {
               product_view.close();
-              obj.content_panel_view.close();
-              //console.log('s');
+              content_panel_view.close();
+              Backbone.history.back(true);
             });
           }
         }

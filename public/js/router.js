@@ -3,22 +3,7 @@ define([
   'backbone'
 ], function(Backbone) {
   
-  var history = [],
-      navigate = Backbone.history.navigate;
-
-  function addToHistory(fragment) {
-    fragment = fragment.replace(/^\//, '');
-    if (history[history.length - 1] != fragment) {
-      history.push(fragment);
-    }
-  }
-
-  addToHistory(window.location.pathname);
-
-  Backbone.history.navigate = function(fragment, opts) {
-    navigate.apply(this, arguments);
-    addToHistory(fragment);
-  };
+  var history = [];
 
   Backbone.history.back = function(trigger) {
     var previous = history[history.length - 2];
@@ -26,14 +11,6 @@ define([
       Backbone.history.navigate(previous, { trigger: !!trigger });
     }
   };
-
-  // Store history on browser back/forward
-  $(window).on('popstate', function(ev) {
-    var fragment = Backbone.history.getFragment();
-    //if (fragment) {
-      addToHistory(fragment);
-    //}
-  });
 
   return Backbone.Router.extend({
 
@@ -50,9 +27,27 @@ define([
       'instruments/:slug/:product_id':     'showProductDetails',
       'contact':                           'showContact'
     },
+    
+    route: function(route, name, cb) {
+      Backbone.Router.prototype.route.call(this, route, name, function() {
+        if (!cb) {
+          cb = this[name];
+        }
+        this.trigger('before-route');
+        cb.apply(this, arguments);
+      });
+    },
 
     initialize: function(opts) {
       this.controller = opts.controller;
+      this.listenTo(this, 'before-route', this.storeRoute);
+    },
+    
+    // Store route in history, to provide "back" functionality for closing
+    // popups, etc.
+    storeRoute: function() {
+      var fragment = Backbone.history.getFragment().replace(/^\//, '');
+      history.push(fragment); 
     },
 
     showIndex: function() {
