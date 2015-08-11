@@ -32,7 +32,7 @@ define([
         products: this.products
       });
     },
-
+    
     render: function() {
       this.$el.html(template.render('partials/products_search', {
         products: [], paginate: null, heading: 'Sound Search'
@@ -43,7 +43,7 @@ define([
       this.stats_view.setElement(this.$el.find('.stats'));
       return this;
     },
-
+    
     onClose: function() {
       this.products.trigger('kill');
       this.products.unbind();
