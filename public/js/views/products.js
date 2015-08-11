@@ -39,7 +39,7 @@ define([
           obj      = this;
       if (append !== true) {
         $results.empty();
-        $(window).scrollTop(0);
+        //$(window).scrollTop(0);
       }
       products.getPaged().forEach(function(product) {
         var view = new ProductView({
