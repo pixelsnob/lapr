@@ -28,6 +28,7 @@ define([
       'contact':                           'showContact'
     },
     
+    // Add a "before route" event
     route: function(route, name, cb) {
       Backbone.Router.prototype.route.call(this, route, name, function() {
         if (!cb) {

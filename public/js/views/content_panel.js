@@ -47,7 +47,7 @@ define([
         this.trigger('hidden');
       }
       var obj = this;
-      this.$tpl.stop().animate({ opacity: 0 }, 300, function() {
+      this.$tpl.stop().animate({ opacity: 0 }, 200, function() {
         obj.$tpl.css('display', 'none');
         obj.$tpl.remove();
       });
@@ -77,7 +77,7 @@ define([
       var $tpl = this.$tpl;
       $tpl.stop().animate({
         opacity: 0
-      }, 300, function() {
+      }, 200, function() {
         $tpl.remove();
       });
     }
