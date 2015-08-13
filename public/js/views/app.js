@@ -46,6 +46,7 @@ define([
     current_view: null,
      
     initialize: function(opts) {
+      this.views = [];
       var obj = this;
       this.products = opts.products;
       this.$main    = this.$el.find('#main');
@@ -183,9 +184,16 @@ define([
         // This view is already being displayed on the page, probably via first
         // page load (the user hit the url for this view directly and it loaded
         // from the server)
-        var view = new View({ products: this.products });
-        view.setElement(this.$main);
-        view.render();
+        var view_name = class_name.replace(/^\./, '');
+        if (this.views[view_name]) {
+          var view = this.views[view_name];
+          view.setElement(this.$main);
+        } else {
+          var view = new View({ products: this.products });
+          view.setElement(this.$main);
+          view.render();
+          this.views[view_name] = view;
+        }
       }
       return false;
     }
