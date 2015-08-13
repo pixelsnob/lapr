@@ -5,9 +5,11 @@
       li
         a.navigate(href="/") Home
       li
-        a.navigate(href="/instruments") Instruments
-      li
         a.navigate(href="/instruments/tags") Sound Search
+        
+      each category in product_categories
+        li
+          a.navigate(href="/instruments/categories/#{category.slug}")= category.name 
+      
       li
         a.navigate(href="/contact") Contact Us
-        

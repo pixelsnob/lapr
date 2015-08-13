@@ -83,6 +83,7 @@ h1 {
   font-size: 1.6em;
   color: #fff;
   text-transform: uppercase;
+  margin-top: 0 !important;
 }
 
 h3 {
@@ -298,15 +299,25 @@ header {
 }
 
 #sidebar {
-  /*position: fixed;
+  position: fixed;
   left: 0;
-  top: 70px;*/
+  height: 100%;
+  #sidebar-inner {
+    width: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0; 
+    padding: 15px;
+  }
 }
 
 .categories {
   ul {
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
   li {
     list-style: none;
@@ -321,13 +332,13 @@ header {
 
 #main {
   padding: 10px;
-  padding-top: 70px;
-  .products {
-    
+  padding-top: 50px;
+  .products-heading {
+    position: fixed;
+    top: 40px;
   }
-  .categories, .tags-tree {
-    margin-top: 20px;
-    overflow: hidden;
+  .categories {
+    padding-top: 10px;
   }
   input, textarea, select {
     background-color: @bg-color;
@@ -337,16 +348,20 @@ header {
 
 .tags-tree  {
   font-size: 12px;
-  padding-right: 12px;
+  padding-top: 20px;
   width: 100%;
   & > li {
     margin-bottom: 10px;
   }
   ul {
+    width: 100%;
     padding: 0 0 10px 0;
     li {
       list-style: none;
     }
+  }
+  & > ul {
+    padding: 20px;
   }
 }
 
@@ -608,7 +623,7 @@ footer {
 
 /* Small screen stuff */
 
-@media only screen and (max-width: @screen-sm) {
+@media only screen and (max-width: @screen-md) {
   body {
     padding: 0 !important;
   }
