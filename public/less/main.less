@@ -298,22 +298,6 @@ header {
   }
 }
 
-#sidebar {
-  position: fixed;
-  left: 0;
-  height: 100%;
-  #sidebar-inner {
-    width: 100%;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    top: 0; 
-    padding: 15px;
-  }
-}
-
 .categories {
   ul {
     margin: 0;
@@ -364,6 +348,7 @@ header {
     padding: 20px;
   }
 }
+
 
 .products .product {
   overflow: hidden;
@@ -621,12 +606,31 @@ footer {
   }
 }
 
+
 /* Small screen stuff */
+
+@media only screen and (max-width: @screen-sm) {
+  #sidebar, #products-results {
+    height: auto;
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
+  }
+
+  #products-results {
+    right: 0;
+  }
+
+}
 
 @media only screen and (max-width: @screen-md) {
   body {
     padding: 0 !important;
   }
+
   #main {
     padding-left: 0;
     padding-right: 0;
@@ -662,11 +666,6 @@ footer {
   #content-panel #content-panel-inner {
     width: 100%;
   }
-}
-
-@media only screen and (max-width: @screen-md) {
-  #main {
-  }
   .logo-container, .logo-container .logo {
     .pull-right
   }
@@ -675,6 +674,22 @@ footer {
     width: 100%;
     margin-left: 0;
   }
+  /*#sidebar {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    #sidebar-inner {
+      width: 100%;
+      padding: 15px;
+    }
+  }
+
+  #products-results {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }*/
+
 }
 
 /* "Extra large" screens */
