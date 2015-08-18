@@ -8,7 +8,7 @@ define([
   Backbone.history.back = function(trigger) {
     var previous = history[history.length - 2];
     if (previous) {
-      Backbone.history.navigate(previous, { trigger: false });
+      Backbone.history.navigate(previous, { trigger: !!trigger });
     }
   };
 
