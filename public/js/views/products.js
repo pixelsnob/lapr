@@ -41,6 +41,7 @@ define([
         $results.empty();
         $(window).scrollTop(0);
       }
+      console.log('render');
       products.getPaged().forEach(function(product) {
         var view = new ProductView({
           model:              product,

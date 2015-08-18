@@ -170,30 +170,14 @@ define([
     },
     
     loadMainView: function(class_name, View) {
-      if (!this.$main.find(class_name).length) {
-        // This view is currently not being displayed, so make it the current
-        // view
+      if (!(this.current_view instanceof View)) {
         if (this.current_view) {
-          this.current_view.close();
+          this.current_view.close(); 
         }
         this.current_view = new View({
           products: this.products
         });
         this.$main.html(this.current_view.render().el);
-      } else {
-        // This view is already being displayed on the page, probably via first
-        // page load (the user hit the url for this view directly and it loaded
-        // from the server)
-        var view_name = class_name.replace(/^\./, '');
-        if (this.views[view_name]) {
-          var view = this.views[view_name];
-          view.setElement(this.$main);
-        } else {
-          var view = new View({ products: this.products });
-          view.setElement(this.$main);
-          view.render();
-          this.views[view_name] = view;
-        }
       }
       return false;
     }
