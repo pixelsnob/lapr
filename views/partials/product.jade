@@ -4,7 +4,8 @@
     if product.thumbnail
       img(src="/images/products/#{product.thumbnail}", alt="#{product.name}", rel="prefetch")
 
-  .details
+  .details.hidden-xs
+
     h3.name= product.name
 
     if _.isArray(product.makers) && product.makers.length

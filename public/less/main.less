@@ -351,7 +351,6 @@ header {
 
 .products .product {
   overflow: hidden;
-  top: 0;
   padding: 0;
   background: @content-bg-color;
   width: 100%;
@@ -575,13 +574,6 @@ header {
   .modal-body {
     padding: 15px;
   }
-  /*.content-block {
-    img {
-      width: 50%;
-      float: right;
-      margin: 0 0 10px 10px;
-    }
-  }*/
 }
 
 footer {
@@ -622,35 +614,63 @@ footer {
   #products-results {
     right: 0;
   }
-  body {
-    padding: 0 !important;
+  .products .product {
+    height: auto;
+    padding-bottom: 0;
+    text-align: center;
+    .image {
+      margin: 0 auto;
+      max-width: 200px;
+      padding-bottom: 0;
+      float: none;
+      height: 100%;
+      text-align: center;
+      width: 100%;
+      img {
+        position: static;
+        height: 100%;
+        width: 100%;
+      }
+    }
   }
+  #content-panel #content-panel-inner {
+    width: 100%;
+  }
+  /*body {
+    padding: 0 !important;
+  }*/
 
+}
+
+@media only screen and (max-width: @screen-md) {
   #main {
     padding-left: 0;
     padding-right: 0;
-    .products {
-      .results {
-        li {
-          width: 100%;
-          .product {
-            min-height: 130px;
-            padding-bottom: 35%;
-            .image {
-              padding-bottom: 35%;
-              height: 100%;
-              text-align: center;
-              img {
-                max-height: 100%;
-              }
-            }
-          }
-        }
-      }
+    .products .results li {
+      width: 100%;
     }
     [class*='col-'] {
       padding-left: 5px;
       padding-right: 5px;
+    }
+  }
+  .products .product {
+    height: auto;
+    padding-bottom: 0;
+    /*text-align: center;*/
+    .image {
+      /*margin: 0 auto;*/
+      max-width: 200px;
+      padding-bottom: 0;
+      /*float: none;*/
+      height: 100%;
+      /*text-align: center;
+      width: 100%;*/
+      img {
+        position: static;
+        height: 100%;
+        width: 100%;
+      }
     }
   }
   .product-details {
@@ -658,32 +678,14 @@ footer {
       font-size: 1.2em;
     }
   }
-  #content-panel #content-panel-inner {
-    width: 100%;
-  }
-  .logo-container, .logo-container .logo {
-    .pull-right
-  }
   .product-details .image {
     float: none;
     width: 100%;
     margin-left: 0;
   }
-  /*#sidebar {
-    height: 100%;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    #sidebar-inner {
-      width: 100%;
-      padding: 15px;
-    }
+  .logo-container, .logo-container .logo {
+    .pull-right
   }
-
-  #products-results {
-    height: 100%;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }*/
 
 }
 
