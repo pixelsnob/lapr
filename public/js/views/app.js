@@ -169,8 +169,10 @@ define([
       this.loadMainView('.index', IndexView);
     },
     
+    // Loads a view into #main
     loadMainView: function(class_name, View) {
       if (!(this.current_view instanceof View)) {
+        // Run close() to prevent mem leaks 
         if (this.current_view) {
           this.current_view.close(); 
         }
