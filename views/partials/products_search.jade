@@ -1,12 +1,8 @@
 
 .container-fluid.products
   .row
-    .products-heading.col-md-9.col-md-offset-3.col-sm-offset-5.col-xs-offset-5
-
-  .row
     #sidebar.col-xs-6.col-sm-6.col-md-3
       #sidebar-inner
-
         section.heading
           h1= (typeof heading != 'undefined' ? heading : '')
           .more-info-container.hide
@@ -14,7 +10,7 @@
           .stats.secondary #{products.length} Results
           .sort-direction
             a.toggle-sort-direction(href="javascript:void(0);") Sort Descending
-      
+
         nav.categories
           if typeof product_categories != 'undefined'
             ul

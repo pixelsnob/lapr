@@ -153,7 +153,7 @@ define([
             content_panel_view.on('hidden', function() {
               product_view.close();
               content_panel_view.close();
-              Backbone.history.back(true);
+              Backbone.history.back();
             });
           }
         }

@@ -64,18 +64,17 @@ define([
       }
       this.$el.html(template.render('partials/product', {
         product: product
-        //user: window.lapr.user
       }));
       this.$el.attr('id', this.model.id);
       // Image loading stuff
-      /*var thumbnail = this.model.get('thumbnail');
+      var thumbnail = this.model.get('thumbnail');
       if (thumbnail) {
         var image_onload_view = new ImageOnloadView({
           el:        this.$el.find('.image'),
           src:       '/images/products/' + thumbnail
         });
         image_onload_view.render();
-      }*/
+      }
       return this;
     },
     

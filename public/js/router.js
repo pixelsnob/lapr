@@ -5,10 +5,10 @@ define([
   
   var history = [];
 
-  Backbone.history.back = function(trigger) {
+  Backbone.history.back = function() {
     var previous = history[history.length - 2];
     if (previous) {
-      Backbone.history.navigate(previous, { trigger: !!trigger });
+      Backbone.history.navigate(previous, true);
     }
   };
 
