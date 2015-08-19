@@ -318,7 +318,7 @@ header {
 
 #main {
   padding: 10px;
-  padding-top: 50px;
+  padding-top: 60px;
   .products-heading {
     position: fixed;
     top: 40px;
@@ -331,7 +331,6 @@ header {
 
 .tags-tree  {
   font-size: 12px;
-  padding-top: 20px;
   width: 100%;
   & > li {
     margin-bottom: 10px;
@@ -601,10 +600,18 @@ footer {
 /* Small screen stuff */
 
 @media only screen and (max-width: @screen-sm) {
+  #main {
+    padding-left: 2px;
+    padding-right: 2px;
+    [class*='col-'] {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
   #sidebar, #products-results {
     height: auto;
     position: fixed;
-    top: 60px;
+    top: 50px;
     bottom: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -614,44 +621,16 @@ footer {
   #products-results {
     right: 0;
   }
-  /*.products .product {
-    height: auto;
-    padding-bottom: 0;
-    text-align: center;
-    .image {
-      margin: 0 auto;
-      max-width: 200px;
-      padding-bottom: 0;
-      float: none;
-      height: 100%;
-      text-align: center;
-      width: 100%;
-      img {
-        position: static;
-        height: 100%;
-        width: 100%;
-      }
-    }
-  }*/
   #content-panel #content-panel-inner {
     width: 100%;
   }
-  /*body {
-    padding: 0 !important;
-  }*/
 
 }
 
 @media only screen and (max-width: @screen-md) {
   #main {
-    padding-left: 0;
-    padding-right: 0;
     .products .results li {
       width: 100%;
-    }
-    [class*='col-'] {
-      padding-left: 5px;
-      padding-right: 5px;
     }
   }
   .products .product {
@@ -663,7 +642,7 @@ footer {
       width: 100%;
       img {
         position: static;
-        max-height: 300px;
+        max-height: 150px;
         width: auto;
       }
     }
