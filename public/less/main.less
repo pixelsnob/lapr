@@ -75,30 +75,6 @@ dl {
   color: @text-secondary-color;
 }
 
-/*
-h1, h2, h3, h4, h5, h6 {
-}
-
-h1 {
-  font-size: 1.6em;
-  color: #fff;
-  text-transform: uppercase;
-  margin-top: 0 !important;
-}
-
-h3 {
-  text-transform: uppercase;
-  font-weight: normal;
-  font-size: 0.8em;
-}
-
-h2, h3, h4, h5, h6 {
-  color: #ddd;
-  font-size: 1.3em;
-  font-weight: normal;
-}
-*/
-
 h1, h2 {
   text-transform: uppercase;
 }
@@ -113,11 +89,13 @@ h1 {
 
 h2 {
   font-size: 1.4em;
+  margin-top: 0;
 }
 
 h3 {
   font-size: 1.1em;
 }
+
 
 header {
   position: fixed;
@@ -310,7 +288,6 @@ header {
       text-decoration: none;
     }
     a:active {
-      /*font-weight: bold !important;*/
     }
   }
 }
@@ -333,13 +310,13 @@ header {
   }
 }
 
-#sidebar nav {
+.products .sidebar nav {
   padding-top: 10px;
 }
 
 #main {
   padding: 10px;
-  padding-top: 60px;
+  padding-top: 80px;
   .products-heading {
     position: fixed;
     top: 40px;
@@ -350,6 +327,9 @@ header {
   }
 }
 
+.products .boxes-list {
+  padding-top: 10px;
+}
 
 .products .product {
   overflow: hidden;
@@ -402,9 +382,6 @@ header {
     font-size: 1.2em;
     margin-top: 0;
   }
-  /*h3 {
-    font-size: 1.1em;
-  }*/
   dt, dd {
   }
   .image {
@@ -428,13 +405,13 @@ header {
   .more-info {
     max-height: 0;
     overflow: hidden;
-    &.expand {
+    /*&.expand {
       max-height: 100vh;
       transition: max-height .5s;
       -moz-transition: max-height .5s;
       -webkit-transition: max-height .5s;
       -ms-transition: max-height .5s;
-    }
+    }*/
   }
   .sounds-disclaimer {
     font-size: 0.9em;
@@ -594,22 +571,20 @@ footer {
       margin: 0;
       display: inline;
     }
-    a {
-    }
   }
 }
 
 /* Small screen stuff */
 
 @media only screen and (max-width: @screen-sm) {
-  #main {
+  /*#main {
     padding-left: 2px;
     padding-right: 2px;
     [class*='col-'] {
       padding-left: 5px;
       padding-right: 5px;
     }
-  }
+  }*/
 
   #content-panel #content-panel-inner {
     width: 100%;
@@ -617,40 +592,45 @@ footer {
 }
 
 @media only screen and (max-width: @screen-md) {
-  #main {
-    .products .results li {
-      width: 100%;
-    }
-  }
-  .products h2 {
-    font-size: 1.2em;
-    margin-top: 10px;
-  }
-  #sidebar, #products-results {
-    height: auto;
-    position: fixed;
-    top: 50px;
-    bottom: 0;
-    padding-bottom: 20px;
-  }
-  #products-results {
+  .scroll-fixed {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    height: auto;
+    position: fixed;
+    width: inherit;
   }
-  #sidebar {
-    right: 0;
-    nav {
-      display: block;
-      height: auto;
-      position: fixed;
-      top: 160px;
-      bottom: 0;
-      overflow-y: scroll;
-      padding: 0 5px 20px 5px;
-      -webkit-overflow-scrolling: touch;
+  .products {
+    h2 {
+      font-size: 1.2em;
     }
-    .heading a:link, .stats {
-      line-height: 14px;
+    .stats-container, .heading-container,
+    nav, .boxes-list {
+      padding: 5px;
+      /*border: 1px solid yellow;*/
+    }
+    .stats-container, .heading-container {
+      position: fixed;
+      top: 60px;
+      height: 50px;
+      width: inherit;
+    }
+    .stats-container, nav {
+      right: 0;
+    }
+    .boxes-list, .heading-container {
+      left: 0;
+    }
+    .boxes-list, nav {
+      top: 110px;
+      bottom: 0;
+    }
+    /*.sidebar {
+      .heading a:link, .stats {
+        line-height: 14px;
+      }
+    }*/
+    .results li {
+      width: 100%;
     }
   }
   .products .product {

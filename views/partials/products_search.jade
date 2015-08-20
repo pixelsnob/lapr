@@ -1,16 +1,15 @@
 
 .container-fluid.products
   .row
-    #sidebar.col-xs-6.col-sm-6.col-md-3
-      section.heading
-        h2= (typeof heading != 'undefined' ? heading : '')
+    
+    .sidebar.col-xs-6.col-sm-6.col-md-3
+
+      .stats-container
+        .stats.secondary #{products.length} Results
         .more-info-container.hide
           a.more-info(href="javascript:void(0);") More Information
-        .stats.secondary #{products.length} Results
-        .sort-direction
-          a.toggle-sort-direction(href="javascript:void(0);") Sort Descending
 
-      nav
+      nav.scroll-fixed
         .categories
           if typeof product_categories != 'undefined'
             ul
@@ -20,9 +19,14 @@
 
         .tags-tree
 
-    #products-results.col-xs-6.col-sm-6.col-md-9
+    .products-results.col-xs-6.col-sm-6.col-md-9
+      
+      .heading-container
+        h2= (typeof heading != 'undefined' ? heading : '')
+        .sort-direction.hidden-xs.hidden-sm
+          a.toggle-sort-direction(href="javascript:void(0);") Sort Descending
 
-      .boxes-list
+      .boxes-list.scroll-fixed
 
         ul.results
           each product in products
