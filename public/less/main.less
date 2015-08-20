@@ -299,7 +299,6 @@ header {
 }
 
 .categories {
-  padding-top: 20px;
   ul {
     margin: 0;
     padding: 0;
@@ -313,19 +312,6 @@ header {
     a:active {
       /*font-weight: bold !important;*/
     }
-  }
-}
-
-#main {
-  padding: 10px;
-  padding-top: 60px;
-  .products-heading {
-    position: fixed;
-    top: 40px;
-  }
-  input, textarea, select {
-    background-color: @bg-color;
-    border: 1px solid #888;
   }
 }
 
@@ -344,6 +330,23 @@ header {
   }
   & > ul {
     padding: 20px;
+  }
+}
+
+#sidebar nav {
+  padding-top: 10px;
+}
+
+#main {
+  padding: 10px;
+  padding-top: 60px;
+  .products-heading {
+    position: fixed;
+    top: 40px;
+  }
+  input, textarea, select {
+    background-color: @bg-color;
+    border: 1px solid #888;
   }
 }
 
@@ -396,7 +399,7 @@ header {
 
 .product-details {
   h2 {
-    font-size: 1.3em;
+    font-size: 1.2em;
     margin-top: 0;
   }
   /*h3 {
@@ -596,7 +599,6 @@ footer {
   }
 }
 
-
 /* Small screen stuff */
 
 @media only screen and (max-width: @screen-sm) {
@@ -612,7 +614,6 @@ footer {
   #content-panel #content-panel-inner {
     width: 100%;
   }
-
 }
 
 @media only screen and (max-width: @screen-md) {
@@ -621,17 +622,36 @@ footer {
       width: 100%;
     }
   }
+  .products h2 {
+    font-size: 1.2em;
+    margin-top: 10px;
+  }
   #sidebar, #products-results {
     height: auto;
     position: fixed;
     top: 50px;
     bottom: 0;
+    padding-bottom: 20px;
+  }
+  #products-results {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 20px;
   }
   #sidebar {
     right: 0;
+    nav {
+      display: block;
+      height: auto;
+      position: fixed;
+      top: 160px;
+      bottom: 0;
+      overflow-y: scroll;
+      padding: 0 5px 20px 5px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .heading a:link, .stats {
+      line-height: 14px;
+    }
   }
   .products .product {
     height: auto;
@@ -662,7 +682,6 @@ footer {
   .logo-container, .logo-container .logo {
     .pull-right
   }
-
 }
 
 /* "Extra large" screens */

@@ -53,7 +53,7 @@ define([
       this.$el.addClass('products-categories-search');
       this.products_view.setElement(this.$el.find('.products'));
       this.$el.find('.categories').html(this.nav_view.render().el);
-      this.product_category_header_view.setElement(this.$el.find('h1'));
+      this.product_category_header_view.setElement(this.$el.find('h2'));// <<<<< change to class?
       this.stats_view.setElement(this.$el.find('.stats'));
       this.$el.find('.more-info').on('click', _.bind(this.showCategoryMoreInfo, this));
       return this;
