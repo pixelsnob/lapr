@@ -96,14 +96,14 @@ h3 {
   font-size: 1.1em;
 }
 
-
-header {
+.site-header {
   position: fixed;
   width: 100%;
   top: 0;
   background: @bg-color;
   z-index: 50;
-  min-height: 58px;
+  height: 58px;
+  overflow: hidden;
   .logo {
     a {
       margin-top: 3px;
@@ -231,13 +231,13 @@ header {
 
 /* "Hamburger" menu */
 #show-mobile-menu {
-  font-size: 24px;
+  font-size: 26px;
   text-decoration: none;
   cursor: pointer;
   display: block;
   line-height: 20px;
   width: 20px;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 #content-panel {
@@ -596,8 +596,13 @@ footer {
 }
 
 @media only screen and (max-width: @screen-md) {
-  .scroll-fixed {
-    width: inherit;
+  .site-header {
+    .logo a {
+      width: 58px;
+      height: 40px;
+      margin-top: 5px;
+      background: url(/images/layout/lapr-tiny.png);
+    }
   }
   #main {
     padding-left: 2px;
@@ -682,7 +687,7 @@ footer {
   .logo-container, .logo-container .logo {
     .pull-right
   }
-  footer { /* <<<<<<<<<< */
+  footer { /* this needs to be fixed, or something */
     .hidden; 
   }
 }
