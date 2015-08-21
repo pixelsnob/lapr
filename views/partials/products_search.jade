@@ -4,11 +4,6 @@
     
     .sidebar.col-xs-6.col-sm-6.col-md-3
 
-      .stats-container.hidden-xs.hidden-sm
-        .stats.secondary #{products.length} Results
-        .sort-direction.hidden-xs.hidden-sm
-          a.toggle-sort-direction(href="javascript:void(0);") Sort Descending
-
       nav.scroll-fixed
         .categories
           if typeof product_categories != 'undefined'
@@ -25,6 +20,11 @@
         h2= (typeof heading != 'undefined' ? heading : '')
         .more-info-container.hide
           a.more-info(href="javascript:void(0);") More&hellip; 
+
+        .stats-container
+          .stats.secondary #{products.length} Results
+          .sort-direction.hidden-xs.hidden-sm
+            a.toggle-sort-direction(href="javascript:void(0);") Sort Descending
 
       .boxes-list.scroll-fixed
 

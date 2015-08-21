@@ -332,28 +332,27 @@ header {
 }
 
 .products {
-  .stats-container, .heading-container, nav, .boxes-list {
+  .heading-container, nav, .boxes-list {
     padding: 5px;
     /*border: 1px solid yellow;*/
   }
-  .stats-container, .heading-container {
+  .heading-container {
     position: fixed;
     top: 60px;
     height: 50px;
     width: inherit;
   }
   .boxes-list, nav {
-    top: 110px;
     bottom: 0;
   }
   .boxes-list {
     padding-top: 10px;
-  }
-  h2 {
-    margin-bottom: 0;
+    /*top: 140px;*/
+    top: 160px;
   }
   nav {
     width: inherit;
+    top: 95px;
   }
   .product {
     overflow: hidden;
@@ -607,13 +606,19 @@ footer {
   .products {
     h2 {
       font-size: 1.2em;
+      line-height: 8px;
+      margin-bottom: 0;
+      padding: 0;
       display: inline;
     }
     .more-info-container {
       display: inline;
       margin-left: 12px;
     }
-    .stats-container, nav {
+    .stats {
+      font-size: 0.9em;
+    }
+    nav {
       right: 0;
     }
     .boxes-list, .heading-container {
@@ -621,6 +626,10 @@ footer {
     }
     nav {
       top: 60px;
+    }
+    .boxes-list {
+      top: 130px;
+      padding-top: 3px;
     }
     .results li {
       width: 100%;
@@ -642,7 +651,7 @@ footer {
           margin: 0 auto;
           left: 0;
           right: 0;
-          max-height: 25vh;
+          /*max-height: 25vh;*/
         }
       }
     }
