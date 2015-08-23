@@ -378,10 +378,10 @@ h3 {
         max-width: 100%;
         max-height: 100%;
         height: auto;
-        /*display: none;
+        display: none;
         &.noscript {
           display: block;
-        }*/
+        }
       }
     }
     .details {
@@ -427,6 +427,13 @@ h3 {
   .more-info {
     max-height: 0;
     overflow: hidden;
+    &.expand {
+      max-height: 100vh;
+      transition: max-height .5s;
+      -moz-transition: max-height .5s;
+      -webkit-transition: max-height .5s;
+      -ms-transition: max-height .5s;
+    }
   }
   .sounds-disclaimer {
     font-size: 0.9em;
@@ -592,9 +599,6 @@ footer {
 /* Small screen stuff */
 
 @media only screen and (max-width: @screen-sm) {
-  #content-panel #content-panel-inner {
-    width: 100%;
-  }
 }
 
 @media only screen and (max-width: @screen-md) {
@@ -633,14 +637,13 @@ footer {
       top: 60px;
     }
     .boxes-list {
+      position: fixed;
       top: 125px;
+      bottom: 0;
       padding-top: 3px;
-    }
-    .boxes-list {
+      max-width: 300px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      position: fixed;
-      bottom: 0;
     }
     .more-info-container {
       display: inline;
@@ -671,9 +674,8 @@ footer {
           left: 0;
           right: 0;
           height: auto;
-          max-height: 28vh;
-          width: auto;
-          max-width: 100%;
+          width: 100%;
+          max-width: 50vw;
         }
       }
     }
@@ -693,6 +695,9 @@ footer {
   }
   footer { /* this needs to be fixed, or something */
     .hidden; 
+  }
+  #content-panel #content-panel-inner {
+    width: 100%;
   }
 }
 

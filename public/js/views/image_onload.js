@@ -25,13 +25,13 @@ define([
       if (this.src) {
         if (loaded_images_collection.findWhere({ src: this.src })) {
           this.renderImg();
-          this.show();
+          this.show(0);
           this.trigger('loaded');
         } else {
           var tmp_img = new Image;
           tmp_img.onload = function() {
             obj.renderImg();
-            obj.show();
+            obj.show(500);
             loaded_images_collection.add({ src: obj.src });
             obj.trigger('loaded');
           };
@@ -45,9 +45,9 @@ define([
       return this;
     },
 
-    show: function() {
-      var delay = Math.round(Math.random() * 500);
-      this.$el.find('img').delay(delay).fadeIn(1000);
+    show: function(t) {
+      //var delay = Math.round(Math.random() * 500);
+      this.$el.find('img').fadeIn(t);
     }
 
   });
