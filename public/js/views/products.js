@@ -41,7 +41,7 @@ define([
         $results.empty();
         $results.parent().scrollTop(0); // replace with event?
       }
-      console.log('render');
+      //console.log('render');
       products.getPaged().forEach(function(product) {
         var view = new ProductView({
           model:              product,
