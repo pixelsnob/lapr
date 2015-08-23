@@ -39,8 +39,7 @@ define([
           obj      = this;
       if (append !== true) {
         $results.empty();
-        //$results.parent().scrollTop(0); // replace with event?
-        console.log($results.parent());
+        $results.parent().scrollTop(0); // replace with event?
       }
       console.log('render');
       products.getPaged().forEach(function(product) {

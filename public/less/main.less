@@ -508,9 +508,12 @@ h3 {
   }
   .google-map {
     margin: 0 0 12px 12px;
+    overflow: hidden;
+    width: 50%;
+    float: right;
     iframe {
       width: 100%;
-      min-height: 240px;
+      min-height: 280px;
     }
   }
 }
@@ -698,6 +701,12 @@ footer {
   }
   #content-panel #content-panel-inner {
     width: 100%;
+  }
+  .contact .google-map {
+    float: none;
+    width: 100%;
+    margin: 0 0 15px 0;
+    max-width: 400px;
   }
 }
 
