@@ -83,7 +83,6 @@ define([
 
     stateChange: function(ev) {
       if (ev.data == 0) {
-        //clearInterval(this.poll_interval_id);
         global_events.trigger('yt-stop');
         this.$player.hide();
       }
@@ -93,14 +92,12 @@ define([
       clearInterval(this.poll_interval_id);
       var obj = this;
       this.poll_interval_id = setInterval(function() {
-        //var t = Math.round(obj.player.getCurrentTime());
         if (obj.player && typeof obj.player.getCurrentTime == 'function') {
           var t = obj.player.getCurrentTime();
           if (t >= obj.model.get('end_time') - 5) {
             clearInterval(obj.poll_interval_id);
             obj.orig_vol = obj.player.getVolume();
             obj.fadeVolumeOut();
-            //console.log('start fade');
           }
         }
       }, 1000);
