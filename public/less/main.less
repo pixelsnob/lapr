@@ -335,24 +335,28 @@ h4 {
 .products {
   .heading-container, nav, .boxes-list {
     padding: 5px;
-    /*border: 1px solid yellow;*/
   }
   h2 {
     margin-bottom: 0;
   }
   .heading-container {
-  }
-  .boxes-list, nav {
+    background-color: @bg-color;
+    width: inherit;
+    height: auto;
+    top: 58px;
+    z-index: 5;
+    position: fixed;
+    padding-bottom: 10px;
   }
   .boxes-list {
+    padding-top: 70px;
+    overflow: hidden;
   }
   nav {
-    position: fixed;
+    .scroll-fixed;
     bottom: 0;
     top: 80px;
     width: inherit;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
   }
   .product {
     overflow: hidden;
@@ -394,7 +398,7 @@ h4 {
       line-height: 15px;
       .name {
         margin-top: 0;
-        font-size: 1.1em;
+        font-size: 1em;
       }
     }
   }
@@ -582,6 +586,7 @@ h4 {
 }
 
 footer {
+  display: none;
   padding-bottom: 15px;
   margin-top: 15px;
   text-align: center;
@@ -629,11 +634,10 @@ footer {
       padding: 0;
       display: inline;
     }
-    .heading-container, .boxes-list {
+    /*.heading-container, .boxes-list {
       position: fixed;
       width: inherit;
-      /*border: 1px solid yellow;*/
-    }
+    }*/
     .heading-container {
       top: 60px;
     }
@@ -641,13 +645,11 @@ footer {
       top: 60px;
     }
     .boxes-list {
-      position: fixed;
       top: 125px;
       bottom: 0;
-      padding-top: 3px;
+      padding: 3px 10px 0 10px;
       max-width: 300px;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      .scroll-fixed;
     }
     .more-info-container {
       display: inline;
