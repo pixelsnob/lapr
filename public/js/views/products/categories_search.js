@@ -29,6 +29,7 @@ define([
     },
     
     initialize: function(opts) {
+      var obj = this;
       this.products = opts.products;
       this.products_view = new ProductsView({
         collection:         this.products
@@ -42,6 +43,13 @@ define([
       });
       this.listenTo(this.products.refs.selected_categories, 'add',
         this.toggleMoreInfoLink);
+      // refactor
+      global_events.on('before-route', function(route, name) {
+        if (name == 'showProductsByCategory' && !Backbone.history.is_back) {
+          obj.$el.find('.boxes-list').scrollTop(0);
+          $(window).scrollTop(0);
+        }
+      });
     },
     
     render: function() {

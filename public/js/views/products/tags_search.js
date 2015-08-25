@@ -7,13 +7,15 @@ define([
   'views/products',
   'views/navs/tags',
   './search_stats',
-  'template'
+  'template',
+  'lib/events'
 ], function(
   BaseView,
   ProductsView,
   TagsNavView,
   ProductsSearchStatsView,
-  template
+  template,
+  global_events
 ) {
   return BaseView.extend({ 
     
@@ -30,6 +32,14 @@ define([
       });
       this.stats_view = new ProductsSearchStatsView({
         products: this.products
+      });
+      // refactor
+      var obj = this;
+      global_events.on('before-route', function(route, name) {
+        if (name == 'showProductsByTags' && !Backbone.history.is_back) {
+          obj.$el.find('.boxes-list').scrollTop(0);
+          $(window).scrollTop(0);
+        }
       });
     },
     

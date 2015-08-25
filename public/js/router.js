@@ -1,17 +1,21 @@
 
 define([
-  'backbone'
-], function(Backbone) {
+  'backbone',
+  'lib/events'
+], function(Backbone, global_events) {
   
   var history = [];
+
+  Backbone.history.is_back = false;
 
   Backbone.history.back = function() {
     var previous = history[history.length - 2];
     if (previous) {
+      Backbone.history.is_back = true;
       Backbone.history.navigate(previous, true);
     }
   };
-
+  
   return Backbone.Router.extend({
 
     routes: {
@@ -34,14 +38,15 @@ define([
         if (!cb) {
           cb = this[name];
         }
-        this.trigger('before-route');
+        global_events.trigger('before-route', route, name);
         cb.apply(this, arguments);
+        Backbone.history.is_back = false;
       });
     },
 
     initialize: function(opts) {
       this.controller = opts.controller;
-      this.listenTo(this, 'before-route', this.storeRoute);
+      this.listenTo(global_events, 'before-route', this.storeRoute);
     },
     
     // Store route in history, to provide "back" functionality for closing
