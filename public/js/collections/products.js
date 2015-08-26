@@ -55,10 +55,10 @@ define([
     },
 
     fetch: function(){
-      var stored   = sessionStorage.getItem('lapr-products'),
-          deferred = new jQuery.Deferred();
+      var stored   = this.getStored(),
+          deferred = new jQuery.Deferred(),
+          obj      = this;
       if (stored && !window.lapr.user) {
-        stored = JSON.parse(stored);
         this.reset(stored.products);
         this.refs.product_categories.reset(stored.product_categories);
         this.refs.makers.reset(stored.makers);
@@ -77,9 +77,31 @@ define([
             tag_categories: res.tag_categories,
             youtube_videos: res.youtube_videos
           };
-          sessionStorage.setItem('lapr-products', JSON.stringify(data));
+          obj.setStored(data);
         });
       }
+    },
+    
+    // Fetch from session storage, but only if max-age is not exceeded
+    getStored: function() {
+      var stored = sessionStorage.getItem('lapr-products');
+      if (!stored) {
+        return false;
+      }
+      // If stored data age exceeds max, return false
+      stored = JSON.parse(stored);
+      var t = (new Date).getTime(),
+          d = 1000 * 60 * 60;       
+      if (stored.timestamp && (t - stored.timestamp) > d) {
+        return false;
+      }
+      return stored;
+    },
+
+    setStored: function(data) {
+      var data = { timestamp: (new Date).getTime(), data: data };
+      console.log(data);
+      sessionStorage.setItem('lapr-products', JSON.stringify(data));
     },
 
     // Set refs from server data on fetch()
