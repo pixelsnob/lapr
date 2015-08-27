@@ -82,14 +82,15 @@ define([
       }
     },
     
-    // Fetch from session storage, but only if max-age is not exceeded
+    // Get from session storage, if any
     getStored: function() {
       var stored = sessionStorage.getItem('lapr-products');
       if (!stored) {
         return false;
       }
-      // If stored data age exceeds max, return false
       stored = JSON.parse(stored);
+      // If stored data age exceeds max, return false so that data can be fetched
+      // from server
       var t = (new Date).getTime(),
           d = 1000 * 60 * 60;       
       if (stored.timestamp && (t - stored.timestamp) > d) {
@@ -97,10 +98,10 @@ define([
       }
       return stored;
     },
-
+    
+    // Stores products in session storage, along with a timestamp
     setStored: function(data) {
       var data = { timestamp: (new Date).getTime(), data: data };
-      console.log(data);
       sessionStorage.setItem('lapr-products', JSON.stringify(data));
     },
 
