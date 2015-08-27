@@ -1,13 +1,14 @@
 
-.index.container-fluid
-  .row
-    .col-md-12.slideshow-container
-      include ./slideshow
-    .col-md-12
-      .col-xs-8
-        .content-block(data-name="index-left")
-          .content
-      .col-xs-4
-        .content-block(data-name="index-right")
-          .content
+.index
+  .header-image
+    img(src="/images/layout/header-image.jpg")
+  .news.container-fluid
+    .row
+      .col-md-12
+        .col-xs-8
+          .content-block(data-name="index-left")
+            .content
+        .col-xs-4
+          .content-block(data-name="index-right")
+            .content
 
