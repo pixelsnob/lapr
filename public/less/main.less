@@ -42,6 +42,7 @@ body {
   background-color: @bg-color;
   color: @text-color;
   font-family: fs_emeric_web_book, sans-serif;
+  padding-top: 80px;
 }
 
 a:link, a:visited, a:active {
@@ -101,7 +102,7 @@ h4 {
   position: fixed;
   width: 100%;
   top: 0;
-  /*background: @bg-color;*/
+  background: @bg-color;
   z-index: 50;
   height: 58px;
   .logo {
@@ -153,7 +154,6 @@ h4 {
     float: right;
     text-align: right;
     input[type="text"] {
-      background: #111;
       width: 100%;
       border: 1px solid #888;
     }
@@ -188,20 +188,6 @@ h4 {
         }
       }
     }
-  }
-}
-
-.index {
-  .header-image {
-    width: 100%;
-    overflow: hidden;
-    height: auto;
-    img {
-      width: 100%;
-    }
-  }
-  .news {
-    padding: 15px 20px;
   }
 }
 
@@ -325,7 +311,7 @@ h4 {
   }
 }
 
-#main {
+/*#main {
   padding: 10px;
   padding-top: 80px;
   .products-heading {
@@ -336,7 +322,18 @@ h4 {
     background-color: @bg-color;
     border: 1px solid #888;
   }
+}*/
+
+.products-heading {/*????????????*/
+  position: fixed;
+  top: 70px;
 }
+
+input, textarea, select {
+  background-color: transparent;
+  border: 1px solid #888;
+}
+
 
 /* Fixed div with scroll overflow */
 .scroll-fixed {
@@ -519,23 +516,6 @@ h4 {
   }
 }
 
-.contact {
-  .form {
-    input, textarea {
-      width: 90%;
-    }
-  }
-  .google-map {
-    margin: 0 0 12px 12px;
-    overflow: hidden;
-    width: 50%;
-    float: right;
-    iframe {
-      width: 100%;
-      min-height: 280px;
-    }
-  }
-}
 
 /* Content blocks and such */
 
@@ -618,6 +598,45 @@ footer {
     }
   }
 }
+
+/* Body styles */
+body.index {
+  padding-top: 0;
+  .site-header {
+    background: none;
+    position: absolute;
+  }
+  .header-image {
+    width: 100%;
+    overflow: hidden;
+    height: auto;
+    img {
+      width: 100%;
+    }
+  }
+  .news {
+    padding: 15px 20px;
+  }
+}
+
+body.contact {
+  .form {
+    input, textarea {
+      width: 90%;
+    }
+  }
+  .google-map {
+    margin: 0 0 12px 12px;
+    overflow: hidden;
+    width: 50%;
+    float: right;
+    iframe {
+      width: 100%;
+      min-height: 280px;
+    }
+  }
+}
+
 
 /* Small screen stuff */
 
