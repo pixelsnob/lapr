@@ -59,12 +59,12 @@ define([
           deferred = new jQuery.Deferred(),
           obj      = this;
       if (stored && !window.lapr.user) {
-        this.reset(stored.products);
-        this.refs.product_categories.reset(stored.product_categories);
-        this.refs.makers.reset(stored.makers);
-        this.refs.tags.reset(stored.tags);
-        this.refs.tag_categories.reset(stored.tag_categories);
-        this.refs.youtube_videos.reset(stored.youtube_videos);
+        this.reset(stored.data.products);
+        this.refs.product_categories.reset(stored.data.product_categories);
+        this.refs.makers.reset(stored.data.makers);
+        this.refs.tags.reset(stored.data.tags);
+        this.refs.tag_categories.reset(stored.data.tag_categories);
+        this.refs.youtube_videos.reset(stored.data.youtube_videos);
         deferred.resolve();
         return deferred.promise();
       } else {
