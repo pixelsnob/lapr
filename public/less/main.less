@@ -107,7 +107,7 @@ h4 {
   height: 60px;
   &:before {
     content: '';
-    background: url(/images/layout/header-image.jpg) 0 0 no-repeat;
+    background: url(/images/layout/header-image.jpg) center top no-repeat;
     background-size: cover;
     /*filter: grayscale(100%) brightness(100%);
     -webkit-filter: grayscale(100%) brightness(100%);*/
@@ -613,12 +613,14 @@ body.index {
       height: 66vh; 
       filter: none;
       -webkit-filter: none;
-      background-size: 100%;
     }
   }
   .news {
     padding: 15px 20px;
   }
+}
+
+body:not(.index) .site-header:before {
 }
 
 body.contact {
