@@ -10,7 +10,7 @@ define([
 
   Backbone.history.back = function() {
     var previous = history[history.length - 2];
-    if (previous) {
+    if (typeof previous != 'undefined') {
       Backbone.history.is_back = true;
       Backbone.history.navigate(previous, true);
     }
@@ -32,6 +32,11 @@ define([
       'contact':                           'showContact'
     },
     
+    initialize: function(opts) {
+      this.controller = opts.controller;
+      this.listenTo(global_events, 'before-route', this.storeRoute);
+    },
+
     // Add a "before route" event
     route: function(route, name, cb) {
       Backbone.Router.prototype.route.call(this, route, name, function() {
@@ -42,11 +47,6 @@ define([
         cb.apply(this, arguments);
         Backbone.history.is_back = false;
       });
-    },
-
-    initialize: function(opts) {
-      this.controller = opts.controller;
-      this.listenTo(global_events, 'before-route', this.storeRoute);
     },
     
     // Store route in history, to provide "back" functionality for closing
