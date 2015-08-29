@@ -645,13 +645,15 @@ body.contact {
 }
 
 @media only screen and (max-width: @screen-md) {
-  body:not(.index) .site-header {
+  .site-header {
     .logo a {
       width: 58px;
       height: 40px;
       margin-top: 5px;
       background: url(/images/layout/lapr-tiny.png);
     }
+  }
+  body:not(.index) .site-header {
     &:before {
       display: none;
     }
@@ -674,10 +676,6 @@ body.contact {
       padding: 0;
       display: inline;
     }
-    /*.heading-container, .boxes-list {
-      position: fixed;
-      width: inherit;
-    }*/
     .heading-container {
       top: 60px;
     }
