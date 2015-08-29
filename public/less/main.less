@@ -102,9 +102,27 @@ h4 {
   position: fixed;
   width: 100%;
   top: 0;
-  background: @bg-color;
+  left: 0;
   z-index: 50;
-  height: 58px;
+  height: 60px;
+  &:before {
+    content: '';
+    background: url(/images/layout/header-image.jpg) 0 0 no-repeat;
+    filter: grayscale(100%) brightness(100%);
+    -webkit-filter: grayscale(100%) brightness(100%);
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .site-header-inner {
+    height: 60px;
+    z-index: 51;
+    position: fixed;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
   .logo {
     a {
       margin-top: 3px;
@@ -121,11 +139,13 @@ h4 {
     }
   }
   nav {
-    padding-top: 10px;
+    padding-top: 15px;
     .navbar-nav > li > a {
       padding: 4px 10px;
+        color: #fff;
       &:link, &:hover, &:active, &:focus {
         background-color: transparent;
+        text-transform: uppercase;
       }
     }
     .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
@@ -150,12 +170,13 @@ h4 {
     }
   }
   .text-search {
+    padding-top: 5px;
     width: 100%;
     float: right;
     text-align: right;
     input[type="text"] {
       width: 100%;
-      border: 1px solid #888;
+      border: 1px solid #fff;
     }
     [data-editor], .twitter-typeahead {
       width: 100%;
@@ -316,7 +337,6 @@ input, textarea, select {
   border: 1px solid #888;
 }
 
-
 /* Fixed div with scroll overflow */
 .scroll-fixed {
   overflow-y: auto;
@@ -332,17 +352,18 @@ input, textarea, select {
   h2 {
     margin-bottom: 0;
   }
+  /* Maybe abstract this??? */
   .heading-container {
     background-color: @bg-color;
     width: inherit;
     height: auto;
-    top: 58px;
+    top: 60px;
     z-index: 5;
     position: fixed;
-    padding-bottom: 10px;
+    padding: 25px 0 10px 0;
   }
   .boxes-list {
-    padding-top: 70px;
+    padding-top: 100px;
     overflow: hidden;
   }
   nav {
@@ -585,15 +606,12 @@ footer {
 body.index {
   padding-top: 0;
   .site-header {
-    background: none;
-    position: absolute;
-  }
-  .header-image {
-    width: 100%;
-    overflow: hidden;
-    height: auto;
-    img {
-      width: 100%;
+    position: static;
+    height: 60vh; /** check compatibility **/
+    &:before {
+      height: 60vh; 
+      filter: none;
+      -webkit-filter: none;
     }
   }
   .news {
@@ -623,17 +641,22 @@ body.contact {
 /* Small screen stuff */
 
 @media only screen and (max-width: @screen-sm) {
-  body.index .header-image img {
-  }
+
 }
 
 @media only screen and (max-width: @screen-md) {
-  .site-header {
+  body:not(.index) .site-header {
     .logo a {
       width: 58px;
       height: 40px;
       margin-top: 5px;
       background: url(/images/layout/lapr-tiny.png);
+    }
+    &:before {
+      display: none;
+    }
+    .site-header-inner {
+      background-color: transparent;
     }
   }
   #main {
