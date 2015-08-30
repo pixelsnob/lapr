@@ -23,10 +23,11 @@ define([
     initialize: function(opts) {
       this.products = opts.products;
       this.listenTo(this.products.refs.tags, 'add change remove', this.render);
+      this.setElement(template.render('partials/tags_nav'));
     },
     
     render: function() {
-      this.$el.append(template.render('partials/tags_nav'));
+      //this.$el.append(template.render('partials/tags_nav'));
       var obj = this,
           $ul = this.$el.find('ul');
       $ul.empty();

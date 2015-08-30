@@ -240,6 +240,7 @@ h4 {
       width: 100%;
       a {
         text-decoration: none;
+        text-transform: uppercase;
         padding: 8px 15px;
         display: block;
         font-size: 1.2em;
@@ -308,6 +309,8 @@ h4 {
     padding: 4px 0;
     a:link {
       text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.9em;
     }
     a:active {
     }
@@ -327,8 +330,12 @@ h4 {
       list-style: none;
     }
   }
-  & > ul {
-    padding: 20px;
+  .tags-nav > ul > li {
+    text-transform: uppercase;
+    padding-top: 5px;
+    a:link {
+      text-transform: none;
+    }
   }
 }
 
@@ -345,7 +352,7 @@ input, textarea, select {
   position: fixed;
 }
 
-.heading-container {
+#heading-container {
   background-color: @bg-color;
   width: inherit;
   height: auto;
@@ -359,7 +366,6 @@ input, textarea, select {
   h2 {
     margin-bottom: 0;
   }
-  /* Maybe abstract this??? */
   .boxes-list {
     padding-top: 100px;
     padding-left: 0;
@@ -519,9 +525,6 @@ input, textarea, select {
   }
 }
 
-
-/* Content blocks and such */
-
 .content-block {
   width: 100%;
   .content {
@@ -532,8 +535,6 @@ input, textarea, select {
     }
   }
 }
-
-/* Modals */
 
 .modal-backdrop.in {
   opacity: 0.8;
@@ -603,62 +604,61 @@ footer {
 }
 
 /* Body styles */
-body.index {
-  padding-top: 0;
-  .site-header {
-    position: static;
-    height: 66vh; /** check compatibility **/
+body {
+  &.index {
+    padding-top: 0;
+    .site-header {
+      position: static;
+      height: 66vh; /** check compatibility **/
+      &:before {
+        height: 66vh; 
+        filter: none;
+        -webkit-filter: none;
+      }
+    }
+    .news {
+      padding: 15px 20px;
+    }
+  }
+  &:not(.index) .site-header {
+    height: 60px;
     &:before {
-      height: 66vh; 
-      filter: none;
-      -webkit-filter: none;
+      clip: rect(0, auto, 60px, 0);
+      filter: grayscale(100%);
+      -webkit-filter: grayscale(100%);
+    }
+    .site-header-inner {
+      background-color: rgba(0, 0, 0, 0.4);
     }
   }
-  .news {
-    padding: 15px 20px;
-  }
-}
-
-body:not(.index) .site-header {
-  height: 60px;
-  &:before {
-    clip: rect(0, auto, 60px, 0);
-    filter: grayscale(100%);
-    -webkit-filter: grayscale(100%);
-  }
-  .site-header-inner {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-}
-
-body.contact {
-  .form {
-    input, textarea {
-      width: 90%;
+  &.contact {
+    /*.form {
+      input, textarea {
+        width: 90%;
+      }
+    }
+    .google-map {
+      margin: 0 0 12px 12px;
+      overflow: hidden;
+      width: 50%;
+      float: right;
+      iframe {
+        width: 100%;
+        min-height: 280px;
+      }
+    }*/
+    .contact-text {
+      padding-top: 50px;
     }
   }
-  .google-map {
-    margin: 0 0 12px 12px;
-    overflow: hidden;
-    width: 50%;
-    float: right;
-    iframe {
-      width: 100%;
-      min-height: 280px;
-    }
-  }
-  .contact-text {
-    padding-top: 50px;
-  }
 }
-
 
 /* Small screen stuff */
-
 @media only screen and (max-width: @screen-sm) {
 
 }
 
+/* "Medium" screens */
 @media only screen and (max-width: @screen-md) {
   .site-header {
     .logo a {
@@ -666,8 +666,6 @@ body.contact {
       height: 40px;
       margin-top: 5px;
       background: url(/images/layout/lapr-tiny.png);
-    }
-    &:before {
     }
   }
   body:not(.index) .site-header {
@@ -693,7 +691,7 @@ body.contact {
       padding: 0;
       display: inline;
     }
-    .heading-container {
+    #heading-container {
       top: 40px;
     }
     nav {
