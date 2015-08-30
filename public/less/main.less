@@ -104,14 +104,14 @@ h4 {
   top: 0;
   left: 0;
   z-index: 50;
-  height: 60px;
+  /*height: 60px;*/
+  height: 66vh;
   &:before {
     content: '';
     background: url(/images/layout/header-image.jpg) center top no-repeat;
     background-size: cover;
-    /*filter: grayscale(100%) brightness(100%);
-    -webkit-filter: grayscale(100%) brightness(100%);*/
-    height: 60px;
+    /*height: 60px;*/
+    height: 66vh;
     width: 100%;
     position: fixed;
     top: 0;
@@ -620,7 +620,13 @@ body.index {
   }
 }
 
-body:not(.index) .site-header:before {
+body:not(.index) .site-header {
+  height: 60px;
+  &:before {
+    clip: rect(0, auto, 60px, 0);
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+  }
 }
 
 body.contact {
