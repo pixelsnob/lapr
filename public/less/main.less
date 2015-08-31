@@ -34,6 +34,8 @@
 @import './effects.less';
 @import './slideshow.less';
 
+.devborder { border: 1px solid yellow; }
+
 body, html {
   height: 100%;
 }
@@ -96,6 +98,19 @@ h3 {
 
 h4 {
   font-size: 1.2em;
+}
+
+input, textarea, select {
+  background-color: transparent;
+  border: 1px solid #fff;
+}
+
+/* Fixed div with scroll overflow */
+.scroll-fixed {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: auto;
+  position: fixed;
 }
 
 .site-header {
@@ -337,19 +352,6 @@ h4 {
       text-transform: none;
     }
   }
-}
-
-input, textarea, select {
-  background-color: transparent;
-  border: 1px solid #fff;
-}
-
-/* Fixed div with scroll overflow */
-.scroll-fixed {
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  height: auto;
-  position: fixed;
 }
 
 #heading-container {
@@ -621,17 +623,20 @@ body {
     }
   }
   &:not(.index) .site-header {
-    height: 60px;
+    height: 30px;
     &:before {
       clip: rect(0, auto, 60px, 0);
-      filter: grayscale(100%);
-      -webkit-filter: grayscale(100%);
+      /*filter: grayscale(100%);
+      -webkit-filter: grayscale(100%);*/
     }
     .site-header-inner {
       background-color: rgba(0, 0, 0, 0.4);
     }
   }
   &.contact {
+    #heading-container {
+      width: 100%;
+    }
     /*.form {
       input, textarea {
         width: 90%;
@@ -676,6 +681,9 @@ body {
       background-color: @bg-color;
     }
   }
+  #heading-container {
+    top: 40px;
+  }
   #main {
     padding-left: 2px;
     padding-right: 2px;
@@ -691,19 +699,17 @@ body {
       padding: 0;
       display: inline;
     }
-    #heading-container {
-      top: 40px;
-    }
     nav {
       top: 60px;
-      padding: 0;
+      padding: 5px 10px 0 0;
     }
     .boxes-list {
       top: 125px;
       padding-top: 20px;
       bottom: 0;
-      max-width: 300px;
+      width: inherit;
       .scroll-fixed;
+      padding-right: 15px;
     }
     .more-info-container {
       display: inline;
@@ -719,8 +725,6 @@ body {
     .product {
       padding-bottom: 0;
       height: auto;
-      width: auto;
-      background-color: transparent;
       min-height: 50px;
       .image {
         padding-bottom: 0;
@@ -736,7 +740,6 @@ body {
           right: 0;
           height: auto;
           width: auto;
-          max-width: 50vw;
         }
       }
     }
