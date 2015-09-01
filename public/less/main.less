@@ -15,7 +15,7 @@
 @text-secondary-color: #aaa;
 @heading-color: #fff;
 
-@button-bg-color: #222;
+@button-bg-color: #333;
 @button-hover-bg-color: #555;
 @button-active-bg-color: #444;
 @button-selected-bg-color: #ddd;
@@ -90,10 +90,23 @@ h1 {
 h2 {
   font-size: 1.4em;
   margin-top: 0;
+  /*position: relative;
+  width: 100%;
+  overflow: hidden;
+  &:after {
+    border-bottom: 2px solid #aaa;
+    height: 3px;
+    width: inherit;
+    z-index: 200;
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    margin-left: 7px;
+  }*/
 }
 
 h3 {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 h4 {
@@ -119,12 +132,12 @@ input, textarea, select {
   top: 0;
   left: 0;
   z-index: 50;
-  height: 66vh;
+  height: 60vh;
   &:before {
     content: '';
     background: url(/images/layout/header-image.jpg) center top no-repeat;
     background-size: cover;
-    height: 66vh;
+    height: 60vh;
     width: 100%;
     position: fixed;
     top: 0;
@@ -135,7 +148,7 @@ input, textarea, select {
     z-index: 51;
     position: fixed;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.45);
+    background-color: rgba(0, 0, 0, 0.2);
   }
   .logo {
     a {
@@ -154,6 +167,7 @@ input, textarea, select {
   }
   nav {
     padding-top: 15px;
+    float: right;
     .navbar-nav > li > a {
       padding: 4px 10px;
       color: @link-color;
@@ -285,16 +299,15 @@ input, textarea, select {
   opacity: 0;
   background: transparent;
   z-index: 100;
-  background: rgba(14, 14, 14, 0.95);
+  background: rgba(0, 0, 0, 0.8);
   #content-panel-inner {
     background: @content-bg-color;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    position: absolute;
+    .scroll-fixed;
     width: 66%;
-    bottom: 0;
+    height: 100%;
     right: 0;
-    top: 0; 
+    left: 0;
+    margin: 0 auto;
     .content {
       clear: both; 
     }
@@ -365,7 +378,8 @@ input, textarea, select {
   top: 60px;
   z-index: 5;
   position: fixed;
-  padding: 30px 0 10px 0;
+  margin: 0;
+  padding: 30px 5px 10px 0;
 }
 
 .products {
@@ -590,7 +604,7 @@ input, textarea, select {
 }
 
 footer {
-  display: none;
+  .hide;
   padding-bottom: 15px;
   margin-top: 15px;
   text-align: center;
@@ -612,19 +626,26 @@ footer {
 /* Body styles */
 body {
   &.index {
+    position: fixed;
     padding-top: 0;
     .site-header {
       position: static;
-      height: 66vh; /** check compatibility **/
       &:before {
-        height: 66vh; 
         filter: none;
         -webkit-filter: none;
       }
     }
     .news {
-      padding: 15px 20px;
+      padding: 40px 0;
     }
+    /*footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: auto;
+      height: auto;
+    }*/
   }
   &:not(.index) .site-header {
     height: 30px;
@@ -632,9 +653,6 @@ body {
       clip: rect(0, auto, 60px, 0);
       filter: grayscale(100%);
       -webkit-filter: grayscale(100%);
-    }
-    .site-header-inner {
-      background-color: rgba(0, 0, 0, 0.4);
     }
   }
   &.contact {
@@ -682,7 +700,6 @@ body {
       display: none;
     }
     .site-header-inner {
-      background-color: @bg-color;
     }
   }
   #heading-container {
@@ -760,9 +777,6 @@ body {
   }
   .logo-container, .logo-container .logo {
     .pull-right
-  }
-  footer { /* this needs to be fixed, or something */
-    .hidden; 
   }
   #content-panel #content-panel-inner {
     width: 100%;
