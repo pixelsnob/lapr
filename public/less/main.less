@@ -133,6 +133,7 @@ input, textarea, select {
   left: 0;
   z-index: 50;
   height: 60vh;
+  /* Banner/nav strip background image */
   &:before {
     content: '';
     background: url(/images/layout/header-image.jpg) center top no-repeat;
@@ -458,10 +459,18 @@ input, textarea, select {
       height: auto;
       width: auto;
       max-width: 100%;
-      max-height: 80vh;
+      max-height: 50vh;
       &.noscript {
         display: block;
       }
+    }
+  }
+  &.tall .image {
+    float: right;  
+    max-height: 70vh;
+    max-width: 100%;
+    img {
+      max-height: 70vh;
     }
   }
   .range {

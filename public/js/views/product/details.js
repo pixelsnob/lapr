@@ -56,6 +56,21 @@ define([
       this.$el.html(template.render('partials/product_details', {
         product: product
       }));
+      // Image loading stuff
+      if (product.image && product.image.length) {
+        var image_onload_view = new ImageOnloadView({
+          el:    this.$el.find('.image'),
+          src:   '/images/products/' + product.image
+        });
+        image_onload_view.render();
+        this.listenTo(image_onload_view, 'loaded', function($el) {
+          var $img = $el.find('img').get(0);
+          console.log($img.naturalHeight, $img.naturalWidth);
+          if ($img.naturalHeight > $img.naturalWidth) {
+            obj.$el.find('.product-details').addClass('tall');
+          }
+        });
+      }
       // Youtube videos
       var $youtube_player = this.$el.find('.youtube-player');
       $youtube_player.hide();
@@ -73,14 +88,6 @@ define([
       if (product.range && product.range.length) {
         var range_view = new RangeView({ range: product.range });
         this.$el.find('.range').html(range_view.render().el);
-      }
-      // Image loading stuff
-      if (product.image && product.image.length) {
-        var image_onload_view = new ImageOnloadView({
-          el:    this.$el.find('.image'),
-          src:   '/images/products/' + product.image
-        });
-        image_onload_view.render();
       }
       if (product.more_info) {
         this.$el.find('.more-info-container').removeClass('hide');

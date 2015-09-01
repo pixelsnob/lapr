@@ -1,7 +1,7 @@
 
 .container-fluid.product-details
   .row
-    .col-sm-6
+    .col-md-7
       h2= product.name
 
       if product.alt_names
@@ -9,6 +9,7 @@
       if product.makers.length
         p.makers
           cite Mfg. by #{product.makers}
+
 
       p.description!= markdown(product.description)
 
@@ -40,13 +41,7 @@
           - var s = (product.octave_shift > 1 ? 's' : '')
           em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
 
-    .col-sm-6 
-      .image
-        if product.image
-          img(src="/images/products/#{product.image}", width="400", title="#{product.name}")
 
-  .row
-    .col-xs-12
       .sounds
         if _.isArray(product.youtube_videos) && product.youtube_videos.length
           h3 Sounds
@@ -55,9 +50,11 @@
           .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
             .content
 
-  .row
-    .col-xs-12
       if user
         p.edit-link
           a.edit(href="/instruments/#{product.slug}/#{product._id}") Edit Product
-
+    
+    .col-md-5
+      .image
+        if product.image
+          img(src="/images/products/#{product.image}", width="400", title="#{product.name}")

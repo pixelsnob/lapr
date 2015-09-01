@@ -26,14 +26,14 @@ define([
         if (loaded_images_collection.findWhere({ src: this.src })) {
           this.renderImg();
           this.show(0);
-          this.trigger('loaded');
+          this.trigger('loaded', this.$el);
         } else {
           var tmp_img = new Image;
           tmp_img.onload = function() {
             obj.renderImg();
             obj.show(500);
             loaded_images_collection.add({ src: obj.src });
-            obj.trigger('loaded');
+            obj.trigger('loaded', obj.$el);
           };
           tmp_img.src = this.src;
         }
