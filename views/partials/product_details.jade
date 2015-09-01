@@ -1,7 +1,7 @@
 
 .container-fluid.product-details
   .row
-    .col-xs-12
+    .col-sm-6
       h2= product.name
 
       if product.alt_names
@@ -9,9 +9,6 @@
       if product.makers.length
         p.makers
           cite Mfg. by #{product.makers}
-      .image
-        if product.image
-          img(src="/images/products/#{product.image}", width="400", title="#{product.name}")
 
       p.description!= markdown(product.description)
 
@@ -42,8 +39,13 @@
         .range-notice.secondary
           - var s = (product.octave_shift > 1 ? 's' : '')
           em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
-   
-   .row
+
+    .col-sm-6 
+      .image
+        if product.image
+          img(src="/images/products/#{product.image}", width="400", title="#{product.name}")
+
+  .row
     .col-xs-12
       .sounds
         if _.isArray(product.youtube_videos) && product.youtube_videos.length
