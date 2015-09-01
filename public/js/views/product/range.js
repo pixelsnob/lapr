@@ -121,7 +121,7 @@ define([
       var canvas_ctx = canvas.getContext("2d");
       canvas_ctx.fillStyle = '#fff';
       canvas_ctx.strokeStyle = '#fff';
-      canvas_ctx.scale(0.6, 0.6);
+      canvas_ctx.scale(0.5, 0.5);
 
       var renderer = new Vex.Flow.Renderer(canvas,
         Vex.Flow.Renderer.Backends.CANVAS);

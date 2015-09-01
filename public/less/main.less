@@ -106,11 +106,11 @@ h2 {
 }
 
 h3 {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 h4 {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 input, textarea, select {
@@ -455,8 +455,8 @@ input, textarea, select {
     img {
       display: none;
       /* Preserve aspect ratio */
-      width: 100%;
       height: auto;
+      width: auto;
       max-width: 100%;
       max-height: 80vh;
       &.noscript {
@@ -605,12 +605,23 @@ input, textarea, select {
 
 footer {
   .hide;
-  padding-bottom: 15px;
-  margin-top: 15px;
   text-align: center;
-  font-size: 0.8em;
+  line-height: 13px;
+  font-size: 0.7em;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  height: auto;
+  background: @bg-color;
+  background: rgba(0, 0, 0, 0.8);
+  color: @text-secondary-color;
+  padding: 5px 0;
+  p {
+    margin-bottom: 0;
+  }
   nav {
-    padding-top: 10px;
     ul {
       margin: 0;
       padding: 0;
@@ -619,6 +630,10 @@ footer {
       padding: 0 7px;
       margin: 0;
       display: inline;
+      a:link, a:visited, a:hover {
+        color: @text-secondary-color;
+        text-transform: uppercase;
+      }
     }
   }
 }
@@ -626,7 +641,6 @@ footer {
 /* Body styles */
 body {
   &.index {
-    position: fixed;
     padding-top: 0;
     .site-header {
       position: static;
@@ -636,16 +650,12 @@ body {
       }
     }
     .news {
-      padding: 40px 0;
-    }
-    /*footer {
-      position: fixed;
-      bottom: 0;
+      padding-top: 40px;
+      padding-bottom: 25px;
+      .scroll-fixed;
       left: 0;
-      right: 0;
-      width: auto;
-      height: auto;
-    }*/
+      height: 40vh;
+    }
   }
   &:not(.index) .site-header {
     height: 30px;
