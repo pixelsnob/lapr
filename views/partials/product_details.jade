@@ -1,23 +1,23 @@
 
 .container-fluid.product-details
   .row
-    .col-md-7
+    .col-md-12
       h2= product.name
-
+      
       if product.alt_names
-        p.alt-names.secondary (#{product.alt_names})
+        p.alt-names.secondary
+          cite #{product.alt_names}
       if product.makers.length
-        p.makers
-          cite Mfg. by #{product.makers}
+        p.makers Mfg. by #{product.makers}
 
+      .image
+        if product.image
+          img(src="/images/products/#{product.image}", width="400", title="#{product.name}")
 
       p.description!= markdown(product.description)
 
       if product.more_info
-        .more-info-container.hide
-          p
-            a.show-more-info(href="javascript:void(0);") More Infomation
-          .more-info!= markdown(product.more_info)
+        .more-info!= markdown(product.more_info)
 
       dl
         if product.model_no
@@ -54,7 +54,3 @@
         p.edit-link
           a.edit(href="/instruments/#{product.slug}/#{product._id}") Edit Product
     
-    .col-md-5
-      .image
-        if product.image
-          img(src="/images/products/#{product.image}", width="400", title="#{product.name}")

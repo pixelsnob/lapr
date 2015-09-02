@@ -65,7 +65,6 @@ define([
         image_onload_view.render();
         this.listenTo(image_onload_view, 'loaded', function($el) {
           var $img = $el.find('img').get(0);
-          console.log($img.naturalHeight, $img.naturalWidth);
           if ($img.naturalHeight > $img.naturalWidth) {
             obj.$el.find('.product-details').addClass('tall');
           }
