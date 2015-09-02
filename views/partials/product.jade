@@ -9,8 +9,7 @@
     h3.name= product.name
 
     if _.isArray(product.makers) && product.makers.length
-      p.makers.secondary
-        cite= product.makers.map(function(m) { return m.name; }).join(', ')
+      p.makers.secondary!= product.makers.map(function(m) { return m.name; }).join(', ')
     if product.sizes && product.sizes.length && !product.hide_sizes_in_lists
       .sizes.secondary!= markdown(product.sizes)
     noscript

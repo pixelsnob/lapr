@@ -120,11 +120,11 @@ h2 {
 }
 
 h3 {
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 h4 {
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 input, textarea, select {
@@ -380,8 +380,11 @@ input, textarea, select {
   }
   /* temp */
   .reset {
-    &:hover, &:link, &:active {
+    &:link, &:visited, &:active {
       background-color: #ed1b24;
+    }
+    &:hover {
+      opacity: 0.8;
     }
   }
 }
@@ -411,7 +414,7 @@ input, textarea, select {
     bottom: 0;
     top: 80px;
     width: inherit;
-    padding: 5px;
+    padding: 5px 5px 55px 5px;
   }
   .product {
     overflow: hidden;
@@ -710,6 +713,19 @@ body {
 
 /* Small screen stuff */
 @media only screen and (max-width: @screen-sm) {
+  body.index {
+    .site-header {
+      height: 40vh;
+      &:before {
+        height: 40vh;
+      }
+      .site-header-inner {
+      }
+    }
+    .news {
+      height: 60vh;
+    }
+  }
   .product-details {
     .image {
       float: none;
@@ -729,12 +745,15 @@ body {
       margin-top: 5px;
       background: url(/images/layout/lapr-tiny.png);
     }
+    .site-header-inner {
+    }
   }
   body:not(.index) .site-header {
     &:before {
       display: none;
     }
     .site-header-inner {
+      background-color: @bg-color;
     }
   }
   #heading-container {
