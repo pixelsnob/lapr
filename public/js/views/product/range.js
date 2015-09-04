@@ -109,19 +109,27 @@ define([
       var canvas = $('<canvas>');
       this.setElement(canvas);
 
+      //canvas.addClass('devborder');
+
       canvas = this.$el.get(0);
 
       var min_octave = this.getMinOctave(),
           max_octave = this.getMaxOctave();
 
-      // This will adjust stave length as well -- add some space per each note
+      // Make adjustments to stave length and height based on note values
       canvas.width = (260 + (notes.length * 20));
-      canvas.height = (max_octave >= 7 || min_octave < 2 ? 170 : 130);
+      canvas.height = 100;
 
-      var canvas_ctx = canvas.getContext("2d");
+      canvas.height += (max_octave >= 7 ? 30 : 0);
+      canvas.height += (min_octave < 2 ? 20 : 0);
+      //console.log(min_octave, canvas.height);
+
+      var canvas_ctx = canvas.getContext('2d');
+
       canvas_ctx.fillStyle = '#fff';
       canvas_ctx.strokeStyle = '#fff';
-      canvas_ctx.scale(0.6, 0.6);
+      canvas_ctx.scale(0.5, 0.5);
+      
 
       var renderer = new Vex.Flow.Renderer(canvas,
         Vex.Flow.Renderer.Backends.CANVAS);
@@ -133,7 +141,7 @@ define([
       
       var treble = new Vex.Flow.Stave(
         start,
-        (max_octave >= 7 ? 75 : 30),
+        (max_octave >= 7 ? 65 : 10),
         width
       );
       treble.setNoteStartX(20);
@@ -141,7 +149,7 @@ define([
       
       var bass = new Vex.Flow.Stave(
         start,
-        (max_octave >= 7 ? 145 : 100),
+        (max_octave >= 7 ? 135 : 80),
         width
       );
       bass.setNoteStartX(20);

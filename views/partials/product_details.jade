@@ -35,10 +35,10 @@
 
       .range
 
-      //- if product.octave_shift
-      //-  .range-notice.secondary
-      //-    - var s = (product.octave_shift > 1 ? 's' : '')
-      //-    em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
+      if product.octave_shift
+       .range-notice.secondary
+         - var s = (product.octave_shift > 1 ? 's' : '')
+         em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
 
 
       .sounds
@@ -46,8 +46,8 @@
           h3 Sounds
           - var youtube_videos = product.youtube_videos
           include youtube_player
-          //- .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
-          //-  .content
+          .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
+            .content
 
       if user
         p.edit-link
