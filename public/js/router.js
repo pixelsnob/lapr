@@ -8,11 +8,17 @@ define([
 
   Backbone.history.is_back = false;
 
+  var storeRoute = function() {
+    var fragment = Backbone.history.getFragment().replace(/^\//, '');
+    history.push(fragment); 
+  };
+
   Backbone.history.back = function() {
     var previous = history[history.length - 2];
     if (typeof previous != 'undefined') {
       Backbone.history.is_back = true;
-      Backbone.history.navigate(previous, true);
+      Backbone.history.navigate(previous, false);
+      storeRoute();
     }
   };
   
@@ -34,7 +40,7 @@ define([
     
     initialize: function(opts) {
       this.controller = opts.controller;
-      this.listenTo(global_events, 'before-route', this.storeRoute);
+      this.listenTo(global_events, 'before-route', storeRoute);
     },
 
     // Add a "before route" event
@@ -49,13 +55,6 @@ define([
       });
     },
     
-    // Store route in history, to provide "back" functionality for closing
-    // popups, etc.
-    storeRoute: function() {
-      var fragment = Backbone.history.getFragment().replace(/^\//, '');
-      history.push(fragment); 
-    },
-
     showIndex: function() {
       this.controller.showIndex();
     },
