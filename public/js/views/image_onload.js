@@ -20,20 +20,24 @@ define([
       this.setElement(opts.el);
     },
 
+    triggerLoaded: function() {
+      this.trigger('loaded', this.img_width, this.img_height);
+    },
+
     render: function() {
       var obj = this;
       if (this.src) {
         if (loaded_images_collection.findWhere({ src: this.src })) {
           this.renderImg();
           this.show(0);
-          this.trigger('loaded', this.$el);
+          this.triggerLoaded();
         } else {
           var tmp_img = new Image;
           tmp_img.onload = function() {
             obj.renderImg();
             obj.show(500);
             loaded_images_collection.add({ src: obj.src });
-            obj.trigger('loaded', obj.$el);
+            obj.triggerLoaded();
           };
           tmp_img.src = this.src;
         }
@@ -41,12 +45,14 @@ define([
     },
     
     renderImg: function() {
-      this.$el.html($('<img>').attr('src', this.src));
+      var $img = $('<img>').attr('src', this.src);
+      this.$el.html($img);
+      this.img_width = $img.get(0).naturalWidth;
+      this.img_height = $img.get(0).naturalHeight;
       return this;
     },
 
     show: function(t) {
-      //var delay = Math.round(Math.random() * 500);
       this.$el.find('img').fadeIn(t);
     }
 

@@ -62,13 +62,14 @@ define([
           el:    this.$el.find('.image'),
           src:   '/images/products/' + product.image
         });
-        image_onload_view.render();
-        this.listenTo(image_onload_view, 'loaded', function($el) {
-          var $img = $el.find('img').get(0);
-          if ($img.naturalHeight > $img.naturalWidth) {
+        this.listenTo(image_onload_view, 'loaded', function(w, h) {
+          var aspect = w / h;
+          // Do something different visually with "tall" images
+          if (aspect < 1.5) {
             obj.$el.find('.product-details').addClass('tall');
           }
         });
+        image_onload_view.render();
       }
       // Youtube videos
       var $youtube_player = this.$el.find('.youtube-player');
