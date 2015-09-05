@@ -264,7 +264,7 @@ input, textarea, select {
   left: -100%;
   top: 0;
   background: rgba(14, 14, 14, 0.95);
-  z-index: 55;
+  z-index: 100;
   nav {
     display: block;
     overflow-y: auto;
@@ -315,7 +315,7 @@ input, textarea, select {
   display: none;
   opacity: 0;
   background: transparent;
-  z-index: 100;
+  z-index: 95;
   background: rgba(0, 0, 0, 0.8);
   #content-panel-inner {
     background: @content-bg-color;
@@ -333,7 +333,7 @@ input, textarea, select {
       overflow: hidden;
       padding: 10px;
       a:link {
-        z-index: 1000;
+        /*z-index: 1000;*/
         font-weight: bold;
         text-decoration: none;
         font-size: 26px;
@@ -396,7 +396,7 @@ input, textarea, select {
   width: inherit;
   height: auto;
   top: 60px;
-  z-index: 5;
+  z-index: 90;
   position: fixed;
   margin: 0;
   padding: 30px 5px 10px 0;
@@ -689,9 +689,8 @@ body {
     }
   }
   &.contact {
-    #heading-container {
-      width: 100%;
-      position: static;
+    #main {
+      padding-top: 30px;
     }
     /*.form {
       input, textarea {
@@ -750,17 +749,32 @@ body {
     .site-header-inner {
     }
   }
-  body:not(.index) .site-header {
-    &:before {
-      display: none;
-    }
-    .site-header-inner {
-      background-color: @bg-color;
+  body.contact #main {
+    padding-top: 0;
+  }
+  body:not(.index) {
+    .site-header {
+      .site-header-inner {
+        background-color: @bg-color;
+      }
+      &:before {
+        display: none;
+      }
     }
   }
   #heading-container {
-    top: 40px;
-    padding-right: 15px;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 50%;
+    height: 60px;
+    padding: 14px 0 0 0;
+    text-align: center;
+    margin-left: 25%;
+    line-height: 14px;
+    h2 {
+      font-size: 1.1em;
+    }
   }
   #main {
     padding-left: 2px;
@@ -779,22 +793,22 @@ body {
     }
     nav {
       top: 60px;
-      /*padding: 5px 10px 55px 5px;*/
     }
     .boxes-list {
-      top: 125px;
-      padding-top: 20px;
+      top: 70px;
       bottom: 0;
       width: inherit;
       .scroll-fixed;
       padding-right: 15px;
+      padding-bottom: 35px;
+      padding-top: 0;
     }
     .more-info-container {
       display: inline;
       margin-left: 12px;
     }
     .stats {
-      font-size: 0.9em;
+      font-size: 0.8em;
     }
     .results li {
       width: 100%;
