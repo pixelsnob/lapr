@@ -33,13 +33,9 @@ define([
       this.stats_view = new ProductsSearchStatsView({
         products: this.products
       });
-      // refactor
-      var obj = this;
-      global_events.on('before-route', function(route, name) {
-        if (name == 'showProductsByTags' && !Backbone.history.is_back) {
-          obj.$el.find('.boxes-list').scrollTop(0);
-          $(window).scrollTop(0);
-        }
+      this.listenTo(this.products.refs.selected_tags, 'reset', function() {
+        this.$el.find('.boxes-list').scrollTop(0);
+        $(window).scrollTop(0);
       });
     },
     

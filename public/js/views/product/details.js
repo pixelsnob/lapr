@@ -65,7 +65,8 @@ define([
         this.listenTo(image_onload_view, 'loaded', function(w, h) {
           var aspect = w / h;
           // Do something different visually with "tall" images
-          if (aspect < 1) {
+          //console.log('w=%s, h=%s, aspect=%s', w, h, aspect);
+          if (aspect < 2) {
             obj.$el.find('.product-details').addClass('tall');
           }
         });
