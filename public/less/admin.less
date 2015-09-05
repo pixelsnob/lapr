@@ -36,7 +36,7 @@ select, input, textarea {
   }
 }
 
-.edit-link a {
+.edit a {
   color: @admin-link-color; 
 }
 
@@ -53,6 +53,9 @@ select, input, textarea {
 
 .admin-modal {
   .modal-content {
+    a:link, a:visited, a:active {
+      color: @admin-link-color;
+    }
     background-color: #fff;
     color: #000;
     .modal-header {
