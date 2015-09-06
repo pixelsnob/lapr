@@ -396,7 +396,7 @@ input, textarea, select {
   width: inherit;
   height: auto;
   top: 60px;
-  z-index: 90;
+  z-index: 10;
   position: fixed;
   margin: 0;
   padding: 30px 5px 10px 0;
@@ -484,25 +484,8 @@ input, textarea, select {
   &.tall .image {
     .pull-right;
     margin-left: 20px;
-    max-width: 50%;
-    img {
-    }
+    max-width: 40%;
   }
-  .range {
-  }
-  /*.more-info-container {
-  }
-  .more-info {
-    max-height: 0;
-    overflow: hidden;
-    &.expand {
-      max-height: 100vh;
-      transition: max-height .5s;
-      -moz-transition: max-height .5s;
-      -webkit-transition: max-height .5s;
-      -ms-transition: max-height .5s;
-    }
-  }*/
   .sounds-disclaimer {
     font-size: 0.9em;
     color: @text-secondary-color;
@@ -689,9 +672,7 @@ body {
     }
   }
   &.contact {
-    #main {
-      padding-top: 30px;
-    }
+    padding-top: 115px;
     /*.form {
       input, textarea {
         width: 90%;
@@ -753,6 +734,7 @@ body {
     padding-top: 0;
   }
   body:not(.index) {
+    padding-top: 40px;
     .site-header {
       .site-header-inner {
         background-color: @bg-color;
@@ -763,6 +745,7 @@ body {
     }
   }
   #heading-container {
+    z-index: 55; 
     top: 0;
     left: 0;
     right: 0;
