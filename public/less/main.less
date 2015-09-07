@@ -14,6 +14,7 @@
 @text-color: @link-color; 
 @text-secondary-color: #aaa;
 @heading-color: #fff;
+@alert-color: #ed1b24; 
 
 @button-bg-color: #333;
 @button-hover-bg-color: #555;
@@ -82,8 +83,8 @@ dl {
   }
 }
 
-.error label, .error [data-error] {
-  color: red;
+.error [data-error] {
+  color: @alert-color;
   font-weight: bold;
 }
 
@@ -93,6 +94,17 @@ dl {
 
 .secondary {
   color: @text-secondary-color;
+}
+
+form label {
+  text-transform: uppercase;
+  .secondary;
+}
+
+form button {
+  background-color: @alert-color;
+  border: none;
+  padding: 3px 5px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -132,7 +144,7 @@ h4 {
 }
 
 input, textarea, select {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: #292929;
   border: none;
 }
 
@@ -223,6 +235,7 @@ input, textarea, select {
     text-align: right;
     input[type="text"] {
       width: 100%;
+      background-color: rgba(255, 255, 255, 0.3);
     }
     [data-editor], .twitter-typeahead {
       width: 100%;
@@ -373,17 +386,20 @@ input, textarea, select {
       list-style: none;
     }
   }
-  .tags-nav > ul > li {
-    text-transform: uppercase;
-    padding-top: 5px;
-    a:link {
-      text-transform: none;
+  .tags-nav {
+    overflow: hidden;
+    & > ul > li {
+      text-transform: uppercase;
+      padding-bottom: 5px;
+      a:link {
+        text-transform: none;
+      }
     }
   }
   /* temp */
   .reset {
     &:link, &:visited, &:active {
-      background-color: #ed1b24;
+      background-color: @alert-color;
     }
     &:hover {
       opacity: 0.8;
@@ -399,7 +415,7 @@ input, textarea, select {
   z-index: 10;
   position: fixed;
   margin: 0;
-  padding: 30px 5px 10px 0;
+  padding: 30px 5px 10px 10px;
 }
 
 .products {
@@ -407,16 +423,15 @@ input, textarea, select {
     /*margin-bottom: 0;*/
   }
   .boxes-list {
-    padding-top: 100px;
-    padding-left: 0;
+    padding: 100px 10px 0 10px;
     overflow: hidden;
   }
   nav {
     .scroll-fixed;
-    bottom: 0;
     top: 80px;
+    bottom: 25px;
     width: inherit;
-    padding: 5px 5px 55px 5px;
+    padding: 0 10px 10px 10px;
   }
   .product {
     overflow: hidden;
@@ -672,10 +687,17 @@ body {
     }
   }
   &.contact {
-    padding-top: 115px;
-    /*.form {
+    padding-top: 105px;
+    #heading-container {
+      position: static;
+      padding: 0;
+    }
+    .form {
       input, textarea {
-        width: 90%;
+        width: 100%;
+      }
+      fieldset[data-fields] {
+        padding-bottom: 15px;
       }
     }
     .google-map {
@@ -687,7 +709,7 @@ body {
         width: 100%;
         min-height: 280px;
       }
-    }*/
+    }
     .contact-text {
     }
   }
@@ -730,8 +752,14 @@ body {
     .site-header-inner {
     }
   }
-  body.contact #main {
-    padding-top: 0;
+  body.contact {
+    #main {
+      padding-top: 0;
+    }
+    fieldset[data-fields] {
+      width: 40%;
+      min-width: 300px;
+    }
   }
   body:not(.index) {
     padding-top: 40px;
@@ -776,13 +804,15 @@ body {
     }
     nav {
       top: 60px;
+      left: 0;
     }
     .boxes-list {
-      top: 70px;
+      top: 60px;
+      right: 0;
       bottom: 0;
       width: inherit;
       .scroll-fixed;
-      padding-right: 15px;
+      /*padding-right: 15px;*/
       padding-bottom: 35px;
       padding-top: 0;
     }
