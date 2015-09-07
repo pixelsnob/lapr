@@ -31,12 +31,17 @@ define([
 
     new Router({ controller: controller(app_view) });
     
-    Backbone.history.start({
-      pushState: true,
-      hashChange: false,
-      silent: false 
-    });
-
+    if (Backbone.history && !Backbone.History.started) {
+      if (!(window.history && history.pushState)) {
+        Backbone.history.start({ pushState: false, silent: true });
+        var fragment = window.location.pathname.substr(
+          Backbone.history.options.root.length);
+        Backbone.history.navigate(fragment, { trigger: true });
+      } else {
+        Backbone.history.start({ pushState: true });
+      }
+    }
+ 
     if (window.lapr.user) {
       require([ 'views/admin/app' ], function(AdminApp) {
         new AdminApp({
