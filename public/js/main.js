@@ -20,11 +20,11 @@ define([
   AppView
 ) {
   
+  var products = new ProductsCollection;
+  products.deferred = products.fetch();
+
   // Run on dom ready
   $(function() {
-
-    var products = new ProductsCollection;
-    products.deferred = products.fetch();
 
     var app_view = new AppView({ products: products });
     app_view.render();
