@@ -189,8 +189,6 @@ define([
           products: this.products
         });
         this.$main.html(this.current_view.render().el);
-      } else {
-        this.current_view.render();
       }
       return false;
     }
