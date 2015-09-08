@@ -151,11 +151,11 @@ define([
             product_view.setElement(obj.$main.find('.product-details'));
             product_view.render();
           } else {
-            var content_panel_view = new ContentPanelView;
-            content_panel_view.render(product_view.render().el).show();
-            content_panel_view.on('hidden', function() {
+            obj.content_panel_view = new ContentPanelView;
+            obj.content_panel_view.render(product_view.render().el).show();
+            obj.content_panel_view.on('hidden', function() {
               product_view.close();
-              content_panel_view.close();
+              obj.content_panel_view.close();
               Backbone.history.back();
             });
           }
@@ -180,6 +180,9 @@ define([
 
     // Loads a view into #main
     loadMainView: function(class_name, View) {
+      if (this.content_panel_view) {
+        this.content_panel_view.close();
+      }
       if (!(this.current_view instanceof View)) {
         // Run close() to prevent mem leaks 
         if (this.current_view) {
