@@ -51,6 +51,7 @@ define([
       var errors = this.form.commit(),
           obj    = this;
       if (!errors) {
+        this.model.set('csrf-param', $('meta[name=csrf-param]').attr('content'));
         this.model.save().done(function() {
           obj.$el.find('.form').html('Thanks'); 
         }).fail(this.showServerError);
