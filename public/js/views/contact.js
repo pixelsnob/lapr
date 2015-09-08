@@ -54,6 +54,7 @@ define([
         this.model.set('csrf-param', $('meta[name=csrf-param]').attr('content'));
         this.model.save().done(function() {
           obj.$el.find('.form').html('Thanks'); 
+          obj.model.clear();
         }).fail(this.showServerError);
       }
       return false;
