@@ -41,9 +41,9 @@ define([
       this.stats_view = new ProductsSearchStatsView({
         products: this.products
       });
-      this.listenTo(this.products.refs.selected_categories, 'add',
+      this.listenTo(this.products.refs.selected_categories, 'add reset',
         this.toggleMoreInfoLink);
-      this.listenTo(this.products.refs.selected_categories, 'add', function() {
+      this.listenTo(this.products.refs.selected_categories, 'add reset', function() {
         this.$el.find('.boxes-list').scrollTop(0);
         $(window).scrollTop(0);
       });
