@@ -4,7 +4,6 @@
  */
 define([
   'views/base',
-  'views/modal',
   './details_image',
   './details_more_info',
   './range',
@@ -14,7 +13,6 @@ define([
   'template'
 ], function(
   BaseView,
-  ModalView,
   ProductDetailsImageView,
   ProductDetailsMoreInfoView,
   RangeView,
@@ -27,7 +25,9 @@ define([
   return BaseView.extend({
     
     events: {
-      'click .show-more-info':  'showMoreInfo'
+      'click .show-more-info':  'showMoreInfo',
+      'click .previous a': 'previous',
+      'click .next a': 'next'
     },
 
     initialize: function(opts) {
@@ -63,12 +63,12 @@ define([
           src:   '/images/products/' + product.image
         });
         this.listenTo(image_onload_view, 'loaded', function(w, h) {
-          var aspect = w / h;
+          //var aspect = w / h;
           // Do something different visually with "tall" images
           //console.log('w=%s, h=%s, aspect=%s', w, h, aspect);
-          if (aspect < 2) {
-            obj.$el.find('.product-details').addClass('tall');
-          }
+          //if (aspect < 2) {
+          //  obj.$el.find('.product-details').addClass('tall');
+          //}
         });
         image_onload_view.render();
       }
@@ -90,6 +90,7 @@ define([
         var range_view = new RangeView({ range: product.range });
         this.$el.find('.range').html(range_view.render().el);
       }
+      // "More info" link
       if (product.more_info) {
         this.$el.find('.more-info-container').removeClass('hide');
       }
@@ -97,16 +98,6 @@ define([
       return this;
     },
     
-    renderModal: function(opts) {
-      this.render();
-      var modal_view = new ModalView;
-      modal_view.$el.addClass('product-details');
-      modal_view.render({
-        body: this.$el
-      });
-      this.listenTo(modal_view, 'close', _.bind(this.trigger, this, 'close'));
-    },
-
     showMoreInfo: function() {
       this.$el.find('.more-info')
         .removeClass('hide')
@@ -125,6 +116,31 @@ define([
       return false;
     },
 
+    previous: function(ev) {
+      var products = this.model.collection.refs.filtered_products;
+      var previous = products.at(products.indexOf(this.model) - 1);
+      if (previous) {
+        var url = '/instruments/' + previous.get('slug') + '/' + previous.id;
+        Backbone.history.navigate(url, false);
+        this.model = previous;
+        this.render();
+      }
+      return false;
+
+    },
+
+    next: function(ev) {
+      var products = this.model.collection.refs.filtered_products;
+      var next = products.at(products.indexOf(this.model) + 1);
+      if (next) {
+        var url = '/instruments/' + next.get('slug') + '/' + next.id;
+        Backbone.history.navigate(url, false);
+        this.model = next;
+        this.render();
+      }
+      return false;
+    },
+    
     close: function() {
       BaseView.prototype.close.apply(this, arguments);      
       this.trigger('modal-close');

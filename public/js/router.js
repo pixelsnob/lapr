@@ -4,22 +4,18 @@ define([
   'lib/events'
 ], function(Backbone, global_events) {
   
-  var history = [];
-
-  Backbone.history.is_back = false;
+  var route = '';
 
   var storeRoute = function() {
-    var fragment = Backbone.history.getFragment().replace(/^\//, '');
-    history.push(fragment); 
+    var fragment = Backbone.history.getFragment();
+    if (fragment) {
+      route = fragment.replace(/^\//, '');
+    }
+    //console.log('route: %s', route);
   };
 
   Backbone.history.back = function() {
-    var previous = history[history.length - 2];
-    if (typeof previous != 'undefined') {
-      Backbone.history.is_back = true;
-      Backbone.history.navigate(previous, false);
-      storeRoute();
-    }
+    Backbone.history.navigate(route, false);
   };
   
   return Backbone.Router.extend({
@@ -40,7 +36,11 @@ define([
     
     initialize: function(opts) {
       this.controller = opts.controller;
-      this.listenTo(global_events, 'before-route', storeRoute);
+      this.listenTo(global_events, 'before-route', function(route, name) {
+        if (name != 'showProductDetails') {
+          storeRoute();
+        }
+      });
     },
 
     // Add a "before route" event
@@ -51,7 +51,6 @@ define([
         }
         global_events.trigger('before-route', route, name);
         cb.apply(this, arguments);
-        Backbone.history.is_back = false;
       });
     },
     

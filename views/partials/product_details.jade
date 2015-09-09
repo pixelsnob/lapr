@@ -3,7 +3,7 @@
   .row
     .col-md-12
       h2= product.name
-      .image
+      .image.pull-right
         if product.image
           img(src="/images/products/#{product.image}", width="400", title="#{product.name}")
 
@@ -48,6 +48,14 @@
           include youtube_player
           .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
             .content
+
+      .nav-links
+        nav
+          ul
+            li.previous 
+              a(href="javascript:void(0)") Previous
+            li.next
+              a(href="javascript:void(0)") Next
 
       if user
         p.edit-link
