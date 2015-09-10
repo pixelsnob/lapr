@@ -95,6 +95,7 @@ define([
         this.$el.find('.more-info-container').removeClass('hide');
       }
       content_blocks_view.setElement(this.$el).render();
+      this.updateNavLinks();
       return this;
     },
     
@@ -141,6 +142,19 @@ define([
       return false;
     },
     
+    // Toggles previous/next links
+    updateNavLinks: function() {
+      var products = this.model.collection.refs.filtered_products,
+          i        = products.indexOf(this.model);
+      if (i == 0) {
+        this.$el.find('.previous').css('visibility', 'hidden');
+      }
+      if (i == products.length - 1) {
+        this.$el.find('.next').css('visibility', 'hidden');
+      }
+      //console.log(products);
+    },
+
     close: function() {
       BaseView.prototype.close.apply(this, arguments);      
       this.trigger('modal-close');

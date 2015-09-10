@@ -53,9 +53,11 @@
         nav
           ul
             li.previous 
-              a(href="javascript:void(0)") Previous
+              a.glyphicon.glyphicon-arrow-left(href="javascript:void(0)", title="Previous Instrument")
+                span.hide Previous
             li.next
-              a(href="javascript:void(0)") Next
+              a.glyphicon.glyphicon-arrow-right(href="javascript:void(0)", title="Next Instrument")
+                span.hide Next
 
       if user
         p.edit-link
