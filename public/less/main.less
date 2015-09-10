@@ -339,19 +339,39 @@ input, textarea, select {
     padding-right: 10px;
     padding-top: 40px;
     .header {
-      position: fixed;
-      right: 0;
-      width: inherit;
+      overflow: hidden;
+      position: absolute;
       top: 0;
+      width: 100%;
+      min-height: 40px;
     }
     .content {
       clear: both; 
     }
+    .nav-links {
+      position: absolute;
+      top: -30px;
+      right: 50px;
+      ul {
+        padding: 0;
+        margin: 0;
+        text-align: right;
+      }
+      li {
+        display: inline;
+        margin-left: 15px;
+        a:link, a:visited, a:hover {
+          .secondary;
+        }
+      }
+    }
     .content-panel-close {
-      float: right;
       overflow: hidden;
-      padding: 10px;
+      position: absolute;
+      top: 0;
+      right: 20px;
       a:link {
+        /*z-index: 1000;*/
         font-weight: bold;
         text-decoration: none;
         font-size: 26px;
@@ -510,21 +530,6 @@ input, textarea, select {
   .sounds-disclaimer {
     font-size: 0.9em;
     color: @text-secondary-color;
-  }
-  .nav-links {
-    position: fixed;
-    top: 20px;
-    right: 30px;
-    ul {
-      padding: 0;
-    }
-    li {
-      display: inline;
-      margin-right: 15px;
-      a:link, a:visited, a:hover {
-        .secondary;
-      }
-    }
   }
 }
 
