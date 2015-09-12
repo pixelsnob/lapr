@@ -27,14 +27,6 @@ define([
       if (!this.$el.find('.index').length) {
         // Loaded dynamically
         this.setElement(template.render('partials/index', { images: [] }));
-        this.slideshow_view.setElement(this.getSlideshowContainer());
-        this.slideshow_view.render();
-        this.slideshow_view.listenTo(this.slideshow_view, 'ready',
-          this.slideshow_view.start);
-      } else {
-        // Fresh load of entire page
-        this.slideshow_view.setElement(this.getSlideshowContainer());
-        this.slideshow_view.start();
       }
       content_blocks_view.setElement(this.$el).render();
       return this;

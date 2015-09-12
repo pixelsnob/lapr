@@ -105,8 +105,7 @@ define([
     showProductsByCategory: function(category) {
       var obj = this;
       this.products.deferred.done(function() {
-        obj.loadMainView('.products-categories-search', ProductsSearchView);
-        obj.setBodyClass('products-categories-search');
+        obj.loadMainView('products-categories-search', ProductsSearchView);
         obj.products.refs.selected_categories.setFromSlug(category);
         obj.products.filterByCategory();
       });
@@ -116,8 +115,7 @@ define([
     showProductsByTags: function(tags) {
       var obj = this;
       this.products.deferred.done(function() {
-        obj.loadMainView('.products-tags-search', ProductsTagsSearchView);
-        obj.setBodyClass('products-tags-search');
+        obj.loadMainView('products-tags-search', ProductsTagsSearchView);
         obj.products.refs.selected_tags.setFromArray(tags);
         obj.products.filterByTags();
       });
@@ -127,8 +125,7 @@ define([
     showProductsByTextSearch: function(search) {
       var obj = this;
       this.products.deferred.done(function() {
-        obj.loadMainView('.products-text-search', ProductsTextSearchView);
-        obj.setBodyClass('products-text-search');
+        obj.loadMainView('products-text-search', ProductsTextSearchView);
         obj.products.filterByTextSearch(search);
       });
       return false;
@@ -165,24 +162,19 @@ define([
     },
 
     showContact: function() {
-      this.setBodyClass('contact');
-      this.loadMainView('.contact', ContactView);
+      this.loadMainView('contact', ContactView);
     },
 
     showIndex: function() {
-      this.setBodyClass('index');
-      this.loadMainView('.index', IndexView);
+      this.loadMainView('index', IndexView);
     },
     
-    setBodyClass: function(class_name) {
-      this.$el.removeClass().addClass(class_name);
-    },
-
     // Loads a view into #main
     loadMainView: function(class_name, View) {
       if (this.content_panel_view) {
         this.content_panel_view.close();
       }
+      this.$el.removeClass().addClass(class_name);
       if (!(this.current_view instanceof View)) {
         // Run close() to prevent mem leaks 
         if (this.current_view) {
@@ -192,6 +184,7 @@ define([
           products: this.products
         });
         this.$main.html(this.current_view.render().el);
+        this.$main.fadeIn(1000);
       }
       return false;
     }

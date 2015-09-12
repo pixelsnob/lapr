@@ -41,9 +41,11 @@ define([
     
     render: function() {
       this.$el.html(template.render('partials/products_search', {
-        products: [], paginate: null, heading: 'Sound Search'
+        products:   [],
+        paginate:   null,
+        heading:    'Sound Search',
+        class_name: 'products-tags-search'
       }));
-      this.$el.addClass('products-tags-search');
       this.products_view.setElement(this.$el.find('.products'));
       this.$el.find('.tags-tree').html(this.tags_nav_view.render().el);
       this.stats_view.setElement(this.$el.find('.stats'));

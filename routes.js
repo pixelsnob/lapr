@@ -133,6 +133,7 @@ module.exports = function(app) {
               return next(err);
             }
             res.render('products_search', {
+              class_name:  'products-categories-search',
               heading:     'All Instruments',
               products:    products,
               categories:  json_data.categories,
@@ -175,6 +176,7 @@ module.exports = function(app) {
           res.format({
             html: function() {
               res.render('products_search', {
+                class_name:         'products-categories-search',
                 heading:            product_category.name,
                 products:           products,
                 product_categories: res.locals.json_data.product_categories,
@@ -199,6 +201,7 @@ module.exports = function(app) {
         res.format({
           html: function() {
             res.render('products_search', {
+              class_name:         'products-text-search',
               heading:            'Search Results',
               products:           products,
               page_count:         0,
@@ -233,6 +236,7 @@ module.exports = function(app) {
         res.format({
           html: function() {
             res.render('products_search', {
+              class_name:         'products-tags-search',
               heading:            'Sound Search',
               products:           products,
               page_count:         page_count,

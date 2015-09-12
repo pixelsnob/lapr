@@ -51,11 +51,11 @@ define([
     
     render: function() {
       this.$el.html(template.render('partials/products_search', {
-        products: [],
-        paginate: null,
-        heading:  null
+        class_name: 'products-categories-search',
+        products:   [],
+        paginate:   null,
+        heading:    null
       }));
-      this.$el.addClass('products-categories-search');
       this.products_view.setElement(this.$el.find('.products'));
       this.$el.find('.categories').html(this.nav_view.render().el);
       this.product_category_header_view.setElement(this.$el.find('h2'));
