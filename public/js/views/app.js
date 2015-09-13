@@ -184,7 +184,7 @@ define([
           products: this.products
         });
         this.$main.html(this.current_view.render().el);
-        this.$main.fadeIn(1000);
+        //this.$main.fadeIn(1000);
       }
       return false;
     }
