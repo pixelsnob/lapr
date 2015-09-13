@@ -71,11 +71,17 @@ define([
     },
 
     showMobileMenu: function(ev) {
-      this.mobile_menu_view.show();
+      var obj = this;
+      this.products.deferred.done(function() {
+        obj.mobile_menu_view.show();
+      });
     },
 
     hideMobileMenu: function(ev) {
-      this.mobile_menu_view.hide();
+      var obj = this;
+      this.products.deferred.done(function() {
+        obj.mobile_menu_view.hide();
+      });
     },
 
     toggleSiteMenu: function(ev) {
@@ -133,6 +139,7 @@ define([
 
     showProductDetails: function(product_id) {
       var obj = this;
+      this.showMain();
       this.products.deferred.done(function() {
         var product = obj.products.findWhere({ _id: Number(product_id) });
         if (!product) {
@@ -169,6 +176,10 @@ define([
       this.loadMainView('index', IndexView);
     },
     
+    showMain: function() {
+      this.$main.fadeIn(1000);
+    },
+
     // Loads a view into #main
     loadMainView: function(class_name, View) {
       if (this.content_panel_view) {
@@ -184,8 +195,8 @@ define([
           products: this.products
         });
         this.$main.html(this.current_view.render().el);
-        //this.$main.fadeIn(1000);
       }
+      this.showMain();
       return false;
     }
   });
