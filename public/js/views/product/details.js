@@ -146,13 +146,18 @@ define([
     updateNavLinks: function() {
       var products = this.model.collection.refs.filtered_products,
           i        = products.indexOf(this.model);
-      if (i == 0) {
-        this.$el.find('.previous').css('visibility', 'hidden');
+      var $prev = this.$el.find('.previous'),
+          $next = this.$el.find('.next');
+      if (i == 0 || !products.length) {
+        $prev.css('visibility', 'hidden');
+      } else {
+        $prev.css('visibility', 'visible');
       }
-      if (i == products.length - 1) {
-        this.$el.find('.next').css('visibility', 'hidden');
+      if (i == products.length - 1 || !products.length) {
+        $next.css('visibility', 'hidden');
+      } else {
+        $next.css('visibility', 'visible');
       }
-      //console.log(products);
     },
 
     close: function() {
