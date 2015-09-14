@@ -458,7 +458,7 @@ input, textarea, select {
   z-index: 10;
   position: fixed;
   margin: 0;
-  padding: 30px 5px 10px 10px;
+  padding: 30px 45px 10px 10px;
 }
 
 .products {
@@ -730,8 +730,8 @@ body {
       height: 50vh;
       .index-left, .index-middle {
         img {
-          float: right;
-          margin-left: 25px;
+          float: left;
+          margin-right: 25px;
           margin-bottom: 25px;
           width: 35%;
           filter: grayscale(1);
@@ -739,16 +739,17 @@ body {
           -moz-filter: grayscale(1);
         }
       }
+      .index-middle {
+        img {
+          width: 40%;
+        }
+      }
       .index-right {
         img {
-          width: 60%;
-          margin: 0 auto;
-          display: block;
-          &:before {
-            .devborder;
-            width: 100%;
-            text-align: center;
-          }
+          width: 35%;
+          float: left;
+          margin-right: 25px;
+          margin-bottom: 25px;
         }
       }
     }
@@ -880,6 +881,9 @@ body {
     line-height: 14px;
     h2 {
       font-size: 1.1em;
+    }
+    .line-after:after {
+      border-bottom: none;
     }
   }
   #main {
