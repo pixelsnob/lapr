@@ -102,10 +102,13 @@ form label {
   .secondary;
 }
 
-form button {
+form button, button.alert {
   background-color: @alert-color;
   border: none;
-  padding: 3px 5px;
+  padding: 4px 6px;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -718,6 +721,9 @@ body {
     }
     .news {
       padding: 40px 40px 25px 40px;
+      .scroll-fixed;
+      left: 0;
+      height: 50vh;
       h2 {
         margin-bottom: 20px;
         .line-after;
@@ -725,13 +731,14 @@ body {
       .content-block {
         padding: 15px;
       }
-      .scroll-fixed;
-      left: 0;
-      height: 50vh;
+      button {
+        margin-left: 15px;
+      }
       .col {
+        cursor: pointer;
         img {
-          float: left;
-          margin-right: 25px;
+          float: right;
+          margin-left: 25px;
           margin-bottom: 25px;
           width: 35%;
           filter: grayscale(1);
@@ -803,15 +810,15 @@ body {
 @media only screen and (max-width: @screen-sm) {
   body.index {
     .site-header {
-      height: 40vh;
+      height: 30vh;
       &:before {
-        height: 40vh;
+        height: 30vh;
       }
       .site-header-inner {
       }
     }
     .news {
-      height: 60vh;
+      height: 70vh;
       h2 {
       }
       .col img {
