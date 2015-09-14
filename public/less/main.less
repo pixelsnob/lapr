@@ -102,14 +102,14 @@ form label {
   .secondary;
 }
 
-form button, button.alert {
+/*form button, button.alert {
   background-color: @alert-color;
   border: none;
   padding: 4px 6px;
   font-size: 0.9em;
   font-weight: bold;
   text-transform: uppercase;
-}
+}*/
 
 h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
@@ -731,16 +731,15 @@ body {
       .content-block {
         padding: 15px;
       }
-      button {
+      a.button-alert {
         margin-left: 15px;
       }
       .col {
-        cursor: pointer;
         img {
           float: right;
           margin-left: 25px;
-          margin-bottom: 25px;
-          width: 35%;
+          margin-bottom: 20px;
+          width: 40%;
           filter: grayscale(1);
           -webkit-filter: grayscale(1);
           -moz-filter: grayscale(1);
@@ -819,10 +818,10 @@ body {
     }
     .news {
       height: 70vh;
+      padding: 20px 20px 50px 20px;
       h2 {
       }
       .col img {
-        width: 22%;
       }
     }
   }

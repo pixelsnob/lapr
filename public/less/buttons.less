@@ -1,4 +1,22 @@
 
+form button, button.alert, a.button-alert {
+  background-color: @alert-color;
+  width: auto;
+  border: none;
+  outline: none;
+  padding: 4px 6px;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  &:hover {
+    background-color: #d8242c;
+  }
+  &:active {
+    background-color: @alert-color;
+  }
+}
+
 .tag {
   display: block;
   float: left;
