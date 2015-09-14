@@ -1,6 +1,9 @@
 
 extends layout
 
+block config
+  - body_class = 'login-form';
+
 block content
   form(name="login", method="post", action="/login")
     input(type="text", name="username", placeholder="Username")
