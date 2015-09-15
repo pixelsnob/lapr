@@ -40,6 +40,7 @@ define([
         var badge = $('<span>').addClass('label label-danger').text('Problem!');
         obj.$el.find('.warning-container').append(badge);
       });
+      var ref_products = [];
       this.products.map(function(product) {
         var product = product.toJSON();
         if (product.youtube_videos && _.isArray(product.youtube_videos)) {
@@ -49,10 +50,15 @@ define([
             return product.name;
           });
           if (products.length) {
-            obj.$el.find('.name-container .products').text(products.join(', '));
+            products.forEach(function(_product) {
+              ref_products.push(_product);
+            });
           }
         }
       });
+      if (ref_products.length) {
+        this.$el.find('.name-container .products').text(ref_products.join(', '));
+      }
       return this;
     }
     
