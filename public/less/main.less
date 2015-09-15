@@ -862,6 +862,25 @@ body {
     .site-header-inner {
     }
   }
+  body.index {
+    position: static;
+    .site-header {
+      position: relative;
+      &:before {
+        position: absolute;
+        overflow-y: hidden;
+      }
+      .site-header-inner {
+        position: static;
+        overflow-y: hidden;
+      }
+    }
+    .news {
+      position: static;
+      overflow-y: hidden;
+      height: 100%;
+    }
+  }
   body.contact {
     #main {
       padding-top: 0;
