@@ -1,9 +1,8 @@
 
 'use strict';
 
-var
-  db              = require('../models'),
-  async           = require('async');
+var db    = require('../models'),
+    async = require('async');
 
 db.connection.on('error', function(err) {
   console.error('mongo error: ' + err);
