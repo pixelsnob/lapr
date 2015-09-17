@@ -257,10 +257,32 @@ input, textarea, select {
     input[type="text"] {
       width: 100%;
       background-color: rgba(255, 255, 255, 0.3);
+      position: relative;
+      top: 0;
+      height: 20px;
+      padding-left: 28px;
     }
     [data-editor], .twitter-typeahead {
       width: 100%;
       display: block;
+      position: relative;
+      top: 0;
+      left: 0;
+      &:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "\e003";
+        font-family: 'Glyphicons Halflings';
+        font-size: 1em;
+        padding: 3px 0 0 7px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+      }
     }
     label {
       display: none;
@@ -471,7 +493,7 @@ input, textarea, select {
     /*margin-bottom: 0;*/
   }
   .boxes-list {
-    padding: 100px 10px 0 10px;
+    padding: 110px 10px 0 10px;
     overflow: hidden;
   }
   nav {
