@@ -36,7 +36,8 @@ async.waterfall([
   },
   function(next) {
     // Attempt a commit
-    exec('git commit -a -m "Automated backup"', exec_opts, function(err, stdout, stderr) {
+    exec('git commit -a -m "Automated backup"', exec_opts,
+    function(err, stdout, stderr) {
       if (err) {
         return next(err);
       }
