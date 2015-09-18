@@ -63,7 +63,7 @@ define([
       this.model = model;
       this.yt_params.start = model.get('start_time');
       this.yt_params.end   = model.get('end_time');
-      var src = 'http://www.youtube.com/embed/' + model.get('youtube_id') +
+      var src = '//www.youtube.com/embed/' + model.get('youtube_id') +
                 '?' + $.param(this.yt_params);
       this.$player.find('iframe').attr('src', src);
       this.player = new YT.Player('ytplayer', {
