@@ -33,7 +33,18 @@ define([
       });
     },
     
+    onScroll: function(ev) {
+      //console.log(ev.currentTarget === window);
+      var $el = $(ev.currentTarget);
+      //console.log($el[0].scrollHeight, $el.scrollTop(), $el.outerHeight());
+      if ($el.scrollTop() + $el.height() > $(document).height() - 100) {
+        this.getMore();
+      }
+    },
+
     render: function(append) {
+      $(window).off('scroll');
+      $(window).on('scroll', _.bind(this.onScroll, this));
       var $results = this.$el.find('.results'),
           products = this.refs.filtered_products,
           obj      = this;

@@ -53,7 +53,17 @@ define([
     },
 
     show: function(t) {
-      this.$el.find('img').fadeIn(t);
+      var obj = this;
+      var fadeIn = function() {
+        obj.$el.find('img').fadeIn(t);
+      };
+      // Stagger loading a bit...
+      var rand = Math.round(Math.random() * 2000);
+      if (t > 0) {
+        setTimeout(fadeIn, rand);
+      } else {
+        fadeIn();
+      }
     }
 
   });
