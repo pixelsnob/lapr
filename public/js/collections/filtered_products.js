@@ -9,8 +9,6 @@ define([
     
     model: ProductModel,
 
-    comparator: 'name',
-
     per_page: 30,
 
     current_page: 1,
@@ -43,7 +41,9 @@ define([
     },
 
     comparator: function(a, b) {
-      var comp = a.get('name').localeCompare(b.get('name'));
+      var aval = a.get('name') + ' ' + a.get('sizes'),
+          bval = b.get('name') + ' ' + b.get('sizes');
+      var comp = aval.localeCompare(bval);
       return (this.sort_direction == 'asc' ? comp : -comp);
     }
     
