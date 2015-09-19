@@ -9,7 +9,7 @@
 var db          = require('../models'),
     util        = require('util'),
     path        = require('path'),
-    dir         = path.resolve(__dirname, '../var/lapr-db'),
+    dir         = path.resolve(__dirname, '/var/lapr-data'),
     async       = require('async'),
     exec        = require('child_process').exec,
     exec_opts   = { cwd: dir };
