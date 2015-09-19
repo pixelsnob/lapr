@@ -109,7 +109,7 @@ define([
       var canvas = $('<canvas>');
       this.setElement(canvas);
 
-      //canvas.addClass('devborder');
+      canvas.addClass('devborder');
 
       canvas = this.$el.get(0);
 
@@ -141,7 +141,7 @@ define([
       
       var treble = new Vex.Flow.Stave(
         start,
-        (max_octave >= 7 ? 65 : 10),
+        (max_octave >= 7 ? 80 : 10),
         width
       );
       treble.setNoteStartX(20);
@@ -149,7 +149,7 @@ define([
       
       var bass = new Vex.Flow.Stave(
         start,
-        (max_octave >= 7 ? 135 : 80),
+        (max_octave >= 7 ? 150 : 80),
         width
       );
       bass.setNoteStartX(20);
