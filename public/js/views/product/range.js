@@ -109,7 +109,7 @@ define([
       var canvas = $('<canvas>');
       this.setElement(canvas);
 
-      canvas.addClass('devborder');
+      //canvas.addClass('devborder');
 
       canvas = this.$el.get(0);
 
