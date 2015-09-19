@@ -12,8 +12,7 @@ var db          = require('../models'),
     dir         = path.resolve(__dirname, '../var/lapr-db'),
     async       = require('async'),
     exec        = require('child_process').exec,
-    exec_opts   = { cwd: dir },
-    git         = require('nodegit');
+    exec_opts   = { cwd: dir };
 
 async.waterfall([
   function(next) {
@@ -21,7 +20,7 @@ async.waterfall([
     async.eachSeries(Object.keys(db.models), function(model, cb) {
       var model_name  = db.models[model].modelName,
           coll_name   = db.models[model].collection.collectionName,
-          str         = 'mongoexport -d lapr -c %s -o %s/%s.json --jsonArray --pretty',
+          str         = 'mongoexport -d lapr -c %s -o %s/%s.json --jsonArray',// --pretty',
           cmd         = util.format(str, coll_name, dir, model_name);
       exec(cmd, function(err, stdout, stderr) {
         if (err) {
