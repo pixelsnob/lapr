@@ -19,19 +19,6 @@ module.exports = function(app) {
     return Math.round((new Date).getTime() / 1000);
   };
 
-  var last_ts = 0;
-
-  var backupDb = function() {
-    var curr_ts = getSecs();
-    // Make sure this is throttled
-    if (!last_ts || curr_ts - last_ts > 20) {
-      last_ts = curr_ts;
-      require('child_process').exec('node ./bin/db_backup.js', function(err, stdout, stderr) {
-        console.log(arguments);
-      });
-    }
-  };
-
   return {
     
     get: function(model_name) {
@@ -66,7 +53,6 @@ module.exports = function(app) {
                 return next(err);
               }
               res.send(doc);
-              backupDb();
             });
           }
         );
@@ -81,7 +67,6 @@ module.exports = function(app) {
             return next(err);
           }
           res.send(doc);
-          backupDb();
         });
       };
     },
@@ -104,7 +89,6 @@ module.exports = function(app) {
                 return next(err);
               }
               res.send(doc);
-              backupDb();
             });
           }
         );
