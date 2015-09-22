@@ -137,7 +137,7 @@ h2 {
     border-bottom: 2px solid #333;
     height: 3px;
     width: inherit;
-    z-index: 95;
+    z-index: 55;
     content: '';
     position: absolute;
     bottom: 0px;
@@ -182,7 +182,7 @@ input, textarea, select {
   width: 100%;
   top: 0;
   left: 0;
-  z-index: 50;
+  z-index: 60;
   height: 50vh;
   /* Banner/nav strip background image */
   &:before {
@@ -196,18 +196,18 @@ input, textarea, select {
     left: 0;
   }
   .site-header-inner {
-    height: 60px;
+    height: 66px;
     z-index: 51;
     position: fixed;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.25);
   }
   .logo {
     a {
       margin-top: 3px;
       display: block;
-      width: 72px;
-      height: 50px;
+      width: 82px;
+      height: 59px;
       background: url(/images/layout/lapr.png);
       span {
         .hide;
@@ -218,7 +218,7 @@ input, textarea, select {
     }
   }
   nav {
-    padding-top: 15px;
+    padding-top: 17px;
     float: right;
     .dropdown li a {
       text-transform: uppercase;
@@ -255,16 +255,17 @@ input, textarea, select {
     }
   }
   .text-search {
-    padding-top: 5px;
+    padding-top: 6px;
     width: 100%;
     float: right;
     text-align: right;
     input[type="text"] {
       width: 100%;
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: rgba(0, 0, 0, 0.35);
       position: relative;
       top: 0;
-      height: 20px;
+      height: 25px;
+      font-size: 1.2em;
       padding-left: 28px;
     }
     [data-editor], .twitter-typeahead {
@@ -279,8 +280,8 @@ input, textarea, select {
         left: 0;
         content: "\e003";
         font-family: 'Glyphicons Halflings';
-        font-size: 1em;
-        padding: 3px 0 0 7px;
+        font-size: 1.1em;
+        padding: 4px 0 0 7px;
         font-style: normal;
         font-weight: normal;
         line-height: 1;
@@ -376,7 +377,7 @@ input, textarea, select {
   display: none;
   opacity: 0;
   background: transparent;
-  z-index: 95;
+  z-index: 96;
   background: rgba(0, 0, 0, 0.8);
   #content-panel-inner {
     background: @content-bg-color;
@@ -787,9 +788,9 @@ body {
     }
   }
   &:not(.index) .site-header {
-    height: 30px;
+    height: 66px;
     &:before {
-      clip: rect(0, auto, 60px, 0);
+      clip: rect(0, auto, 66px, 0);
       filter: grayscale(100%);
       -webkit-filter: grayscale(100%);
     }
@@ -862,6 +863,7 @@ body {
         height: 30vh;
       }
       .site-header-inner {
+        height: 50px;
       }
     }
     .news {
@@ -898,8 +900,8 @@ body {
         overflow-y: hidden;
       }
       .site-header-inner {
-        position: static;
-        overflow-y: hidden;
+        /*position: static;
+        overflow-y: hidden;*/
       }
     }
     .news {
