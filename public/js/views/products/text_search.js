@@ -30,9 +30,10 @@ define([
 
     render: function() {
       this.$el.html(template.render('partials/products_search', {
-        products: [],
-        paginate: null,
-        heading:  'Search Results'
+        products:    [],
+        paginate:    null,
+        heading:    'Search Results',
+        class_name: 'products-text-search'
       }));
       this.$el.addClass('products-text-search');
       this.products_view.setElement(this.$el.find('.products'));
