@@ -3,10 +3,15 @@ block config
 doctype html
 html
   head
-    title= title 
+    if title
+      title= title 
+    else
+      title Los Angeles Percussion Rentals - Rent Percussion Instruments in L.A. and Southern California
 
     if description
       meta(name="description", content="#{description}")
+    else
+      meta(name="description", content="High-end, professional percussion available for rent and cartage, including orchestral percussion, drum sets, world percussion, backline, eclectic percussion, and other hard-to-find instruments.")
 
     link(rel="stylesheet", href="/dist/css/main.css", type="text/css")
     if user
@@ -18,8 +23,6 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui")
     meta(name="csrf-param", content="#{csrf}")
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
-
-
 
   body(class="#{body_class}")
     header.site-header

@@ -25,10 +25,7 @@ define([
     },
     
     render: function() {
-      if (!this.$el.find('.index').length) {
-        // Loaded dynamically
-        this.setElement(template.render('partials/index', { images: [] }));
-      }
+      this.setElement(template.render('partials/index', { images: [] }));
       content_blocks_view.setElement(this.$el).render();
       return this;
     },

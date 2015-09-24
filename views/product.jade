@@ -1,6 +1,9 @@
 
 extends layout
 
+block config
+  - var title = 'L.A. Percussion Rentals - ' + product.name;
+
 block content
   if product
     .container-fluid
