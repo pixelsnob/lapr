@@ -18,6 +18,7 @@ define([
     initialize: function(opts) {
       this.src = opts.src;
       this.setElement(opts.el);
+      this.random_delay = opts.random_delay;
     },
 
     triggerLoaded: function() {
@@ -58,7 +59,8 @@ define([
         obj.$el.find('img').fadeIn(t);
       };
       // Stagger loading a bit...
-      var rand = Math.round(Math.random() * 2000);
+      var rand = (this.random_delay === true ?
+                  Math.round(Math.random() * 3000) : 0);
       if (t > 0) {
         setTimeout(fadeIn, rand);
       } else {

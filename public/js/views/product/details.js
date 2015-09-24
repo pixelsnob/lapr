@@ -59,16 +59,8 @@ define([
       // Image loading stuff
       if (product.image && product.image.length) {
         var image_onload_view = new ImageOnloadView({
-          el:    this.$el.find('.image'),
-          src:   '/images/products/' + product.image
-        });
-        this.listenTo(image_onload_view, 'loaded', function(w, h) {
-          //var aspect = w / h;
-          // Do something different visually with "tall" images
-          //console.log('w=%s, h=%s, aspect=%s', w, h, aspect);
-          //if (aspect < 2) {
-          //  obj.$el.find('.product-details').addClass('tall');
-          //}
+          el:           this.$el.find('.image'),
+          src:          '/images/products/' + product.image
         });
         image_onload_view.render();
       }
