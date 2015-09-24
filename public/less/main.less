@@ -184,12 +184,14 @@ input, textarea, select {
   left: 0;
   z-index: 60;
   height: 50vh;
+  height: 50%;
   /* Banner/nav strip background image */
   &:before {
     content: '';
     background: url(/images/layout/header-image.jpg) center top no-repeat;
     background-size: cover;
     height: 50vh;
+    height: 50%;
     width: 100%;
     position: fixed;
     top: 0;
@@ -763,6 +765,7 @@ body {
       padding: 40px 40px 25px 40px;
       .scroll-fixed;
       left: 0;
+      height: 50%;
       height: 50vh;
       h2 {
         margin-bottom: 20px;
@@ -868,8 +871,10 @@ body {
 @media only screen and (max-width: @screen-sm) {
   body.index {
     .site-header {
+      height: 30%;
       height: 30vh;
       &:before {
+        height: 30%;
         height: 30vh;
       }
       .site-header-inner {
@@ -877,6 +882,7 @@ body {
       }
     }
     .news {
+      height: 70%;
       height: 70vh;
       padding: 20px 20px 50px 20px;
       h2 {
@@ -902,9 +908,11 @@ body {
   body.index {
     position: static;
     .site-header {
+      .devborder;
       position: relative;
       &:before {
         position: absolute;
+        height: 100%;
         overflow-y: hidden;
       }
     }
