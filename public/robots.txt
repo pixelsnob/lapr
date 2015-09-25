@@ -1,0 +1,9 @@
+
+User-agent: *
+Disallow: /bower_components/
+Disallow: /dist/
+Disallow: /images/
+Disallow: /fonts/
+Disallow: /js/
+Disallow: /less/
+
