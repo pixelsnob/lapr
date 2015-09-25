@@ -387,11 +387,15 @@ module.exports = function(app) {
         if (err) {
           return next(err);
         }
+        var msg = 'From: ' + contact.name + "\n" +
+                  'Email: ' + contact.email + "\n" +
+                  "Comments: \n\n" + contact.comments;
         mail.transporter.sendMail({
-          from:     'lapr@pixelsnob.com',
-          to:       'snob@pixelsnob.com',
+          from:     'no-reply@lapercussionrentals.com',
+          //to:       'dan@lapercussionrentals.com',
+          to: 'snob@pixelsnob.com',
           subject:  'New LAPR Contact',
-          text:     'x' // <<<<<<<<<<<<<<
+          text:     msg
         }, function(err) {
           if (err) {
             return next(err);
