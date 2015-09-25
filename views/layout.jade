@@ -94,14 +94,13 @@ html
       [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});
       Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r};
       Array.isArray||(Array.isArray=function(a){return''+a!==a&&{}.toString.call(a)=='[object Array]'});
-      window.lapr = { env: '#{settings.env}' };
+      window.lapr = { env: '#{settings.env}', markdown_opts: !{JSON.stringify(marked_opts)} };
     
     block script
 
     if user
       script(type="text/javascript").
         window.lapr.user = !{JSON.stringify(user)};
-        window.lapr.markdown_opts = !{JSON.stringify(marked_opts)};
     
     if settings.env == 'production'
       script(type="text/javascript", src="/dist/js/main.js")
