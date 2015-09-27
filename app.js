@@ -2,7 +2,7 @@
 'use strict';
 
 var
-  port              = 3003,
+  port              = 3004,
   express           = require('express'),
   app               = express(),
   jade_browser      = require('jade-browser'),
@@ -13,8 +13,7 @@ var
   body_parser       = require('body-parser'),
   fs                = require('fs'),
   marked            = require('./lib/marked')(app),
-  env               = process.env.NODE_ENV || 'development',
-  jsdom             = require('jsdom');
+  env               = process.env.NODE_ENV || 'development';
 
 require('./lib/auth');
 require('./lib/view_helpers')(app);
@@ -46,6 +45,8 @@ app.use(require('express-paginate').middleware(30, 60));
 app.locals.pretty = true;
 app.locals._ = _;
 
+console.log(app);
+
 app.use(function(req, res, next) {
   //res.locals.csrf = req.csrfToken();
   if (req.isAuthenticated()) {
@@ -59,8 +60,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(require('./lib/pages'));
-app.use(require('./lib/post_render'));
+//app.use(require('./lib/pages'));
+//app.use(require('./lib/post_render'));
 
 app.use(jade_browser(
   '/jade.js',
@@ -180,4 +181,14 @@ app.use(function(err, req, res, next) {
 
 app.listen(port);
 console.log('Listening on port ' + port);
+
+// Force garbage collection
+if (typeof gc == 'function') {
+  setInterval(function() {
+    gc();
+  }, 10000);
+}
+
+
+
 
