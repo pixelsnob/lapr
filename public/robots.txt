@@ -1,9 +1,7 @@
 
 User-agent: *
-Disallow: /bower_components/
-Disallow: /dist/
-Disallow: /images/
-Disallow: /fonts/
+
+Disallow: /*?
 Disallow: /js/
 Disallow: /less/
 
