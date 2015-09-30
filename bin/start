@@ -1,9 +1,11 @@
 #!/bin/bash
 
-cd /var/www/lapr
+export NODE_ENV=development
 
-if forever list | grep '/var/www/lapr/app.js'
-  then forever stop /var/www/lapr/app.js
+cd /var/www/lapr-staging
+
+if forever list | grep '/var/www/lapr-staging/app.js'
+  then forever stop /var/www/lapr-staging/app.js
 fi
 
-forever start -a -l /var/www/lapr/log/app.log -e /var/www/lapr/log/err.log -o /var/www/lapr/log/stdout.log /var/www/lapr/app.js
+forever start -c "node --expose-gc" /var/www/lapr-staging/app.js
