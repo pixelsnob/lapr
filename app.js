@@ -45,8 +45,6 @@ app.use(require('express-paginate').middleware(30, 60));
 app.locals.pretty = true;
 app.locals._ = _;
 
-console.log(app);
-
 app.use(function(req, res, next) {
   //res.locals.csrf = req.csrfToken();
   if (req.isAuthenticated()) {
@@ -60,7 +58,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-//app.use(require('./lib/pages'));
+app.use(require('./lib/pages'));
 //app.use(require('./lib/post_render'));
 
 app.use(jade_browser(
