@@ -931,6 +931,7 @@ body {
     }
   }
   body.contact {
+    padding-top: 0;
     #main {
       padding-top: 0;
     }
@@ -938,9 +939,16 @@ body {
       width: 40%;
       min-width: 300px;
     }
+    position: static;
+    .site-header {
+      position: relative;
+      .site-header-inner {
+        position: static;
+      }
+    }
   }
   body:not(.index) {
-    padding-top: 62px;
+    /*padding-top: 62px;*/
     .site-header {
       .site-header-inner {
         /*background-color: @bg-color;*/
