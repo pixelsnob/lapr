@@ -1,0 +1,14 @@
+
+extends layout
+
+block config
+  - body_class = 'http-error';
+
+
+block content
+  - mdash = '&mdash;';
+  .404
+    .container-fluid
+      .row
+        .col-xs-12
+          h2.line-after 404 !{mdash} Page Not Found

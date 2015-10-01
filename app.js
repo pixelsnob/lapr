@@ -159,7 +159,7 @@ app.route('/api/images/:id')
 // 404
 
 app.use(function(req, res, next) {
-  res.status(404).sendFile(__dirname + '/public/404.html');
+  res.status(404).render('404');
 });
 
 // Error page
