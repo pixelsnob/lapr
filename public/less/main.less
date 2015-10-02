@@ -500,8 +500,8 @@ input, textarea, select {
   background-color: @bg-color;
   width: inherit;
   height: auto;
-  top: 60px;
-  z-index: 10;
+  top: 65px;
+  z-index: 50;
   position: fixed;
   margin: 0;
   padding: 30px 45px 10px 10px;
@@ -521,6 +521,7 @@ input, textarea, select {
     bottom: 25px;
     width: inherit;
     padding: 0 10px 10px 10px;
+    /* To make sure .boxes-list doesn't overlap this, which causes scolling problems */
     z-index: 20;
   }
   .product {
@@ -959,7 +960,7 @@ body {
     }
   }
   #heading-container {
-    z-index: 55; 
+    z-index: 65;
     top: 0;
     left: 0;
     right: 0;
