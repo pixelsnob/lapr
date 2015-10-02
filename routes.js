@@ -37,7 +37,7 @@ module.exports = function(app) {
     update: function(model_name) {
       return function(req, res, next) {
         if (!isValidId(req.params.id)) {
-          return res.sendStatus(404);
+          return res.render('not_found');
         }
         db.model(model_name).findOne({ _id: req.params.id },
           function(err, doc) {
@@ -74,7 +74,7 @@ module.exports = function(app) {
     remove: function(model_name) {
       return function(req, res, next) {
         if (!isValidId(req.params.id)) {
-          return res.sendStatus(404);
+          return res.render('not_found');
         }
         db.model(model_name).findOne({ _id: req.params.id },
           function(err, doc) {
@@ -82,7 +82,7 @@ module.exports = function(app) {
               return next(err);
             }
             if (!doc) {
-              return res.sendStatus(404);
+              return res.render('not_found');
             }
             doc.remove(function(err) {
               if (err) {
@@ -97,14 +97,14 @@ module.exports = function(app) {
 
     showProduct: function(req, res, next) {
       if (!isValidId(req.params.id)) {
-        return res.sendStatus(404);
+        return res.render('not_found');
       }
       db.model('Product').findById(req.params.id, function(err, product) {
         if (err) {
           return next(err);
         }
         if (!product) {
-          return res.sendStatus(404);
+          return res.render('not_found');
         }
         res.format({
           json: function() {
@@ -169,7 +169,7 @@ module.exports = function(app) {
           return next(err);
         }
         if (!product_category) {
-          return res.sendStatus(404);
+          return res.render('not_found');
         }
         var query = { categories: product_category._id };
         db.model('Product').paginate(query, req.query.page, req.query.limit,

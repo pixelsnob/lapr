@@ -63,7 +63,8 @@ app.use(require('./lib/pages'));
 
 app.use(jade_browser(
   '/jade.js',
-  [ 'admin/**/*.jade', 'product_*.jade', 'products_*.jade', 'partials/**/*.jade' ],
+  '**/*.jade',
+  //[ 'admin/**/*.jade', 'product_*.jade', 'products_*.jade', 'partials/**/*.jade' ],
   { root: app.get('views'), minify: (env == 'production') }
 ));
 
@@ -159,7 +160,7 @@ app.route('/api/images/:id')
 // 404
 
 app.use(function(req, res, next) {
-  res.status(404).render('404');
+  res.status(404).render('not_found');
 });
 
 // Error page
