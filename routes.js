@@ -398,7 +398,8 @@ module.exports = function(app) {
         mail.transporter.sendMail({
           from:     app.locals.config.contact_email.from,
           to:       app.locals.config.contact_email.to,
-          subject:  'New LAPR Contact',
+          replyTo:  contact.email,
+          subject:  'From LAPR',
           text:     msg
         }, function(err) {
           if (err) {

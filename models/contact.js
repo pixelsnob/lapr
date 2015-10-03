@@ -7,7 +7,8 @@ var Schema = new db.Schema({
   name:           { type: String },
   email:          { type: String },
   phone:          { type: String },
-  comments:       { type: String }
+  comments:       { type: String },
+  date:           { type: Date, default: Date.now }
 });
 
 module.exports = function(mai) {
