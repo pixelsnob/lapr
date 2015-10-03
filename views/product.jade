@@ -2,7 +2,10 @@
 extends layout
 
 block config
-  - var title = 'L.A. Percussion Rentals - ' + product.name;
+  - // Search engine stuff
+  - var title        = 'L.A. Percussion Rentals - ' + product.name.trim() + (product.makers.trim().length ? ' - ' + product.makers.trim() : '');
+  - var description  = (product.alt_names.trim().length ? product.alt_names.trim() : '');
+  - description     += (product.description.trim().length ? ((description.length ? ' - ' : '') + product.description.trim()) : '');
 
 block content
   if product
