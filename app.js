@@ -2,7 +2,7 @@
 'use strict';
 
 var
-  port              = 3003,
+  port              = 3004,
   express           = require('express'),
   app               = express(),
   jade_browser      = require('jade-browser'),
@@ -22,7 +22,7 @@ if (env == 'development') {
   app.use(express.static('public'));
 }
 
-var config = require('./config');
+var config = app.locals.config = require('./config');
 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');

@@ -396,9 +396,8 @@ module.exports = function(app) {
                   'Email: ' + contact.email + "\n" +
                   "Comments: \n\n" + contact.comments;
         mail.transporter.sendMail({
-          from:     'no-reply@lapercussionrentals.com',
-          to:       'dan@lapercussionrentals.com',
-          //to: 'snob@pixelsnob.com',
+          from:     app.locals.config.contact_email.from,
+          to:       app.locals.config.contact_email.to,
           subject:  'New LAPR Contact',
           text:     msg
         }, function(err) {
