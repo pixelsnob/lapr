@@ -322,6 +322,11 @@ module.exports = function(app) {
       });
     },
     
+    showSitemap: function(req, res, next) {
+      res.set('Content-Type', 'text/xml');
+      res.render('sitemap'); 
+    },
+
     getSlideshowImages: function(req, res, next) {
       db.model('Product').find({ include_in_slideshow: true },
       function(err, products) {

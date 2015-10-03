@@ -1,0 +1,27 @@
+- var xml = '<?xml version="1.0" encoding="UTF-8"?>', base = 'http://lapercussionrentals.com/';
+
+| !{xml}
+
+urlset(xmlns="http://www.sitemaps.org/schemas/sitemap/0.9",
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance",
+       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd")
+
+  url
+    loc= base
+  
+  url
+    loc= base + 'instruments'
+
+  url
+    loc= base + 'instruments/tags'
+
+  url
+    loc= base + 'contact'
+
+  each category in json_data.product_categories
+    url
+      loc= base + category.slug
+
+  each product in json_data.products
+    url
+      loc= base + product.slug + '/' + product.id

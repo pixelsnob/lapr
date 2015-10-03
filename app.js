@@ -59,12 +59,10 @@ app.use(function(req, res, next) {
 });
 
 app.use(require('./lib/pages'));
-//app.use(require('./lib/post_render'));
 
 app.use(jade_browser(
   '/jade.js',
   '**/*.jade',
-  //[ 'admin/**/*.jade', 'product_*.jade', 'products_*.jade', 'partials/**/*.jade' ],
   { root: app.get('views'), minify: (env == 'production') }
 ));
 
@@ -108,6 +106,8 @@ app.route('/instruments/:slug/:id?')
 
 app.route('/contact')
   .get(routes.getContentBlocks, routes.showContactForm);
+
+app.route('/sitemap.xml').get(routes.showSitemap);
 
 // Product refs and related CRUD
 
