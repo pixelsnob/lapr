@@ -1,5 +1,5 @@
 
-.product
+.product(itemscope, itemtype="http://schema.org/Product")
   .image
     if product.thumbnail
       img(src="/images/products/#{product.thumbnail}", alt="#{product.name}", rel="prefetch")

@@ -1,19 +1,19 @@
 
-.container-fluid.product-details
+.container-fluid.product-details(itemscope, itemtype="http://schema.org/Product")
   .row
     .col-md-12
-      h2= product.name
+      h2(itemprop="name")= product.name
       .image.pull-right
         if product.image
-          img(src="/images/products/#{product.image}", width="400", title="#{product.name}")
+          img(src="/images/products/#{product.image}", width="400", title="#{product.name}", alt="#{product.name}", itemprop="image")
 
       
       if product.alt_names
-        p.alt-names.secondary (#{product.alt_names})
+        p.alt-names.secondary(itemprop="alternateName") (#{product.alt_names})
       if product.makers.length
-        p.makers Mfg. by #{product.makers}
+        p.makers(itemprop="manufacturer") Mfg. by #{product.makers}
 
-      p.description!= markdown(product.description)
+      .description(itemprop="description")!= markdown(product.description)
 
       if product.more_info
         .more-info-container
@@ -23,7 +23,7 @@
       dl
         if product.model_no
           dt Model No.
-          dd= product.model_no
+          dd(itemprop="model")= product.model_no
         if product.price
           dt Price/Day
           dd= product.price
