@@ -3,6 +3,21 @@ block config
 doctype html
 html
   head
+    script(type="application/ld+json").
+      {
+        "@context": "http://schema.org/",
+        "@type": "ProfessionalService",
+        "name": "Los Angeles Percussion Rentals",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Santa Clarita",
+          "addressRegion": "CA",
+          "postalCode": "91350",
+          "streetAddress": "26450 Ruether Ave., #208"
+        },
+        "telephone": "310-666-8152",
+        "url": "http://lapercussionrentals.com"
+      } 
     if title
       title= title 
     else
@@ -77,14 +92,6 @@ html
       block content 
 
     footer
-      //- nav
-      //-  ul
-      //-    li
-      //-      a.navigate(href="/") Home
-      //-    li
-      //-      a.navigate(href="/instruments") Instruments
-      //-    li
-      //-      a.navigate(href="/contact") Contact Us
       p &copy;!{(new Date).getFullYear()} L.A. Percussion Rentals
 
     script(type="text/javascript").
