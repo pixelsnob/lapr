@@ -3,6 +3,7 @@
   .row
     .col-md-12
       h2(itemprop="name")= product.name
+      link(itemprop="url", href="http://lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
       .image.pull-right
         if product.image
           img(src="/images/products/#{product.image}", width="400", title="#{product.name}", alt="#{product.name}", itemprop="image")
@@ -26,7 +27,7 @@
           dd(itemprop="model")= product.model_no
         if product.price
           dt Price/Day
-          dd= product.price
+          dd(itemprop="price")= product.price
         if product.sizes
           dt Sizes
           dd!= markdown(product.sizes)
