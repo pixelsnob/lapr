@@ -7,7 +7,7 @@
   .details.hidden-xs.hidden-sm
 
     h3.name(itemprop="name")= product.name
-    link(itemprop="url", href="http://lapercussionrentals.com/instruments/#{product.slug}")
+    link(itemprop="url", href="http://lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
 
     if _.isArray(product.makers) && product.makers.length
       p.makers.secondary(itemprop="manufacturer")!= product.makers.map(function(m) { return m.name; }).join(', ')
