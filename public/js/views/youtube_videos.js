@@ -24,6 +24,7 @@ define([
     initialize: function(opts) {
       this.$el.addClass('youtube-videos');
       this.listenTo(global_events, 'yt-play yt-stop', this.deselectAll);
+      this.listenTo(global_events, 'yt-play', this.hideUnselected);
     },
     
     render: function() {
@@ -37,6 +38,14 @@ define([
 
     deselectAll: function() {
       this.$el.find('li.selected').removeClass('selected');
+      this.$el.find('li').show();
+    },
+
+    hideUnselected: function(selected_model) {
+      var obj = this;
+      this.collection.forEach(function(model) {
+        obj.$el.find('li[data-id=' + model.id + ']:not([data-id=' + selected_model.id + '])').hide();
+      });
     }
   });
   
