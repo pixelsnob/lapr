@@ -82,7 +82,7 @@ define([
     },
 
     stateChange: function(ev) {
-      if (ev.data == 0) {
+      if (ev.data == 0 || ev.data == 2) {
         global_events.trigger('yt-stop');
         this.$player.hide();
       }

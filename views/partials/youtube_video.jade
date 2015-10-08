@@ -1,5 +1,5 @@
 
-li.hide
+li.hide(data-id="#{video._id}")
   a(href="//www.youtube.com/watch?v=#{video.youtube_id}")
     img(src="http://img.youtube.com/vi/#{video.youtube_id}/mqdefault.jpg", alt="#{video.name}", height="45")
   if video.description && video.description.length
