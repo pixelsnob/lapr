@@ -8,6 +8,7 @@ define([
   'template',
   'lib/events',
   'lib/markdown',
+  'lib/dialog',
   'youtube'
 ], function(
   BaseView,
@@ -15,6 +16,7 @@ define([
   template,
   global_events,
   markdown,
+  dialog,
   youtube
 ) {
   
@@ -28,7 +30,7 @@ define([
     },
     
     yt_params: {
-      autoplay:        1,
+      autoplay:        0,
       enablejsapi:     1,
       html5:           1,
       autohide:        1,
@@ -42,7 +44,6 @@ define([
       this.setElement(template.render('partials/youtube_player', {
         youtube_videos: [] }));
       this.listenTo(global_events, 'yt-play', this.play); 
-      //this.listenTo(global_events, 'yt-play', this.poll); 
       this.$player      = this.$el.find('.player');
       this.$description = this.$el.find('.description');
       this.$player.hide();
@@ -88,45 +89,10 @@ define([
       }
     },
     
-    poll: function() {
-      clearInterval(this.poll_interval_id);
-      var obj = this;
-      this.poll_interval_id = setInterval(function() {
-        if (obj.player && typeof obj.player.getCurrentTime == 'function') {
-          var t = obj.player.getCurrentTime();
-          if (t >= obj.model.get('end_time') - 5) {
-            clearInterval(obj.poll_interval_id);
-            obj.orig_vol = obj.player.getVolume();
-            obj.fadeVolumeOut();
-          }
-        }
-      }, 1000);
-    },
-    
-    fadeVolumeOut: function() {
-      var vol     = this.player.getVolume(),
-          obj     = this,
-          m       = vol / 50;
-      this.fade_interval_id = setInterval(function() {
-        if (!obj.player) {
-          return;
-        }
-        if (typeof obj.player.getCurrentTime == 'function') {
-          if (obj.player.getCurrentTime() >= obj.model.get('end_time')) {
-            obj.player.setVolume(obj.orig_vol);
-            //global_events.trigger('yt-stop');
-            clearInterval(obj.fade_interval_id);
-            return obj.player.stopVideo();
-          }
-        }
-        if (typeof obj.player.getVolume == 'function') {
-          obj.player.setVolume(obj.player.getVolume() - m);
-        }
-      }, 100);
-    },
-
     error: function(ev) {
-      // <<<<<<<<< 
+      global_events.trigger('yt-error', this.model);
+      this.$player.hide();
+      dialog.alert("There was a problem showing you that video.");
     }
 
   });
