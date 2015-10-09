@@ -2,12 +2,12 @@
 .product(itemscope, itemtype="http://schema.org/Product")
   .image
     if product.thumbnail
-      img(src="http://lapercussionrentals.com/images/products/#{product.thumbnail}", alt="#{product.name}")
+      img(src="http://www.lapercussionrentals.com/images/products/#{product.thumbnail}", alt="#{product.name}")
 
   .details.hidden-xs.hidden-sm
 
     h3.name(itemprop="name")= product.name
-    link(itemprop="url", href="http://lapercussionrentals.com/instruments/#{product.slug}/#{product.id}")
+    link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product.id}")
 
     if _.isArray(product.makers) && product.makers.length
       p.makers.secondary(itemprop="manufacturer")!= product.makers.map(function(m) { return m.name; }).join(', ')

@@ -3,21 +3,6 @@ block config
 doctype html
 html
   head
-    script(type="application/ld+json").
-      {
-        "@context": "http://schema.org/",
-        "@type": "ProfessionalService",
-        "name": "Los Angeles Percussion Rentals",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Santa Clarita",
-          "addressRegion": "CA",
-          "postalCode": "91350",
-          "streetAddress": "26450 Ruether Ave., #208"
-        },
-        "telephone": "310-666-8152",
-        "url": "http://lapercussionrentals.com"
-      } 
     if title
       title= title 
     else
@@ -32,14 +17,17 @@ html
 
     link(rel="stylesheet", href="/bower_components/vex/css/vex.css", type="text/css")
     link(rel="stylesheet", href="/bower_components/vex/css/vex-theme-plain.css", type="text/css")
+
+    link(rel="canonical", href="http://www.lapercussionrentals.com")
+    //- link(rel="alternate", hreflang="en-us", href="http://www.lapercussionrentals.com")
     
     meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no")
     meta(name="csrf-param", content="#{csrf}")
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
 
     meta(property="og:site_name", content="L.A. Percussion Rentals")
-    meta(property="og:url", content="http://lapercussionrentals.com")
-    meta(property="og:image", content="http://lapercussionrentals.com/images/layout/header-image.jpg")
+    meta(property="og:url", content="http://www.lapercussionrentals.com")
+    meta(property="og:image", content="http://www.lapercussionrentals.com/images/layout/header-image.jpg")
 
   body(class="#{body_class}")
     header.site-header
@@ -131,5 +119,21 @@ html
 
         ga('create', 'UA-68091818-1', 'auto');
         ga('send', 'pageview');
+
+    script(type="application/ld+json").
+      {
+        "@context": "http://schema.org/",
+        "@type": "ProfessionalService",
+        "name": "Los Angeles Percussion Rentals",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Santa Clarita",
+          "addressRegion": "CA",
+          "postalCode": "91350",
+          "streetAddress": "26450 Ruether Ave., #208"
+        },
+        "telephone": "310-666-8152",
+        "url": "http://www.lapercussionrentals.com"
+      } 
 
 
