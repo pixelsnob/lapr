@@ -155,6 +155,7 @@ app.route('/api/images/:id')
   .put(routes.auth, routes.moveImage, routes.update('Image'))
   .delete(routes.auth, routes.remove('Image'));
 
+app.route('/api/errors').post(routes.add('Error'));
 
 // 404
 
