@@ -410,10 +410,6 @@ module.exports = function(app) {
       });
     },
     
-    showStyleGuide: function(req, res, next) {
-      res.render('style_guide');
-    },
-
     /**
      * Auth stuff
      * 

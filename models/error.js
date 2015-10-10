@@ -6,7 +6,7 @@ var mongoose   = require('mongoose');
 var ErrorSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
   message: String,
-  json: Object
+  json: String
 });
 
 module.exports = function() {

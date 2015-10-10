@@ -9,14 +9,13 @@ define([
     
     idAttribute: '_id',
 
-    logError: function(message, json) {
-      var url = '/';
+    logError: function(message) {
       $.ajax({
         url: '/api/errors',
         type: 'POST',
         cache: false,
         dataType: 'json',
-        data: { message: message }
+        data: { message: message, json: JSON.stringify(this.attributes) }
       });
     }
 

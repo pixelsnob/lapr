@@ -90,10 +90,10 @@ define([
     },
     
     error: function(ev) {
+      this.model.logError('Error playing video');
       global_events.trigger('yt-error', this.model);
       this.$player.hide();
       dialog.alert("There was a problem showing you that video.");
-      this.model.logError('Error playing video, id=' + this.model.id);
     }
 
   });
