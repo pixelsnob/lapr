@@ -20,7 +20,7 @@ urlset(xmlns="http://www.sitemaps.org/schemas/sitemap/0.9",
 
   each category in json_data.product_categories
     url
-      loc= base + category.slug
+      loc= base + 'instruments/categories/' + category.slug
 
   each product in json_data.products
     url
