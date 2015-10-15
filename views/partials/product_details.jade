@@ -26,7 +26,7 @@
           dt Model No.
           dd(itemprop="model")= product.model_no
         if product.price
-          dt Price/Day
+          dt Price/#{product.price_label}
           dd(itemprop="price")= product.price
         if product.sizes
           dt Sizes

@@ -75,6 +75,11 @@ define([
       price: {
         type: 'Text'
       },
+      price_label: {
+        type: 'Select',
+        title: 'Price Label',
+        options: [ 'Day', 'Week' ]
+      },
       range: {
         type: 'Text',
         validators: [ 'musicNotation' ],
