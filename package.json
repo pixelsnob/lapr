@@ -37,6 +37,7 @@
     "passport": "^0.2.0",
     "passport-local": "^0.1.6",
     "recursive-readdir": "0.0.2",
+    "request": "^2.65.0",
     "slug": "^0.8.0",
     "underscore": "^1.7.0"
   },
