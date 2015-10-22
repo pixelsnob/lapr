@@ -28,15 +28,12 @@ define([
       this.listenTo(this.collection, 'add', function(model) {
         model.highlight = true;
         refs.filtered_products.add(model);
-        // should only be added if in category !?!?!?!
-        obj.render();// <<<<<
+        obj.render();
       });
     },
     
     onScroll: function(ev) {
-      //console.log(ev.currentTarget === window);
       var $el = $(ev.currentTarget);
-      //console.log($el[0].scrollHeight, $el.scrollTop(), $el.outerHeight());
       if ($el.scrollTop() + $el.height() > $(document).height() - 100) {
         this.getMore();
       }
@@ -44,7 +41,7 @@ define([
 
     render: function(append) {
       $(window).off('scroll');
-      $(window).on('scroll', _.bind(this.onScroll, this));
+      $(window).on('scroll', _.throttle(_.bind(this.onScroll, this), 1000));
       var $results = this.$el.find('.results'),
           products = this.refs.filtered_products,
           obj      = this;

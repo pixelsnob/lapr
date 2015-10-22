@@ -29,6 +29,9 @@ html
     meta(property="og:url", content="http://www.lapercussionrentals.com")
     meta(property="og:image", content="http://www.lapercussionrentals.com/images/layout/header-image.jpg")
 
+    script(type="text/javascript").
+      document.write('<style type="text/css">#main, .products .product .image img, .product-details .image img, .more-container { display: none; }</style>');
+
   body(class="#{body_class}")
     header.site-header
       .site-header-inner.container-fluid

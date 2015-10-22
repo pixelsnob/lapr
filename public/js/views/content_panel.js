@@ -15,7 +15,8 @@ define([
     el: 'body',
 
     events: {
-      'click .content-panel-close a':    'hide'
+      'click .content-panel-close a':  'hide'
+      //'click':                         'hideIfOverlay'     
     },
     
     initialize: function() {
@@ -54,6 +55,12 @@ define([
       return false;
     },
     
+    hideIfOverlay: function(ev) {
+      if ($(ev.target).attr('id') == 'content-panel') {
+        this.hide();
+      }
+    },
+
     disableDocumentScroll: function() {
       document.documentElement.style.overflow = 'hidden'; // firefox, chrome
       document.body.scroll = 'no'; // ie
@@ -66,6 +73,7 @@ define([
     
     render: function(child_el) {
       this.$tpl = template.render('partials/content_panel');
+      this.$tpl.on('click', _.bind(this.hideIfOverlay, this));
       this.$tpl.find('.content').html(child_el);
       this.$el.prepend(this.$tpl);
       return this;
@@ -79,7 +87,9 @@ define([
         opacity: 0
       }, 200, function() {
         $tpl.remove();
+        $tpl.off();
       });
+      this.off('click');
     }
 
   });
