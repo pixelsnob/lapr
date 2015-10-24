@@ -2,49 +2,40 @@
 var jsdom    = require('jsdom'),
     request  = require('request'),
     async    = require('async'),
-    db       = require('../models');
+    db       = require('../models'),
+    _        = require('underscore');
+
+var product_names = [];
 
 db.connection.model('Product').find({}).sort({ name: 1 }).exec(function(err, products) {
   if (err) {
     console.error(err);
     return process.exit(1);
   }
-  async.eachSeries(products, function(product, cb) {
-
-    var name = product.name.split(', ');
-    console.log(name);
-    var q = product.name.toLowerCase() + ' rental los angeles';
-
+  // If product name is a list, only get the first item in the list
+  var product_names = products.map(function(product) {
+    var name_parts = product.name.split(',');
+    return name_parts[0].trim();
+  });
+  // First item has quite a few duplicates...
+  product_names = _.uniq(product_names);
+  async.eachSeries(product_names, function(product_name, cb) {
+    var q = product_name.toLowerCase() + ' rental los angeles';
+    //var q = 'rent ' + product_name.toLowerCase() + ' los angeles';
     async.waterfall([
-      
-      // Google search for this instrument
+      // Query google for this instrument
       function(next) {
-        request('https://www.google.com/search?q=' + encodeURIComponent(q), function(err, res, body) {
-          if (err) {
-            return cb(err);
-          }
-          next(null, res, body);
-        });
+        var url = 'https://www.google.com/search?q=' + encodeURIComponent(q);
+        scrapeUrl(url, next);
       },
-      
       // DOMify it
       function(res, body, next) {
         if (err) {
           return cb(err);
         }
-        jsdom.env({
-          scripts: [ '//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js' ],
-          html: body,
-          done: function(err, window) {
-            if (err) {
-              return cb(err);
-            }
-            next(null, window);
-          }
-        });
+        jsdomify(body, next);
       },
-      
-      // Search it
+      // Determine rankings based on where site links appear in list
       function(window, next) {
         if (err) {
           return cb(err);
@@ -52,27 +43,45 @@ db.connection.model('Product').find({}).sort({ name: 1 }).exec(function(err, pro
         if (!window) {
           return cb('window object is missing');
         }
-        var $ = window.$;
-        var indices = [];
+        var indices = [], $ = window.$;
         $('.r').forEach(function(el, i) {
           if ($(el).find('[href*="lapercussionrentals.com"]').length) {
             indices.push(i + 1);
           }
         });
         var rankings = (indices.length ? indices.join(', ') : 'NOT ON PAGE 1');
+        // Output query and ranking
         console.log("%s\t%s", q, rankings);
         next();
       }
     ], cb);
   }, function(err) {
-    if (err) {
-      console.error('error');
-      return process.exit(1);
-    }
     console.log('Done!');
+    console.log(new Date);
     process.exit(0);
   });
-  
 });
+
+function scrapeUrl(url, next) {
+  request(url, function(err, res, body) {
+    if (err) {
+      return next(err);
+    }
+    next(null, res, body);
+  });
+}
+
+function jsdomify(html, next) {
+  jsdom.env({
+    scripts: [ '//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js' ],
+    html: html,
+    done: function(err, window) {
+      if (err) {
+        return cb(err);
+      }
+      next(null, window);
+    }
+  });
+}
 
 
