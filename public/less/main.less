@@ -1,5 +1,7 @@
 
 
+@screen-md: 900px;
+
 @import './bootstrap.less';
 
 @layout-image-dir: '/images/layout/';
@@ -51,7 +53,6 @@ body {
 
 #main {
   padding-bottom: 45px;
-  /*display: none;*/
   overflow: hidden;
 }
 
@@ -221,7 +222,7 @@ input, textarea, select {
     }
   }
   nav {
-    float: right;
+    /*float: right;*/
     .dropdown li a {
       text-transform: uppercase;
       font-size: 0.9em;
@@ -1015,7 +1016,10 @@ body {
       width: inherit;
       .scroll-fixed;
       /*padding-right: 15px;*/
-      padding-bottom: 35px;
+      .results {
+        padding-bottom: 35px;
+
+      }
       padding-top: 0;
     }
     .more-info-container {
@@ -1060,9 +1064,6 @@ body {
     &.tall .image {
     }
   }
-  .logo-container, .logo-container .logo {
-    .pull-right
-  }
   #content-panel #content-panel-inner {
     width: 100%;
   }
@@ -1076,13 +1077,16 @@ body {
     width: 100%;
     margin: 0;
   }
-  /*.tags-list li {
-    margin: 4px;
-    a {
-      font-size: 13px;
-      padding: 4px 5px; 
-    }
-  }*/
+  .logo-container, .logo-container .logo {
+    .pull-right
+  }
+}
+
+@media only screen and (max-width: @screen-lg) {
+  .text-search-container {
+    display: none;
+  }
+
 }
 
 /* "Extra large" screens */
