@@ -41,7 +41,7 @@ define([
 
     render: function(append) {
       $(window).off('scroll');
-      $(window).on('scroll', _.throttle(_.bind(this.onScroll, this), 1000));
+      $(window).on('scroll', _.bind(this.onScroll, this));
       var $results = this.$el.find('.results'),
           products = this.refs.filtered_products,
           obj      = this;
