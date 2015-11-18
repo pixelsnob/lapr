@@ -2,9 +2,8 @@
 'use strict';
 
 var
-  db              = require('../lib/db')('lapr'),
-  async           = require('async'),
-  User            = require('cms/models/user')
+  db              = require('../models'),
+  async           = require('async');
 
 db.connection.on('error', function(err) {
   console.error('mongo error: ' + err);
@@ -16,9 +15,9 @@ db.connection.on('open', function() {
   async.waterfall([
     // Add user(s)
     function(callback) {
-      User.create({
+      db.connection.model('User').create({
         username: 'luis',
-        password: '1234',
+        password: '12345',
         name: 'Luis'
       }, function(err) {
         if (err) {
