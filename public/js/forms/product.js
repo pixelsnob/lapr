@@ -82,7 +82,7 @@ define([
       },
       range: {
         type: 'Text',
-        //validators: [ 'musicNotation' ],
+        validators: [ 'musicNotation' ],
         help: '<em>Comma-separated list of notes and note ranges. Valid example: C#2, Bb3-C7</em>'
       },
       octave_shift: {

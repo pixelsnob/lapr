@@ -35,24 +35,35 @@ define([
     /**
      * Validates a list of notes in scientific music notation
      * Valid examples:
-     *   A3
+     *   A3, B3, C#5
      *   Bb1-C#5, Eb5, F6
      */
     musicNotation: function(options) {
+      var validateNote = function(note) {
+        return (note.match(/^([a-g](?:#{1,2}|b{1,2})?)([1-8])$/i) !== null);
+      };
       return function(value) {
         var err = {
-          //type: 'range',
           message: 'Invalid range'
         };
-        var range = $.trim(value);
-        if (!range.length) {
-          return;
-        }
-        range = range.replace('-', ',').split(',');
-        for (var r in range) {
-          // Trim any whitespace around note, i.e. C4-C5, D7
-          var note = $.trim(range[r]);
-          if (note.match(/^([a-g](?:#{1,2}|b{1,2})?)([1-8])$/i) === null) {
+        // Make an array of note groups: can be A3 or A3-C5, etc.
+        var note_groups = value.replace(/\s/g, '').split(',');
+        for (var g in note_groups) {
+          var raw_notes = note_groups[g].split('-');
+          if (raw_notes.length == 2) {
+            // This is a range of notes, A3-C5: validate each one
+            for (var r in raw_notes) {
+              if (!validateNote(raw_notes[r])) {
+                return err;
+              }
+            }
+          } else if (raw_notes.length == 1) {
+            // This is a single note: validate it
+            if (!validateNote(raw_notes[0])) {
+              return err;
+            }
+          } else {
+            // Invalid
             return err;
           }
         }
