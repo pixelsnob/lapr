@@ -43,6 +43,9 @@ define([
         return (note.match(/^([a-g](?:#{1,2}|b{1,2})?)([1-8])$/i) !== null);
       };
       return function(value) {
+        if (!value.trim().length) {
+          return;
+        }
         var err = {
           message: 'Invalid range'
         };
