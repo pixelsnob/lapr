@@ -1,7 +1,6 @@
 
 User-agent: *
 
-Disallow: /*?
 Disallow: /less/
 
 Sitemap: http://lapercussionrentals.com/sitemap.xml
