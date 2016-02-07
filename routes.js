@@ -7,7 +7,10 @@ var async            = require('async'),
     formidable       = require('formidable'),
     _                = require('underscore'),
     passport         = require('passport'),
-    mail             = require('./lib/mail');
+    mail             = require('./lib/mail'),
+    cache            = require('memory-cache');
+
+//var data;
 
 module.exports = function(app) {
 
@@ -253,33 +256,40 @@ module.exports = function(app) {
         });
       }, { populate: 'makers', sortBy : { name: 1 } });
     },
-    
+
     getProducts: function(req, res, next) {
-      var model_names = {
-        'products':            'Product',
-        'product_categories':  'ProductCategory',
-        'makers':              'Maker',
-        'tags':                'Tag',
-        'tag_categories':      'TagCategory',
-        'youtube_videos':      'YoutubeVideo'
-      },
-      data = [];
-      async.each(Object.keys(model_names), function(model_name, cb) {
-        db.model(model_names[model_name]).find({}, { __v: 0 }, { sort: { name: 1 }},
-        function(err, docs) {
+      var cached_data = cache.get('json_data');
+      if (!cached_data) {
+        var data = [];
+        var model_names = {
+          'products':            'Product',
+          'product_categories':  'ProductCategory',
+          'makers':              'Maker',
+          'tags':                'Tag',
+          'tag_categories':      'TagCategory',
+          'youtube_videos':      'YoutubeVideo'
+        }; 
+        async.each(Object.keys(model_names), function(model_name, cb) {
+          db.model(model_names[model_name]).find({}, { __v: 0 }, { sort: { name: 1 }},
+          function(err, docs) {
+            if (err) {
+              return cb(err);
+            }
+            data[model_name] = docs;
+            cb();
+          });
+        }, function(err) {
           if (err) {
-            return cb(err);
+            return next(err);
           }
-          data[model_name] = docs;
-          cb();
+          res.locals.json_data = data;
+          cache.put('json_data', data, (1000 * 60 * 60));
+          next();
         });
-      }, function(err) {
-        if (err) {
-          return next(err);
-        }
-        res.locals.json_data = data;       
-        next();
-      });
+      } else {
+        res.locals.json_data = cached_data;
+        next(); 
+      }
     },
 
     getContentBlocks: function(req, res, next) {
