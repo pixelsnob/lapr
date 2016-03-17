@@ -10,8 +10,6 @@ var async            = require('async'),
     mail             = require('./lib/mail'),
     cache            = require('memory-cache');
 
-//var data;
-
 module.exports = function(app) {
 
   var isValidId = function(id) {
@@ -259,7 +257,7 @@ module.exports = function(app) {
 
     getProducts: function(req, res, next) {
       var cached_data = cache.get('json_data');
-      if (req.user || !cached_data) {
+      if (req.isAuthenticated() || !cached_data) {
         console.log('miss');
         var data = [];
         var model_names = {
