@@ -3,9 +3,10 @@
 
 var mongoose   = require('mongoose'),
     fs         = require('fs'),
+    config     = require('../config'),
     mai        = require('mongoose-auto-increment');
 
-var db = require('../lib/db')('lapr');
+var db = require('../lib/db')(config.db.name);
 mai.initialize(db.connection);
 
 var file_names = fs.readdirSync(__dirname).filter(function(file) {
