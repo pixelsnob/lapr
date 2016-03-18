@@ -29,7 +29,6 @@ define([
     },
     
     initialize: function(opts) {
-      var obj = this;
       this.products = opts.products;
       this.products_view = new ProductsView({
         collection:         this.products
@@ -41,11 +40,23 @@ define([
       this.stats_view = new ProductsSearchStatsView({
         products: this.products
       });
-      this.listenTo(this.products.refs.selected_categories, 'add reset',
-        this.toggleMoreInfoLink);
-      this.listenTo(this.products.refs.selected_categories, 'add reset', function() {
+      var refs = this.products.refs,
+          obj  = this;
+      // If a product is added to the collection, and the product is in the current category,
+      // or no category is selected (all products shown), add it to the filtered list
+      this.listenTo(this.products, 'add', function(model) {
+        var selected_category = refs.selected_categories.at(0),
+            categories        = model.get('categories');
+        if (!selected_category || _.contains(categories, selected_category.id)) {
+          refs.filtered_products.add(model);
+          model.highlight = true;
+          obj.products_view.render();
+        }
+      });
+      this.listenTo(refs.selected_categories, 'add reset', function() {
         this.$el.find('.boxes-list').scrollTop(0);
         $(window).scrollTop(0);
+        obj.toggleMoreInfoLink();
       });
     },
     

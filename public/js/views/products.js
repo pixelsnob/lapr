@@ -24,17 +24,6 @@ define([
       this.listenTo(refs.makers, 'add remove change', this.render);
       this.listenTo(refs.filtered_products, 'filtered', this.render);
       this.listenTo(refs.filtered_products, 'reset sort', this.toggleSortDirectionLink);
-      var obj = this;
-      this.listenTo(this.collection, 'add', function(model) {
-        var selected_category = refs.selected_categories.at(0),
-            categories        = model.get('categories');
-        if (selected_category && !_.contains(categories, selected_category.id)) {
-          return;
-        }
-        model.highlight = true;
-        refs.filtered_products.add(model);
-        obj.render();
-      });
     },
     
     onScroll: function(ev) {
