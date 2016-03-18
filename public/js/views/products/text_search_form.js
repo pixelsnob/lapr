@@ -20,6 +20,12 @@ define([
     initialize: function(opts) {
       this.products = opts.products;
       this.products.createProductsIndex();
+      var obj = this;
+      // Keep list in sync with products
+      this.listenTo(this.products, 'add change remove', function(model) {
+        obj.products.createProductsIndex();
+        obj.render();
+      });
     },
 
     getSearchResults: function(search) {

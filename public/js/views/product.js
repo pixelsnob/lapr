@@ -34,7 +34,7 @@ define([
       this.listenTo(this.model, 'destroy', this.remove);
       // Important, for memory leaks
       this.listenTo(this.products.refs.filtered_products, 'reset', this.remove);
-      this.listenTo(this.products, 'kill', this.remove);
+      //this.listenTo(this.products, 'kill', this.remove);
       // Include product admin editor if admin user
       if (window.lapr.user) {
         var obj = this;

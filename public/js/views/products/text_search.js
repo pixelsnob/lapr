@@ -43,8 +43,8 @@ define([
 
     onClose: function() {
       this.products.trigger('kill');
-      this.products.unbind();
-      this.products.unbindRefs();
+      //this.products.unbind();
+      //this.products.unbindRefs();
       this.stats_view.close();
       this.products.refs.filtered_products.reset();
     }

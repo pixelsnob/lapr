@@ -23,7 +23,7 @@ define([
       var refs = this.products.refs;
       this.listenTo(refs.selected_categories, 'add', this.selectIfCurrent);
       this.listenTo(refs.selected_categories, 'reset', this.setSelected);
-      this.listenTo(this.products, 'kill', this.remove);
+      //this.listenTo(this.products, 'kill', this.remove);
     },
     
     setSelected: function(collection) {

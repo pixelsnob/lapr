@@ -76,8 +76,8 @@ define([
     
     onClose: function() {
       this.products.trigger('kill');
-      this.products.unbind();
-      this.products.unbindRefs();
+      //this.products.unbind();
+      //this.products.unbindRefs();
       this.products.refs.filtered_products.reset();
       this.tags_nav_view.close();
       this.stats_view.close();
