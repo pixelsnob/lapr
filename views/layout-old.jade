@@ -1,0 +1,142 @@
+include config
+block config
+doctype html
+html
+  head
+    if title
+      title= title 
+    else
+      title Los Angeles Percussion Rentals - Rent Percussion Instruments in L.A. and Southern California
+
+    if description
+      meta(name="description", content="#{description}")
+
+    link(rel="stylesheet", href="/dist/css/main.css", type="text/css")
+    if user
+      link(rel="stylesheet", href="/dist/css/admin.css", type="text/css")
+
+    link(rel="stylesheet", href="/bower_components/vex/css/vex.css", type="text/css")
+    link(rel="stylesheet", href="/bower_components/vex/css/vex-theme-plain.css", type="text/css")
+
+    link(rel="canonical", href="http://www.lapercussionrentals.com")
+    //- link(rel="alternate", hreflang="en-us", href="http://www.lapercussionrentals.com")
+    
+    meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no")
+    meta(name="csrf-param", content="#{csrf}")
+    meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
+
+    meta(property="og:site_name", content="L.A. Percussion Rentals")
+    meta(property="og:url", content="http://www.lapercussionrentals.com")
+    meta(property="og:image", content="http://www.lapercussionrentals.com/images/layout/header-image.jpg")
+
+    script(type="text/javascript").
+      document.write('<style type="text/css">#main, .products .product .image img, .product-details .image img, .more-container { display: none; }</style>');
+
+  body(class="#{body_class}")
+    header.site-header
+      .site-header-inner.container-fluid
+        .row
+          .col-xs-1.hidden-lg.hidden-md
+            a#show-mobile-menu
+              span.glyphicon.glyphicon-menu-hamburger
+
+          .col-xs-3.logo-container
+            h1.logo
+              a.navigate(href="/", title="L.A. Percussion Rentals")
+                span L.A. Percussion Rentals
+            
+          .col-xs-5.visible-md-block.visible-lg-block
+            nav
+              ul.nav.navbar-nav
+                li.dropdown.instruments
+                  a.dropdown-toggle.navigate(href="/instruments") Instruments
+                  ul.dropdown-menu
+                    //-each category in json_data.product_categories
+                    //-  li
+                    //-    a.navigate(href="/instruments/categories/#{category.slug}")= category.name 
+                li
+                  a.navigate(href="/instruments/tags") Sound Search
+                li
+                  a.navigate(href="/contact") Contact Us
+                if user
+                  li.dropdown 
+                    a.dropdown-toggle(href="javascript:void(0);") Admin
+                    ul.dropdown-menu
+                      li
+                        a.add-product(href="javascript:void(0);") Add Product
+                      li
+                        a.edit-tag-categories(href="javascript:void(0);") Edit Tag Categories
+                      li
+                        a.edit-youtube-videos(href="javascript:void(0);") Edit Youtube Videos
+                      li
+                        a.edit-products(href="javascript:void(0);") Edit Products
+                      li
+                        a.edit-content-blocks(href="javascript:void(0);") Edit Content Blocks
+                      li
+                        a.edit-pages(href="javascript:void(0);") Edit Pages
+                      li
+                        a.edit-images(href="javascript:void(0);") Edit Images
+                      li
+                        a.logout(href="/logout") Logout
+          
+          .col-xs-4.hidden-xs.hidden-sm
+            .text-search
+
+
+    #main
+      block content 
+
+    footer
+      p &copy;!{(new Date).getFullYear()} L.A. Percussion Rentals
+
+    script(type="text/javascript").
+      // Various polyfills
+      [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});
+      Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r};
+      Array.isArray||(Array.isArray=function(a){return''+a!==a&&{}.toString.call(a)=='[object Array]'});
+      //window.lapr = { env: '#{settings.env}', markdown_opts: !{JSON.stringify(marked_opts)} };
+    
+    block script
+
+    if user
+      script(type="text/javascript").
+        //window.lapr.user = !{JSON.stringify(user)};
+    
+    if settings.env == 'production'
+      //script(type="text/javascript", src="/dist/js/main.js")
+    else
+      //script(type="text/javascript", src="/bower_components/requirejs/require.js")
+
+    script(type="text/javascript").
+      //require.config({ baseUrl: '/js' });
+      //require([ 'config' ], function() {
+      //  require([ 'main' ]);
+      //});
+    
+    if settings.env == 'production' && !user
+      script(type="text/javascript").
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-68091818-1', 'auto');
+        ga('send', 'pageview');
+
+    script(type="application/ld+json").
+      {
+        "@context": "http://schema.org/",
+        "@type": "ProfessionalService",
+        "name": "Los Angeles Percussion Rentals",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Santa Clarita",
+          "addressRegion": "CA",
+          "postalCode": "91350",
+          "streetAddress": "26450 Ruether Ave., #208"
+        },
+        "telephone": "310-666-8152",
+        "url": "http://www.lapercussionrentals.com"
+      } 
+
+
