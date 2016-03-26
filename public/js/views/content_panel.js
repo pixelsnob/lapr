@@ -22,9 +22,6 @@ define([
     initialize: function() {
       var obj = this;
       this.shown = false;
-      $(window).on('popstate', function() {
-        obj.hide(false);
-      });
     },
     
     show: function(ev) {
@@ -75,6 +72,7 @@ define([
       this.$tpl = template.render('partials/content_panel');
       this.$tpl.on('click', _.bind(this.hideIfOverlay, this));
       this.$tpl.find('.content').html(child_el);
+      this.$el.find('#content-panel').remove();
       this.$el.prepend(this.$tpl);
       return this;
     },
