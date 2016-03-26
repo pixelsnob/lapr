@@ -77,10 +77,15 @@ ProductSchema.statics.search = function(query, opts, str, cb) {
   });
 };
 
-// Add a slug if one isn't provided
+// Set some conditional defaults
 ProductSchema.pre('save', function(next) {
+  // Add a slug if one isn't provided
   if (!this.slug) {
     this.slug = require('../lib/slug')(this.name); 
+  }
+  // Default to "Day" price label if one isn't provided
+  if (this.price && !this.price_label) {
+    this.price_label = 'Day';
   }
   next();
 });
