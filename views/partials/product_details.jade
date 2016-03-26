@@ -26,7 +26,8 @@
           dt Model No.
           dd(itemprop="model")= product.model_no
         if product.price
-          dt Price/#{product.price_label}
+          - var label = product.price_label ? product.price_label : 'Day';
+          dt Price/#{label}
           dd(itemprop="price")= product.price
         if product.sizes
           dt Sizes
