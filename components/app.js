@@ -3,7 +3,9 @@ import React from 'react';
 import ProductCategoriesNav from './navs/product_categories';
 import Head from './head';
 import SiteHeader from './site_header';
-import data from '../var/data.json';
+
+var data = require('../var/data.json');
+
 
 require('../public/less/main.less');
 
@@ -20,7 +22,7 @@ export default class extends React.Component {
         <Head/>
         <body>
           <SiteHeader/>
-          <div id="main">{React.cloneElement(this.props.children)}</div>
+          <div id="main">{React.cloneElement(this.props.children, data)}</div>
           <script type="text/javascript" src="/dist/vendor.js"></script>
           <script type="text/javascript" src="/dist/client.js"></script>
         </body>

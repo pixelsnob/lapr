@@ -1,5 +1,7 @@
 
 import React from 'react';
+import { Link } from 'react-router';
+import Products from './products';
 
 export default class extends React.Component {
   
@@ -29,10 +31,10 @@ export default class extends React.Component {
               </div>
             </div>
             <div className="boxes-list">
-              <ul className="results">
-               
-              </ul>
-              <div className="more-container"> <a href="/instruments?page=2&amp;limit=30" className="more">More</a></div>
+              <Products products={this.props.products}/>
+              <div className="more-container">
+                <a href="/instruments?page=2&amp;limit=30" className="more">More</a>
+              </div>
             </div>
           </div>
         </div>
