@@ -33,7 +33,7 @@ app.route('/*').get((req, res, next) => {
     } else if (redirect_loc) {
       res.redirect(302, redirect_loc.pathname + redirect_loc.search)
     } else if (render_props) {
-      let content = renderToString(<RouterContext {...render_props}/>);
+      let content = renderToString(<RouterContext { ...render_props }/>);
       res.send('<!doctype html>' + content);
     } else {
       res.status(404).send('Not found')

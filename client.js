@@ -6,6 +6,6 @@ import routes from './routes';
 
 ReactDOM.render(
   <Router routes={routes} history={browserHistory}/>,
-  document.getElementById('content')
+  document
 );
 

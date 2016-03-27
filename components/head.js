@@ -13,8 +13,6 @@ export default class extends React.Component {
         <title>Los Angeles Percussion Rentals - Rent Percussion Instruments in L.A. and Southern California</title>
         <meta name="description" content="High-end, professional percussion available for rent in Southern California. Cartage available. We carry orchestral percussion, drum sets, world percussion, backline, eclectic percussion, and other hard-to-find musical instruments."/>
         <link rel="stylesheet" href="/dist/main.css" type="text/css"/>
-        <!--<link rel="stylesheet" href="/bower_components/vex/css/vex.css" type="text/css"/>
-        <link rel="stylesheet" href="/bower_components/vex/css/vex-theme-plain.css" type="text/css"/>-->
         <link rel="canonical" href="http://www.lapercussionrentals.com"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"/>
         <meta name="csrf-param" content=""/>

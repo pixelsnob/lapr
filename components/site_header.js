@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router';
 
 export default class extends React.Component {
   
@@ -20,21 +21,21 @@ export default class extends React.Component {
             </div>
             <div className="col-xs-3 logo-container">
               <h1 className="logo">
-                <a href="/" title="L.A. Percussion Rentals" className="navigate">
+                <Link to="/" title="L.A. Percussion Rentals" className="navigate">
                   <span>L.A. Percussion Rentals</span>
-                </a>
+                </Link>
               </h1>
             </div>
             <div className="col-xs-5 visible-md-block visible-lg-block">
               <nav>
                 <ul className="nav navbar-nav">
                   <li className="dropdown instruments">
-                    <a href="/instruments" className="dropdown-toggle navigate">Instruments</a>
+                    <Link to="/instruments" className="dropdown-toggle navigate">Instruments</Link>
                     <ul className="dropdown-menu">
             
                     </ul>
                   </li>
-                  <li><a href="/instruments/tags" className="navigate">Sound Search</a></li>
+                  <li><Link to="/instruments/tags" className="navigate">Sound Search</Link></li>
                   <li><a href="/contact" className="navigate">Contact Us</a></li>
                 </ul>
               </nav>
