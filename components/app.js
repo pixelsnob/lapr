@@ -1,8 +1,10 @@
 
 import React from 'react';
 import ProductCategoriesNav from './navs/product_categories';
+import Head from './head';
 import SiteHeader from './site_header';
-//import data from './data';
+
+require('../public/less/main.less');
 
 export default class extends React.Component {
   
@@ -13,10 +15,13 @@ export default class extends React.Component {
   
   render() {
     return (
-      <body>
-        <SiteHeader/>
-        <div id="main">{React.cloneElement(this.props.children)}</div>
-      </body>
+      <html>
+        <Head/>
+        <body>
+          <SiteHeader/>
+          <div id="main">{React.cloneElement(this.props.children)}</div>
+        </body>
+      </html>
     );
   }
 }

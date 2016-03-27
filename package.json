@@ -4,8 +4,8 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "forever start public/dist/server.js",
-    "start-dev": "NODE_ENV=development; nodemon public/dist/server.js --ignore ./node_modules",
+    "start": "forever start dist/server.js",
+    "start-dev": "NODE_ENV=development; nodemon dist/server.js --ignore ./node_modules",
     "build": "webpack --progress --config webpack.config.js",
     "build-watch": "webpack --progress --config webpack.config.js --watch",
     "build-client": "webpack --progress --config webpack.client.js",

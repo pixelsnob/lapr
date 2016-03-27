@@ -11,7 +11,7 @@ import passport from 'passport';
 import session from 'express-session';
 import body_parser from 'body-parser';
 
-import routes from './react-routes';
+import routes from './routes';
 import path from 'path';
 
 var port = config.port || 3003,
@@ -34,7 +34,7 @@ app.route('/*').get((req, res, next) => {
       res.redirect(302, redirect_loc.pathname + redirect_loc.search)
     } else if (render_props) {
       let content = renderToString(<RouterContext {...render_props}/>);
-      res.render('layout', { content } );
+      res.send('<!doctype html>' + content);
     } else {
       res.status(404).send('Not found')
     }

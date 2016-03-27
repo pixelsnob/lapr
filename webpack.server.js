@@ -12,7 +12,7 @@ module.exports = {
   entry: './server.js',
   devtool: 'source-map',
   output: {
-     path: 'public/dist',
+     path: 'dist',
      filename: 'server.js'
   },
   plugins: [

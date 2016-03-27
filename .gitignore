@@ -1,6 +1,7 @@
 node_modules
 bower_components
 *.swp
+dist
 public/dist
 public/user
 public/images/products

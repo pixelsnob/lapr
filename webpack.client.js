@@ -31,7 +31,7 @@ module.exports = {
       names: [ 'vendor'],
       filename: '[name].js'
     }),
-    new ExtractTextPlugin("[name].css"),
+    new ExtractTextPlugin('main.css'),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
     })/*,
