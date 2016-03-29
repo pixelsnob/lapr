@@ -6,14 +6,12 @@ import SiteHeader from './site_header';
 
 var data = require('../var/data.json');
 
-
 require('../public/less/main.less');
 
 export default class extends React.Component {
   
   constructor(props) {
     super(props);
-    //this.props = Object.assign(this.props, data);
   }
   
   render() {

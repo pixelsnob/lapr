@@ -3,8 +3,13 @@ import React from 'react';
 
 export default class ProductComponent extends React.Component {
   
-  handleOnclick = (ev) => {
+  handleOnclick = ev => {
     console.log(ev);
+  }
+  
+  getMakerName = () => {
+    //this.props.makers.find(maker => maker._id == this.props
+    return 'maker-name';
   }
 
   render() {
@@ -19,7 +24,8 @@ export default class ProductComponent extends React.Component {
               <a href="/instruments/accordion/490" itemProp="name">{this.props.product.name}</a>
             </h3>
             <link itemProp="url" href="http://www.lapercussionrentals.com/instruments/accordion/490"/>
-            <p itemProp="manufacturer" className="makers secondary">Hohner</p>
+            <p itemProp="manufacturer" className="makers secondary">{this.getMakerName}</p>
+
           </div>
         </div>
       </li>
