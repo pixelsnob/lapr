@@ -4,16 +4,35 @@ import ProductCategoriesNav from './navs/product_categories';
 import Head from './head';
 import SiteHeader from './site_header';
 
+require('../public/less/main.less');
+
 var data = require('../var/data.json');
 
-require('../public/less/main.less');
+data.products = data.products.map(product => {
+  if (product.makers.length) {
+    product.makers = product.makers.map(product_maker_id => 
+      data.makers.find(maker => maker._id == product_maker_id)
+    );
+  }
+  return product;
+}).map(product => {
+  if (product.categories.length) {
+    product.categories = product.categories.map(product_category_id =>
+      data.product_categories.find(product_category =>
+        product_category._id == product_category_id
+      )
+    );
+  }
+  return product;
+});
+
 
 export default class extends React.Component {
   
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     return (
       <html>
