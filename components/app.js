@@ -8,7 +8,7 @@ require('../public/less/main.less');
 
 var data = require('../var/data.json');
 
-data.products = data.products.splice(0, 150).map(product => {
+data.products = data.products.map(product => {
   if (Array.isArray(product.makers)) {
     product.makers = product.makers.map(product_maker_id => 
       data.makers.find(maker => maker._id == product_maker_id)

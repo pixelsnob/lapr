@@ -12,7 +12,7 @@ export default class extends React.Component{
     return (
       <li> 
         <Link
-          to={`/sound-search/category/${this.props.product_category.slug}`}
+          to={`/instruments/categories/${this.props.product_category.slug}`}
           style={style}>
             {this.props.product_category.name}
         </Link>

@@ -1,9 +1,8 @@
 
 import React from 'react';
-import ProductsComponent from './products';
-import ProductsSortDirectionComponent from './products_sort_direction';
-import ProductCategoriesComponent from './product_categories';
-import TagsComponent from './tags';
+import Products from '../products';
+import SortDirection from '../sort_direction';
+import TagsComponent from '../tags';
 
 export default class extends React.Component {
 
@@ -11,17 +10,16 @@ export default class extends React.Component {
     super(props);
     this.state = {
       sort_direction:       1,
-      product_category_id:  null,
       selected_tag_ids:     []
     };
   }
 
   componentWillMount() {
-    this.categorySlugToId(this.props.params.category);
+    //this.categorySlugToId(this.props.params.category);
   }
   
   componentWillReceiveProps(props) {
-    this.categorySlugToId(props.params.category);
+    //this.categorySlugToId(props.params.category);
   }
 
   sort(products) {
@@ -31,30 +29,10 @@ export default class extends React.Component {
     });
   }
   
-  categorySlugToId(slug) {
-    var product_category = this.props.product_categories.find(category =>
-      category.slug == slug
-    );
-    if (product_category) {
-      this.setState({
-        product_category_id: product_category._id,
-        selected_tag_ids: []
-      });
-    }
-  }
-
   handleSortDirectionChange = () => {
     this.setState({ sort_direction: -this.state.sort_direction });
   }
   
-  handleProductCategoryChange = product_category_id => {
-    this.setState({ product_category_id, selected_tag_ids: [] });
-  }
-
-  handleProductCategoryReset = () => {
-    this.setState({ product_category_id: null });
-  }
-
   handleTagSelect = tag => {
     var selected_tag_ids = this.state.selected_tag_ids.slice();
     var i = selected_tag_ids.indexOf(tag._id);
@@ -68,14 +46,6 @@ export default class extends React.Component {
   
   handleTagsReset = () => {
     this.setState({ selected_tag_ids: [] });
-  }
-
-  filterByCategoryId() {
-    return this.props.products.filter(product =>
-      product.categories.find(category =>
-        category == this.state.product_category_id
-      )
-    );
   }
 
   filterBySelectedTags(products) {
@@ -110,35 +80,26 @@ export default class extends React.Component {
 
   render() {
     var products = this.props.products;
-    if (this.state.product_category_id) {
-      products = this.filterByCategoryId(this.state.product_category_id);
-    }
     if (this.state.selected_tag_ids.length) {
       products = this.filterBySelectedTags(products);
     }
     products = this.sort(products);
     return (
-      <div className="container-fluid products products-categories-search">
+      <div className="container-fluid products products-tags-search">
         <div className="row">
           <div className="sidebar col-xs-6 col-sm-6 col-md-3">
             <nav>
-              <ProductCategoriesComponent
-                product_categories={this.props.product_categories}
-                product_category_id={this.state.product_category_id}
-                onReset={this.handleProductCategoryReset}
-              />
+              <div className="tags">
+              </div>
             </nav>
           </div>
           <div className="products-results col-xs-6 col-sm-6 col-md-9">
             <div id="heading-container">
-              <h2 className="line-after">All Instruments</h2>
-              <div className="more-info-container hide">
-                <a href="javascript:void(0);" className="more-info">More&hellip;</a>
-              </div>
+              <h2 className="line-after">Sound Search</h2>
               <div className="stats-container">
-                <div className="stats secondary">30 Results</div>
+                <div className="stats secondary">{products.length} Result{products.length == 1 ? '' : 's'}</div>
                 <div className="sort-direction hidden-xs hidden-sm">
-                  <ProductsSortDirectionComponent
+                  <SortDirection
                     sort_direction={this.state.sort_direction}
                     onChange={this.handleSortDirectionChange}
                   />
@@ -146,10 +107,7 @@ export default class extends React.Component {
               </div>
             </div>
             <div className="boxes-list">
-              <ProductsComponent
-                products={this.props.products}
-                sort_direction={this.state.sort_direction}
-              />
+              <Products products={products} sort_direction={this.state.sort_direction}/>
             </div>
           </div>
         </div>
