@@ -15,7 +15,7 @@ export default class ProductComponent extends React.Component {
   }
   
   getMakers = () => {
-    if (this.state.product.makers.length) {
+    if (Array.isArray(this.state.product.makers)) {
       return this.state.product.makers.map(maker => maker.name).join(', ');
     }
   }
@@ -23,8 +23,10 @@ export default class ProductComponent extends React.Component {
   render() {
     return (
       <li>
-        <div itemScope itemtype="http://schema.org/Product" className="product">
+        <div itemScope itemType="http://schema.org/Product" className="product">
           <div className="image">
+            <img src={"/dist/images/products/" + this.props.product.thumbnail} alt={this.props.product.name} style={{ display: 'block' }}/>
+
           </div>
           <div className="details hidden-xs hidden-sm">
             <h3 className="name">
@@ -39,4 +41,3 @@ export default class ProductComponent extends React.Component {
   }
 }
 
-// <img src={"//www.lapercussionrentals.com/images/products/" + this.props.product.thumbnail} alt={this.props.product.name} style={{ display: 'none' }}/>

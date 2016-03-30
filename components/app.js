@@ -8,21 +8,20 @@ require('../public/less/main.less');
 
 var data = require('../var/data.json');
 
-data.products = data.products.map(product => {
-  if (product.makers.length) {
+data.products = data.products.splice(0, 150).map(product => {
+  if (Array.isArray(product.makers)) {
     product.makers = product.makers.map(product_maker_id => 
       data.makers.find(maker => maker._id == product_maker_id)
     );
   }
-  return product;
-}).map(product => {
-  if (product.categories.length) {
+  if (Array.isArray(product.categories)) {
     product.categories = product.categories.map(product_category_id =>
       data.product_categories.find(product_category =>
         product_category._id == product_category_id
       )
     );
   }
+  product.url = '/instruments/' + product.slug + '/' + product._id
   return product;
 });
 
