@@ -36,7 +36,7 @@ export default class ProductComponent extends React.Component {
             <h3 className="name">
               <a href={this.props.product.url} itemProp="name">{this.props.product.name}</a>
             </h3>
-            <link itemProp="url" href="http://www.lapercussionrentals.com/instruments/accordion/490"/>
+            <link itemProp="url" href={this.props.product.url}/>
             <p itemProp="manufacturer" className="makers secondary">{this.getMakers()}</p>
           </div>
         </div>

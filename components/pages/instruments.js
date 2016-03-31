@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Products from '../products';
-import ProductCategories from '../product_categories';
+import ProductCategories from '../navs/product_categories';
 import SortDirection from '../sort_direction';
 
 export default class extends React.Component {
