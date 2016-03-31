@@ -21,13 +21,17 @@ export default class ProductComponent extends React.Component {
   }
 
   render() {
+    var thumbnail = '';
+    if (this.props.product.thumbnail) {
+      thumbnail = (
+        <img src={"/dist/images/products/" + this.props.product.thumbnail}
+         alt={this.props.product.name}/>
+      );
+    }
     return (
       <li>
         <div itemScope itemType="http://schema.org/Product" className="product">
-          <div className="image">
-            <img src={"/dist/images/products/" + this.props.product.thumbnail} alt={this.props.product.name} style={{ display: 'block' }}/>
-
-          </div>
+          <div className="image">{thumbnail}</div>
           <div className="details hidden-xs hidden-sm">
             <h3 className="name">
               <a href={this.props.product.url} itemProp="name">{this.props.product.name}</a>

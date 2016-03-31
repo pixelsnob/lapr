@@ -1,25 +1,27 @@
 
 import React from 'react';
 import Products from '../products';
+import Tags from '../navs/tags';
 import SortDirection from '../sort_direction';
-import TagsComponent from '../tags';
 
 export default class extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      sort_direction:       1,
-      selected_tag_ids:     []
+      selected_tag_ids: [],
+      sort_direction:   1
     };
   }
 
   componentWillMount() {
-    //this.categorySlugToId(this.props.params.category);
   }
   
   componentWillReceiveProps(props) {
-    //this.categorySlugToId(props.params.category);
+  }
+
+  handleSortDirectionChange = () => {
+    this.setState({ sort_direction: -this.state.sort_direction });
   }
 
   sort(products) {
@@ -28,11 +30,7 @@ export default class extends React.Component {
       return (this.state.sort_direction == -1 ? -comp : comp);
     });
   }
-  
-  handleSortDirectionChange = () => {
-    this.setState({ sort_direction: -this.state.sort_direction });
-  }
-  
+
   handleTagSelect = tag => {
     var selected_tag_ids = this.state.selected_tag_ids.slice();
     var i = selected_tag_ids.indexOf(tag._id);
@@ -89,7 +87,8 @@ export default class extends React.Component {
         <div className="row">
           <div className="sidebar col-xs-6 col-sm-6 col-md-3">
             <nav>
-              <div className="tags">
+              <div className="tags-tree">
+                <Tags tags={this.props.tags} tag_categories={this.props.tag_categories}/>
               </div>
             </nav>
           </div>
@@ -97,7 +96,9 @@ export default class extends React.Component {
             <div id="heading-container">
               <h2 className="line-after">Sound Search</h2>
               <div className="stats-container">
-                <div className="stats secondary">{products.length} Result{products.length == 1 ? '' : 's'}</div>
+                <div className="stats secondary">
+                  {products.length} Result{products.length == 1 ? '' : 's'}
+                </div>
                 <div className="sort-direction hidden-xs hidden-sm">
                   <SortDirection
                     sort_direction={this.state.sort_direction}
