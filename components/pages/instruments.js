@@ -14,6 +14,14 @@ export default class extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.categorySlugToId(this.props.params.category);
+  }
+  
+  componentWillReceiveProps(props) {
+    this.categorySlugToId(props.params.category);
+  }
+
   handleSortDirectionChange = () => {
     this.setState({ sort_direction: -this.state.sort_direction });
   }
@@ -24,15 +32,7 @@ export default class extends React.Component {
       return (this.state.sort_direction == -1 ? -comp : comp);
     });
   }
-
-  componentWillMount() {
-    this.categorySlugToId(this.props.params.category);
-  }
   
-  componentWillReceiveProps(props) {
-    this.categorySlugToId(props.params.category);
-  }
-
   handleProductCategoryChange = product_category_id => {
     this.setState({ product_category_id });
   }

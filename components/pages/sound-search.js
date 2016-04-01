@@ -9,15 +9,17 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected_tag_ids: [],
+      selected_tag_ids: new Set,
       sort_direction:   1
     };
   }
 
   componentWillMount() {
+    this.tagSlugsToIds(this.props.params.tags);
   }
   
   componentWillReceiveProps(props) {
+    this.tagSlugsToIds(props.params.tags);
   }
 
   handleSortDirectionChange = () => {
@@ -31,28 +33,24 @@ export default class extends React.Component {
     });
   }
 
-  handleTagSelect = tag => {
-    var selected_tag_ids = this.state.selected_tag_ids.slice();
-    var i = selected_tag_ids.indexOf(tag._id);
-    if (i == -1) {
-      selected_tag_ids.push(tag._id);
-    } else {
-      selected_tag_ids.splice(i, 1);
+  tagSlugsToIds(slugs) {
+    if (!slugs) {
+      return this.setState({ selected_tag_ids: new Set });
     }
-    this.setState({ selected_tag_ids });
-  }
-  
-  handleTagsReset = () => {
-    this.setState({ selected_tag_ids: [] });
+    var selected_tag_ids = slugs.split(',')
+      .map(slug => this.props.tags.find(tag => tag.slug == slug))
+      .filter(tag => tag)
+      .map(tag => tag._id);
+    this.setState({ selected_tag_ids: new Set(selected_tag_ids) });
   }
 
+  handleTagsReset = () => {
+    this.setState({ selected_tag_ids: new Set });
+  }
+  
   filterBySelectedTags(products) {
-    var selected_tag_ids = this.state.selected_tag_ids;
-    if (!selected_tag_ids.length) {
-      return products;
-    }
     return products.filter(product => 
-      selected_tag_ids.every(selected_tag_id =>
+      Array.from(this.state.selected_tag_ids).every(selected_tag_id =>
         product.tags.find(product_tag_id =>
           selected_tag_id == product_tag_id
         )
@@ -77,8 +75,8 @@ export default class extends React.Component {
   }
 
   render() {
-    var products = this.props.products;
-    if (this.state.selected_tag_ids.length) {
+    var products = this.props.products.filter(product => product.tags.length);
+    if (this.state.selected_tag_ids.size) {
       products = this.filterBySelectedTags(products);
     }
     products = this.sort(products);
@@ -88,7 +86,11 @@ export default class extends React.Component {
           <div className="sidebar col-xs-6 col-sm-6 col-md-3">
             <nav>
               <div className="tags-tree">
-                <Tags tags={this.props.tags} tag_categories={this.props.tag_categories}/>
+                <Tags
+                  tags={this.props.tags}
+                  tag_categories={this.props.tag_categories}
+                  selected_tag_ids={this.state.selected_tag_ids}
+                />
               </div>
             </nav>
           </div>

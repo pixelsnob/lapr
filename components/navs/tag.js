@@ -1,26 +1,31 @@
 
 import React from 'react';
+import { Link } from 'react-router';
 
 export default class extends React.Component {
 
-  handleClick = (ev) => {
-    this.props.onTagSelect(this.props.tag);
-    ev.preventDefault();
-    return false;
+  constructor(props) {
+    super(props);
+  }
+
+  getLinkSlugs() {
+    var selected_tag_ids = new Set(this.props.selected_tag_ids);
+    if (selected_tag_ids.has(this.props.tag._id)) {
+      selected_tag_ids.delete(this.props.tag._id);
+    } else {
+      selected_tag_ids.add(this.props.tag._id);
+    }
+    return Array.from(selected_tag_ids).map(selected_tag_id =>
+      this.props.tags.find(tag => selected_tag_id == tag._id)
+    ).map(tag => tag.slug).join(',');
   }
 
   render() {
-    /*var style = {};
-    if (this.props.selected_tag_ids.indexOf(this.props.tag._id) != -1) {
-      style = { color: 'red' };
-    } else {
-      style = {};
-    }*/
     return (
       <li>
-        <a href="javascript:void(0);" onClick={this.handleClick}>
+        <Link to={"/instruments/tags/" + this.getLinkSlugs()}>
           {this.props.tag.name}
-        </a>
+        </Link>
       </li>
     );
   }

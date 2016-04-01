@@ -10,7 +10,9 @@ export default class extends React.Component {
     );
     if (category_tags) {
       var tags = <ul className="tags-list">
-        {category_tags.map(tag => <Tag tag={tag} key={tag._id}/>)}
+        {category_tags.map(tag =>
+          <Tag tag={tag} key={tag._id} {...this.props}/>
+        )}
       </ul>;
     }
     return (
