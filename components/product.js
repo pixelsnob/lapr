@@ -1,22 +1,23 @@
 
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 export default class ProductComponent extends React.Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      product: props.product
     };
   }
 
   handleOnclick = ev => {
-    console.log(ev);
+    browserHistory.pushState({ content_panel: true }, this.props.product.url);
+    ev.preventDefault();
   }
   
   getMakers = () => {
-    if (Array.isArray(this.state.product.makers)) {
-      return this.state.product.makers.map(maker => maker.name).join(', ');
+    if (Array.isArray(this.props.product.makers)) {
+      return this.props.product.makers.map(maker => maker.name).join(', ');
     }
   }
 
@@ -29,7 +30,7 @@ export default class ProductComponent extends React.Component {
       );
     }
     return (
-      <li>
+      <li onClick={this.handleOnclick}>
         <div itemScope itemType="http://schema.org/Product" className="product">
           <div className="image">{thumbnail}</div>
           <div className="details hidden-xs hidden-sm">

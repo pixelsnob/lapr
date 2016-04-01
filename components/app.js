@@ -3,6 +3,7 @@ import React from 'react';
 import ProductCategoriesNav from './navs/product_categories';
 import Head from './head';
 import SiteHeader from './site_header';
+import ContentPanel from './content_panel';
 
 require('../public/less/main.less');
 
@@ -30,15 +31,35 @@ export default class extends React.Component {
   
   constructor(props) {
     super(props);
+    this.state = {
+      content_panel: false
+    };
+  }
+  
+  componentWillMount() {
+    this.setState({ previous: this.props.children });
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      content_panel: (props.location.state && props.location.state.content_panel)
+    });
   }
 
   render() {
+    var children      = this.props.children,
+        content_panel = '';
+    if (this.state.content_panel) {
+      children      = this.state.previous;
+      content_panel = <ContentPanel content={this.props.children}/>;
+    }
     return (
       <html>
         <Head/>
         <body>
           <SiteHeader/>
-          <div id="main">{React.cloneElement(this.props.children, data)}</div>
+          {content_panel}
+          <div id="main">{React.cloneElement(children, data)}</div>
           <script type="text/javascript" src="/dist/vendor.js"></script>
           <script type="text/javascript" src="/dist/client.js"></script>
         </body>
