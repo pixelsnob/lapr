@@ -32,17 +32,18 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content_panel: false
+      content_panel: false,
+      previous:      null
     };
   }
   
   componentWillMount() {
-    this.setState({ previous: this.props.children });
   }
 
   componentWillReceiveProps(props) {
     this.setState({
-      content_panel: (props.location.state && props.location.state.content_panel)
+      content_panel: (props.location.state && props.location.state.content_panel),
+      previous:      this.props.children
     });
   }
 
@@ -57,8 +58,8 @@ export default class extends React.Component {
       <html>
         <Head/>
         <body>
-          <SiteHeader/>
           {content_panel}
+          <SiteHeader/>
           <div id="main">{React.cloneElement(children, data)}</div>
           <script type="text/javascript" src="/dist/vendor.js"></script>
           <script type="text/javascript" src="/dist/client.js"></script>

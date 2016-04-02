@@ -11,7 +11,10 @@ export default class ProductComponent extends React.Component {
   }
 
   handleOnclick = ev => {
-    browserHistory.pushState({ content_panel: true }, this.props.product.url);
+    browserHistory.pushState({
+      content_panel: true,
+      product: this.props.product
+    }, this.props.product.url);
     ev.preventDefault();
   }
   
