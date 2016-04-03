@@ -82,8 +82,8 @@ export default class extends React.Component {
       products = this.filterBySelectedTags(products);
     }
     products = this.sort(products);
-    if (!this.props.content_panel && typeof scroll != 'undefined') {
-      scroll(0, 0);
+    if (!this.props.content_panel && typeof window != 'undefined') {
+      window.scroll(0, 0);
     }
     return (
       <div className="container-fluid products products-tags-search">
