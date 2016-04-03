@@ -51,16 +51,20 @@ export default class extends React.Component {
     var children      = this.props.children,
         content_panel = '';
     if (this.state.content_panel) {
-      children = React.cloneElement(this.state.previous, { content_panel: this.state.content_panel });
+      children      = this.state.previous;
       content_panel = <ContentPanel content={this.props.children} {...data}/>;
     }
+    var main = React.cloneElement(children, Object.assign(data,
+      { content_panel: this.state.content_panel }));
     return (
       <html>
         <Head/>
         <body>
           {content_panel}
-          <SiteHeader product_categories={data.product_categories}/>
-          <div id="main">{React.cloneElement(children, data)}</div>
+          <SiteHeader {...data}/>
+          <div id="main">
+            {main}
+          </div>
           <script type="text/javascript" src="/dist/vendor.js"></script>
           <script type="text/javascript" src="/dist/client.js"></script>
         </body>
