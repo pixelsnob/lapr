@@ -6,7 +6,7 @@ export default class extends React.Component{
   
   render() {
     return (
-      <ul>
+      <ul className={this.props.className}>
         {this.props.product_categories.map((product_category) => 
           <ProductCategoryComponent
             key={product_category._id}

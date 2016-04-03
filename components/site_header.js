@@ -1,9 +1,11 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+import ProductCategoriesNav from './navs/product_categories';
 
 export default class extends React.Component {
   
+
   /*constructor(props) {
     super(props);
     this.props = Object.assign(this.props, data);
@@ -31,9 +33,7 @@ export default class extends React.Component {
                 <ul className="nav navbar-nav">
                   <li className="dropdown instruments">
                     <Link to="/instruments" className="dropdown-toggle navigate">Instruments</Link>
-                    <ul className="dropdown-menu">
-            
-                    </ul>
+                    <ProductCategoriesNav {...this.props} className="dropdown-menu"/>
                   </li>
                   <li><Link to="/instruments/tags" className="navigate">Sound Search</Link></li>
                   <li><a href="/contact" className="navigate">Contact Us</a></li>

@@ -8,9 +8,6 @@ export default class extends React.Component {
     return (
       <div className="tags-nav">
         <ul>
-          <li>
-            <a href="javascript:void(0);" onClick={this.props.onReset}>[ Reset ]</a>
-          </li>
           {this.props.tag_categories.map(tag_category =>
             <TagCategory
               tag_category={tag_category}
@@ -19,6 +16,10 @@ export default class extends React.Component {
             />
           )}
         </ul>
+        <div className="tag">
+          <a href="javascript:void(0);" onClick={this.props.onReset}
+           className="alert reset">Reset</a>
+        </div>
       </div>
     );
   }

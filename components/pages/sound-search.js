@@ -1,7 +1,8 @@
 
 import React from 'react';
+import { browserHistory } from 'react-router';
 import Products from '../products';
-import Tags from '../navs/tags';
+import TagsNav from '../navs/tags';
 import SortDirection from '../sort_direction';
 
 export default class extends React.Component {
@@ -46,6 +47,7 @@ export default class extends React.Component {
 
   handleTagsReset = () => {
     this.setState({ selected_tag_ids: new Set });
+    browserHistory.push('/instruments/tags');
   }
   
   filterBySelectedTags(products) {
@@ -80,16 +82,20 @@ export default class extends React.Component {
       products = this.filterBySelectedTags(products);
     }
     products = this.sort(products);
+    if (!this.props.content_panel && typeof scroll != 'undefined') {
+      scroll(0, 0);
+    }
     return (
       <div className="container-fluid products products-tags-search">
         <div className="row">
           <div className="sidebar col-xs-6 col-sm-6 col-md-3">
             <nav>
               <div className="tags-tree">
-                <Tags
+                <TagsNav
                   tags={this.props.tags}
                   tag_categories={this.props.tag_categories}
                   selected_tag_ids={this.state.selected_tag_ids}
+                  onReset={this.handleTagsReset}
                 />
               </div>
             </nav>

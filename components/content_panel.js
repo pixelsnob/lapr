@@ -23,11 +23,12 @@ export default class extends React.Component {
             </div>
           </div>
           <div className="content">
-            {React.cloneElement(this.props.content, { content_props: this.props.content.props })}
+            {React.cloneElement(this.props.content, this.props)}
           </div>
         </div>
       </div>
     );
   }
 }
+
 

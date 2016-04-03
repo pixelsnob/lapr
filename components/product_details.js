@@ -6,24 +6,22 @@ export default class extends React.Component {
   
   constructor(props) {
     super(props);
-
   }
 
   componentWillReceiveProps(props) {
   }
-  
-  getProduct() {
-    if (this.props.location.state && this.props.location.state.product) {
-      return this.props.location.state.product;
-    } else if (this.props.product) {
-      return this.props.product;
-    } else {
-      return this.props.products.find(product => product._id == this.props.params.product_id);
-    }
-  }
 
+  getProduct() {
+    return this.props.products.find(product =>
+      product._id == this.props.params.product_id
+    );
+  }
+  
   render() {
     var product = this.getProduct();
+    if (!product) {
+      return (<div>Instrument not found</div>);
+    }
     return (
       <div itemScope itemType="http://schema.org/Product" className="container-fluid product-details">
         <div className="row">
@@ -75,4 +73,5 @@ export default class extends React.Component {
 
   }
 }
+
 
