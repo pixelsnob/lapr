@@ -258,7 +258,6 @@ module.exports = function(app) {
     getProducts: function(req, res, next) {
       var cached_data = cache.get('json_data');
       if (req.isAuthenticated() || !cached_data) {
-        console.log('miss');
         var data = [];
         var model_names = {
           'products':            'Product',
@@ -287,7 +286,6 @@ module.exports = function(app) {
         });
       } else {
         res.locals.json_data = cached_data;
-        console.log('hit');
         next(); 
       }
     },
