@@ -2,7 +2,8 @@
 .product(itemscope, itemtype="http://schema.org/Product")
   .image
     if product.thumbnail
-      img(src="//www.lapercussionrentals.com/images/products/#{product.thumbnail}", alt="#{product.name}")
+      - var thumb_path = user ? '/images/products/' : '/dist/images/products/';
+      img(src="#{thumb_path}#{product.thumbnail}", alt="#{product.name}")
 
   .details.hidden-xs.hidden-sm
 
