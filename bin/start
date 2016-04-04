@@ -9,3 +9,4 @@ if forever list | grep '/var/www/lapr/app.js'
 fi
 
 forever start -c "node --expose-gc" /var/www/lapr/app.js
+forever node_modules/gulp/bin/gulp.js imagemin
