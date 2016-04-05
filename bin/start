@@ -1,12 +1,28 @@
 #!/bin/bash
 
-export NODE_ENV=production
+NODE_ENV=development
 
-cd /var/www/lapr
+DIR=`realpath "$(dirname "$(readlink -f "$0")")"`
 
-if forever list | grep '/var/www/lapr/app.js'
-  then forever stop /var/www/lapr/app.js
+cd $DIR/../
+
+APP_DIR=`realpath .`
+
+echo $APP_DIR
+
+APP_PATH=$APP_DIR"/app.js"
+GULP_PATH=$APP_DIR"/node_modules/gulp/bin/gulp.js"
+
+if forever list | grep $APP_PATH
+  then forever stop $APP_PATH
 fi
 
-forever start -c "node --expose-gc" /var/www/lapr/app.js
-forever node_modules/gulp/bin/gulp.js imagemin
+forever start -c "node --expose-gc" $APP_PATH
+
+#if forever list | grep $GULP_PATH
+#  then forever stop $GULP_PATH
+#  echo 'exists'
+#fi
+
+node ${APP_DIR}/node_modules/gulp/bin/gulp.js imagemin &
+

@@ -6,7 +6,9 @@
       link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
       .image.pull-right
         if product.image
-          img(src="/images/products/#{product.image}", width="400", title="#{product.name}", alt="#{product.name}", itemprop="image")
+          - var image_path = user ? '/images/products/' : '/dist/images/products/400/';
+          - var qs = user ? '?t=' + (new Date).getTime() : '';
+          img(src="#{image_path}#{product.image}#{qs}", width="400", title="#{product.name}", alt="#{product.name}", itemprop="image")
 
       
       if product.alt_names

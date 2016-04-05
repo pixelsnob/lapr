@@ -57,10 +57,11 @@ define([
         product: product
       }));
       // Image loading stuff
+      var $img = this.$el.find('.image');
       if (product.image && product.image.length) {
         var image_onload_view = new ImageOnloadView({
-          el:           this.$el.find('.image'),
-          src:          '/images/products/' + product.image
+          el:           $img,
+          src:          $img.find('img').attr('src')
         });
         image_onload_view.render();
       }

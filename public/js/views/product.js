@@ -69,10 +69,10 @@ define([
       // Image loading stuff
       var thumbnail = this.model.get('thumbnail');
       if (thumbnail) {
-        var thumb_path = window.lapr.user ? '/images/products/' : '/dist/images/products/';
+        var $img = this.$el.find('.image');
         var image_onload_view = new ImageOnloadView({
-          el:           this.$el.find('.image'),
-          src:          thumb_path + thumbnail,
+          el:           $img,
+          src:          $img.find('img').attr('src'),
           random_delay: false
         });
         image_onload_view.render();
