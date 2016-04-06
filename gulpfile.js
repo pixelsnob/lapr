@@ -3,9 +3,6 @@ const gulp             = require('gulp');
 const watch            = require('gulp-watch');
 const imageminMozjpeg  = require('imagemin-mozjpeg');
 const imageResize      = require('gulp-image-resize');
-//const gulpForever      = require('gulp-forever');
-
-//gulp.task('default', gulpForever(__filename, [ 'imagemin' ]));
 
 gulp.task('imagemin', function() {
   return gulp.src('public/images/products/*.jpg')
