@@ -132,7 +132,7 @@ module.exports = function(app) {
       var json_data = res.locals.json_data;
       res.format({
         html: function() {
-          db.model('Product').paginate({}, req.query.page, req.query.limit,
+          db.model('Product').paginate({}, req.query.page, 1000,
           function(err, page_count, products, item_count) {
             if (err) {
               return next(err);
@@ -170,7 +170,7 @@ module.exports = function(app) {
           return res.render('not_found');
         }
         var query = { categories: product_category._id };
-        db.model('Product').paginate(query, req.query.page, req.query.limit,
+        db.model('Product').paginate(query, req.query.page, 1000,
         function(err, page_count, products, item_count) {
           if (err) {
             return next(err);
@@ -230,7 +230,7 @@ module.exports = function(app) {
       if (tag_ids.length) {
         query = { tags: { $all: tag_ids }};
       }
-      db.model('Product').paginate(query, req.query.page, req.query.limit,
+      db.model('Product').paginate(query, req.query.page, 1000,
       function(err, page_count, products, item_count) {
         if (err) {
           return next(err);

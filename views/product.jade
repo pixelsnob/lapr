@@ -3,8 +3,8 @@ extends layout
 
 block config
   - // Search engine stuff
-  - var title        = product.name.trim() + (product.makers.trim().length ? ' - By ' + product.makers.trim() : '') + ' - L.A. Percussion Rentals';
-  - var description  = (product.alt_names.trim().length ? product.alt_names.trim() : '');
+  - var title        = product.name.trim() + (product.makers.trim().length ? ' Rental in Los Angeles - By ' + product.makers.trim() : '') + ' - L.A. Percussion Rentals';
+  - var description  = product.name + (product.alt_names.trim().length ? ' (' + product.alt_names.trim() + ')' : '');
   - description     += (product.description.trim().length ? ((description.length ? ' - ' : '') + product.description.trim()) : '');
 
 block content
