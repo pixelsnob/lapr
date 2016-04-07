@@ -148,11 +148,8 @@ module.exports = function(app) {
           }, { sortBy: { name: 1 }, populate: 'makers' });
         },
         json: function() {
-          var products = json_data.products.map(function(p) {
-            return _.omit(p.toJSON(), [ 'old_description' ]);
-          });
           res.send({
-            products: products,
+            products: json_data.products,
             product_categories: json_data.product_categories,
             makers: json_data.makers,
             tags: json_data.tags,
@@ -254,11 +251,13 @@ module.exports = function(app) {
         });
       }, { populate: 'makers', sortBy : { name: 1 } });
     },
-
+    
+    // Returns an object with pertinent model data, used to create a JSON
+    // file, etc.
     getProducts: function(req, res, next) {
       var cached_data = cache.get('json_data');
       if (req.isAuthenticated() || !cached_data) {
-        var data = [];
+        var data = {};
         var model_names = {
           'products':            'Product',
           'product_categories':  'ProductCategory',
@@ -273,7 +272,19 @@ module.exports = function(app) {
             if (err) {
               return cb(err);
             }
-            data[model_name] = docs;
+            data[model_name] = docs.map(function(doc) {
+              // Send only fields that are in the model (mongoose likes to just
+              // send them all...)
+              var fields = Object.keys(
+                db.model(model_names[model_name]).schema.paths);
+              var new_doc = {};
+              fields.forEach(function(field) {
+                if (typeof doc[field] != 'undefined') {
+                  new_doc[field] = doc[field];
+                }
+              });
+              return new_doc;
+            });
             cb();
           });
         }, function(err) {
@@ -286,6 +297,7 @@ module.exports = function(app) {
         });
       } else {
         res.locals.json_data = cached_data;
+        //console.log('hit');
         next(); 
       }
     },

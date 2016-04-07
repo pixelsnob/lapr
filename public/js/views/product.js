@@ -67,8 +67,8 @@ define([
       }));
       this.$el.attr('id', this.model.id);
       // Image loading stuff
-      var thumbnail = this.model.get('thumbnail');
-      if (thumbnail) {
+      var image = this.model.get('image');
+      if (image) {
         var $img = this.$el.find('.image');
         var image_onload_view = new ImageOnloadView({
           el:           $img,

@@ -17,7 +17,6 @@ var ProductSchema = new mongoose.Schema({
   price:                String,
   price_label:          { type: String, enum: [ null, 'Day', 'Week' ] },
   range:                String,
-  thumbnail:            String,
   image:                String,
   sizes:                String,
   octaves:              Number,

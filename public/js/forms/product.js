@@ -9,8 +9,7 @@ define([
   './editors/makers',
   './editors/tags',
   './editors/youtube_videos',
-  './editors/file/product_image',
-  './editors/file/product_thumbnail'
+  './editors/file/product_image'
 ], function(
   BaseForm,
   MultiSelectEditor,
@@ -18,8 +17,7 @@ define([
   MakersEditor,
   TagsEditor,
   YoutubeVideosEditor,
-  ProductImageEditor,
-  ProductThumbnailEditor
+  ProductImageEditor
 ) {
   
   return BaseForm.extend({
@@ -93,10 +91,6 @@ define([
       sizes: {
         type: 'TextArea',
         help: '<em>Markdown enabled</em>'
-      },
-      thumbnail: { 
-        type: ProductThumbnailEditor,
-        help: '<em>Thumbnail must be < 50KB in size, and < 180px wide</em>'
       },
       image: { 
         type: ProductImageEditor,

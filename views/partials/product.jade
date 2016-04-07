@@ -1,10 +1,10 @@
 
 .product(itemscope, itemtype="http://schema.org/Product")
   .image
-    if product.thumbnail
+    if product.image
       - var thumb_path = user ? '/images/products/' : '/dist/images/products/140/';
       - var qs = user ? '?t=' + (new Date).getTime() : '';
-      img(src="#{thumb_path}#{product.thumbnail}#{qs}", alt="#{product.name}")
+      img(src="#{thumb_path}#{product.image}#{qs}", alt="#{product.name}")
 
   .details.hidden-xs.hidden-sm
 

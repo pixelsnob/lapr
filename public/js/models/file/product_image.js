@@ -9,7 +9,7 @@ define([
     
     upload_url: '/files/tmp',
 
-    types: [ 'image/jpeg', 'image/png' ],
+    types: [ 'image/jpeg' ],
     
     validate: function(attrs, opts) {
       if (!attrs.file.name.match(/^[a-z0-9\-\._]+$/i)) {
