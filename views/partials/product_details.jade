@@ -52,8 +52,9 @@
           h3 Sounds
           - var youtube_videos = product.youtube_videos
           include youtube_player
-          .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
-            .content
+          if product.show_sounds_disclaimer
+            .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
+              .content
 
       .nav-links
         nav

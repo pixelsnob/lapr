@@ -94,7 +94,7 @@ define([
       },
       image: { 
         type: ProductImageEditor,
-        help: '<em>Image must be < 250KB in size, and < 1000px wide</em>'
+        help: '<em>Image must be < 250KB in size, and < 1000px wide. Thumbnails generated automatically</em>'
       },
       youtube_videos: {
         type: YoutubeVideosEditor,
@@ -108,6 +108,11 @@ define([
       include_in_slideshow: {
         type: 'Checkbox',
         title: 'Include in Slideshow'
+      },
+      show_sounds_disclaimer: {
+        type: 'Checkbox',
+        title: 'Show Sounds Disclaimer',
+        help: '<em>Show disclaimer if product has videos</em>'
       }
     }
   });
