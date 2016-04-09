@@ -9,3 +9,4 @@ ReactDOM.render(
   document
 );
 
+//require('./public/js/views/admin/app');

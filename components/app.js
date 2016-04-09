@@ -32,8 +32,8 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content_panel: false,
-      previous:      null
+      content_panel:     false,
+      previous_children: null
     };
   }
   
@@ -41,6 +41,7 @@ export default class extends React.Component {
   }
 
   componentWillReceiveProps(props) {
+    // Store #main content
     this.setState({
       content_panel: (props.location.state && props.location.state.content_panel),
       previous:      this.props.children
@@ -50,6 +51,7 @@ export default class extends React.Component {
   render() {
     var children      = this.props.children,
         content_panel = '';
+    // Show previous #main content underneath content_panel
     if (this.state.content_panel) {
       children      = this.state.previous;
       content_panel = <ContentPanel content={this.props.children} {...data}/>;
@@ -65,8 +67,9 @@ export default class extends React.Component {
           <div id="main">
             {main}
           </div>
-          <script type="text/javascript" src="/dist/vendor.js"></script>
+          <script type="text/javascript">{ 'window.lapr = { markdown_opts: {} };' }</script>
           <script type="text/javascript" src="/dist/client.js"></script>
+          <script type="text/javascript" src="/dist/admin.js"></script>
         </body>
       </html>
     );

@@ -26,7 +26,7 @@ define([
   // Run on dom ready
   $(function() {
 
-    var app_view = new AppView({ products: products });
+    /*var app_view = new AppView({ products: products });
     app_view.render();
 
     new Router({ controller: controller(app_view) });
@@ -40,16 +40,16 @@ define([
       } else {
         Backbone.history.start({ pushState: true });
       }
-    }
+    }*/
  
-    if (window.lapr.user) {
+    //if (window.lapr.user) {
       require([ 'views/admin/app' ], function(AdminApp) {
         new AdminApp({
           el:       app_view.$el,
           products: products
         });
       });
-    }
+    //}
   });
 });
 

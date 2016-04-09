@@ -8,17 +8,26 @@ var webpack           = require('webpack'),
 module.exports = {
   context: path.resolve(__dirname),
   entry: {
-    app: './client',
-    vendor: [
-      'react',
-      'react-dom',
-      'bootstrap'
-    ]
+    client: './client',
+    admin: 'views/admin/app'
   },
   output: {
      path: 'public/dist',
      publicPath: '/',
-     filename: 'client.js'
+     filename: '[name].js'
+  },
+  resolve: {
+    extensions: [ '', '.js' ],
+    root: [
+      path.join(__dirname, 'public/js'),
+      path.join(__dirname, 'node_modules')
+    ],
+    alias: {
+      template:                  'lib/template',
+      'backbone-paginator':      'backbone.paginator/lib/backbone.paginator',
+      vex_dialog:                'vex-js/js/vex.dialog',
+      markdown:                  'marked/lib/marked'
+    }
   },
   devtool: 'source-map',
   plugins: [
@@ -27,24 +36,14 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: [ 'vendor'],
-      filename: '[name].js'
-    }),
     new ExtractTextPlugin('main.css'),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
-    })/*,
+    }),
     new webpack.ProvidePlugin({
-      Vex: 'vexflow'
-    })*/
-  ],/*,
-  resolve: {
-    alias: {
-      vexflow: 'vexflow/releases/vexflow-min.js'
-    }
-  },
-  */
+      $ : 'jquery'
+    })
+  ],
   module : {
     loaders: [
       { 
