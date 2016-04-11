@@ -2,7 +2,7 @@
 import { install } from 'source-map-support';
 install();
 
-import config from './config';
+import config from '../config';
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server'
@@ -43,4 +43,5 @@ app.route('/*').get((req, res, next) => {
 
 app.listen(port);
 console.log('Listening on port ' + port);
+
 
