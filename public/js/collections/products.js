@@ -58,7 +58,8 @@ define([
       var stored   = this.getStored(),
           deferred = new jQuery.Deferred(),
           obj      = this;
-      if (stored && !window.lapr.user) {
+
+      if (stored) {
         this.reset(stored.data.products);
         this.refs.product_categories.reset(stored.data.product_categories);
         this.refs.makers.reset(stored.data.makers);

@@ -11,7 +11,7 @@ import passport from 'passport';
 import session from 'express-session';
 import body_parser from 'body-parser';
 
-import routes from './routes';
+import routes from 'routes';
 import path from 'path';
 
 var port = config.port || 3003,

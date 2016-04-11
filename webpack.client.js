@@ -8,7 +8,7 @@ var webpack           = require('webpack'),
 module.exports = {
   context: path.resolve(__dirname),
   entry: {
-    client: './client'
+    client: './client/app'
     //admin: 'views/admin/app'
   },
   output: {
@@ -19,6 +19,8 @@ module.exports = {
   resolve: {
     extensions: [ '', '.js' ],
     root: [
+      path.join(__dirname, 'shared'),
+      //path.join(__dirname, 'client'),
       path.join(__dirname, 'public/js'),
       path.join(__dirname, 'node_modules')
     ],
@@ -79,10 +81,6 @@ module.exports = {
       {
         test: /bootstrap\/js\//,
         loader: 'null-loader'
-      },
-      {
-        test: /-worker\.js$/,
-        loader: 'worker'
       },
       {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,

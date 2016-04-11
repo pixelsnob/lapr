@@ -7,9 +7,9 @@ var webpack           = require('webpack'),
 
 module.exports = {
   context: path.resolve(__dirname),
-  externals: [ nodeExternals(), 'admin' ],
+  externals: [ nodeExternals({ whitelist:[ 'backbone', 'backbone-forms' ] }) ],
   target: 'node',
-  entry: './server.js',
+  entry: './server/app.js',
   devtool: 'source-map',
   output: {
      path: 'dist',
@@ -18,6 +18,21 @@ module.exports = {
   plugins: [
 
   ],
+  resolve: {
+    extensions: [ '', '.js' ],
+    root: [
+      path.join(__dirname, 'shared'),
+      path.join(__dirname, 'public/js'),
+      path.join(__dirname, 'node_modules')
+    ],
+    alias: {
+      template:                  'lib/template',
+      'backbone-paginator':      'backbone.paginator',
+      vex_dialog:                'vex-js/js/vex.dialog',
+      markdown:                  'marked',
+      'backbone-forms':          'backbone-forms/distribution/backbone-forms'
+    }
+  },
   module: {
     loaders: [
       { 
@@ -38,3 +53,4 @@ module.exports = {
     ]
   }
 };
+
