@@ -16,20 +16,6 @@ module.exports = {
      publicPath: '/dist/',
      filename: '[name].js'
   },
-  /*resolveLoader: {
-    //root: [ path.join(__dirname, 'public/js') ],
-    root: [
-      path.resolve('./public/js'),
-      path.join(__dirname, 'node_modules')
-    ],
-    alias: {
-      template:                  'lib/template',
-      'backbone-paginator':      'backbone.paginator',
-      vex_dialog:                'vex-js/js/vex.dialog',
-      markdown:                  'marked',
-      'backbone-forms':          'backbone-forms/distribution.amd/backbone-forms'
-    }
-  },*/
   resolve: {
     extensions: [ '', '.js' ],
     root: [
