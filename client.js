@@ -9,4 +9,9 @@ ReactDOM.render(
   document
 );
 
-//require('./public/js/views/admin/app');
+/*require.ensure([], () => {
+  if (true) {
+    require('./public/js/admin');
+  }
+});*/
+

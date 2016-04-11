@@ -7,8 +7,10 @@ import ContentPanel from './content_panel';
 
 require('../public/less/main.less');
 
-var data = require('../var/data.json');
-
+const data = require('../var/data.json');
+if (typeof window != 'undefined') {
+  require('admin');
+}
 data.products = data.products.map(product => {
   if (Array.isArray(product.makers)) {
     product.makers = product.makers.map(product_maker_id => 
@@ -38,6 +40,7 @@ export default class extends React.Component {
   }
   
   componentWillMount() {
+
   }
 
   componentWillReceiveProps(props) {
@@ -69,10 +72,10 @@ export default class extends React.Component {
           </div>
           <script type="text/javascript">{ 'window.lapr = { markdown_opts: {} };' }</script>
           <script type="text/javascript" src="/dist/client.js"></script>
-          <script type="text/javascript" src="/dist/admin.js"></script>
         </body>
       </html>
     );
   }
 }
+
 

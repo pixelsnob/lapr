@@ -7,7 +7,7 @@ var webpack           = require('webpack'),
 
 module.exports = {
   context: path.resolve(__dirname),
-  externals: [ nodeExternals() ],
+  externals: [ nodeExternals(), 'admin' ],
   target: 'node',
   entry: './server.js',
   devtool: 'source-map',

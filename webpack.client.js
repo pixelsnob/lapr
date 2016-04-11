@@ -8,14 +8,28 @@ var webpack           = require('webpack'),
 module.exports = {
   context: path.resolve(__dirname),
   entry: {
-    client: './client',
-    admin: 'views/admin/app'
+    client: './client'
+    //admin: 'views/admin/app'
   },
   output: {
      path: 'public/dist',
-     publicPath: '/',
+     publicPath: '/dist/',
      filename: '[name].js'
   },
+  /*resolveLoader: {
+    //root: [ path.join(__dirname, 'public/js') ],
+    root: [
+      path.resolve('./public/js'),
+      path.join(__dirname, 'node_modules')
+    ],
+    alias: {
+      template:                  'lib/template',
+      'backbone-paginator':      'backbone.paginator',
+      vex_dialog:                'vex-js/js/vex.dialog',
+      markdown:                  'marked',
+      'backbone-forms':          'backbone-forms/distribution.amd/backbone-forms'
+    }
+  },*/
   resolve: {
     extensions: [ '', '.js' ],
     root: [
@@ -24,9 +38,10 @@ module.exports = {
     ],
     alias: {
       template:                  'lib/template',
-      'backbone-paginator':      'backbone.paginator/lib/backbone.paginator',
+      'backbone-paginator':      'backbone.paginator',
       vex_dialog:                'vex-js/js/vex.dialog',
-      markdown:                  'marked/lib/marked'
+      markdown:                  'marked',
+      'backbone-forms':          'backbone-forms/distribution.amd/backbone-forms'
     }
   },
   devtool: 'source-map',
@@ -41,7 +56,11 @@ module.exports = {
       compress: { warnings: false }
     }),
     new webpack.ProvidePlugin({
-      $ : 'jquery'
+      $:        'jquery',
+      _:        'underscore',
+      backbone: 'backbone',
+      youtube:  'YT',
+      vexflow:  'Vex'
     })
   ],
   module : {
