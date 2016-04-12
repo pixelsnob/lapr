@@ -23,9 +23,9 @@ export default class ProductComponent extends React.Component {
 
   render() {
     var thumbnail = '';
-    if (this.props.product.thumbnail) {
+    if (this.props.product.image) {
       thumbnail = (
-        <img src={"/dist/images/products/" + this.props.product.thumbnail}
+        <img src={"/dist/images/products/140/" + this.props.product.image}
          alt={this.props.product.name}/>
       );
     }

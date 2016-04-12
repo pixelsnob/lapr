@@ -29,7 +29,7 @@ export default class extends React.Component {
             <h2 itemProp="name">{product.name}</h2>
             <link itemProp="url" href={product.url}/>
             <div className="image pull-right">
-              <img src={"/dist/images/products/" + product.image} width="400"
+              <img src={"/dist/images/products/400/" + product.image} width="400"
                title={product.name} alt={product.name} itemProp="image"/>
             </div>
             <p itemProp="manufacturer" className="makers">
