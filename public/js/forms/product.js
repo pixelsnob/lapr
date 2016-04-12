@@ -105,14 +105,10 @@ define([
         type: 'Checkbox',
         title: 'Hide Sizes in List Views'
       },
-      include_in_slideshow: {
+      hide_sounds_disclaimer: {
         type: 'Checkbox',
-        title: 'Include in Slideshow'
-      },
-      show_sounds_disclaimer: {
-        type: 'Checkbox',
-        title: 'Show Sounds Disclaimer',
-        help: '<em>Show disclaimer if product has videos</em>'
+        title: 'Hide Sounds Disclaimer',
+        help: '<em>Applies only if product has videos attached</em>'
       }
     }
   });

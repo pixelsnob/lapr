@@ -25,7 +25,7 @@ var ProductSchema = new mongoose.Schema({
   octave_shift:           Number,
   hide_sizes_in_lists:    Boolean,
   include_in_slideshow:   Boolean,
-  show_sounds_disclaimer: { type: Boolean, default: true }
+  hide_sounds_disclaimer: Boolean
 });
 
 ProductSchema.statics.findByIdAndPopulate = function(id, cb) {

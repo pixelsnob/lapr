@@ -4,12 +4,11 @@
     .col-md-12
       h2(itemprop="name")= product.name
       link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
-      .image.pull-right
-        if product.image
-          - var image_path = user ? '/images/products/' : '/dist/images/products/400/';
-          - var qs = user ? '?t=' + (new Date).getTime() : '';
+      if product.image
+        - var image_path = user ? '/images/products/' : '/dist/images/products/400/';
+        - var qs = user ? '?t=' + (new Date).getTime() : '';
+        .image.pull-right
           img(src="#{image_path}#{product.image}#{qs}", width="400", title="#{product.name}", alt="#{product.name}", itemprop="image")
-
       
       if product.alt_names
         p.alt-names.secondary(itemprop="alternateName") (#{product.alt_names})
@@ -52,7 +51,7 @@
           h3 Sounds
           - var youtube_videos = product.youtube_videos
           include youtube_player
-          if product.show_sounds_disclaimer
+          if !product.hide_sounds_disclaimer
             .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
               .content
 
