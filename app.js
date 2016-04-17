@@ -71,8 +71,10 @@ var routes = require('./routes')(app);
 
 app.use(routes.getProducts);
 
-app.route('/login').get(routes.loginForm).post(routes.login);
-app.route('/logout').get(routes.logout);
+if (config.admin_enabled) {
+  app.route('/login').get(routes.loginForm).post(routes.login);
+  app.route('/logout').get(routes.logout);
+}
 
 app.route('/').get(routes.showIndex);
 
