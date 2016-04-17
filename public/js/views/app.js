@@ -46,11 +46,8 @@ define([
     current_view: null,
      
     initialize: function(opts) {
-      this.views = [];
-      var obj = this;
       this.products = opts.products;
       this.$main    = this.$el.find('#main');
-      // move site menu to its own view
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
     },
 
@@ -155,9 +152,9 @@ define([
             product_view.setElement(obj.$main.find('.product-details'));
             product_view.render();
           } else {
-            $(window).on('keydown', _.bind(product_view.onKeydown, product_view));
             obj.content_panel_view = new ContentPanelView;
             obj.content_panel_view.render(product_view.render().el).show();
+            $(window).on('keydown', _.bind(product_view.onKeydown, product_view));
             obj.content_panel_view.on('hidden', function() {
               $(window).off('keydown');
               product_view.close();
