@@ -8,13 +8,15 @@ define([
   BaseForm
 ) {
   
-  return BaseForm.extend({
+  var c = 1;
 
-    schema: {
-      search: {
-        type: 'Text',
-        title: ''
-      }
+  return BaseForm.extend({
+    
+    initialize: function(opts) {
+      this.schema = {};
+      this.schema['search' + c] = { type: 'Text', title: '' };
+      BaseForm.prototype.initialize.apply(this, opts);
+      c++;
     }
     
   });

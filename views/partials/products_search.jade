@@ -3,12 +3,13 @@
   .row
     .sidebar.col-xs-6.col-sm-6.col-md-3
       nav
-        .categories
-          if typeof product_categories != 'undefined'
-            ul
-              each category in product_categories
-                li
-                  a(href="/instruments/categories/#{category.slug}")= category.name 
+        .scroll-fixed-inner
+          .categories
+            if typeof product_categories != 'undefined'
+              ul
+                each category in product_categories
+                  li
+                    a(href="/instruments/categories/#{category.slug}")= category.name 
 
         .tags-tree
 
@@ -24,15 +25,16 @@
             a.toggle-sort-direction(href="javascript:void(0);") Sort Descending
 
       .boxes-list
-        ul.results
-          each product in products
-            li
-              include product
-        
-        - var href = 'javascript:void(0);'
-        if paginate && paginate.hasNextPages(page_count)
-          - href = paginate.href()
-        .more-container 
-          a.more(href=href) More
+        .scroll-fixed-inner
+          ul.results
+            each product in products
+              li
+                include product
+          
+          - var href = 'javascript:void(0);'
+          if paginate && paginate.hasNextPages(page_count)
+            - href = paginate.href()
+          .more-container 
+            a.more(href=href) More
 
 

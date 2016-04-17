@@ -4,11 +4,11 @@
  */
 define([
   'views/base',
-  //'views/overlay',
+  'views/products/text_search_form',
   'template'
 ], function(
   BaseView,
-  //OverlayView,
+  TextSearchFormView,
   template
 ) {
   
@@ -22,11 +22,13 @@ define([
     },
 
     initialize: function(opts) {
+      this.shown = false;
+      this.products = opts.products;
     },
     
     render: function() {
       this.$el.append(template.render('partials/mobile_menu', {
-        product_categories: this.collection.toJSON()
+        product_categories: this.products.refs.product_categories.toJSON()
       }));
       this.$mobile_menu = this.$el.find('#mobile-menu');
       return this;
@@ -49,6 +51,20 @@ define([
     },
 
     show: function($content) {
+      if (!this.shown) {
+        this.shown = true;
+        var text_search_form_view = new TextSearchFormView({
+          products: this.products,
+          input_id: 'mobile-text-search'
+        });
+        var obj = this;
+        this.listenTo(text_search_form_view, 'selected', function() {
+          text_search_form_view.blur();
+          obj.hide();
+        });
+        this.$mobile_menu.find('.text-search')
+          .append(text_search_form_view.render().el);
+      }
       var obj = this;
       this.$mobile_menu.stop().animate({ opacity: 1, left: 0 }, function() {
         obj.trigger('shown');

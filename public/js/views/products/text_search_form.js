@@ -19,6 +19,7 @@ define([
     
     initialize: function(opts) {
       this.products = opts.products;
+      //this.input_id = opts.input_id;
       this.products.createProductsIndex();
       var obj = this;
       // Keep list in sync with products
@@ -50,13 +51,19 @@ define([
       return products;
     },
     
+    blur: function() {
+      if (this.$input.length) {
+        this.$input.get(0).blur();
+      }
+    },
+
     render: function() {
       var form_obj  = new TextSearchForm,
           form      = form_obj.render(),
-          $input    = form.$el.find('input'),
           obj       = this;
+      this.$input = form.$el.find('input');
       var products = [];
-      $input.typeahead({
+      this.$input.typeahead({
         highlight: false,
         hint: false
       },
@@ -75,20 +82,22 @@ define([
       }).on('typeahead:selected', function(ev, data) {
         // View product details
         var url = '/instruments/' + data.product.slug + '/' +
-                  data.product._id;
+                  data.product._id + '?nav=0';
+        obj.trigger('selected');
         Backbone.history.navigate(url, { trigger: true });
         return false;
       }).on('keypress', function(ev) {
         // Show results
-        if (ev.keyCode == 13 && $input.typeahead('val').length) {
+        if (ev.keyCode == 13 && obj.$input.typeahead('val').length) {
           var url = '/instruments/text-search/' +
                     encodeURIComponent($(this).typeahead('val'));
           Backbone.history.navigate(url, { trigger: true });
           $(this).typeahead('close');
+          obj.trigger('selected');
           return false;
         }
       }).on('blur', function(ev) {
-        $input.typeahead('val', '');
+        obj.$input.typeahead('val', '');
       }).attr('tabindex', 1);
       return form;
     }

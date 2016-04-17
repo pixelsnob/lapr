@@ -3,6 +3,7 @@
  * 
  */
 define([
+  'backbone',
   'views/base',
   './details_image',
   './details_more_info',
@@ -10,8 +11,10 @@ define([
   'views/youtube_player',
   'views/image_onload',
   'views/content_blocks',
-  'template'
+  'template',
+  'lib/events'
 ], function(
+  Backbone,
   BaseView,
   ProductDetailsImageView,
   ProductDetailsMoreInfoView,
@@ -19,7 +22,8 @@ define([
   YoutubePlayerView,
   ImageOnloadView,
   content_blocks_view,
-  template
+  template,
+  global_events
 ) {
   
   return BaseView.extend({
@@ -32,9 +36,10 @@ define([
 
     initialize: function(opts) {
       this.refs = this.model.collection.refs;
+      this.hide_nav = opts.hide_nav;
+      var obj = this;
       // Include product admin editor if admin user
       if (window.lapr.user) {
-        var obj = this;
         require([ 'views/admin/product' ], function(ProductAdminView) {
           var events = {
             'click a.edit': _.bind(obj.edit, obj, ProductAdminView)
@@ -44,10 +49,20 @@ define([
       }
     },
     
+    onKeydown: function(ev) {
+      switch (ev.keyCode) {
+        case 37:
+          this.previous();
+          break;
+        case 39:
+          this.next();
+          break;
+      }
+    },
+
     render: function() {
       var product          = this.model.toJSON(),
           obj              = this;
-
       if (_.isArray(product.makers) && product.makers.length) {
         product.makers = product.makers.map(function(maker_id) {
           return obj.refs.makers.findWhere({ _id: maker_id });
@@ -112,20 +127,26 @@ define([
 
     previous: function(ev) {
       var products = this.model.collection.refs.filtered_products;
-      var previous = products.at(products.indexOf(this.model) - 1);
-      if (previous) {
-        var url = '/instruments/' + previous.get('slug') + '/' + previous.id;
-        Backbone.history.navigate(url, false);
-        this.model = previous;
-        this.render();
+      var i = products.indexOf(this.model);
+      if (i < 1) {
+        return false;
       }
+      var previous = products.at(i - 1);
+      var url = '/instruments/' + previous.get('slug') + '/' + previous.id;
+      Backbone.history.navigate(url, false);
+      this.model = previous;
+      this.render();
       return false;
 
     },
 
     next: function(ev) {
       var products = this.model.collection.refs.filtered_products;
-      var next = products.at(products.indexOf(this.model) + 1);
+      var i = products.indexOf(this.model);
+      if (i == -1 || i == products.length - 1) {
+        return false;
+      }
+      var next = products.at(i + 1);
       if (next) {
         var url = '/instruments/' + next.get('slug') + '/' + next.id;
         Backbone.history.navigate(url, false);
@@ -137,10 +158,15 @@ define([
     
     // Toggles previous/next links
     updateNavLinks: function() {
-      var products = this.model.collection.refs.filtered_products,
-          i        = products.indexOf(this.model);
       var $prev = this.$el.find('.previous'),
           $next = this.$el.find('.next');
+      if (this.hide_nav) {
+        $prev.css('visibility', 'hidden');
+        $next.css('visibility', 'hidden');
+        return;
+      }
+      var products = this.model.collection.refs.filtered_products,
+          i        = products.indexOf(this.model);
       if (i == 0 || !products.length) {
         $prev.css('visibility', 'hidden');
       } else {
@@ -156,6 +182,7 @@ define([
     close: function() {
       BaseView.prototype.close.apply(this, arguments);      
       this.trigger('modal-close');
+      //$(window).off('keydown');
     }
 
   });

@@ -16,7 +16,6 @@ define([
 
     events: {
       'click .content-panel-close a':  'hide'
-      //'click':                         'hideIfOverlay'     
     },
     
     initialize: function() {
@@ -29,8 +28,13 @@ define([
       this.trigger('shown');
       this.shown = true;
       var obj = this;
-      this.$tpl.stop().animate({ opacity: 1 }, 400, function() {
+      this.$tpl.stop().animate({ opacity: 1 }, 50, function() {
         obj.disableDocumentScroll();
+      });
+      $(window).on('keydown', function(ev) {
+        if (ev.keyCode == 27) {
+          obj.hide();
+        }
       });
       return false;
     },
@@ -49,6 +53,7 @@ define([
         obj.$tpl.css('display', 'none');
         obj.$tpl.remove();
       });
+      $(window).off('keydown');
       return false;
     },
     

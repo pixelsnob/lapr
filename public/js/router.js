@@ -8,14 +8,11 @@ define([
 
   var storeRoute = function() {
     var fragment = Backbone.history.getFragment();
-    if (fragment) {
-      route = fragment.replace(/^\//, '');
-    }
-    //console.log('route: %s', route);
+    route = fragment.replace(/^\//, '');
   };
 
   Backbone.history.back = function() {
-    Backbone.history.navigate(route, false);
+    Backbone.history.navigate(route);
   };
   
   return Backbone.Router.extend({
@@ -71,8 +68,9 @@ define([
       this.controller.showProductsByTextSearch(search);
     },
 
-    showProductDetails: function(slug, product_id) {
-      this.controller.showProductDetails(product_id);
+    showProductDetails: function(slug, product_id, qs) {
+      var hide_nav = /nav=0/.exec(qs);
+      this.controller.showProductDetails(product_id, hide_nav);
     },
     
     showContact: function() {

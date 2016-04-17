@@ -52,20 +52,19 @@ define([
       this.$main    = this.$el.find('#main');
       // move site menu to its own view
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
-      this.products.deferred.done(function() {
-        obj.mobile_menu_view = new MobileMenuView({
-          collection: obj.products.refs.product_categories
-        });
-      });
     },
 
     render: function() { 
       var obj = this;
       this.products.deferred.done(function() {
-        var text_search = new ProductsTextSearchFormView({
+        var text_search_view = new ProductsTextSearchFormView({
+          products: obj.products,
+          input_id: 'text-search'
+        });
+        obj.$el.find('header .text-search').append(text_search_view.render().el);
+        obj.mobile_menu_view = new MobileMenuView({
           products: obj.products
         });
-        obj.$el.find('.text-search').append(text_search.render().el);
         obj.mobile_menu_view.render();
       });
     },
@@ -137,7 +136,7 @@ define([
       return false;
     },
 
-    showProductDetails: function(product_id) {
+    showProductDetails: function(product_id, hide_nav) {
       var obj = this;
       this.showMain();
       this.products.deferred.done(function() {
@@ -147,7 +146,8 @@ define([
         } else {
           var product_view = new ProductDetailsView({
             model: product,
-            refs: obj.products.refs
+            refs: obj.products.refs,
+            hide_nav: hide_nav
           });
           if (obj.$main.find('.product-details').length) {
             // This was loaded from the server and is displayed directly on
@@ -155,9 +155,11 @@ define([
             product_view.setElement(obj.$main.find('.product-details'));
             product_view.render();
           } else {
+            $(window).on('keydown', _.bind(product_view.onKeydown, product_view));
             obj.content_panel_view = new ContentPanelView;
             obj.content_panel_view.render(product_view.render().el).show();
             obj.content_panel_view.on('hidden', function() {
+              $(window).off('keydown');
               product_view.close();
               obj.content_panel_view.close();
               Backbone.history.back();
