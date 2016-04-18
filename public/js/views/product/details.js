@@ -50,6 +50,9 @@ define([
     },
     
     onKeydown: function(ev) {
+      if (this.hide_nav) {
+        return;
+      }
       switch (ev.keyCode) {
         case 37:
           this.previous();
@@ -182,7 +185,6 @@ define([
     close: function() {
       BaseView.prototype.close.apply(this, arguments);      
       this.trigger('modal-close');
-      //$(window).off('keydown');
     }
 
   });
