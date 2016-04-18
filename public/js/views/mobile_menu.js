@@ -51,13 +51,13 @@ define([
     },
 
     show: function($content) {
+      var obj = this;
       if (!this.shown) {
         this.shown = true;
         var text_search_form_view = new TextSearchFormView({
           products: this.products,
           input_id: 'mobile-text-search'
         });
-        var obj = this;
         this.listenTo(text_search_form_view, 'selected', function() {
           text_search_form_view.blur();
           obj.hide();
@@ -65,11 +65,12 @@ define([
         this.$mobile_menu.find('.text-search')
           .append(text_search_form_view.render().el);
       }
-      var obj = this;
       this.$mobile_menu.stop().animate({ opacity: 1, left: 0 }, function() {
         obj.trigger('shown');
         obj.disableDocumentScroll();
       });
+      // Hide if back or forward buttons are hit
+      window.onpopstate = this.hide.bind(this);
     },
 
     hide: function() {
@@ -78,6 +79,7 @@ define([
       this.$mobile_menu.stop().animate({ opacity: 0 }, function() {
         obj.$mobile_menu.css('left', '-100%');
         obj.trigger('hidden');
+        window.onpopstate = null; 
       });
     },
 
