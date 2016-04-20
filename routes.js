@@ -16,10 +16,6 @@ module.exports = function(app) {
     return !isNaN(Number(id));
   };
   
-  var getSecs = function() {
-    return Math.round((new Date).getTime() / 1000);
-  };
-
   return {
     
     get: function(model_name) {
