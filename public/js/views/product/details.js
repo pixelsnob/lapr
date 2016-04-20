@@ -54,10 +54,12 @@ define([
         return;
       }
       switch (ev.keyCode) {
+        case 38:
         case 37:
           this.previous();
           break;
         case 39:
+        case 40:
           this.next();
           break;
       }
