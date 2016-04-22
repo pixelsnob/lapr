@@ -143,7 +143,7 @@ define([
       });
       return false;
     },
-
+    
     showProductDetails: function(product_id, hide_nav) {
       var obj = this;
       this.showMain();

@@ -6,12 +6,14 @@ define([
   'views/base',
   'views/products',
   'views/products/search_stats',
-  'template'
+  'template',
+  'lib/events'
 ], function(
   BaseView,
   ProductsView,
   ProductsSearchStatsView,
-  template
+  template,
+  global_events
 ) {
   return BaseView.extend({ 
     
@@ -21,7 +23,7 @@ define([
     initialize: function(opts) {
       this.products = opts.products;
       this.products_view = new ProductsView({
-        collection:         this.products
+        collection: this.products
       });
       this.stats_view = new ProductsSearchStatsView({
         products: this.products
@@ -32,13 +34,18 @@ define([
       this.$el.html(template.render('partials/products_search', {
         products:    [],
         paginate:    null,
-        heading:    'Search Results',
-        class_name: 'products-text-search'
+        heading:     'Search Results',
+        class_name:  'products-text-search'
       }));
       this.$el.addClass('products-text-search');
       this.products_view.setElement(this.$el.find('.products'));
       this.stats_view.setElement(this.$el.find('.stats'));
+      global_events.trigger('set-page-title', this.getPageTitle());
       return this;
+    },
+    
+    getPageTitle: function() {
+      return 'Search Results';
     },
 
     onClose: function() {
