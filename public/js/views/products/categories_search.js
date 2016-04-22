@@ -45,7 +45,7 @@ define([
       // If a product is added to the collection, and the product is in the current category,
       // or no category is selected (all products shown), add it to the filtered list
       this.listenTo(this.products, 'add', function(model) {
-        var selected_category = refs.selected_categories.at(0),
+        var selected_category = this.getSelectedCategory(),
             categories        = model.get('categories');
         if (!selected_category || _.contains(categories, selected_category.id)) {
           refs.filtered_products.add(model);
@@ -57,6 +57,7 @@ define([
         this.$el.find('.boxes-list').scrollTop(0);
         $(window).scrollTop(0);
         obj.toggleMoreInfoLink();
+        global_events.trigger('set-page-title', this.getTitleTag());
       });
     },
     
@@ -76,7 +77,7 @@ define([
     },
     
     toggleMoreInfoLink: function() {
-      var selected_category = this.products.refs.selected_categories.at(0),
+      var selected_category = this.getSelectedCategory(),
           $more_info        = this.$el.find('.more-info-container');
       if (selected_category && selected_category.get('more_info_content_block')) {
         $more_info.removeClass('hide');
@@ -93,11 +94,18 @@ define([
       this.content_panel_view = new ContentPanelView;
       this.content_panel_view.render(more_info_view.render().el).show();
     },
+    
+    getSelectedCategory: function() {
+      return this.products.refs.selected_categories.at(0);
+    },
+    
+    getTitleTag: function() {
+      var selected_category = this.getSelectedCategory();
+      return (selected_category ? selected_category.get('name') : 'All Instruments');
+    },
 
     onClose: function() {
       this.products.trigger('kill');
-      //this.products.unbind();
-      //this.products.unbindRefs();
       this.products.refs.filtered_products.reset();
       this.stats_view.close();
       this.nav_view.close();

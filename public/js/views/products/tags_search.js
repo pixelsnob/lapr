@@ -36,9 +36,9 @@ define([
       this.listenTo(this.products.refs.selected_tags, 'reset', function() {
         this.$el.find('.boxes-list').scrollTop(0);
         $(window).scrollTop(0);
+        global_events.trigger('set-page-title', this.getTitleTag());
       });
-      var obj  = this,
-          refs = this.products.refs;
+      var obj = this, refs = this.products.refs;
       // If a product is added to the collection, and the product contains some of the currently
       // selected tags, or no tags are selected and the product contains at least one tag,
       // add it to the filtered list
@@ -74,10 +74,12 @@ define([
       return this;
     },
     
+    getTitleTag: function() {
+      return 'Sound Search';  
+    },
+
     onClose: function() {
       this.products.trigger('kill');
-      //this.products.unbind();
-      //this.products.unbindRefs();
       this.products.refs.filtered_products.reset();
       this.tags_nav_view.close();
       this.stats_view.close();

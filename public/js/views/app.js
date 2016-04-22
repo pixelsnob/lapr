@@ -49,6 +49,7 @@ define([
       this.products = opts.products;
       this.$main    = this.$el.find('#main');
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
+      this.listenTo(global_events, 'set-page-title', this.setPageTitle);
     },
 
     render: function() { 
@@ -94,6 +95,16 @@ define([
 
     hideNavDropdown: function(ev) {
       $(ev.currentTarget).removeClass('open');
+    },
+    
+    setPageTitle: function(content) {
+      if (!content) {
+        content = 'Los Angeles Percussion Rentals - Rent Percussion Instruments ' +
+                  'in L.A. and Southern California';
+      } else {
+        content += ' - Los Angeles Percussion Rentals';
+      }
+      $('title').text(content);
     },
 
     navigate: function(ev) {

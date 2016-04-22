@@ -7,13 +7,15 @@ define([
   'models/contact',
   'forms/contact',
   'views/content_blocks',
-  'template'
+  'template',
+  'lib/events'
 ], function(
   BaseView,
   ContactModel,
   ContactForm,
   content_blocks_view,
-  template
+  template,
+  global_events
 ) {
   
   return BaseView.extend({
@@ -34,13 +36,11 @@ define([
       this.form = new ContactForm({ model: this.model });
       $form = this.form.render().el;
       this.$el.find('.form').html($form);
-      
       var $button = $('<button>').text('Send').addClass('send');
       this.$el.find('form').append($button);
-
       content_blocks_view.setElement(this.$el).render();
-
       $(window).scrollTop(0);
+      global_events.trigger('set-page-title', this.getTitleTag());
       return this;
     },
 
@@ -55,6 +55,10 @@ define([
         }).fail(this.showServerError);
       }
       return false;
+    },
+    
+    getTitleTag: function() {
+      return 'Contact Us';
     },
 
     onClose: function() {
