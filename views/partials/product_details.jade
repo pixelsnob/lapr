@@ -7,14 +7,14 @@
       if product.image
         - var image_path = user ? '/images/products/' : '/dist/images/products/400/';
         - var qs = user ? '?t=' + (new Date).getTime() : '';
-        .image.pull-right
+        .image
           img(src="#{image_path}#{product.image}#{qs}", width="400", title="#{product.name}", alt="#{product.name}", itemprop="image")
       
       if product.alt_names
         p.alt-names.secondary(itemprop="alternateName") (#{product.alt_names})
       if product.makers.length
         p.makers(itemprop="manufacturer") Mfg. by #{product.makers}
-
+      
       .description(itemprop="description")!= markdown(product.description)
 
       if product.more_info
@@ -45,7 +45,6 @@
          - var s = (product.octave_shift > 1 ? 's' : '')
          em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
 
-
       .sounds
         if _.isArray(product.youtube_videos) && product.youtube_videos.length
           h3 Sounds
@@ -54,14 +53,6 @@
           if !product.hide_sounds_disclaimer
             .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
               .content
-
-      .nav-links
-        nav
-          ul
-            li.previous 
-              a(href="javascript:void(0)", title="Previous Instrument") Previous
-            li.next
-              a(href="javascript:void(0)", title="Next Instrument") Next
 
       if user
         p.edit-link

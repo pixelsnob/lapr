@@ -29,9 +29,7 @@ define([
   return BaseView.extend({
     
     events: {
-      'click .show-more-info':  'showMoreInfo',
-      'click .previous a': 'previous',
-      'click .next a': 'next'
+      'click .show-more-info':  'showMoreInfo'
     },
 
     initialize: function(opts) {
@@ -49,22 +47,6 @@ define([
       }
     },
     
-    onKeydown: function(ev) {
-      if (this.hide_nav) {
-        return;
-      }
-      switch (ev.keyCode) {
-        case 38:
-        case 37:
-          this.previous();
-          break;
-        case 39:
-        case 40:
-          this.next();
-          break;
-      }
-    },
-
     render: function() {
       var product          = this.model.toJSON(),
           obj              = this;
@@ -108,7 +90,6 @@ define([
         this.$el.find('.more-info-container').removeClass('hide');
       }
       content_blocks_view.setElement(this.$el).render();
-      this.updateNavLinks();
       return this;
     },
     
@@ -121,72 +102,17 @@ define([
     
     edit: function(ProductAdminView) {
       var view = new ProductAdminView({
-        model:              this.model,
-        refs:               this.model.collection.refs,
-        mode:               'edit'
+        model:     this.model,
+        refs:      this.model.collection.refs,
+        mode:      'edit'
       });
       view.renderModal();
       this.listenTo(view, 'save', this.render);
       return false;
     },
 
-    previous: function(ev) {
-      var products = this.model.collection.refs.filtered_products;
-      var i = products.indexOf(this.model);
-      if (i < 1) {
-        return false;
-      }
-      var previous = products.at(i - 1);
-      var url = '/instruments/' + previous.get('slug') + '/' + previous.id;
-      Backbone.history.navigate(url, false);
-      this.model = previous;
-      this.render();
-      return false;
-
-    },
-
-    next: function(ev) {
-      var products = this.model.collection.refs.filtered_products;
-      var i = products.indexOf(this.model);
-      if (i == -1 || i == products.length - 1) {
-        return false;
-      }
-      var next = products.at(i + 1);
-      if (next) {
-        var url = '/instruments/' + next.get('slug') + '/' + next.id;
-        Backbone.history.navigate(url, false);
-        this.model = next;
-        this.render();
-      }
-      return false;
-    },
-    
-    // Toggles previous/next links
-    updateNavLinks: function() {
-      var $prev = this.$el.find('.previous'),
-          $next = this.$el.find('.next');
-      if (this.hide_nav) {
-        $prev.css('visibility', 'hidden');
-        $next.css('visibility', 'hidden');
-        return;
-      }
-      var products = this.model.collection.refs.filtered_products,
-          i        = products.indexOf(this.model);
-      if (i == 0 || !products.length) {
-        $prev.css('visibility', 'hidden');
-      } else {
-        $prev.css('visibility', 'visible');
-      }
-      if (i == products.length - 1 || !products.length) {
-        $next.css('visibility', 'hidden');
-      } else {
-        $next.css('visibility', 'visible');
-      }
-    },
-
     close: function() {
       BaseView.prototype.close.apply(this, arguments);      
-      this.trigger('modal-close');
     }
 
   });

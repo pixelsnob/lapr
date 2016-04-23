@@ -82,6 +82,10 @@ define([
       return this;
     },
     
+    setNav: function($nav) {
+      this.$tpl.find('.nav-container').append($nav);
+    },
+
     // Override close method so we don't remove() the entire body
     close: function() {
       this.enableDocumentScroll();

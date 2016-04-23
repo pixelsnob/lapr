@@ -10,6 +10,7 @@ define([
   'views/products/text_search',
   'views/products/text_search_form',
   'views/product/details',
+  'views/list_nav_links',
   'views/contact',
   'views/index',
   'views/content_panel',
@@ -24,6 +25,7 @@ define([
   ProductsTextSearchView,
   ProductsTextSearchFormView,
   ProductDetailsView,
+  ListNavLinksView,
   ContactView,
   IndexView,
   ContentPanelView,
@@ -163,11 +165,25 @@ define([
             product_view.setElement(obj.$main.find('.product-details'));
             product_view.render();
           } else {
+            // Show inside content panel
             obj.content_panel_view = new ContentPanelView;
             obj.content_panel_view.render(product_view.render().el).show();
-            $(window).on('keydown', _.bind(product_view.onKeydown, product_view));
+            // Add previous and next links
+            var list_nav = new ListNavLinksView({
+              collection: obj.products.refs.filtered_products,
+              model: product,
+              label: 'Instrument',
+              base_url_path: '/instruments/'
+            });
+            obj.content_panel_view.setNav(list_nav.render().el);
+            list_nav.on('previous next', function(model) {
+              product_view.model = model;
+              product_view.render();
+            });
+            $(window).on('keydown', _.bind(list_nav.onKeydown, list_nav));
             obj.content_panel_view.on('hidden', function() {
               $(window).off('keydown');
+              list_nav.close();
               product_view.close();
               obj.content_panel_view.close();
               Backbone.history.back();
