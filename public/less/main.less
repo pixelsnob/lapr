@@ -399,9 +399,9 @@ input, textarea, select {
   z-index: 96;
   background-color: rgba(0, 0, 0, 0.8);
   .nav-container {
+    .prevent-text-select;
     position: fixed;
     display: flex;
-    /*border: 1px solid white;*/
     flex-direction: row;
     bottom: 0;
     right: 0;
@@ -412,11 +412,9 @@ input, textarea, select {
     padding: 0 10px;
     z-index: 97;
     .nav-links {
-      /*border: 1px solid white;*/
       display: flex;
       align-items: center;
       ul {
-        /*border: 1px solid yellow;*/
         justify-content: space-around;
         display: flex;
         align-items: center;
@@ -434,12 +432,13 @@ input, textarea, select {
       }
     }
     .content-panel-close {
+      .prevent-text-select;
       padding: 0 7px 0 10px;
       align-items: center;
       display: flex;
-      /*border: 1px solid white;*/
-      a:link {
+      a:link, a:visited, a:hover {
         text-decoration: none;
+        /*color: @text-secondary-color;*/
         font-size: 20px;
       }
     }
@@ -451,7 +450,11 @@ input, textarea, select {
     height: 100%;
     right: 0;
     padding-right: 10px;
-    padding-top: 20px;
+    padding-top: 16px;
+    .scroll-fixed-inner > .content {
+      padding-top: 0;
+      padding-bottom: 30px;
+    }
   }
 }
 
@@ -1048,21 +1051,8 @@ body {
     }
   }
   #content-panel {
-    .nav-container {
-      top: auto;
-      bottom: 0;
-      float: none;
-      /*overflow-x: hidden;
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;*/
-    }
     #content-panel-inner {
       width: 100%;
-      padding-top: 12px;
-      .scroll-fixed-inner > .content {
-        padding-top: 0;
-        padding-bottom: 38px;
-      }
     }
   }
   .contact .google-map {

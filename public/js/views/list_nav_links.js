@@ -22,10 +22,12 @@ define([
       this.base_url_path = opts.base_url_path;
       this.previous_url = opts.previous_url;
       this.next_url = opts.next_url;
+      this.hide_nav = opts.hide_nav;
       this.setElement(template.render('partials/list_nav_links', { label: opts.label })); 
     },
 
     render: function() { 
+      this.updateNavLinks();
       return this;
     },
 
@@ -62,9 +64,9 @@ define([
     },
     
     onKeydown: function(ev) {
-      //if (this.hide_nav) {
-      //  return;
-      //}
+      if (this.hide_nav) {
+        return;
+      }
       switch (ev.keyCode) {
         case 38:
         case 37:
@@ -75,30 +77,31 @@ define([
           this.next();
           break;
       }
-    }/*,
+    },
     
-    // Toggles previous/next links
+    // Toggles nav visibility, hides if not needed
     updateNavLinks: function() {
       var $prev = this.$el.find('.previous'),
-          $next = this.$el.find('.next');
-      if (this.hide_nav) {
-        $prev.css('visibility', 'hidden');
-        $next.css('visibility', 'hidden');
+          $next = this.$el.find('.next'),
+          i     = this.collection.indexOf(this.model);
+      if (this.hide_nav || !this.collection.length) {
+        $prev.hide();
+        $next.hide();
         return;
       }
-      var products = this.model.collection.refs.filtered_products,
-          i        = products.indexOf(this.model);
-      if (i == 0 || !products.length) {
+      $prev.show();
+      $next.show();
+      if (i == 0) {
         $prev.css('visibility', 'hidden');
       } else {
         $prev.css('visibility', 'visible');
       }
-      if (i == products.length - 1 || !products.length) {
+      if (i == this.collection.length - 1) {
         $next.css('visibility', 'hidden');
       } else {
         $next.css('visibility', 'visible');
       }
-    }*/
+    }
 
   });
 });

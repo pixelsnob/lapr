@@ -156,8 +156,7 @@ define([
         } else {
           var product_view = new ProductDetailsView({
             model: product,
-            refs: obj.products.refs,
-            hide_nav: hide_nav
+            refs: obj.products.refs
           });
           if (obj.$main.find('.product-details').length) {
             // This was loaded from the server and is displayed directly on
@@ -170,10 +169,11 @@ define([
             obj.content_panel_view.render(product_view.render().el).show();
             // Add previous and next links
             var list_nav = new ListNavLinksView({
-              collection: obj.products.refs.filtered_products,
-              model: product,
-              label: 'Instrument',
-              base_url_path: '/instruments/'
+              collection:     obj.products.refs.filtered_products,
+              model:          product,
+              label:          'Instrument',
+              base_url_path:  '/instruments/',
+              hide_nav:       hide_nav
             });
             obj.content_panel_view.setNav(list_nav.render().el);
             list_nav.on('previous next', function(model) {
