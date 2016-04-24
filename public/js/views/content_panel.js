@@ -83,7 +83,7 @@ define([
     },
     
     setNav: function($nav) {
-      this.$tpl.find('.nav-container').append($nav);
+      this.$tpl.find('.nav-container').prepend($nav);
     },
 
     // Override close method so we don't remove() the entire body
