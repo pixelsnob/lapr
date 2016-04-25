@@ -6,7 +6,7 @@ define([
   'backbone',
   'views/base',
   './details_image',
-  './details_more_info',
+  //'./details_more_info',
   './range',
   'views/youtube_player',
   'views/image_onload',
@@ -17,7 +17,7 @@ define([
   Backbone,
   BaseView,
   ProductDetailsImageView,
-  ProductDetailsMoreInfoView,
+  //ProductDetailsMoreInfoView,
   RangeView,
   YoutubePlayerView,
   ImageOnloadView,
@@ -29,7 +29,7 @@ define([
   return BaseView.extend({
     
     events: {
-      'click .show-more-info':  'showMoreInfo'
+      //'click .show-more-info':  'showMoreInfo'
     },
 
     initialize: function(opts) {
@@ -86,19 +86,19 @@ define([
         this.$el.find('.range').html(range_view.render().el);
       }
       // "More info" link
-      if (product.more_info) {
+      /*if (product.more_info) {
         this.$el.find('.more-info-container').removeClass('hide');
-      }
+      }*/
       content_blocks_view.setElement(this.$el).render();
       return this;
     },
     
-    showMoreInfo: function() {
+    /*showMoreInfo: function() {
       this.$el.find('.more-info')
         .removeClass('hide')
         .addClass('expand').end()
         .find('.show-more-info').hide();
-    },
+    },*/
     
     edit: function(ProductAdminView) {
       var view = new ProductAdminView({

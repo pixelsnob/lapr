@@ -19,8 +19,8 @@
 
       if product.more_info
         .more-info-container
-          a.show-more-info(href="javascript:void(0);") More Information...
-          .more-info.hide!= markdown(product.more_info)
+          //- a.show-more-info(href="javascript:void(0);") More Information...
+          .more-info!= markdown(product.more_info)
 
       dl
         if product.model_no
