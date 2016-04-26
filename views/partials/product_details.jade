@@ -2,7 +2,8 @@
 .container-fluid.product-details(itemscope, itemtype="http://schema.org/Product")
   .row
     .col-md-12
-      h2(itemprop="name")= product.name
+      .product-heading
+        h2(itemprop="name", class="line-after")= product.name
       link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
       if product.image
         - var image_path = user ? '/images/products/' : '/dist/images/products/400/';
@@ -27,8 +28,10 @@
           dt Model No.
           dd(itemprop="model")= product.model_no
         if product.price
-          - var label = product.price_label ? product.price_label : 'Day';
-          dt Price/#{label}
+          //- var label = product.price_label ? (/call/i.test(product.price) ? '' : '/' + product.price_label) : '/Day';
+
+          - var label = /call/i.test(product.price) ? '' : (product.price_label ? '/' + product.price_label : '/Day');
+          dt Price#{label}
           dd(itemprop="price")= product.price
         if product.sizes
           dt Sizes
@@ -47,7 +50,8 @@
 
       .sounds
         if _.isArray(product.youtube_videos) && product.youtube_videos.length
-          h3 Sounds
+          //- h3 Sounds
+          hr
           - var youtube_videos = product.youtube_videos
           include youtube_player
           if !product.hide_sounds_disclaimer
