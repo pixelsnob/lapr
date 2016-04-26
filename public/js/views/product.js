@@ -93,13 +93,6 @@ define([
       return false;
     },
 
-    showDetails: function() {
-      var view = new ProductDetailsView({ model: this.model });
-      //view.renderModal();
-      global_events.trigger('content-panel:show', view);
-      return false;
-    },
-
     edit: function(ProductAdminView) {
       var view = new ProductAdminView({
         model:              this.model,

@@ -251,8 +251,9 @@ module.exports = function(app) {
     // Returns an object with pertinent model data, used to create a JSON
     // file, etc.
     getProducts: function(req, res, next) {
-      var cached_data = cache.get('json_data');
-      if (req.isAuthenticated() || !cached_data) {
+      var cached_data   = cache.get('json_data'),
+          nocache       = typeof req.query.nocache != 'undefined';
+      if (req.isAuthenticated() || nocache || !cached_data) {
         var data = {};
         var model_names = {
           'products':            'Product',
