@@ -28,8 +28,6 @@
           dt Model No.
           dd(itemprop="model")= product.model_no
         if product.price
-          //- var label = product.price_label ? (/call/i.test(product.price) ? '' : '/' + product.price_label) : '/Day';
-
           - var label = /call/i.test(product.price) ? '' : (product.price_label ? '/' + product.price_label : '/Day');
           dt Price#{label}
           dd(itemprop="price")= product.price
