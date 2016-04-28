@@ -10,7 +10,7 @@ var ProductCategorySchema = new db.Schema({
   more_info_content_block: { type: Number, ref: 'ContentBlock' }
 }, { collection: 'product_categories' });
 
-ProductCategorySchema.pre('remove', function(next) {
+ProductCategorySchema.pre('remove', next => {
   db.model('Product').update(
     { categories: this._id },
     { $pull: { categories: this._id }},
@@ -19,14 +19,14 @@ ProductCategorySchema.pre('remove', function(next) {
   );
 });
 
-ProductCategorySchema.pre('save', function(next) {
+ProductCategorySchema.pre('save', next => {
   if (!this.slug) {
     this.slug = require('../lib/slug')(this.name); 
   }
   next();
 });
 
-module.exports = function(mai) {
+module.exports = mai => {
   ProductCategorySchema.plugin(mai.plugin, {
     model: 'ProductCategory',
     startAt: 1

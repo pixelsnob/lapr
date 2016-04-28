@@ -12,7 +12,7 @@ var PageSchema = new db.Schema({
   content_blocks: [{ type: Number, ref: 'ContentBlock'  }]
 });
 
-module.exports = function(mai) {
+module.exports = mai => {
   PageSchema.plugin(mai.plugin, {
     model: 'Page',
     startAt: 1

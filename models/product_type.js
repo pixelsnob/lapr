@@ -7,7 +7,7 @@ var ProductTypeSchema = new db.Schema({
   name: { type: String, unique: true }
 }, { collection: 'product_types' });
 
-ProductTypeSchema.pre('remove', function(next) {
+ProductTypeSchema.pre('remove', next => {
   db.model('Product').update(
     { product_type: this._id },
     { $pull: { product_type: this._id }},
@@ -16,7 +16,7 @@ ProductTypeSchema.pre('remove', function(next) {
   );
 });
 
-module.exports = function(mai) {
+module.exports = mai => {
   ProductTypeSchema.plugin(mai.plugin, {
     model: 'ProductType',
     startAt: 1 

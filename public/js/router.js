@@ -4,15 +4,15 @@ define([
   'lib/events'
 ], function(Backbone, global_events) {
   
-  var route = '';
+  var stored_route = '';
 
   var storeRoute = function() {
     var fragment = Backbone.history.getFragment();
-    route = fragment.replace(/^\//, '');
+    stored_route = fragment.replace(/^\//, '');
   };
 
   Backbone.history.back = function() {
-    Backbone.history.navigate(route);
+    Backbone.history.navigate(stored_route);
   };
   
   return Backbone.Router.extend({

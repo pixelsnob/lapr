@@ -22,7 +22,5 @@ var TempProduct = new mongoose.Schema({
   tags:              [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }]
 }, { collection: 'temp_products' });
 
-module.exports = function(mai) {
-  return mongoose.model('TempProduct', TempProduct);
-};
+module.exports = mai => mongoose.model('TempProduct', TempProduct);
 

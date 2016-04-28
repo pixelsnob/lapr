@@ -9,7 +9,7 @@ var ImageSchema = new db.Schema({
   title: String
 });
 
-module.exports = function(mai) {
+module.exports = mai => {
   ImageSchema.plugin(mai.plugin, {
     model: 'Image',
     startAt: 1

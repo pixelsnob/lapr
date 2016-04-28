@@ -8,7 +8,7 @@ var TagCategorySchema = new db.Schema({
   sort_order: Number
 }, { collection: 'tag_categories' });
 
-TagCategorySchema.pre('remove', function(next) {
+TagCategorySchema.pre('remove', next => {
   db.model('Tag').update(
     { category: this._id },
     { $set: { category: 0 }},
@@ -17,7 +17,7 @@ TagCategorySchema.pre('remove', function(next) {
   );
 });
 
-module.exports = function(mai) {
+module.exports = mai => {
   TagCategorySchema.plugin(mai.plugin, { model: 'TagCategory', startAt: 1 });
   return db.model('TagCategory', TagCategorySchema);
 };

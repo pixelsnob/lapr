@@ -46,7 +46,7 @@ app.use(require('express-paginate').middleware(30, 60));
 app.locals.pretty = true;
 app.locals._ = _;
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   //res.locals.csrf = req.csrfToken();
   if (req.isAuthenticated()) {
     res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
@@ -161,19 +161,19 @@ app.route('/api/errors').post(routes.add('Error'));
 
 // 404
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.status(404).render('not_found');
 });
 
 // Error page
 
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.format({
-    html: function() {
+    html: () => {
       res.render('error', { error: err.message });
     },
-    json: function() {
+    json: () => {
       res.status(500);
       res.json({ ok: 0 });
     }
@@ -185,9 +185,7 @@ console.log('Listening on port ' + port);
 
 // Force garbage collection
 if (typeof gc == 'function') {
-  setInterval(function() {
-    gc();
-  }, 10000);
+  setInterval(gc, 60000);
 }
 
 

@@ -11,7 +11,7 @@ var YoutubeVideoSchema = new db.Schema({
   description: { type: String }
 }, { collection: 'youtube_videos' });
 
-YoutubeVideoSchema.pre('remove', function(next) {
+YoutubeVideoSchema.pre('remove', next => {
   db.model('Product').update(
     { youtube_videos: this._id },
     { $pull: { youtube_videos: this._id }},
@@ -21,7 +21,7 @@ YoutubeVideoSchema.pre('remove', function(next) {
 });
 
 
-module.exports = function(mai) {
+module.exports = mai => {
   YoutubeVideoSchema.plugin(mai.plugin, {
     model: 'YoutubeVideo',
     startAt: 1

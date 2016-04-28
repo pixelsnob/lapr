@@ -10,16 +10,16 @@ var UserSchema = db.Schema({
   name: String
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', next => {
   var user = this;
   if (!user.isModified('password')) {
     return next();
   }
-  bcrypt.genSalt(10 /*SALT_WORK_FACTOR*/, function(err, salt) {
+  bcrypt.genSalt(10 /*SALT_WORK_FACTOR*/, (err, salt) => {
     if (err) {
       return next(err);
     }
-    bcrypt.hash(user.password, salt, function(err, hash) {
+    bcrypt.hash(user.password, salt, (err, hash) => {
       if (err) {
         return next(err);
       }
@@ -29,8 +29,8 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-UserSchema.methods.comparePassword = function(pw, cb) {
-  bcrypt.compare(pw, this.password, function(err, match) {
+UserSchema.methods.comparePassword = (pw, cb) => {
+  bcrypt.compare(pw, this.password, (err, match) => {
     if (err) {
       return cb(err);
     }

@@ -9,7 +9,7 @@ var ContentBlockSchema = new db.Schema({
   type: { type: String, required: true, enum: [ 'markdown' ] }
 }, { collection: 'content_block' });
 
-module.exports = function(mai) {
+module.exports = mai => {
   ContentBlockSchema.plugin(mai.plugin, {
     model: 'ContentBlock',
     startAt: 1

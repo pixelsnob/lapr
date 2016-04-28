@@ -9,7 +9,5 @@ var ErrorSchema = new mongoose.Schema({
   json: String
 });
 
-module.exports = function() {
-  return mongoose.model('Error', ErrorSchema);
-};
+module.exports = () => mongoose.model('Error', ErrorSchema);
 

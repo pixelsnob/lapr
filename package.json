@@ -4,7 +4,8 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js -e js,jade"
+    "start": "nodemon app.js -e js,jade",
+    "start-staging": "NODE_ENV=staging; forever start /var/www/lapr-staging/app.js"
   },
   "dependencies": {
     "async": "^0.2.10",

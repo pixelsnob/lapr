@@ -7,7 +7,7 @@ var MakerSchema = new db.Schema({
   name: { type: String, index: true, unique: true }
 });
 
-MakerSchema.pre('remove', function(next) {
+MakerSchema.pre('remove', next => {
   db.model('Product').update(
     { makers: this._id },
     { $pull: { makers: this._id }},
@@ -16,7 +16,7 @@ MakerSchema.pre('remove', function(next) {
   );
 });
 
-module.exports = function(mai) {
+module.exports = mai => {
   MakerSchema.plugin(mai.plugin, {
     model: 'Maker',
     startAt: 1

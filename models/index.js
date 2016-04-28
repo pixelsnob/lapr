@@ -9,11 +9,11 @@ var mongoose   = require('mongoose'),
 var db = require('../lib/db')(config.db.name);
 mai.initialize(db.connection);
 
-var file_names = fs.readdirSync(__dirname).filter(function(file) {
-  return !file.match(/^\./) && file != 'index.js';
-});
+var file_names = fs.readdirSync(__dirname).filter(file => 
+  !file.match(/^\./) && file != 'index.js'
+);
 
-file_names.forEach(function(file_name) {
+file_names.forEach(file_name => {
   require('./' + file_name)(mai);
 });
 

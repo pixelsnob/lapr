@@ -11,7 +11,7 @@ var Schema = new db.Schema({
   date:           { type: Date, default: Date.now }
 });
 
-module.exports = function(mai) {
+module.exports = mai => {
   Schema.plugin(mai.plugin, {
     model: 'Contact',
     startAt: 1

@@ -9,7 +9,7 @@ var TagSchema = new db.Schema({
   category: { type: Number, ref: 'TagCategory' }
 });
 
-TagSchema.pre('remove', function(next) {
+TagSchema.pre('remove', next => {
   db.model('Product').update(
     { tags: this._id },
     { $pull: { tags: this._id }},
@@ -18,14 +18,14 @@ TagSchema.pre('remove', function(next) {
   );
 });
 
-TagSchema.pre('save', function(next) {
+TagSchema.pre('save', next => {
   if (!this.slug) {
     this.slug = require('../lib/slug')(this.name); 
   }
   next();
 });
 
-module.exports = function(mai) {
+module.exports = mai => {
   TagSchema.plugin(mai.plugin, { model: 'Tag', startAt: 1 });
   return db.model('Tag', TagSchema);
 };
