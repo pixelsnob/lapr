@@ -36,7 +36,7 @@ define([
           var tmp_img = new Image;
           tmp_img.onload = function() {
             obj.renderImg();
-            obj.show();
+            obj.show(0);
             loaded_images_collection.add({ src: obj.src });
             obj.triggerLoaded();
           };
