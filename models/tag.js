@@ -9,7 +9,7 @@ var TagSchema = new db.Schema({
   category: { type: Number, ref: 'TagCategory' }
 });
 
-TagSchema.pre('remove', next => {
+TagSchema.pre('remove', function(next) {
   db.model('Product').update(
     { tags: this._id },
     { $pull: { tags: this._id }},
@@ -18,7 +18,7 @@ TagSchema.pre('remove', next => {
   );
 });
 
-TagSchema.pre('save', next => {
+TagSchema.pre('save', function(next) {
   if (!this.slug) {
     this.slug = require('../lib/slug')(this.name); 
   }

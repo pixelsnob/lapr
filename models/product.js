@@ -28,7 +28,7 @@ var ProductSchema = new mongoose.Schema({
   hide_sounds_disclaimer: Boolean
 });
 
-ProductSchema.statics.findByIdAndPopulate = (id, cb) => {
+ProductSchema.statics.findByIdAndPopulate = function(id, cb) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return cb(null, null);
   }
@@ -36,14 +36,14 @@ ProductSchema.statics.findByIdAndPopulate = (id, cb) => {
 },
 
 // Runs a product "full text" search
-ProductSchema.statics.search = (query, opts, str, cb) => {
+ProductSchema.statics.search = function(query, opts, str, cb) {
   this.find(query, null, opts).populate('categories makers')
   .exec((err, products) => {
     if (err) {
       return cb(err);
     }
     if (str) {
-      var search_index = lunr(() => {
+      var search_index = lunr(function() {
         this.field('name');
         this.field('alt_names');
         this.field('description');
@@ -78,7 +78,7 @@ ProductSchema.statics.search = (query, opts, str, cb) => {
 };
 
 // Set some conditional defaults
-ProductSchema.pre('save', next => {
+ProductSchema.pre('save', function(next) {
   // Add a slug if one isn't provided
   if (!this.slug) {
     this.slug = require('../lib/slug')(this.name); 
@@ -91,6 +91,7 @@ ProductSchema.pre('save', next => {
 });
 
 ProductSchema.plugin(require('mongoose-paginate'));
+
 module.exports = mai => {
   ProductSchema.plugin(mai.plugin, { model: 'Product', startAt: 1 });
   return mongoose.model('Product', ProductSchema);

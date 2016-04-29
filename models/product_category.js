@@ -10,7 +10,7 @@ var ProductCategorySchema = new db.Schema({
   more_info_content_block: { type: Number, ref: 'ContentBlock' }
 }, { collection: 'product_categories' });
 
-ProductCategorySchema.pre('remove', next => {
+ProductCategorySchema.pre('remove', function(next) {
   db.model('Product').update(
     { categories: this._id },
     { $pull: { categories: this._id }},
@@ -19,7 +19,7 @@ ProductCategorySchema.pre('remove', next => {
   );
 });
 
-ProductCategorySchema.pre('save', next => {
+ProductCategorySchema.pre('save', function(next) {
   if (!this.slug) {
     this.slug = require('../lib/slug')(this.name); 
   }

@@ -7,7 +7,7 @@ var MakerSchema = new db.Schema({
   name: { type: String, index: true, unique: true }
 });
 
-MakerSchema.pre('remove', next => {
+MakerSchema.pre('remove', function(next) {
   db.model('Product').update(
     { makers: this._id },
     { $pull: { makers: this._id }},

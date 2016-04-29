@@ -8,7 +8,7 @@ var TagCategorySchema = new db.Schema({
   sort_order: Number
 }, { collection: 'tag_categories' });
 
-TagCategorySchema.pre('remove', next => {
+TagCategorySchema.pre('remove', function(next) {
   db.model('Tag').update(
     { category: this._id },
     { $set: { category: 0 }},
