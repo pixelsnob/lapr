@@ -30,6 +30,7 @@ define([
       this.setElement(template.render('partials/index', { images: [] }));
       content_blocks_view.setElement(this.$el).render();
       global_events.trigger('set-page-title', null);
+      $(window).scrollTop(0);
       return this;
     },
 
