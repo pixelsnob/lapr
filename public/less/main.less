@@ -163,6 +163,7 @@ input, textarea, select {
 
 .scroll-fixed-inner {
   height: calc(100% + 1px);
+  width: 100%;
 }
 
 .prevent-text-select {
@@ -398,8 +399,8 @@ input, textarea, select {
   height: 100%;
   width: 100%;
   top: 0;
-  display: none;
-  opacity: 0;
+  /*display: none;*/
+  /*opacity: 0;*/
   background: transparent;
   z-index: 96;
   background-color: rgba(0, 0, 0, 0.85);
@@ -621,6 +622,9 @@ input, textarea, select {
   }
   .more-info-container {
     margin: 12px 0;
+  }
+  .range {
+    overflow: hidden;
   }
 }
 
