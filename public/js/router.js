@@ -69,7 +69,7 @@ define([
     },
 
     showProductDetails: function(slug, product_id, qs) {
-      var hide_nav = /nav=0/.exec(qs);
+      var hide_nav = /nav=0/.exec(qs) !== null;
       this.controller.showProductDetails(product_id, hide_nav);
     },
     

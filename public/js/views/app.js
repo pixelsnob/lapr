@@ -52,6 +52,7 @@ define([
       this.$main    = this.$el.find('#main');
       this.listenTo(global_events, 'categories-nav-select', this.hideSiteMenu);
       this.listenTo(global_events, 'set-page-title', this.setPageTitle);
+      this.listenTo(global_events, 'show-content-panel', this.showContentPanel);
     },
 
     render: function() { 
@@ -152,46 +153,71 @@ define([
       this.products.deferred.done(function() {
         var product = obj.products.findWhere({ _id: Number(product_id) });
         if (!product) {
-          obj.showServerError();
+          return obj.showServerError();
+        }
+        var product_view = new ProductDetailsView({
+          model: product,
+          refs: obj.products.refs
+        });
+        if (obj.$main.find('.product-details').length) {
+          product_view.setElement(obj.$main.find('.product-details'));
+          product_view.render();
         } else {
-          var product_view = new ProductDetailsView({
-            model: product,
-            refs: obj.products.refs
+          var list_nav_view = new ListNavLinksView({
+            collection:     obj.products.refs.filtered_products,
+            model:          product,
+            label:          'Instrument',
+            base_url_path:  '/instruments/'
           });
-          if (obj.$main.find('.product-details').length) {
-            // This was loaded from the server and is displayed directly on
-            // the page, so let's add some functionality
-            product_view.setElement(obj.$main.find('.product-details'));
-            product_view.render();
-          } else {
-            // Show inside content panel
-            obj.content_panel_view = new ContentPanelView;
-            obj.content_panel_view.render(product_view.render().el).show();
-            // Add previous and next links
-            var list_nav = new ListNavLinksView({
-              collection:     obj.products.refs.filtered_products,
-              model:          product,
-              label:          'Instrument',
-              base_url_path:  '/instruments/',
-              hide_nav:       hide_nav
-            });
-            obj.content_panel_view.setNav(list_nav.render().el);
-            list_nav.on('previous next', function(model) {
-              product_view.model = model;
-              product_view.render();
-            });
-            $(window).on('keydown', _.bind(list_nav.onKeydown, list_nav));
-            obj.content_panel_view.on('hidden', function() {
-              $(window).off('keydown');
-              list_nav.close();
-              product_view.close();
-              obj.content_panel_view.close();
-              Backbone.history.back();
-            });
-          }
+          obj.showContentPanel(product_view, list_nav_view, hide_nav);
         }
       });
       return false;
+    },
+
+    showContentPanel: function(content_view, list_nav_view, hide_nav) {
+      $(window).off('keydown');
+      this.disableDocumentScroll();
+      // Get rid of existing
+      if (this.content_panel_view) {
+        this.content_panel_view.remove();
+      }
+      this.content_panel_view = new ContentPanelView;
+      // Render content_view inside content panel
+      this.$el.prepend(
+        this.content_panel_view.render(
+          content_view.render().el
+        ).el
+      );
+      // Attach keydown handlers
+      $(window).on('keydown', _.bind(this.content_panel_view.onKeydown,
+        this.content_panel_view));
+      // List navigation ("previous", "next", etc.)
+      if (list_nav_view) {
+        var bound_list_nav_keydown = _.bind(list_nav_view.onKeydown, list_nav_view);
+        if (!hide_nav) {
+          this.content_panel_view.setNav(list_nav_view.render().el);
+          $(window).on('keydown', bound_list_nav_keydown);
+        } else {
+          this.content_panel_view.clearNav();
+          $(window).off('keydown', bound_list_nav_keydown);
+        } 
+      }
+      var obj = this;
+      // Cleanup -- on panel hide
+      this.content_panel_view.on('hidden', function() {
+        $(window).off('keydown');
+        obj.enableDocumentScroll();
+        if (obj.content_panel_view) {
+          obj.content_panel_view.close();
+          obj.content_panel_view = null;
+        }
+        if (list_nav_view) {
+          list_nav_view.close();
+        }
+        content_view.close();
+        Backbone.history.back();
+      });
     },
 
     showContact: function() {
@@ -205,15 +231,25 @@ define([
     showMain: function() {
       this.$main.fadeIn(1000);
     },
+    
+    disableDocumentScroll: function() {
+      document.documentElement.style.overflow = 'hidden'; // firefox, chrome
+      document.body.scroll = 'no'; // ie
+    },
+
+    enableDocumentScroll: function() {
+      document.documentElement.style.overflow = 'visible';
+      document.body.scroll = 'yes';
+    },
 
     // Loads a view into #main
     loadMainView: function(class_name, View) {
       if (this.content_panel_view) {
-        this.content_panel_view.close();
+        this.content_panel_view.hide();
+        this.content_panel_view = null;
       }
       this.$el.removeClass().addClass(class_name);
       if (!(this.current_view instanceof View)) {
-        // Run close() to prevent mem leaks 
         if (this.current_view) {
           this.current_view.close(); 
         }

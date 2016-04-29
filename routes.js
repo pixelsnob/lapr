@@ -285,7 +285,6 @@ module.exports = app => {
         });
       } else {
         res.locals.json_data = cached_data;
-        //console.log('hit');
         next(); 
       }
     },

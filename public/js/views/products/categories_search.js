@@ -8,7 +8,6 @@ define([
   'views/navs/categories',
   'views/product/category_header',
   'views/product/category_more_info',
-  'views/content_panel',
   './search_stats',
   'template',
   'lib/events'
@@ -18,7 +17,6 @@ define([
   CategoriesNavView,
   ProductCategoryHeaderView,
   ProductCategoryMoreInfoView,
-  ContentPanelView,
   ProductsSearchStatsView,
   template,
   global_events
@@ -72,7 +70,8 @@ define([
       this.$el.find('.categories').html(this.nav_view.render().el);
       this.product_category_header_view.setElement(this.$el.find('h2'));
       this.stats_view.setElement(this.$el.find('.stats'));
-      this.$el.find('.more-info').on('click', _.bind(this.showCategoryMoreInfo, this));
+      this.$el.find('.more-info').on('click',
+        _.bind(this.showCategoryMoreInfo, this));
       return this;
     },
     
@@ -91,8 +90,7 @@ define([
       var more_info_view = new ProductCategoryMoreInfoView({
         products: this.products
       });
-      this.content_panel_view = new ContentPanelView;
-      this.content_panel_view.render(more_info_view.render().el).show();
+      global_events.trigger('show-content-panel', more_info_view);
     },
     
     getSelectedCategory: function() {
@@ -101,7 +99,8 @@ define([
     
     getTitleTag: function() {
       var selected_category = this.getSelectedCategory();
-      return (selected_category ? selected_category.get('name') : 'All Instruments');
+      return (selected_category ? selected_category.get('name') :
+        'All Instruments');
     },
 
     onClose: function() {
@@ -110,9 +109,6 @@ define([
       this.stats_view.close();
       this.nav_view.close();
       this.products_view.close();
-      if (this.content_panel_view) {
-        this.content_panel_view.close();
-      }
     }
 
   });

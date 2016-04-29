@@ -22,8 +22,8 @@ define([
       this.base_url_path = opts.base_url_path;
       this.previous_url = opts.previous_url;
       this.next_url = opts.next_url;
-      this.hide_nav = opts.hide_nav;
-      this.setElement(template.render('partials/list_nav_links', { label: opts.label })); 
+      this.setElement(template.render('partials/list_nav_links',
+        { label: opts.label })); 
     },
 
     render: function() { 
@@ -42,7 +42,7 @@ define([
         this.model = previous;
         this.render();
         var url = this.base_url_path + previous.get('slug') + '/' + previous.id;
-        Backbone.history.navigate(url, false);
+        Backbone.history.navigate(url, true);
       }
       return false;
     },
@@ -58,15 +58,12 @@ define([
         this.model = next;
         this.render();
         var url = this.base_url_path + next.get('slug') + '/' + next.id;
-        Backbone.history.navigate(url, false);
+        Backbone.history.navigate(url, true);
       }
       return false;
     },
     
     onKeydown: function(ev) {
-      if (this.hide_nav) {
-        return;
-      }
       switch (ev.keyCode) {
         case 38:
         case 37:
@@ -79,12 +76,11 @@ define([
       }
     },
     
-    // Toggles nav visibility, hides if not needed
     updateNavLinks: function() {
       var $prev = this.$el.find('.previous'),
           $next = this.$el.find('.next'),
           i     = this.collection.indexOf(this.model);
-      if (this.hide_nav || !this.collection.length) {
+      if (!this.collection.length) {
         $prev.hide();
         $next.hide();
         return;

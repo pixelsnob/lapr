@@ -6,7 +6,6 @@ define([
   'backbone',
   'views/base',
   './details_image',
-  //'./details_more_info',
   './range',
   'views/youtube_player',
   'views/image_onload',
@@ -17,7 +16,6 @@ define([
   Backbone,
   BaseView,
   ProductDetailsImageView,
-  //ProductDetailsMoreInfoView,
   RangeView,
   YoutubePlayerView,
   ImageOnloadView,
@@ -29,7 +27,7 @@ define([
   return BaseView.extend({
     
     events: {
-      //'click .show-more-info':  'showMoreInfo'
+      'click .description a': 'navigate'
     },
 
     initialize: function(opts) {
@@ -85,21 +83,20 @@ define([
         var range_view = new RangeView({ range: product.range });
         this.$el.find('.range').html(range_view.render().el);
       }
-      // "More info" link
-      /*if (product.more_info) {
-        this.$el.find('.more-info-container').removeClass('hide');
-      }*/
       content_blocks_view.setElement(this.$el).render();
       return this;
     },
     
-    /*showMoreInfo: function() {
-      this.$el.find('.more-info')
-        .removeClass('hide')
-        .addClass('expand').end()
-        .find('.show-more-info').hide();
-    },*/
-    
+    navigate: function(ev) {
+      if (ev.currentTarget.hostname.search(window.location.hostname) != -1) {
+        var url = ev.currentTarget.pathname + ev.currentTarget.search;
+        Backbone.history.navigate(url, true);
+      } else {
+        window.location.href = ev.currentTarget.href;
+      }
+      return false;
+    },
+
     edit: function(ProductAdminView) {
       var view = new ProductAdminView({
         model:     this.model,
