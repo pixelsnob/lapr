@@ -19,7 +19,6 @@ define([
     initialize: function(opts) {
       this.products = opts.products;
       var refs = this.products.refs;
-      //var obj = this;
       // Select or deselect if this model exists in selected_tags
       this.listenTo(refs.selected_tags, 'add', this.selectIfCurrent);
       this.listenTo(refs.selected_tags, 'remove', this.deselectIfCurrent);
@@ -30,7 +29,6 @@ define([
       // Enable/disable depending on whether any filtered_products contain
       // the current tag
       this.listenTo(refs.filtered_products, 'reset', this.toggleDisabled); 
-      //this.listenTo(this.products, 'kill', this.remove);
     },
     
     selectIfCurrent: function(model) {
@@ -52,7 +50,7 @@ define([
         return this.deselect();
       }
       this.products.refs.tags.forEach(function(tag) {
-        if (_.contains(selected_tag_ids, tag.get('_id'))) {
+        if (_.contains(selected_tag_ids, tag.id)) {
           obj.select();
         } else {
           obj.deselect();
@@ -61,16 +59,18 @@ define([
     },
 
     toggleDisabled: function(products) {
-      var obj = this;
+      var refs = this.products.refs,
+          selected_tag_ids = refs.selected_tags.pluck('_id'),
+          obj = this;
       products = products.filter(function(product) {
         return _.contains(product.get('tags'), obj.model.id);
       });
-      if (products.length) {
+      if ((products.length && refs.filtered_products.length > 1) ||
+          _.contains(selected_tag_ids, this.model.id)) {
         this.enable();
       } else {
         this.disable();
       }
-      // determine if this is the only active tag in its group?
     },
 
     toggle: function(ev) {
