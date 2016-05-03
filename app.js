@@ -47,6 +47,7 @@ app.use(require('express-paginate').middleware(30, 60));
 app.locals.pretty = true;
 app.locals._ = _;
 
+// Get current git commit id to append to asset urls
 git.revparse([ 'HEAD' ], (err, rev) => {
   if (err) {
     console.error('Attempt to get git version hash failed.');
