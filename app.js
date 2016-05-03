@@ -15,7 +15,7 @@ var
   fs                = require('fs'),
   marked            = require('./lib/marked')(app),
   env               = process.env.NODE_ENV || 'development',
-  git               = require('simple-git')();
+  git               = require('simple-git')(__dirname);
 
 require('./lib/auth');
 require('./lib/view_helpers')(app);
