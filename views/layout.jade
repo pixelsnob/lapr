@@ -11,9 +11,9 @@ html
     if description
       meta(name="description", content="#{description}")
 
-    link(rel="stylesheet", href="/dist/css/main.css", type="text/css")
+    link(rel="stylesheet", href="/dist/css/main.css?v=#{assets_version}", type="text/css")
     if user
-      link(rel="stylesheet", href="/dist/css/admin.css", type="text/css")
+      link(rel="stylesheet", href="/dist/css/admin.css?v=#{assets_version}", type="text/css")
 
     link(rel="stylesheet", href="/bower_components/vex/css/vex.css", type="text/css")
     link(rel="stylesheet", href="/bower_components/vex/css/vex-theme-plain.css", type="text/css")
@@ -22,8 +22,6 @@ html
     //- link(rel="alternate", hreflang="en-us", href="http://www.lapercussionrentals.com")
     
     meta(name="viewport", content="width=device-width, minimal-ui=1, initial-scale=1.0, maximum-scale=1, user-scalable=no")
-    //- meta(name="apple-mobile-web-app-status-bar-style", content="black")
-    //- meta(name="apple-mobile-web-app-capable", content="yes")
 
     meta(name="csrf-param", content="#{csrf}")
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
@@ -97,7 +95,11 @@ html
       [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});
       Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r};
       Array.isArray||(Array.isArray=function(a){return''+a!==a&&{}.toString.call(a)=='[object Array]'});
-      window.lapr = { env: '#{settings.env}', markdown_opts: !{JSON.stringify(marked_opts)} };
+      window.lapr = {
+        env: '#{settings.env}',
+        markdown_opts: !{JSON.stringify(marked_opts)},
+        assets_version: '#{assets_version}'
+      };
     
     block script
 
@@ -106,7 +108,7 @@ html
         window.lapr.user = !{JSON.stringify(user)};
     
     if settings.env == 'production'
-      script(type="text/javascript", src="/dist/js/main.js")
+      script(type="text/javascript", src="/dist/js/main.js?v=#{assets_version}")
     else
       script(type="text/javascript", src="/bower_components/requirejs/require.js")
 

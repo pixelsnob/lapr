@@ -14,7 +14,8 @@ var
   body_parser       = require('body-parser'),
   fs                = require('fs'),
   marked            = require('./lib/marked')(app),
-  env               = process.env.NODE_ENV || 'development';
+  env               = process.env.NODE_ENV || 'development',
+  git               = require('simple-git')();
 
 require('./lib/auth');
 require('./lib/view_helpers')(app);
@@ -45,6 +46,14 @@ app.use(passport.session());
 app.use(require('express-paginate').middleware(30, 60));
 app.locals.pretty = true;
 app.locals._ = _;
+
+git.revparse([ 'HEAD' ], (err, rev) => {
+  if (err) {
+    console.error('Attempt to get git version hash failed.');
+    return process.exit(1);
+  }
+  app.locals.assets_version = rev.trim();
+});
 
 app.use((req, res, next) => {
   //res.locals.csrf = req.csrfToken();
