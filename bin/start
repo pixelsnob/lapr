@@ -7,13 +7,13 @@ cd $DIR/../
 APP_DIR=`realpath .`
 
 APP_PATH=$APP_DIR"/app.js"
-GULP_PATH=$APP_DIR"/node_modules/gulp/bin/gulp.js"
+#GULP_PATH=$APP_DIR"/node_modules/gulp/bin/gulp.js"
 
 if forever list | grep $APP_PATH
   then forever stop $APP_PATH
 fi
 
-forever start -c "node --expose-gc" $APP_PATH
+forever start $APP_PATH
 
-node ${GULP_PATH} imagemin &
+#node ${GULP_PATH} imagemin &
 
