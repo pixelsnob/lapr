@@ -47,8 +47,7 @@ app.use(require('express-paginate').middleware(30, 60));
 app.locals.pretty = true;
 app.locals._ = _;
 
-// Tag to use for appending to asset urls, to ensure that the code is fresh
-// and not cached by the browser
+// Get current git commit id to append to asset urls
 git.revparse([ 'HEAD' ], (err, rev) => {
   if (err) {
     console.error('Attempt to get git version hash failed: using timestamp');
