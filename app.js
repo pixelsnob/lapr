@@ -36,7 +36,7 @@ app.use(session({
   store: new redis_store,
   secret: config.session_secret,
   proxy: true,
-  cookie: { secure: true },
+  cookie: { secure: true, httpOnly: true },
   resave: true,
   saveUninitialized: true
 }));
