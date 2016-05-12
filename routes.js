@@ -95,9 +95,6 @@ module.exports = app => {
           return res.render('not_found');
         }
         res.format({
-          json: () => {
-            res.send(product);
-          },
           html: () => {
             product.populate('categories makers youtube_videos',
             (err, product) => {
@@ -110,7 +107,10 @@ module.exports = app => {
                   _.pluck(product.makers, 'name').join(', ') : '');
               res.render('product', { product: product });
             });
-          }
+          },
+          json: () => {
+            res.send(product);
+          },
         });
       });
     },

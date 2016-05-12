@@ -18,17 +18,20 @@ html
     link(rel="stylesheet", href="/bower_components/vex/css/vex.css", type="text/css")
     link(rel="stylesheet", href="/bower_components/vex/css/vex-theme-plain.css", type="text/css")
 
-    link(rel="canonical", href="http://www.lapercussionrentals.com")
-    //- link(rel="alternate", hreflang="en-us", href="http://www.lapercussionrentals.com")
+    link(rel="canonical", href="#{base_url}#{original_url}")
     
     meta(name="viewport", content="width=device-width, minimal-ui=1, initial-scale=1.0, maximum-scale=1, user-scalable=no")
 
-    meta(name="csrf-param", content="#{csrf}")
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
 
     meta(property="og:site_name", content="L.A. Percussion Rentals")
-    meta(property="og:url", content="http://www.lapercussionrentals.com")
-    meta(property="og:image", content="http://www.lapercussionrentals.com/images/layout/header-image.jpg")
+    meta(property="og:title", content="#{title}")
+    meta(property="og:description", content="#{description}")
+    meta(property="og:url", content="#{base_url}#{original_url}")
+    - var og_image = og_image || base_url + '/images/layout/header-image.jpg';
+    meta(property="og:image", content="#{og_image}")
+    - var og_type = og_type || 'website';
+    meta(property="og:type", content="#{og_type}")
 
     script(type="text/javascript").
       document.write('<style type="text/css">#main, .products .product .image img, .product-details .image img, .more-container { display: none; }</style>');
@@ -141,7 +144,7 @@ html
           "streetAddress": "26450 Ruether Ave., #208"
         },
         "telephone": "310-666-8152",
-        "url": "http://www.lapercussionrentals.com"
+        "url": "#{base_url}"
       } 
 
 
