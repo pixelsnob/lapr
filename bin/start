@@ -1,19 +1,37 @@
 #!/bin/bash
 
+# Get absolute path, switch to that dir
 DIR=`realpath "$(dirname "$(readlink -f "$0")")"`
-
 cd $DIR/../
 
 APP_DIR=`realpath .`
-
 APP_PATH=$APP_DIR"/app.js"
-#GULP_PATH=$APP_DIR"/node_modules/gulp/bin/gulp.js"
+GULP_PATH=$APP_DIR"/node_modules/gulp/bin/gulp.js"
 
-if forever list | grep $APP_PATH
-  then forever stop $APP_PATH
+# Stop app if it's running
+#if forever list | grep $APP_PATH
+#  then forever stop $APP_PATH
+#fi
+
+# Start app
+#forever start $APP_PATH
+
+#
+# Imagemin process stuff
+#
+
+GULP_PID_PATH=/tmp/lapr-gulp-imagemin.pid
+
+# Kill existing imagemin process, if any
+if [ -s $GULP_PID_PATH ]
+then
+  GULP_PID=`cat $GULP_PID_PATH`
+  if ps -p $GULP_PID > /dev/null
+    then kill $GULP_PID
+  fi
 fi
 
-forever start $APP_PATH
-
-#node ${GULP_PATH} imagemin &
+# Run script that compresses images and watches originals
+# Save pid to kill if necessary
+nohup node ${GULP_PATH} imagemin > /dev/null 2>&1 & echo $! > /tmp/lapr-gulp-imagemin.pid
 
