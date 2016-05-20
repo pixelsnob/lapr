@@ -26,8 +26,6 @@ forever start $APP_PATH
 
 GULP_PID_PATH=/tmp/lapr-gulp-imagemin-${NODE_ENV}.pid
 
-echo $GULP_PID_PATH
-
 # Kill existing imagemin process, if any
 if [ -s $GULP_PID_PATH ]
 then
