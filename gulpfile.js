@@ -5,8 +5,8 @@ const imageminMozjpeg  = require('imagemin-mozjpeg');
 const imageResize      = require('gulp-image-resize');
 
 gulp.task('imagemin', function() {
-  return gulp.src('public/images/products/*.jpg')
-    .pipe(watch('public/images/products/*.jpg'))
+  return gulp.src('public/images/products/*.{jpg,JPG}')
+    .pipe(watch('public/images/products/*.{jpg,JPG}'))
     .pipe(imageminMozjpeg({ quality: 70, progressive: true })())
     .pipe(imageResize({ width: 400 }))
     .pipe(gulp.dest('public/dist/images/products/400'))
