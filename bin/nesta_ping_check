@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Checks to see if site is pinagable and returns a 200
+# Otherwise, mail()
+# 
+# Run from another server, obviously
+
+URL="http://www.nestasteelband.com/"
+HTTP_STATUS_CODE=`curl -I "$URL" 2>/dev/null | head -n 1 | cut -d$' ' -f2`
+TO="5626314465@msg.fi.google.com"
+
+read -r -d '' MSG << EOM
+*** THIS IS AN AUTOMATED MESSAGE FROM DALLAS -- DO NOT RESPOND HERE***
+
+Something appears to be going on with $URL -- it is either down, or unreachable from this location.
+
+Please check to make sure the server is still up, and that there are no network issues at the Fremont facility:
+
+https://status.linode.com/
+
+Time: `date`
+EOM
+
+if [ "$HTTP_STATUS_CODE" != '200' ]; then
+  echo "$MSG" | mail "$TO"
+fi
+
