@@ -176,7 +176,14 @@ define([
     },
 
     showContentPanel: function(content_view, list_nav_view, hide_nav) {
-      $(window).off('keydown');
+      var clearKeydowns = function() {
+        $(window).off('keydown.content-panel');
+        global_events.off('disable-window-keydowns');
+        global_events.off('enable-window-keydowns');
+      };
+      // In case handlers from previous content panels were not cleared, clear
+      // them here
+      clearKeydowns();
       this.disableDocumentScroll();
       // Get rid of existing
       if (this.content_panel_view) {
@@ -190,23 +197,38 @@ define([
         ).el
       );
       // Attach keydown handlers
-      $(window).on('keydown', _.bind(this.content_panel_view.onKeydown,
-        this.content_panel_view));
+      var bound_content_panel_keydown = _.bind(this.content_panel_view.onKeydown,
+        this.content_panel_view);
+      $(window).on('keydown.content-panel', bound_content_panel_keydown);
       // List navigation ("previous", "next", etc.)
       if (list_nav_view) {
         var bound_list_nav_keydown = _.bind(list_nav_view.onKeydown, list_nav_view);
         if (!hide_nav) {
           this.content_panel_view.setNav(list_nav_view.render().el);
-          $(window).on('keydown', bound_list_nav_keydown);
+          $(window).on('keydown.content-panel', bound_list_nav_keydown);
         } else {
           this.content_panel_view.clearNav();
-          $(window).off('keydown', bound_list_nav_keydown);
+          $(window).off('keydown.content-panel', bound_list_nav_keydown);
         } 
       }
-      var obj = this;
+      // Keydown handler enable/disable, for admin modals, etc.
+      global_events.on('disable-window-keydowns', function() {
+        if (list_nav_view) {
+          list_nav_view.disableKeydowns();
+        }
+        obj.content_panel_view.disableKeydowns();
+      });
+      global_events.on('enable-window-keydowns', function() {
+        if (list_nav_view) {
+          list_nav_view.enableKeydowns();
+        }
+        obj.content_panel_view.enableKeydowns();
+      });
+      
       // Cleanup -- on panel hide
+      var obj = this;
       this.content_panel_view.on('hidden', function() {
-        $(window).off('keydown');
+        clearKeydowns();
         obj.enableDocumentScroll();
         if (obj.content_panel_view) {
           obj.content_panel_view.close();
@@ -218,6 +240,7 @@ define([
         content_view.close();
         Backbone.history.back();
       });
+
     },
 
     showContact: function() {

@@ -5,9 +5,10 @@
 define([
   'views/base',
   'template',
+  'lib/events',
   'bootstrap',
   'lib/stacked_modals_fix'
-], function(BaseView, template) {
+], function(BaseView, template, global_events) {
   return BaseView.extend({
     
     events: {
@@ -44,6 +45,7 @@ define([
       var overlay = this.$el.find('.modal-backdrop');
       overlay.height(parseInt(overlay.height()) + 50);
       this.trigger('open');
+      global_events.trigger('disable-window-keydowns');
     },
 
     hidden: function() {
@@ -53,6 +55,7 @@ define([
         $('body').addClass('modal-open');
       }
       this.trigger('close');
+      global_events.trigger('enable-window-keydowns');
     },
     
     save: function() {

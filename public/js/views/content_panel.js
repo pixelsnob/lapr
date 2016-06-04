@@ -12,6 +12,8 @@ define([
   
   return BaseView.extend({
     
+    enable_keydowns: true,
+
     events: {
       'click .content-panel-close a':  'hide',
       'click': 'hideIfOverlay'
@@ -20,7 +22,7 @@ define([
     initialize: function() {
       this.setElement(template.render('partials/content_panel'));
     },
-
+    
     render: function($content) {
       this.$el.find('.content').html($content);
       return this;
@@ -48,14 +50,22 @@ define([
     },
     
     onKeydown: function(ev) {
-      if (ev.keyCode == 27) {
+      if (this.enable_keydowns && ev.keyCode == 27) {
         this.hide();
       }
     },
 
+    disableKeydowns: function() {
+      this.enable_keydowns = false;
+    },
+
+    enableKeydowns: function() {
+      this.enable_keydowns = true;
+    },
+    
     onClose: function() {
     }
-
+    
   });
 
 });

@@ -13,6 +13,8 @@ define([
 ) {
   return BaseView.extend({ 
     
+    enable_keydowns: true,
+    
     events: {
       'click .previous a': 'previous',
       'click .next a':     'next'   
@@ -64,6 +66,9 @@ define([
     },
     
     onKeydown: function(ev) {
+      if (!this.enable_keydowns) {
+        return;
+      }
       switch (ev.keyCode) {
         case 38:
         case 37:
@@ -97,6 +102,14 @@ define([
       } else {
         $next.css('visibility', 'visible');
       }
+    },
+
+    disableKeydowns: function() {
+      this.enable_keydowns = false;
+    },
+
+    enableKeydowns: function() {
+      this.enable_keydowns = true;
     }
 
   });

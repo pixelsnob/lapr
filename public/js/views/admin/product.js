@@ -48,12 +48,6 @@ define([
       this.listenTo(modal_view, 'save', this.save);
       this.listenTo(modal_view, 'remove', this._remove);
       modal_view.listenTo(this, 'save remove', modal_view.hide);
-      this.listenTo(modal_view, 'close', function() {
-        // Cleanup
-        //modal_view.remove();
-        //$('.modal').remove();
-        //this.close();
-      });
     },
     
     save: function() {
