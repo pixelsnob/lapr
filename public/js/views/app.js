@@ -118,6 +118,21 @@ define([
       return false;
     },
     
+    attachKeydownHandler: function(handler) {
+      $(window).on('keydown.app', handler);
+    },
+
+    detachKeydownHandler: function(handler) {
+      $(window).off('keydown.app', handler);
+    },
+
+    detachKeydownHandlers: function() {
+      console.log('detach');
+      $(window).off('keydown.app');
+      global_events.off('disable-window-keydowns');
+      global_events.off('enable-window-keydowns');
+    },
+
     showProductsByCategory: function(category) {
       var obj = this;
       this.products.deferred.done(function() {
@@ -174,17 +189,12 @@ define([
       });
       return false;
     },
-
+    
     showContentPanel: function(content_view, list_nav_view, hide_nav) {
-      var clearKeydowns = function() {
-        $(window).off('keydown.content-panel');
-        global_events.off('disable-window-keydowns');
-        global_events.off('enable-window-keydowns');
-      };
+      this.disableDocumentScroll();
       // In case handlers from previous content panels were not cleared, clear
       // them here
-      clearKeydowns();
-      this.disableDocumentScroll();
+      this.detachKeydownHandlers();
       // Get rid of existing
       if (this.content_panel_view) {
         this.content_panel_view.remove();
@@ -197,18 +207,17 @@ define([
         ).el
       );
       // Attach keydown handlers
-      var bound_content_panel_keydown = _.bind(this.content_panel_view.onKeydown,
-        this.content_panel_view);
-      $(window).on('keydown.content-panel', bound_content_panel_keydown);
+      this.attachKeydownHandler(_.bind(this.content_panel_view.onKeydown,
+        this.content_panel_view));
       // List navigation ("previous", "next", etc.)
       if (list_nav_view) {
         var bound_list_nav_keydown = _.bind(list_nav_view.onKeydown, list_nav_view);
         if (!hide_nav) {
           this.content_panel_view.setNav(list_nav_view.render().el);
-          $(window).on('keydown.content-panel', bound_list_nav_keydown);
+          this.attachKeydownHandler(bound_list_nav_keydown);
         } else {
           this.content_panel_view.clearNav();
-          $(window).off('keydown.content-panel', bound_list_nav_keydown);
+          this.detachKeydownHandler(bound_list_nav_keydown);
         } 
       }
       // Keydown handler enable/disable, for admin modals, etc.
@@ -224,12 +233,11 @@ define([
         }
         obj.content_panel_view.enableKeydowns();
       });
-      
       // Cleanup -- on panel hide
       var obj = this;
       this.content_panel_view.on('hidden', function() {
-        clearKeydowns();
         obj.enableDocumentScroll();
+        obj.detachKeydownHandlers();
         if (obj.content_panel_view) {
           obj.content_panel_view.close();
           obj.content_panel_view = null;
@@ -240,7 +248,6 @@ define([
         content_view.close();
         Backbone.history.back();
       });
-
     },
 
     showContact: function() {
