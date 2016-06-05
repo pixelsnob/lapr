@@ -191,6 +191,7 @@ define([
     },
     
     showContentPanel: function(content_view, list_nav_view, hide_nav) {
+      var obj = this;
       this.disableDocumentScroll();
       // In case handlers from previous content panels were not cleared, clear
       // them here
@@ -234,7 +235,6 @@ define([
         obj.content_panel_view.enableKeydowns();
       });
       // Cleanup -- on panel hide
-      var obj = this;
       this.content_panel_view.on('hidden', function() {
         obj.enableDocumentScroll();
         obj.detachKeydownHandlers();
