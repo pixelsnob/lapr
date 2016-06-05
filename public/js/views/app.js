@@ -127,7 +127,6 @@ define([
     },
 
     detachKeydownHandlers: function() {
-      console.log('detach');
       $(window).off('keydown.app');
       global_events.off('disable-window-keydowns');
       global_events.off('enable-window-keydowns');
