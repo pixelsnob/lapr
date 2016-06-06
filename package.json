@@ -30,6 +30,7 @@
     "imagemin-mozjpeg": "^5.1.0",
     "jade": "^1.7.0",
     "jade-browser": "0.0.14",
+    "jquery": "^2.2.4",
     "js-common": "git+ssh://git@github.com:pixelsnob/js-common.git",
     "jsdom": "^1.1.0",
     "lunr": "^0.5.8",

@@ -73,6 +73,7 @@ app.use((req, res, next) => {
 });
 
 app.use(require('./lib/pages'));
+app.use(require('./lib/post_render'));
 
 app.use(jade_browser(
   '/jade.js',
