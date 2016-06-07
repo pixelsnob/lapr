@@ -18,7 +18,7 @@ if forever list | grep $APP_PATH
 fi
 
 # Start app
-forever start $APP_PATH
+forever -c 'node --expose-gc' start $APP_PATH
 
 #
 # Imagemin process stuff

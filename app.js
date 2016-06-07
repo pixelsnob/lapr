@@ -198,9 +198,9 @@ app.listen(port);
 console.log('Listening on port ' + port);
 
 // Force garbage collection
-if (typeof gc == 'function') {
-  setInterval(gc, 60000);
-}
+//if (typeof gc == 'function') {
+//  setInterval(gc, 60000);
+//}
 
 
 
