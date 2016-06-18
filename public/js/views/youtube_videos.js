@@ -24,7 +24,6 @@ define([
     initialize: function(opts) {
       this.$el.addClass('youtube-videos');
       this.listenTo(global_events, 'yt-play yt-stop', this.deselectAll);
-      this.listenTo(global_events, 'yt-play', this.hideUnselected);
       this.listenTo(global_events, 'yt-error', this.playerError);
     },
     
