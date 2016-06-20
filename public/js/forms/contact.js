@@ -31,6 +31,14 @@ define([
         type: 'TextArea',
         validators: [ 'required' ]
       }
+    },
+
+    validate: function(opts) {
+      _.each(this.fields, function(field) {
+        var trimmed_val = $.trim(field.editor.getValue());
+        field.editor.setValue(trimmed_val);
+      });
+      return BaseForm.prototype.validate.apply(this, arguments);
     }
     
   });
