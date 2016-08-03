@@ -4,7 +4,6 @@ import ProductCategoriesNav from './navs/product_categories';
 import Head from './head';
 import SiteHeader from './site_header';
 import ContentPanel from './content_panel';
-import ProductsCollection from 'collections/products';
 import data from '../../var/data.json';
 
 require('../../public/less/main.less');
@@ -34,7 +33,6 @@ export default class extends React.Component {
       content_panel:     false,
       previous_children: null
     };
-    //var t = new ProductsCollection;
   }
   
   componentWillMount() {

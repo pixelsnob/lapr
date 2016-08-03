@@ -1,6 +1,6 @@
 
 import React from 'react';
-import ContentPanel from './content_panel';
+//import ProductRange from './product_range';
 
 export default class extends React.Component {
   
@@ -51,7 +51,8 @@ export default class extends React.Component {
               <dt>Price/Day</dt>
               <dd itemProp="price">{product.price}</dd>
             </dl>
-            <div className="range"></div>
+            <div className="range">
+            </div>
             <div className="sounds">
             </div>
             <div className="nav-links">
