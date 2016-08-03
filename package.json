@@ -81,6 +81,7 @@
     "url-loader": "^0.5.7",
     "vex": "0.0.4",
     "vex-js": "^2.3.4",
+    "vexflow": "^1.2.65",
     "webpack": "^1.12.15",
     "webpack-node-externals": "^0.4.1"
   },
