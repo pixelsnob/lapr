@@ -5,14 +5,16 @@ var webpack           = require('webpack'),
     path              = require('path'),
     nodeExternals     = require('webpack-node-externals');
 
+var app_dir = path.join(__dirname, '../../');
+
 module.exports = {
-  context: path.resolve(__dirname),
-  externals: [ nodeExternals({ whitelist:[ 'backbone', 'backbone-forms' ] }) ],
+  context: app_dir,
+  externals: [ nodeExternals() ],
   target: 'node',
   entry: './server/app.js',
   devtool: 'source-map',
   output: {
-     path: 'dist',
+     path: path.join(app_dir, 'dist'),
      filename: 'server.js'
   },
   plugins: [
@@ -21,16 +23,14 @@ module.exports = {
   resolve: {
     extensions: [ '', '.js' ],
     root: [
-      path.join(__dirname, 'shared'),
-      path.join(__dirname, 'public/js'),
-      path.join(__dirname, 'node_modules')
+      path.join(app_dir, 'shared'),
+      path.join(app_dir, 'public/js'),
+      path.join(app_dir, 'node_modules')
     ],
     alias: {
       template:                  'lib/template',
-      'backbone-paginator':      'backbone.paginator',
       vex_dialog:                'vex-js/js/vex.dialog',
-      markdown:                  'marked',
-      'backbone-forms':          'backbone-forms/distribution/backbone-forms'
+      markdown:                  'marked'
     }
   },
   module: {

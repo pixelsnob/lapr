@@ -5,31 +5,34 @@ var webpack           = require('webpack'),
     path              = require('path'),
     ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+var app_dir = path.resolve(__dirname, '../../');
+
 module.exports = {
-  context: path.resolve(__dirname),
-  entry: {
-    client: './client/app'
-    //admin: 'views/admin/app'
+  context: app_dir,
+  entry: { 
+    client: [
+      //'react-hot-loader/patch',
+      //'webpack-dev-server/client?http://0.0.0.0:8080/',
+      //'webpack/hot/only-dev-server',
+      './client/app'
+    ]
   },
   output: {
-     path: 'public/dist',
+     path: path.join(app_dir, 'public/dist'),
      publicPath: '/dist/',
      filename: '[name].js'
   },
   resolve: {
     extensions: [ '', '.js' ],
     root: [
-      path.join(__dirname, 'shared'),
-      //path.join(__dirname, 'client'),
-      path.join(__dirname, 'public/js'),
-      path.join(__dirname, 'node_modules')
+      path.join(app_dir, 'shared'),
+      path.join(app_dir, 'client'),
+      path.join(app_dir, 'node_modules')
     ],
     alias: {
       template:                  'lib/template',
-      'backbone-paginator':      'backbone.paginator',
       vex_dialog:                'vex-js/js/vex.dialog',
-      markdown:                  'marked',
-      'backbone-forms':          'backbone-forms/distribution.amd/backbone-forms'
+      markdown:                  'marked'
     }
   },
   devtool: 'source-map',
@@ -44,21 +47,16 @@ module.exports = {
       compress: { warnings: false }
     }),
     new webpack.ProvidePlugin({
-      $:        'jquery',
-      _:        'underscore',
-      backbone: 'backbone',
       youtube:  'YT',
       vexflow:  'Vex'
     })
+    //new webpack.HotModuleReplacementPlugin()
   ],
   module : {
     loaders: [
       { 
         test: /\.js$/,
-        loader: 'babel',
-        query: {
-          presets: [ 'react', 'es2015', 'stage-0' ]
-        }
+        loader: 'babel'
       },
       { 
         test: /\.json$/,
