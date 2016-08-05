@@ -1,6 +1,6 @@
 
 import React from 'react';
-//import ProductRange from './product_range';
+import ProductRange from './product_range';
 
 export default class extends React.Component {
   
@@ -52,6 +52,7 @@ export default class extends React.Component {
               <dd itemProp="price">{product.price}</dd>
             </dl>
             <div className="range">
+              <ProductRange range={product.range}/>
             </div>
             <div className="sounds">
             </div>

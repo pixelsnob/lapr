@@ -1,7 +1,7 @@
 
 var webpack          = require('webpack'),
     WebpackDevServer = require('webpack-dev-server'),
-    config           = require('./client'),
+    config           = require('./config/client'),
     path             = require('path');
 
 new WebpackDevServer(webpack(config), {

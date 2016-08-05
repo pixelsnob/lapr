@@ -14,8 +14,8 @@ module.exports = {
   entry: './server/app.js',
   devtool: 'source-map',
   output: {
-     path: path.join(app_dir, 'dist'),
-     filename: 'server.js'
+     path: path.join(app_dir, 'server/dist'),
+     filename: 'app.js'
   },
   plugins: [
 

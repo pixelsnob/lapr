@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = [
-  require('./config/server.js'),
-  require('./config/client.js')
+  require('./server.js'),
+  require('./client.js')
 ];
 

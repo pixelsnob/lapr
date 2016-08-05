@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Vex from 'vexflow';
+import _ from 'lodash';
 
 export default class extends React.Component {
   
@@ -12,11 +13,11 @@ export default class extends React.Component {
   componentWillReceiveProps(props) {
    	
  
-  },
+  }
 
-	parseRange: function() {
+	parseRange() {
 		var notes = [];
-		var range = $.trim(this.state.range);
+		var range = this.state.range.trim();
 		if (!range.length) {
 			return false;
 		}
@@ -32,11 +33,11 @@ export default class extends React.Component {
 			}
 		}
 		return notes;
-	},
+	}
 	
-	parseNote: function(note, range_index) {
+	parseNote(note, range_index) {
 		// Capture note value and octave
-		var parsed = /^([a-g](#{1,2}|b{1,2})?)([1-8])$/i.exec($.trim(note));
+		var parsed = /^([a-g](#{1,2}|b{1,2})?)([1-8])$/i.exec(note.trim());
 		if (parsed && parsed.length == 4) {
 			// Convert Bb3 => Bb/3 for notation library
 			var converted_note = parsed[1] + '/' + parsed[3];
@@ -48,9 +49,9 @@ export default class extends React.Component {
 				range_index: range_index // is this the first or second note in a range?
 			};
 		}
-	},
+	}
 
-	createNote: function(key, duration, clef) {
+	createNote(key, duration, clef) {
 		var note = new Vex.Flow.StaveNote({
 			keys: [ key ],
 			duration: duration,
@@ -61,9 +62,9 @@ export default class extends React.Component {
 			note.addAccidental(0, new Vex.Flow.Accidental(key_matches[1]));
 		}
 		return note;
-	},
+	}
 
-	createGhostNote: function(duration, clef) {
+	createGhostNote(duration, clef) {
 		var note = new Vex.Flow.GhostNote({
 			keys: [ 'D/5' ],
 			duration: duration,
@@ -71,9 +72,9 @@ export default class extends React.Component {
 			glyph: null
 		})
 		return note;
-	},
+	}
 
-	createVoice: function() {
+	createVoice() {
 		var voice = new Vex.Flow.Voice({
 			num_beats: 4,
 			beat_value: 4,
@@ -81,23 +82,24 @@ export default class extends React.Component {
 		});
 		voice.setMode(Vex.Flow.Voice.Mode.SOFT);
 		return voice;
-	},
+	}
 	
-	getMinOctave: function() {
-		var notes = this.parseRange();
-		return _.min(_.pluck(notes, 'octave'));
-	},
+	getMinOctave() {
+    var octaves = this.parseRange().map(note => note.octave);
+    return Math.min(...octaves);
+		//return _.min(_.pluck(notes, 'octave'));
+	}
 
-	getMaxOctave: function() {
-		var notes = this.parseRange();
-		return _.max(_.pluck(notes, 'octave'));
-	},
+	getMaxOctave() {
+    var octaves = this.parseRange().map(note => note.octave);
+    return Math.max(...octaves);
+		//return _.max(_.pluck(notes, 'octave'));
+	}
 
-	render: function() {
-		return (<div/>);
+	render() {
 		var notes = this.parseRange();
 		if (!notes.length) {
-			return this;
+      return (<div/>);
 		}
 
 		//var canvas = $('<canvas>');
@@ -106,27 +108,34 @@ export default class extends React.Component {
 		//canvas.addClass('devborder');
 
 		//canvas = this.$el.get(0);
-
-		var min_octave = this.getMinOctave(),
-				max_octave = this.getMaxOctave();
+    var octaves = notes.map(note => note.octave);
+		var min_octave = Math.min(...octaves),
+				max_octave = Math.max(...octaves);
 
 		// Make adjustments to stave length and height based on note values
-		canvas.width = (260 + (notes.length * 20));
-		canvas.height = 100;
+		var canvas_width = (260 + (notes.length * 20));
+		var canvas_height = 100;
 
-		canvas.height += (max_octave >= 7 ? 30 : 0);
-		canvas.height += (min_octave < 2 ? 20 : 0);
+		canvas_height += (max_octave >= 7 ? 30 : 0);
+		canvas_height += (min_octave < 2 ? 20 : 0);
 		//console.log(min_octave, canvas.height);
 
-		var canvas_ctx = canvas.getContext('2d');
+		//var canvas_ctx = canvas.getContext('2d');
 
-		canvas_ctx.fillStyle = '#fff';
-		canvas_ctx.strokeStyle = '#fff';
-		canvas_ctx.scale(0.5, 0.5);
+		//canvas_ctx.fillStyle = '#fff';
+		//canvas_ctx.strokeStyle = '#fff';
+		//canvas_ctx.scale(0.5, 0.5);
 		
+    
+    var renderer = new Vex.Flow.Renderer(document.createElement('svg'),
+      Vex.Flow.Renderer.Backends.SVG);
 
-		var renderer = new Vex.Flow.Renderer(canvas,
-			Vex.Flow.Renderer.Backends.CANVAS);
+    console.log(min_octave, max_octave, renderer);
+
+    return (<div>?</div>);
+    ///////////////////
+		//var renderer = new Vex.Flow.Renderer(canvas,
+		//	Vex.Flow.Renderer.Backends.CANVAS);
 		var ctx = renderer.getContext();
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		
@@ -220,13 +229,11 @@ export default class extends React.Component {
 		return this;
 	}
 
-
-
-  render() {
+  /*render() {
     return (
       <div>{this.state.range}</div>
     );
-  }
+  }*/
 }
 
 
