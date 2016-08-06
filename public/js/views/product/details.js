@@ -7,7 +7,7 @@ define([
   'views/base',
   './details_image',
   './range',
-  'views/youtube_player',
+  //'views/youtube_player',
   'views/image_onload',
   'views/content_blocks',
   'template',
@@ -17,7 +17,7 @@ define([
   BaseView,
   ProductDetailsImageView,
   RangeView,
-  YoutubePlayerView,
+  //YoutubePlayerView,
   ImageOnloadView,
   content_blocks_view,
   template,
@@ -66,7 +66,7 @@ define([
         image_onload_view.render();
       }
       // Youtube videos
-      var $youtube_player = this.$el.find('.youtube-player');
+      /*var $youtube_player = this.$el.find('.youtube-player');
       $youtube_player.hide();
       if (_.isArray(product.youtube_videos) && product.youtube_videos.length) {
         var yt_view = new YoutubePlayerView({
@@ -77,7 +77,7 @@ define([
         this.$el.find('.youtube-player').html(yt_view.render().el);
         $youtube_player.show();
         this.$el.find('.sounds-disclaimer').removeClass('hide');
-      }
+      }*/
       // Range notation, if any
       if (product.range && product.range.length) {
         var range_view = new RangeView({ range: product.range });

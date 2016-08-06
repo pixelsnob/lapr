@@ -2,7 +2,7 @@
  * Template access
  * 
  */
-define([ 'jade', './markdown' ], function(jade, markdown) {
+define([ 'jade-compiled', './markdown' ], function(jade, markdown) {
   return {
     render: function(template_path, opts) {
       opts = _.extend(opts || {}, {
