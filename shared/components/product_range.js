@@ -9,10 +9,14 @@ export default class extends React.Component {
     super(props);
     this.state = { range: props.range };
   }
-
+  
   componentWillReceiveProps(props) {
    	
- 
+     
+  }
+  
+  componentDidMount() {
+    this.draw();
   }
 
 	parseRange() {
@@ -95,19 +99,19 @@ export default class extends React.Component {
     return Math.max(...octaves);
 		//return _.max(_.pluck(notes, 'octave'));
 	}
-
-	render() {
+  
+  render() {
+    return (
+      <canvas ref={(ref) => this.canvas = ref} id="product-range-canvas"/>
+    );
+  }
+  
+	draw() {
 		var notes = this.parseRange();
 		if (!notes.length) {
       return (<div/>);
 		}
-
-		//var canvas = $('<canvas>');
-		//this.setElement(canvas);
-
-		//canvas.addClass('devborder');
-
-		//canvas = this.$el.get(0);
+    
     var octaves = notes.map(note => note.octave);
 		var min_octave = Math.min(...octaves),
 				max_octave = Math.max(...octaves);
@@ -118,29 +122,22 @@ export default class extends React.Component {
 
 		canvas_height += (max_octave >= 7 ? 30 : 0);
 		canvas_height += (min_octave < 2 ? 20 : 0);
-		//console.log(min_octave, canvas.height);
 
-		//var canvas_ctx = canvas.getContext('2d');
+		var canvas_ctx = this.canvas.getContext('2d');
 
-		//canvas_ctx.fillStyle = '#fff';
-		//canvas_ctx.strokeStyle = '#fff';
-		//canvas_ctx.scale(0.5, 0.5);
+		canvas_ctx.fillStyle = '#fff';
+		canvas_ctx.strokeStyle = '#fff';
+		canvas_ctx.scale(0.5, 0.5);
 		
     
-    var renderer = new Vex.Flow.Renderer(document.createElement('svg'),
-      Vex.Flow.Renderer.Backends.SVG);
+    var renderer = new Vex.Flow.Renderer(this.canvas,
+      Vex.Flow.Renderer.Backends.CANVAS);
 
-    console.log(min_octave, max_octave, renderer);
-
-    return (<div>?</div>);
-    ///////////////////
-		//var renderer = new Vex.Flow.Renderer(canvas,
-		//	Vex.Flow.Renderer.Backends.CANVAS);
 		var ctx = renderer.getContext();
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		
 		var start = 7;
-		var width = canvas.width;
+		var width = this.canvas.width;
 		
 		var treble = new Vex.Flow.Stave(
 			start,
@@ -226,14 +223,8 @@ export default class extends React.Component {
 			}
 		}
 		
-		return this;
 	}
 
-  /*render() {
-    return (
-      <div>{this.state.range}</div>
-    );
-  }*/
 }
 
 
