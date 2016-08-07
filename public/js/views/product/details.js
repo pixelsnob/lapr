@@ -74,7 +74,7 @@ define([
             return obj.refs.youtube_videos.findWhere({ _id: video_id });
           })
         });
-        this.$el.find('.youtube-player').html(yt_view.render().el);
+        this.$el.find('.youtube-player').replaceWith(yt_view.render().el);
         $youtube_player.show();
         this.$el.find('.sounds-disclaimer').removeClass('hide');
       }
