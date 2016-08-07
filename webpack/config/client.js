@@ -32,7 +32,8 @@ module.exports = {
     alias: {
       template:                  'lib/template',
       vex_dialog:                'vex-js/js/vex.dialog',
-      markdown:                  'marked'
+      markdown:                  'marked',
+      vexflow:                   'vexflow/src'
     }
   },
   devtool: 'source-map',

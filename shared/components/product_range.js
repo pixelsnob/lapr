@@ -1,7 +1,6 @@
 
 import React from 'react';
 import Vex from 'vexflow';
-import _ from 'lodash';
 
 export default class extends React.Component {
   
@@ -104,7 +103,7 @@ export default class extends React.Component {
   draw() {
     var notes = this.parseRange();
     if (!notes.length) {
-      return (<div/>);
+      return;
     }
     
     var octaves = notes.map(note => note.octave);
