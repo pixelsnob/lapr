@@ -7,12 +7,6 @@ export default class extends React.Component {
   
   constructor(props) {
     super(props);
-    this.state = { range: props.range };
-  }
-  
-  componentWillReceiveProps(props) {
-   	
-     
   }
   
   componentDidMount() {
@@ -21,7 +15,7 @@ export default class extends React.Component {
 
 	parseRange() {
 		var notes = [];
-		var range = this.state.range.trim();
+		var range = this.props.range.trim();
 		if (!range.length) {
 			return false;
 		}
@@ -88,16 +82,17 @@ export default class extends React.Component {
 		return voice;
 	}
 	
+  getNoteOctaves() {
+    return this.parseRange().map(note => node.octave);
+  }
+
 	getMinOctave() {
-    var octaves = this.parseRange().map(note => note.octave);
-    return Math.min(...octaves);
-		//return _.min(_.pluck(notes, 'octave'));
+    return Math.min(...this.getNoteOctaves());
 	}
 
 	getMaxOctave() {
     var octaves = this.parseRange().map(note => note.octave);
-    return Math.max(...octaves);
-		//return _.max(_.pluck(notes, 'octave'));
+    return Math.max(...this.getNoteOctaves());
 	}
   
   render() {
