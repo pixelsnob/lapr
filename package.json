@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "forever start -c 'node --harmony_array_includes' server/dist/app.js",
-    "start-dev": "NODE_ENV=development; nodemon --harmony_array_includes server/dist/app.js  --watch server/dist --watch public/dist",
+    "start-dev": "NODE_ENV=development; nodemon --harmony_array_includes server/dist/app.js  --watch server/dist",
     "build": "webpack --progress --config webpack/config/all.js",
     "build-watch": "webpack --progress --config webpack/config/all.js --watch",
     "build-client": "webpack --progress --config webpack/config/client.js",
