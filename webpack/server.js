@@ -6,7 +6,7 @@ var webpack          = require('webpack'),
 
 new WebpackDevServer(webpack(config), {
   contentBase: path.resolve('./public/dist/'),
-  publicPath: 'http://0.0.0.0:8080/dist/',
+  publicPath: 'http://0.0.0.0:8080/',
   hot: true,
   historyApiFallback: true,
   proxy: { '*': 'http://0.0.0.0:3003' },

@@ -11,9 +11,9 @@ module.exports = {
   context: app_dir,
   entry: { 
     client: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://0.0.0.0:8080/',
-      'webpack/hot/only-dev-server',
+      //'react-hot-loader/patch',
+      //'webpack-dev-server/client?http://0.0.0.0:8080/',
+      //'webpack/hot/only-dev-server',
       './client/app'
     ]
   },
@@ -49,8 +49,8 @@ module.exports = {
     new webpack.ProvidePlugin({
       youtube:  'YT',
       vexflow:  'Vex'
-    }),
-    new webpack.HotModuleReplacementPlugin()
+    })
+    //new webpack.HotModuleReplacementPlugin()
   ],
   module : {
     loaders: [
