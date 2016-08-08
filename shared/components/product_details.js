@@ -1,6 +1,7 @@
 
 import React from 'react';
-import ProductRange from './product_range';
+import RangeNotation from './range_notation';
+import YoutubeVideos from './youtube_videos';
 
 export default class extends React.Component {
   
@@ -52,9 +53,10 @@ export default class extends React.Component {
               <dd itemProp="price">{product.price}</dd>
             </dl>
             <div className="range">
-              <ProductRange range={product.range}/>
+              <RangeNotation range={product.range}/>
             </div>
             <div className="sounds">
+              <YoutubeVideos youtube_videos={product.youtube_videos}/>
             </div>
             <div className="nav-links">
               <nav>

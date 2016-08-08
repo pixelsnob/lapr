@@ -21,6 +21,13 @@ data.products = data.products.map(product => {
       )
     );
   }
+  if (Array.isArray(product.youtube_videos)) {
+    product.youtube_videos = product.youtube_videos.map(youtube_video_id =>
+      data.youtube_videos.find(youtube_video =>
+        youtube_video._id == youtube_video_id
+      )
+    );
+  }
   product.url = '/instruments/' + product.slug + '/' + product._id
   return product;
 });
