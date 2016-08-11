@@ -14,6 +14,7 @@ module.exports = {
       //'react-hot-loader/patch',
       //'webpack-dev-server/client?http://0.0.0.0:8080/',
       //'webpack/hot/only-dev-server',
+      //'whatwg-fetch',
       './client/app'
     ]
   },
@@ -33,7 +34,8 @@ module.exports = {
       template:                  'lib/template',
       vex_dialog:                'vex-js/js/vex.dialog',
       markdown:                  'marked',
-      vexflow:                   'vexflow/src'
+      //vexflow:                   'vexflow/src'
+      vexflow:                   'vexflow/releases/vexflow-min'
     }
   },
   devtool: 'source-map',
@@ -46,11 +48,10 @@ module.exports = {
     new ExtractTextPlugin('main.css'),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
-    }),
+    })/*,
     new webpack.ProvidePlugin({
-      youtube:  'YT',
-      vexflow:  'Vex'
-    })
+      Backbone:       'backbone'
+    })*/
     //new webpack.HotModuleReplacementPlugin()
   ],
   module : {

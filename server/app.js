@@ -26,6 +26,12 @@ app.set('view engine', 'jade');
 app.set('views', path.resolve('./views'));
 app.set('view cache', (env == 'production'));
 
+var data = require('../shared/lib/data');
+
+app.route('/app-data').get((req, res, next) => {
+  res.json(data);
+});
+
 app.route('/*').get((req, res, next) => {
   match({ routes, location: req.url }, (error, redirect_loc, render_props) => {
     if (error) {
@@ -33,8 +39,14 @@ app.route('/*').get((req, res, next) => {
     } else if (redirect_loc) {
       res.redirect(302, redirect_loc.pathname + redirect_loc.search)
     } else if (render_props) {
-      let content = renderToString(<RouterContext { ...render_props }/>);
-      res.send('<!doctype html>' + content);
+      let router_props = {
+        ...render_props,
+        createElement: (Component, props) => {
+          return React.createElement(Component, { ...props, ...data });
+        }
+      };
+      let factory = React.createFactory(RouterContext)(router_props);
+      res.send('<!doctype html>' + renderToString(factory));
     } else {
       res.status(404).send('Not found')
     }

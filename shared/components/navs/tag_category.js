@@ -5,7 +5,7 @@ import Tag from './tag';
 export default class extends React.Component {
 
   render() {
-    var category_tags = this.props.tags.filter(tag =>
+    var category_tags = this.props.data.tags.filter(tag =>
       tag.category == this.props.tag_category._id
     );
     if (category_tags) {

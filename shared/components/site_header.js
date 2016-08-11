@@ -5,12 +5,6 @@ import ProductCategoriesNav from './navs/product_categories';
 
 export default class extends React.Component {
   
-
-  /*constructor(props) {
-    super(props);
-    this.props = Object.assign(this.props, data);
-  }*/
-  
   render() {
     return (
       <header className="site-header">
@@ -33,7 +27,7 @@ export default class extends React.Component {
                 <ul className="nav navbar-nav">
                   <li className="dropdown instruments">
                     <Link to="/instruments" className="dropdown-toggle navigate">Instruments</Link>
-                    <ProductCategoriesNav {...this.props} className="dropdown-menu"/>
+                    <ProductCategoriesNav product_categories={this.props.data.product_categories} className="dropdown-menu"/>
                   </li>
                   <li><Link to="/instruments/tags" className="navigate">Sound Search</Link></li>
                   <li><a href="/contact" className="navigate">Contact Us</a></li>

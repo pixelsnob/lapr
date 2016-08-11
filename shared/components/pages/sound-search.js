@@ -39,7 +39,7 @@ export default class extends React.Component {
       return this.setState({ selected_tag_ids: new Set });
     }
     var selected_tag_ids = slugs.split(',')
-      .map(slug => this.props.tags.find(tag => tag.slug == slug))
+      .map(slug => this.props.data.tags.find(tag => tag.slug == slug))
       .filter(tag => tag)
       .map(tag => tag._id);
     this.setState({ selected_tag_ids: new Set(selected_tag_ids) });
@@ -69,7 +69,7 @@ export default class extends React.Component {
     });
     var filtered_tags = [];
     if (product_tags.size) {
-      filtered_tags = this.props.tags.filter(tag => 
+      filtered_tags = this.props.data.tags.filter(tag => 
         Array.from(product_tags).some(curr => curr == tag._id)
       );
     }
@@ -77,7 +77,7 @@ export default class extends React.Component {
   }
 
   render() {
-    var products = this.props.products.filter(product => product.tags.length);
+    var products = this.props.data.products.filter(product => product.tags.length);
     if (this.state.selected_tag_ids.size) {
       products = this.filterBySelectedTags(products);
     }
@@ -92,10 +92,9 @@ export default class extends React.Component {
             <nav>
               <div className="tags-tree">
                 <TagsNav
-                  tags={this.props.tags}
-                  tag_categories={this.props.tag_categories}
                   selected_tag_ids={this.state.selected_tag_ids}
                   onReset={this.handleTagsReset}
+                  {...this.props}
                 />
               </div>
             </nav>

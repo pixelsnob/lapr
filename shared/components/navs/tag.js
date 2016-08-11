@@ -17,7 +17,7 @@ export default class extends React.Component {
       selected_tag_ids.add(this.props.tag._id);
     }
     return Array.from(selected_tag_ids).map(selected_tag_id =>
-      this.props.tags.find(tag => selected_tag_id == tag._id)
+      this.props.data.tags.find(tag => selected_tag_id == tag._id)
     ).map(tag => tag.slug).join(',');
   }
   

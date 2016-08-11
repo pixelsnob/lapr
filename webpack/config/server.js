@@ -18,7 +18,9 @@ module.exports = {
      filename: 'app.js'
   },
   plugins: [
-
+    /*new webpack.ProvidePlugin({
+      Backbone:       'backbone'
+    })*/
   ],
   resolve: {
     extensions: [ '', '.js' ],

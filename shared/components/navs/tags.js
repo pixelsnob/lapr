@@ -8,7 +8,7 @@ export default class extends React.Component {
     return (
       <div className="tags-nav">
         <ul>
-          {this.props.tag_categories.map(tag_category =>
+          {this.props.data.tag_categories.map(tag_category =>
             <TagCategory
               tag_category={tag_category}
               key={tag_category._id}

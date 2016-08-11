@@ -12,6 +12,7 @@ export default class extends React.Component {
       product_category_id:  null,
       sort_direction:       1
     };
+    //console.log(props);
   }
 
   componentWillMount() {
@@ -42,7 +43,7 @@ export default class extends React.Component {
   }
   
   categorySlugToId(slug) {
-    var product_category = this.props.product_categories.find(category =>
+    var product_category = this.props.data.product_categories.find(category =>
       category.slug == slug
     );
     if (product_category) {
@@ -55,7 +56,7 @@ export default class extends React.Component {
   
   getCategoryHeading() {
     if (this.state.product_category_id) {
-      var category = this.props.product_categories.find(product_category =>
+      var category = this.props.data.product_categories.find(product_category =>
         product_category._id == this.state.product_category_id
       );
       if (category.name) {
@@ -68,9 +69,9 @@ export default class extends React.Component {
 
   filterByCategoryId() {
     if (!this.state.product_category_id) {
-      return this.props.products;
+      return this.props.data.products;
     }
-    return this.props.products.filter(product =>
+    return this.props.data.products.filter(product =>
       product.categories.find(category =>
         category._id == this.state.product_category_id
       )
@@ -79,6 +80,7 @@ export default class extends React.Component {
 
   render() {
     var products = this.sort(this.filterByCategoryId());
+    //console.log(products); return (<div/>);
     return (
       <div className="container-fluid products products-categories-search">
         <div className="row">
@@ -86,7 +88,7 @@ export default class extends React.Component {
             <nav>
               <div className="categories">
                 <ProductCategories
-                  product_categories={this.props.product_categories}
+                  product_categories={this.props.data.product_categories}
                   product_category_id={this.state.product_category_id}
                   onReset={this.handleProductCategoryReset}
                 />

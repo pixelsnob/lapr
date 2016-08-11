@@ -13,7 +13,7 @@ export default class extends React.Component {
   }
 
   getProduct() {
-    return this.props.products.find(product =>
+    return this.props.data.products.find(product =>
       product._id == this.props.params.product_id
     );
   }
@@ -53,6 +53,7 @@ export default class extends React.Component {
               <dd itemProp="price">{product.price}</dd>
             </dl>
             <div className="range">
+              <p>{product.range}</p>
               <RangeNotation range={product.range}/>
             </div>
             <div className="sounds">

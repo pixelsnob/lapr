@@ -12,6 +12,13 @@ export default class extends React.Component {
     this.draw();
   }
 
+  componentDidUpdate() {
+    this.draw();
+  }
+
+  componentWillReceiveProps(props) {
+  }
+
   parseRange() {
     var notes = [];
     var range = this.props.range.trim();
@@ -96,7 +103,7 @@ export default class extends React.Component {
   
   render() {
     return (
-      <canvas ref={(ref) => this.canvas = ref} id="product-range-canvas"/>
+      <canvas ref={(ref) => { this.canvas = ref }} id="product-range-canvas"/>
     );
   }
   
@@ -111,11 +118,11 @@ export default class extends React.Component {
         max_octave = Math.max(...octaves);
 
     // Make adjustments to stave length and height based on note values
-    var canvas_width = (260 + (notes.length * 20));
-    var canvas_height = 100;
+    this.canvas.width = (260 + (notes.length * 20));
+    this.canvas_height = 100;
 
-    canvas_height += (max_octave >= 7 ? 30 : 0);
-    canvas_height += (min_octave < 2 ? 20 : 0);
+    this.canvas.height += (max_octave >= 7 ? 30 : 0);
+    this.canvas.height += (min_octave < 2 ? 20 : 0);
 
     var canvas_ctx = this.canvas.getContext('2d');
 
@@ -217,7 +224,6 @@ export default class extends React.Component {
     }
     
   }
-
 }
 
 

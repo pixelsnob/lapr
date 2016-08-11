@@ -11,7 +11,8 @@
     "build-client": "webpack --progress --config webpack/config/client.js",
     "build-watch-client": "webpack --progress --config webpack/config/client.js --watch",
     "build-server": "webpack --progress --config webpack/config/server.js",
-    "build-watch-server": "webpack --progress --config webpack/config/server.js --watch"
+    "build-watch-server": "webpack --progress --config webpack/config/server.js --watch",
+    "get-client-size": "webpack --config webpack/config/client.js --json | webpack-bundle-size-analyzer"
   },
   "dependencies": {
     "async": "^0.2.10",
@@ -89,7 +90,8 @@
     "vexflow": "^1.2.65",
     "webpack": "^1.12.15",
     "webpack-dev-server": "^1.14.1",
-    "webpack-node-externals": "^0.4.1"
+    "webpack-node-externals": "^0.4.1",
+    "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {}
 }
