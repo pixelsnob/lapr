@@ -1,27 +1,25 @@
-- var xml = '<?xml version="1.0" encoding="UTF-8"?>', base = 'http://www.lapercussionrentals.com/';
-
-| !{xml}
+doctype xml
 
 urlset(xmlns="http://www.sitemaps.org/schemas/sitemap/0.9",
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance",
        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd")
 
   url
-    loc= base
+    loc= base_url
   
   url
-    loc= base + 'instruments'
+    loc= base_url + 'instruments'
 
   url
-    loc= base + 'instruments/tags'
+    loc= base_url + 'instruments/tags'
 
   url
-    loc= base + 'contact'
+    loc= base_url + 'contact'
 
   each category in json_data.product_categories
     url
-      loc= base + 'instruments/categories/' + category.slug
+      loc= base_url + 'instruments/categories/' + category.slug
 
   each product in json_data.products
     url
-      loc= base + 'instruments/' + product.slug + '/' + product._id
+      loc= base_url + 'instruments/' + product.slug + '/' + product._id
