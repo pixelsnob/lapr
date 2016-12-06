@@ -59,7 +59,7 @@ git.revparse([ 'HEAD' ], (err, rev) => {
 
 app.use((req, res, next) => {
   res.locals.base_url = req.headers['x-forwarded-proto'] +
-                        '://' + req.headers.host;
+                        '://' + config.base_url + '/';
   res.locals.original_url = req.originalUrl;
   if (req.isAuthenticated()) {
     res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
