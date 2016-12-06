@@ -119,18 +119,18 @@ module.exports = app => {
       var json_data = res.locals.json_data;
       res.format({
         html: () => {
-          db.model('Product').paginate({}, req.query.page, 100,
-          (err, page_count, products, item_count) => {
+          let pagination_opts = { page: req.query.page, limit: 100 };
+          db.model('Product').paginate({}, pagination_opts, (err, results) => {
             if (err) {
               return next(err);
             }
             res.render('products_search', {
               class_name:  'products-categories-search',
               heading:     'All Instruments',
-              products:    products,
+              products:    results.docs,
               categories:  json_data.categories,
-              page_count:  page_count,
-              item_count:  item_count
+              page_count:  results.total,
+              item_count:  results.limit
             });
           }, { sortBy: { name: 1 }, populate: 'makers' });
         },
@@ -156,9 +156,9 @@ module.exports = app => {
         if (!product_category) {
           return res.render('not_found');
         }
-        var query = { categories: product_category._id };
-        db.model('Product').paginate(query, req.query.page, 100,
-        (err, page_count, products, item_count) => {
+        let query           = { categories: product_category._id },
+            pagination_opts = { page: req.query.page, limit: 100 };
+        db.model('Product').paginate(query, pagination_opts, (err, results) => {
           if (err) {
             return next(err);
           }
@@ -167,10 +167,10 @@ module.exports = app => {
               res.render('products_search', {
                 class_name:         'products-categories-search',
                 heading:            product_category.name,
-                products:           products,
+                products:           results.docs,
                 product_categories: res.locals.json_data.product_categories,
-                page_count:         page_count,
-                item_count:         item_count
+                page_count:         results.total,
+                item_count:         results.limit
               });
             },
             json: () => {
@@ -217,8 +217,8 @@ module.exports = app => {
       if (tag_ids.length) {
         query = { tags: { $all: tag_ids }};
       }
-      db.model('Product').paginate(query, req.query.page, 100,
-      (err, page_count, products, item_count) => {
+      let pagination_opts = { page: req.query.page, limit: 100 };
+      db.model('Product').paginate(query, pagination_opts, (err, results) => {
         if (err) {
           return next(err);
         }
@@ -227,9 +227,9 @@ module.exports = app => {
             res.render('products_search', {
               class_name:         'products-tags-search',
               heading:            'Sound Search',
-              products:           products,
-              page_count:         page_count,
-              item_count:         item_count
+              products:           results.docs,
+              page_count:         results.total,
+              item_count:         results.limit
             });
           },
           json: () => {
