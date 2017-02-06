@@ -14,4 +14,3 @@ gulp.task('imagemin', function() {
     .pipe(gulp.dest('public/dist/images/products/140'));
 });
 
-//return gulp;
