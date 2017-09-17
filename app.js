@@ -37,8 +37,8 @@ app.use(session({
   secret: config.session_secret,
   proxy: true,
   cookie: { secure: true, httpOnly: true },
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
