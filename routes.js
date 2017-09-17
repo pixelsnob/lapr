@@ -441,7 +441,7 @@ module.exports = app => {
           if (err) {
             return next(err);
           }
-          res.redirect('/');
+          res.redirect('/instruments');
         });
       })(req, res, next);
     },
