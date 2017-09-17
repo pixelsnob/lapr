@@ -444,13 +444,13 @@ module.exports = app => {
           res.cookie('nocache', '1', {
             secure: true,
             httpOnly: true,
-            sameSite: strict,
+            sameSite: true,
             expires: 0,
             maxAge: (1000 * 60 * 60 * 4)
           });
           setTimeout(() => {
             res.redirect('/');
-          }, 1000);
+          }, 2000);
         });
       })(req, res, next);
     },
