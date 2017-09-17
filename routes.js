@@ -441,7 +441,16 @@ module.exports = app => {
           if (err) {
             return next(err);
           }
-          res.redirect('/instruments');
+          res.cookie('nocache', '1', {
+            secure: true,
+            httpOnly: true,
+            sameSite: strict,
+            expires: 0,
+            maxAge: (1000 * 60 * 60 * 4)
+          });
+          setTimeout(() => {
+            res.redirect('/');
+          }, 1000);
         });
       })(req, res, next);
     },
