@@ -19,7 +19,8 @@ define([
   return BaseView.extend({
     
     events: {
-      'click .index-left img':  'navigateToFeaturedInstrument'
+      'click .index-left .content img':  'navigateToFeaturedInstrument',
+      'click .index-left .content a':  'navigateToFeaturedInstrument'
     },
 
     initialize: function(opts) {
@@ -38,9 +39,15 @@ define([
       return this.$el.find('.slideshow-container');
     },
     
+    // Pick up instrument link from link in content, if any
     navigateToFeaturedInstrument: function(ev) {
-      var url = '/instruments/MK-VII-88a-with-speaker-platform-rhodes/116';
-      Backbone.history.navigate(url, true);
+      var $featured = $('[data-name="index-left"] .content a[href^="/instruments"]');
+      if ($featured.length) {
+        var url = $featured.attr('href');
+        if (url) {
+          Backbone.history.navigate(url, true);
+        }
+      }
       return false;
     },
     
