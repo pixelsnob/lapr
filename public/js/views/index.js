@@ -30,6 +30,14 @@ define([
     render: function() {
       this.setElement(template.render('partials/index', { images: [] }));
       content_blocks_view.setElement(this.$el).render();
+      var obj = this;
+      content_blocks_view.deferred.done(function() {
+        obj.$featured_instrument = obj.$el.find('[data-name="index-left"] .content a[href^="/instruments"]');
+        if (obj.$featured_instrument.length) {
+          obj.featured_instrument_link = obj.$featured_instrument.attr('href');
+          obj.$featured_instrument.attr('href', '');
+        }
+      });
       global_events.trigger('set-page-title', null);
       $(window).scrollTop(0);
       return this;
@@ -41,12 +49,8 @@ define([
     
     // Pick up instrument link from link in content, if any
     navigateToFeaturedInstrument: function(ev) {
-      var $featured = $('[data-name="index-left"] .content a[href^="/instruments"]');
-      if ($featured.length) {
-        var url = $featured.attr('href');
-        if (url) {
-          Backbone.history.navigate(url, true);
-        }
+      if (this.$featured_instrument.length && this.featured_instrument_link) {
+        Backbone.history.navigate(this.featured_instrument_link, true);
       }
       return false;
     },
