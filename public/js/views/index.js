@@ -32,8 +32,8 @@ define([
         [ '.index-left', '.index-middle', '.index-right' ].forEach(function(sel) {
           var $el = obj.$el.find(sel + ' .content');
           var $link = $el.find('a:eq(0)');
-          var href = $link.attr('href');
-          if ($link.length && href) {
+          if ($link.length && $link.attr('href')) {
+            var href = $link.attr('href');
             var $img = $el.find('img:eq(0)');
             if ($img.length) {
               $img.click(function() {
