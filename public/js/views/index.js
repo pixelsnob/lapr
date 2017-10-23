@@ -36,7 +36,7 @@ define([
           if ($link.length && href) {
             var $img = $el.find('img:eq(0)');
             if ($img.length) {
-				      $img.click(function() {
+              $img.click(function() {
                 Backbone.history.navigate(href, true);
                 return false;
               });
