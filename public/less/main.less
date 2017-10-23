@@ -809,6 +809,16 @@ body {
       }
       .content-block {
         padding: 15px;
+        a:link {
+          font-weight: bold;
+        }
+        /* These images get onclicks added to them when content is loaded; hence, cursor: pointer */
+        .content img {
+          cursor: pointer;
+          filter: grayscale(1);
+          -webkit-filter: grayscale(1);
+          -moz-filter: grayscale(1);
+        }
       }
       a.button-alert {
         margin-left: 15px;
@@ -821,18 +831,6 @@ body {
           margin-bottom: 20px;
           width: 30%;
           min-width: 100px;
-        }
-        &.index-left img {
-          cursor: pointer;
-          filter: grayscale(1);
-          -webkit-filter: grayscale(1);
-          -moz-filter: grayscale(1);
-          &:hover {
-            transition: all ease-in-out 1s;
-            filter: grayscale(0);
-            -webkit-filter: grayscale(0);
-            -moz-filter: grayscale(0);
-          }
         }
       }
     }
