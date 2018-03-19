@@ -1,11 +1,10 @@
 
-
 .product
   .name
-    #{name}
-    //- if alt_names
-    //-  span.alt-names
-    //-    \(#{alt_names}\)
-    if _.isArray(makers) && makers.length
-      span.makers - #{_.pluck(makers, 'name').join(', ')}
+    #{product.name}
+    if product.sizes && !product.hide_sizes_in_lists
+      span.sizes , #{product.sizes}
+
+    if _.isArray(product.makers) && product.makers.length
+      span.makers - #{_.pluck(product.makers, 'name').join(', ')}
   

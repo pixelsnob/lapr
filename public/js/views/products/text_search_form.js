@@ -76,7 +76,7 @@ define([
         templates: {
           suggestion: function(data) {
             var tpl = 'partials/products_text_search_form/suggestion';
-            return template.render(tpl, data.product);
+            return template.render(tpl, data);
           }
         }
       }).on('typeahead:selected', function(ev, data) {
