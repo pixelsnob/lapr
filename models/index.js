@@ -4,7 +4,7 @@
 var mongoose   = require('mongoose'),
     fs         = require('fs'),
     config     = require('../config'),
-    mai        = require('mongoose-auto-increment');
+    mai        = require('mongoose-plugin-autoinc');
 
 var db = require('../lib/db')(config.db.name);
 mai.initialize(db.connection);
