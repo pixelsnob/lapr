@@ -31,7 +31,7 @@
     "jade": "^1.11.0",
     "jade-browser": "0.0.14",
     "jquery": "^3.1.1",
-    "js-common": "git+ssh://git@github.com:pixelsnob/js-common.git",
+    "js-common": "pixelsnob/js-common.git",
     "jsdom": "^9.8.3",
     "lunr": "^0.7.2",
     "marked": "~0.3.6",
