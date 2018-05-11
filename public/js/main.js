@@ -15,6 +15,7 @@ import AppView from 'views/app';
 var products = new ProductsCollection;
 products.deferred = products.fetch();
 
+// Load templates
 require('http://127.0.0.1:3003/jade.js').then(function() {
   // Run on dom ready
   $(function() {
