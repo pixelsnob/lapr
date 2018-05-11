@@ -2,51 +2,48 @@
  * filtered_products collection
  * 
  */
-define([
-  '../models/product'
-], function(ProductModel) {
-  return Backbone.Collection.extend({
-    
-    model: ProductModel,
+import ProductModel from '../models/product';
+export default Backbone.Collection.extend({
 
-    per_page: 30,
+  model: ProductModel,
 
-    current_page: 1,
-    
-    sort_direction: 'asc',
-    
-    getPaged: function() {
-      return this.slice(this.getStartIndex(), this.getEndIndex());
-    },
-    
-    getStartIndex: function() {
-      return (this.current_page * this.per_page) - this.per_page;
-    },
+  per_page: 30,
 
-    getEndIndex: function() {
-      var end = this.current_page * this.per_page;
-      return (end > this.length ? this.length : end);
-    },
+  current_page: 1,
 
-    setPage: function(page) {
-      this.current_page = page;
-    },
-    
-    next: function() {
-      this.current_page++;
-    },
+  sort_direction: 'asc',
 
-    hasMore: function() {
-      return this.current_page * this.per_page < this.length;
-    },
+  getPaged: function() {
+    return this.slice(this.getStartIndex(), this.getEndIndex());
+  },
 
-    comparator: function(a, b) {
-      var aval = a.get('name') + ' ' + a.get('sizes'),
-          bval = b.get('name') + ' ' + b.get('sizes');
-      var comp = aval.localeCompare(bval);
-      return (this.sort_direction == 'asc' ? comp : -comp);
-    }
-    
-  });
+  getStartIndex: function() {
+    return (this.current_page * this.per_page) - this.per_page;
+  },
+
+  getEndIndex: function() {
+    var end = this.current_page * this.per_page;
+    return (end > this.length ? this.length : end);
+  },
+
+  setPage: function(page) {
+    this.current_page = page;
+  },
+
+  next: function() {
+    this.current_page++;
+  },
+
+  hasMore: function() {
+    return this.current_page * this.per_page < this.length;
+  },
+
+  comparator: function(a, b) {
+    var aval = a.get('name') + ' ' + a.get('sizes'),
+      bval = b.get('name') + ' ' + b.get('sizes');
+    var comp = aval.localeCompare(bval);
+    return (this.sort_direction == 'asc' ? comp : -comp);
+  }
+
 });
 

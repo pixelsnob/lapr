@@ -3,19 +3,13 @@
  * 
  * 
  */
-define([
-  'backbone',
-  './multi_select',
-  'views/admin/lists/product_categories',
-  'backbone-forms'
-], function(
-  Backbone,
-  MultiSelectEditorView,
-  ProductCategoriesView
-) {
-  return MultiSelectEditorView.extend({
-    
-    list_view: ProductCategoriesView
+import Backbone from 'backbone';
+import MultiSelectEditorView from './multi_select';
+import ProductCategoriesView from 'views/admin/lists/product_categories';
+import 'backbone-forms';
 
-  });
+export default MultiSelectEditorView.extend({
+
+  list_view: ProductCategoriesView
+
 });

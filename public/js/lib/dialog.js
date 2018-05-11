@@ -2,7 +2,8 @@
  * Dialog config
  * 
  */
-define([ 'vex_dialog' ], function(dialog) {
-  dialog.defaultOptions.className = 'vex-theme-plain';
-  return dialog;
-});
+import dialog from 'vex-js/js/vex.dialog';
+
+dialog.defaultOptions.className = 'vex-theme-plain';
+
+export default dialog;

@@ -2,23 +2,20 @@
  * pageable products collection
  * 
  */
-define([
-  'backbone',
-  'models/product',
-  'backbone-paginator'
-], function(
-  backbone,
-  ProductModel
-) {
-  return Backbone.PageableCollection.extend({
-    
-    model: ProductModel,
+import backbone from 'backbone';
+import ProductModel from 'models/product';
+import 'backbone.paginator';
 
-    mode: 'client',
-    
-    url: '/instruments',
+export default Backbone.PageableCollection.extend({
 
-    state: { pageSize: 100  }
+  model: ProductModel,
 
-  });
+  mode: 'client',
+
+  url: '/instruments',
+
+  state: {
+    pageSize: 100
+  }
+
 });

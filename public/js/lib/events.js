@@ -3,8 +3,6 @@
  * Global event aggregator
  * 
  */
-define([
-  'backbone'
-], function(Backbone) {
-  return _.clone(Backbone.Events);
-});
+import Backbone from 'backbone';
+
+export default _.clone(Backbone.Events);

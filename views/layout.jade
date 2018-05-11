@@ -34,7 +34,8 @@ html
     meta(property="og:type", content="#{og_type}")
 
     script(type="text/javascript").
-      document.write('<style type="text/css">#main, .products .product .image img, .product-details .image img, .more-container { display: none; }</style>');
+      //document.write('<style type="text/css">#main, .products .product .image img, .product-details .image img, .more-container { display: none; }</style>');
+      document.write('<style type="text/css">#main, .more-container { display: none; }</style>');
 
   body(class="#{body_class}")
     header.site-header
@@ -110,17 +111,8 @@ html
       script(type="text/javascript").
         window.lapr.user = !{JSON.stringify(user)};
     
-    if settings.env == 'production'
-      script(type="text/javascript", src="/dist/js/main.js?v=#{assets_version}")
-    else
-      script(type="text/javascript", src="/bower_components/requirejs/require.js")
+    script(type="text/javascript", src="/dist/js/main.js")
 
-    script(type="text/javascript").
-      require.config({ baseUrl: '/js' });
-      require([ 'config' ], function() {
-        require([ 'main' ]);
-      });
-    
     if settings.env == 'production' && !user
       script(type="text/javascript").
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

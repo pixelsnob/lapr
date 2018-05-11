@@ -2,24 +2,17 @@
  * maker view
  * 
  */
-define([
-  './base',
-  'models/maker',
-  'forms/maker'
-], function(
-  ListItemBaseView,
-  MakerModel,
-  MakerForm
-) {
-  
-  return ListItemBaseView.extend({
-    label: 'maker',
-    title: 'Maker',
-    
-    model: new MakerModel,
-    
-    form_obj: MakerForm
-    
-  });
+import ListItemBaseView from './base';
+import MakerModel from 'models/maker';
+import MakerForm from 'forms/maker';
+
+export default ListItemBaseView.extend({
+  label: 'maker',
+  title: 'Maker',
+
+  model: new MakerModel,
+
+  form_obj: MakerForm
+
 });
 

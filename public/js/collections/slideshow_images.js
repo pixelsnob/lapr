@@ -2,16 +2,13 @@
  * Slideshow images collection
  * 
  */
-define([
-  '../models/image'
-], function(ContentBlockModel) {
-  return Backbone.Collection.extend({
-    
-    url: '/api/slideshow-images',
+import ContentBlockModel from '../models/image';
 
-    comparator: 'name',
+export default Backbone.Collection.extend({
 
-    initialize: function() {
-    }
-  });
+  url: '/api/slideshow-images',
+
+  comparator: 'name',
+
+  initialize: function() {}
 });

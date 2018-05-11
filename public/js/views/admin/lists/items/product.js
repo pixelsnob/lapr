@@ -2,36 +2,26 @@
  * product list item view
  * 
  */
-define([
-  './base',
-  'views/admin/modal/form',
-  'models/product',
-  'forms/product',
-  'template'
-], function(
-  ListItemBaseView,
-  ModalFormView,
-  ProductModel,
-  ProductForm,
-  template
-) {
-  
-  return ListItemBaseView.extend({
-    
-    label: 'product',
-    title: 'Product',
-    
-    model: new ProductModel,
-    
-    form_obj: ProductForm,
+import ListItemBaseView from './base';
+import ModalFormView from 'views/admin/modal/form';
+import ProductModel from 'models/product';
+import ProductForm from 'forms/product';
+import template from 'template';
 
-    render: function() {
-      this.$el.append(template.render('admin/product_list_item', this.model.toJSON())); 
-      return this;
-    }
+export default ListItemBaseView.extend({
 
+  label: 'product',
+  title: 'Product',
 
-  });
+  model: new ProductModel,
+
+  form_obj: ProductForm,
+
+  render: function() {
+    this.$el.append(template.render('admin/product_list_item', this.model.toJSON()));
+    return this;
+  }
+
 
 });
 

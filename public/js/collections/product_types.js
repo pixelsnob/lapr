@@ -2,18 +2,15 @@
  * product_type collection
  * 
  */
-define([
-  '../models/product_type'
-], function(ProductTypeModel) {
-  return Backbone.Collection.extend({
-    
-    url: '/api/product-types',
+import ProductTypeModel from '../models/product_type';
 
-    model: ProductTypeModel,
+export default Backbone.Collection.extend({
 
-    comparator: 'name',
+  url: '/api/product-types',
 
-    initialize: function() {
-    }
-  });
+  model: ProductTypeModel,
+
+  comparator: 'name',
+
+  initialize: function() {}
 });

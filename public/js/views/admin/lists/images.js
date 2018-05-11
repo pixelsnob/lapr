@@ -2,18 +2,11 @@
  * images view
  * 
  */
-define([
-  './base',
-  './items/image'
-], function(
-  ListBaseView,
-  ImageView
-) {
+import ListBaseView from './base';
+import ImageView from './items/image';
 
-  return ListBaseView.extend({
-    view: ImageView,
-    title: 'Images'
-  });
-    
+export default ListBaseView.extend({
+  view: ImageView,
+  title: 'Images'
 });
 

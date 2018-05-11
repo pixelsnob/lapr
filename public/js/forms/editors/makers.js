@@ -3,19 +3,13 @@
  * 
  * 
  */
-define([
-  'backbone',
-  './multi_select',
-  'views/admin/lists/makers',
-  'backbone-forms'
-], function(
-  Backbone,
-  MultiSelectEditorView,
-  MakersView
-) {
-  return MultiSelectEditorView.extend({
-    
-    list_view: MakersView
-    
-  });
+import Backbone from 'backbone';
+import MultiSelectEditorView from './multi_select';
+import MakersView from 'views/admin/lists/makers';
+import 'backbone-forms';
+
+export default MultiSelectEditorView.extend({
+
+  list_view: MakersView
+
 });

@@ -2,19 +2,15 @@
  * Youtube videos collection
  * 
  */
-define([
-  '../models/youtube_video'
-], function(YoutubeVideoModel) {
-  
-  return Backbone.Collection.extend({
-    
-    url: '/api/youtube-videos',
+import YoutubeVideoModel from '../models/youtube_video';
 
-    model: YoutubeVideoModel,
+export default Backbone.Collection.extend({
 
-    comparator: 'name',
+  url: '/api/youtube-videos',
 
-    initialize: function() {
-    }
-  });
+  model: YoutubeVideoModel,
+
+  comparator: 'name',
+
+  initialize: function() {}
 });

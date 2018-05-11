@@ -2,17 +2,11 @@
  * Image upload custom editor
  * 
  */
-define([
-  './product_image',
-  'models/file/product_thumbnail'
-], function(
-  ImageUploadView,
-  ThumbnailModel
-) {
-  
-  return ImageUploadView.extend({
-    
-    file_model: ThumbnailModel
-    
-  });
+import ImageUploadView from './product_image';
+import ThumbnailModel from 'models/file/product_thumbnail';
+
+export default ImageUploadView.extend({
+
+  file_model: ThumbnailModel
+
 });

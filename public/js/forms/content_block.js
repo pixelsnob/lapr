@@ -2,50 +2,46 @@
  * content_block form
  * 
  */
-define([
-  'forms/base',
-  'forms/editors/content_block'
-], function(
-  BaseForm,
-  ContentBlockEditor
-) {
-  
-  return BaseForm.extend({
+import BaseForm from 'forms/base';
+import ContentBlockEditor from 'forms/editors/content_block';
 
-    initialize: function(opts) {
-      if (opts.check_unique) {
-        this.schema.name.validators = [
-          'required',
-          {
-            type: 'unique',
-            name: 'name',
-            model: this.model,
-            collection: opts.collection
-          }
-        ];
-      }
-      BaseForm.prototype.initialize.apply(this, arguments);
-      if (opts.name_disabled) {
-        this.fields.name.editor.$el.attr('disabled', true);
-      }
-    },
+export default BaseForm.extend({
 
-    schema: {
-      name: {
-        type: 'Text'
-      },
-      content: {
-        type: ContentBlockEditor,
-        validators: [ 'required' ]
-      },
-      type: {
-        type: 'Select',
-        options: [{ label: 'Markdown', val: 'markdown' }],
-        validators: [ 'required' ]
-      }
+  initialize: function(opts) {
+    if (opts.check_unique) {
+      this.schema.name.validators = [
+        'required', {
+          type: 'unique',
+          name: 'name',
+          model: this.model,
+          collection: opts.collection
+        }
+      ];
     }
-    
-  });
+    BaseForm.prototype.initialize.apply(this, arguments);
+    if (opts.name_disabled) {
+      this.fields.name.editor.$el.attr('disabled', true);
+    }
+  },
+
+  schema: {
+    name: {
+      type: 'Text'
+    },
+    content: {
+      type: ContentBlockEditor,
+      validators: ['required']
+    },
+    type: {
+      type: 'Select',
+      options: [{
+        label: 'Markdown',
+        val: 'markdown'
+      }],
+      validators: ['required']
+    }
+  }
+
 });
 
 

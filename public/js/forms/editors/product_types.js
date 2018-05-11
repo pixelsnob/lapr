@@ -3,19 +3,13 @@
  * 
  * 
  */
-define([
-  'backbone',
-  './select',
-  'views/admin/lists/product_types',
-  'backbone-forms'
-], function(
-  Backbone,
-  SelectEditorView,
-  ProductTypesView
-) {
-  return SelectEditorView.extend({
-    
-    list_view: ProductTypesView
+import Backbone from 'backbone';
+import SelectEditorView from './select';
+import ProductTypesView from 'views/admin/lists/product_types';
+import 'backbone-forms';
 
-  });
+export default SelectEditorView.extend({
+
+  list_view: ProductTypesView
+
 });

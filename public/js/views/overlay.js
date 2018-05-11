@@ -2,45 +2,36 @@
  * Site overlay view
  * 
  */
-define([
-  'views/base',
-  'template'
-], function(
-  BaseView,
-  template
-) {
-  
-  return BaseView.extend({
-    
-    el: 'body',
+import BaseView from 'views/base';
+import template from 'template';
 
-    events: {
-    },
+export default BaseView.extend({
 
-    initialize: function(opts) {
-    },
-    
-    render: function() {
-      this.$el.append(template.render('partials/overlay'));
-      this.$overlay = this.$el.find('.overlay');
-      return this;
-    },
+  el: 'body',
 
-    show: function($content) {
-      this.$overlay.html($content);
-      this.$overlay.fadeIn();
-      this.trigger('shown');
-    },
+  events: {},
 
-    hide: function() {
-      this.$overlay.fadeOut();
-      this.$overlay.remove();
-      this.trigger('hidden');
-    },
+  initialize: function(opts) {},
 
-    onClose: function() {
-    }
+  render: function() {
+    this.$el.append(template.render('partials/overlay'));
+    this.$overlay = this.$el.find('.overlay');
+    return this;
+  },
 
-  });
+  show: function($content) {
+    this.$overlay.html($content);
+    this.$overlay.fadeIn();
+    this.trigger('shown');
+  },
+
+  hide: function() {
+    this.$overlay.fadeOut();
+    this.$overlay.remove();
+    this.trigger('hidden');
+  },
+
+  onClose: function() {}
+
 });
 

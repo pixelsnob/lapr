@@ -47,7 +47,7 @@
          em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
 
       .sounds
-        if _.isArray(product.youtube_videos) && product.youtube_videos.length
+        if Array.isArray(product.youtube_videos) && product.youtube_videos.length
           //- h3 Sounds
           hr
           - var youtube_videos = product.youtube_videos

@@ -2,18 +2,11 @@
  * makers view
  * 
  */
-define([
-  './base',
-  './items/maker'
-], function(
-  ListBaseView,
-  MakerView
-) {
+import ListBaseView from './base';
+import MakerView from './items/maker';
 
-  return ListBaseView.extend({
-    view: MakerView,
-    title: 'Makers'
-  });
-    
+export default ListBaseView.extend({
+  view: MakerView,
+  title: 'Makers'
 });
 

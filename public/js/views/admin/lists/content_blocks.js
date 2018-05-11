@@ -2,18 +2,11 @@
  * content_blocks view
  * 
  */
-define([
-  './base',
-  './items/content_block'
-], function(
-  ListBaseView,
-  ContentBlockView
-) {
+import ListBaseView from './base';
+import ContentBlockView from './items/content_block';
 
-  return ListBaseView.extend({
-    view: ContentBlockView,
-    title: 'Content Blocks'
-  });
-    
+export default ListBaseView.extend({
+  view: ContentBlockView,
+  title: 'Content Blocks'
 });
 

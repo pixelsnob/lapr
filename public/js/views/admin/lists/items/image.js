@@ -2,24 +2,17 @@
  * maker view
  * 
  */
-define([
-  './base',
-  'models/image',
-  'forms/image'
-], function(
-  ListItemBaseView,
-  ImageModel,
-  ImageForm
-) {
-  
-  return ListItemBaseView.extend({
-    label: 'image',
-    title: 'Image',
-    
-    model: new ImageModel,
-    
-    form_obj: ImageForm
-    
-  });
+import ListItemBaseView from './base';
+import ImageModel from 'models/image';
+import ImageForm from 'forms/image';
+
+export default ListItemBaseView.extend({
+  label: 'image',
+  title: 'Image',
+
+  model: new ImageModel,
+
+  form_obj: ImageForm
+
 });
 

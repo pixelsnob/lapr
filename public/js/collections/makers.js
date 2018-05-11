@@ -2,18 +2,15 @@
  * makers collection
  * 
  */
-define([
-  '../models/maker'
-], function(MakerModel) {
-  return Backbone.Collection.extend({
-    
-    url: '/api/makers',
+import MakerModel from '../models/maker';
 
-    model: MakerModel,
+export default Backbone.Collection.extend({
 
-    comparator: 'name',
+  url: '/api/makers',
 
-    initialize: function() {
-    }
-  });
+  model: MakerModel,
+
+  comparator: 'name',
+
+  initialize: function() {}
 });

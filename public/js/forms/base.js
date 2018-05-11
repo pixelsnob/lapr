@@ -2,21 +2,16 @@
  * Base form
  * 
  */
-define([
-  'backbone',
-  'backbone-forms',
-  'lib/form_validators'
-], function(
-  Backbone
-) {
-  
-  return Backbone.Form.extend({
+import 'backbone_forms';
+import Backbone from 'backbone';
+import 'lib/form_validators';
 
-    initialize: function(opts) {
-      Backbone.Form.prototype.initialize.apply(this, arguments);
-    }
+export default Backbone.Form.extend({
 
-  });
+  initialize: function(opts) {
+    Backbone.Form.prototype.initialize.apply(this, arguments);
+  }
+
 });
 
 

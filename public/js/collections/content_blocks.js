@@ -2,18 +2,14 @@
  * content_blocks collection
  * 
  */
-define([
-  '../models/content_block'
-], function(ContentBlockModel) {
-  return Backbone.Collection.extend({
-    
-    url: '/api/content-blocks',
+import ContentBlockModel from '../models/content_block';
+export default Backbone.Collection.extend({
 
-    model: ContentBlockModel,
+  url: '/api/content-blocks',
 
-    comparator: 'name',
+  model: ContentBlockModel,
 
-    initialize: function() {
-    }
-  });
+  comparator: 'name',
+
+  initialize: function() {}
 });

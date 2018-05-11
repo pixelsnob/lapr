@@ -2,17 +2,10 @@
  * Users view
  * 
  */
-define([
-  './base',
-  './items/user'
-], function(
-  ListBaseView,
-  UserView
-) {
+import ListBaseView from './base';
+import UserView from './items/user';
 
-  return ListBaseView.extend({
-    view: UserView,
-    title: 'Users'
-  });
-
+export default ListBaseView.extend({
+  view: UserView,
+  title: 'Users'
 });

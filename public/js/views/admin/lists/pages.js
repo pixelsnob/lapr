@@ -2,19 +2,12 @@
  * pages view
  * 
  */
-define([
-  './base',
-  './items/page'
-], function(
-  ListBaseView,
-  PageView
-) {
+import ListBaseView from './base';
+import PageView from './items/page';
 
-  return ListBaseView.extend({
-    view: PageView,
-    title: 'Pages'
-    
-  });
-    
+export default ListBaseView.extend({
+  view: PageView,
+  title: 'Pages'
+
 });
 

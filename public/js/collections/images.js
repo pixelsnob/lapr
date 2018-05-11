@@ -2,19 +2,16 @@
  * images collection
  * 
  */
-define([
-  '../models/image'
-], function(ImageModel) {
-  return Backbone.Collection.extend({
-    
-    url: '/api/images',
+import ImageModel from '../models/image';
 
-    model: ImageModel,
+export default Backbone.Collection.extend({
 
-    comparator: 'name',
+  url: '/api/images',
 
-    initialize: function() {
-    }
-  });
+  model: ImageModel,
+
+  comparator: 'name',
+
+  initialize: function() {}
 });
 

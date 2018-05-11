@@ -2,18 +2,15 @@
  * tag_categories collection
  * 
  */
-define([
-  '../models/tag_category'
-], function(TagCategoryModel) {
-  return Backbone.Collection.extend({
-    
-    url: '/api/tag-categories',
+import TagCategoryModel from '../models/tag_category';
 
-    model: TagCategoryModel,
+export default Backbone.Collection.extend({
 
-    comparator: 'sort_order',
+  url: '/api/tag-categories',
 
-    initialize: function() {
-    }
-  });
+  model: TagCategoryModel,
+
+  comparator: 'sort_order',
+
+  initialize: function() {}
 });

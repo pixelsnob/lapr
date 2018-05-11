@@ -2,88 +2,81 @@
  * Simple slideshow functionality: transitions and animations in CSS
  * 
  */
-define([
-  'views/base',
-  'views/slideshow_image',
-  'collections/slideshow_images',
-  'template'
-], function(
-  BaseView,
-  SlideshowImageView,
-  SlideshowImagesCollection,
-  template
-) {
-  
-  return BaseView.extend({
-    
-    interval_id: null,
+import BaseView from 'views/base';
+import SlideshowImageView from 'views/slideshow_image';
+import SlideshowImagesCollection from 'collections/slideshow_images';
+import template from 'template';
 
-    events: {
-    },
+export default BaseView.extend({
 
-    initialize: function(opts) {
-      this.collection = new SlideshowImagesCollection;
-    },
-    
-    render: function() {
-      var obj = this;
-      this.collection.fetch().done(function(images) {
-        _.each(obj.collection.models, function(image) {
-          var view = new SlideshowImageView({ model: image });
-          obj.$el.find('.slideshow').append(view.render().el);
+  interval_id: null,
+
+  events: {},
+
+  initialize: function(opts) {
+    this.collection = new SlideshowImagesCollection;
+  },
+
+  render: function() {
+    var obj = this;
+    this.collection.fetch().done(function(images) {
+      _.each(obj.collection.models, function(image) {
+        var view = new SlideshowImageView({
+          model: image
         });
-        obj.trigger('ready');
+        obj.$el.find('.slideshow').append(view.render().el);
       });
-      return this;
-    },
-    
-    start: function() {
-      var obj = this;
-      this.preload(function() {
-        obj.setFirst();
-        obj.interval_id = setInterval(_.bind(obj.setNext, obj), 5000);
-      });
-    },
-    
-    preload: function(cb) {
-      var $images = this.$el.find('img'),
-          obj     = this,
-          c       = 0;
-      $images.each(function(i) {
-        var image = new Image;
-        image.src = $(this).attr('src');
-        image.onload = function() {
-          c++;
-          if (c == $images.length) {
-            cb();
-          }
-        };
-      });
-    },
+      obj.trigger('ready');
+    });
+    return this;
+  },
 
-    setCurrent: function($el) {
-      this.$el.find('.current').removeClass('current');
-      $el.addClass('current');
-    },
-    
-    setFirst: function() {
-      this.setCurrent(this.$el.find('li:first'));
-    },
-    
-    setNext: function() {
-      var next = this.$el.find('.current').next();
-      if (next.length) {
-        this.setCurrent(next);
-      } else {
-        this.setFirst();
-      }
-    },
+  start: function() {
+    var obj = this;
+    this.preload(function() {
+      obj.setFirst();
+      obj.interval_id = setInterval(_.bind(obj.setNext, obj), 5000);
+    });
+  },
 
-    onClose: function() {
-      clearInterval(this.interval_id);
-      this.collection.unbind();
+  preload: function(cb) {
+    var $images = this.$el.find('img'),
+      obj = this,
+      c = 0;
+    $images.each(function(i) {
+      var image = new Image;
+      image.src = $(this).attr('src');
+      image.onload = function() {
+        c++;
+        if (c == $images.length) {
+          cb();
+        }
+      };
+    });
+  },
+
+  setCurrent: function($el) {
+    this.$el.find('.current').removeClass('current');
+    $el.addClass('current');
+  },
+
+  setFirst: function() {
+    this.setCurrent(this.$el.find('li:first'));
+  },
+
+  setNext: function() {
+    var next = this.$el.find('.current').next();
+    if (next.length) {
+      this.setCurrent(next);
+    } else {
+      this.setFirst();
     }
+  },
 
-  });
+  onClose: function() {
+    clearInterval(this.interval_id);
+    this.collection.unbind();
+  }
+
 });
 

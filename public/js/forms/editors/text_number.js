@@ -3,26 +3,21 @@
  * 
  * 
  */
-define([
-  'backbone',
-  'backbone-forms'
-], function(
-  Backbone
-) {
-  return Backbone.Form.editors.Text.extend({
-    
-    events: { 
-    },
+import Backbone from 'backbone';
+import 'backbone-forms';
 
-    initialize: function(opts) {
-      Backbone.Form.editors.Text.prototype.initialize.call(this, opts); 
-    },
+export default Backbone.Form.editors.Text.extend({
 
-    getValue: function() {
-      var value = Backbone.Form.editors.Text.prototype.getValue.apply(this);
-      return Number(value);
-    }
+  events: {},
+
+  initialize: function(opts) {
+    Backbone.Form.editors.Text.prototype.initialize.call(this, opts);
+  },
+
+  getValue: function() {
+    var value = Backbone.Form.editors.Text.prototype.getValue.apply(this);
+    return Number(value);
+  }
 
 
-  });
 });

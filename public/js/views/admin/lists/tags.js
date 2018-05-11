@@ -2,17 +2,10 @@
  * tags view
  * 
  */
-define([
-  './base',
-  'views/admin/lists/items/tag'
-], function(
-  ListBaseView,
-  TagView
-) {
+import ListBaseView from './base';
+import TagView from 'views/admin/lists/items/tag';
 
-  return ListBaseView.extend({
-    view: TagView,
-    title: 'Tags'
-  });
-
+export default ListBaseView.extend({
+  view: TagView,
+  title: 'Tags'
 });

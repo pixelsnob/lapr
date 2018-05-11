@@ -3,19 +3,13 @@
  * 
  * 
  */
-define([
-  'backbone',
-  './multi_select',
-  'views/admin/lists/tag_categories',
-  'backbone-forms'
-], function(
-  Backbone,
-  MultiSelectEditorView,
-  TagCategoriesView
-) {
-  return MultiSelectEditorView.extend({
-    
-    list_view: TagCategoriesView
-    
-  });
+import Backbone from 'backbone';
+import MultiSelectEditorView from './multi_select';
+import TagCategoriesView from 'views/admin/lists/tag_categories';
+import 'backbone-forms';
+
+export default MultiSelectEditorView.extend({
+
+  list_view: TagCategoriesView
+
 });

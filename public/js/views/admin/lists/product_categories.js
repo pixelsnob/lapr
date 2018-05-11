@@ -2,17 +2,10 @@
  * product_categories view
  * 
  */
-define([
-  './base',
-  './items/product_category'
-], function(
-  ListBaseView,
-  CategoryView
-) {
+import ListBaseView from './base';
+import CategoryView from './items/product_category';
 
-  return ListBaseView.extend({
-    view: CategoryView,
-    title: 'Product Categories'
-  });
-
+export default ListBaseView.extend({
+  view: CategoryView,
+  title: 'Product Categories'
 });

@@ -2,20 +2,20 @@
  * tag_category model
  * 
  */
-define([
-  './base'
-], function(BaseModel) {
-  return BaseModel.extend({
-    
-    url: function() { return '/api/tag-categories/' + (this.id || '') },
+import BaseModel from './base';
 
-    initialize: function(opts) {
-      
-    },
+export default BaseModel.extend({
 
-    toString: function() {
-      return this.get('name');
-    }
+  url: function() {
+    return '/api/tag-categories/' + (this.id || '')
+  },
 
-  });
+  initialize: function(opts) {
+
+  },
+
+  toString: function() {
+    return this.get('name');
+  }
+
 });

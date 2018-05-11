@@ -2,26 +2,21 @@
  * user form
  * 
  */
-define([
-  'forms/base'
-], function(
-  BaseForm
-) {
-  
-  return BaseForm.extend({
+import BaseForm from 'forms/base';
 
-    schema: {
-      username: {
-        type: 'Text',
-        validators: [ 'required' ]
-      },
-      password: {
-        type: 'Text',
-        validators: [ 'required' ]
-      }
+export default BaseForm.extend({
+
+  schema: {
+    username: {
+      type: 'Text',
+      validators: ['required']
+    },
+    password: {
+      type: 'Text',
+      validators: ['required']
     }
-    
-  });
+  }
+
 });
 
 

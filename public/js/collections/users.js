@@ -2,18 +2,15 @@
  * users collection
  * 
  */
-define([
-  '../models/user'
-], function(UserModel) {
-  return Backbone.Collection.extend({
-    
-    url: '/api/users',
+import UserModel from '../models/user';
 
-    model: UserModel,
+export default Backbone.Collection.extend({
 
-    comparator: 'name',
+  url: '/api/users',
 
-    initialize: function() {
-    }
-  });
+  model: UserModel,
+
+  comparator: 'name',
+
+  initialize: function() {}
 });

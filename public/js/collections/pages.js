@@ -2,18 +2,15 @@
  * pages collection
  * 
  */
-define([
-  '../models/page'
-], function(PageModel) {
-  return Backbone.Collection.extend({
-    
-    url: '/api/pages',
+import PageModel from '../models/page';
 
-    model: PageModel,
+export default Backbone.Collection.extend({
 
-    comparator: 'name',
+  url: '/api/pages',
 
-    initialize: function() {
-    }
-  });
+  model: PageModel,
+
+  comparator: 'name',
+
+  initialize: function() {}
 });

@@ -2,48 +2,41 @@
  * page form
  * 
  */
-define([
-  'forms/base',
-  'collections/pages'
-], function(
-  BaseForm,
-  PagesCollection
-) {
-  
-  return BaseForm.extend({
+import BaseForm from 'forms/base';
+import PagesCollection from 'collections/pages';
 
-    initialize: function(opts) {
-      this.schema.path.validators = [
-        'required',
-        {
-          type: 'unique',
-          name: 'path',
-          model: this.model,
-          collection: opts.collection
-        }
-      ];
-      BaseForm.prototype.initialize.apply(this, arguments);
-    },
+export default BaseForm.extend({
 
-    schema: {
-      path: {
-        type: 'Text'
-      },
-      title: {
-        type: 'Text',
-        validators: [ 'required' ]
-      },
-      description: {
-        type: 'TextArea',
-        validators: [ ]
-      },
-      view: {
-        type: 'Text',
-        validators: [ ]
+  initialize: function(opts) {
+    this.schema.path.validators = [
+      'required', {
+        type: 'unique',
+        name: 'path',
+        model: this.model,
+        collection: opts.collection
       }
+    ];
+    BaseForm.prototype.initialize.apply(this, arguments);
+  },
+
+  schema: {
+    path: {
+      type: 'Text'
+    },
+    title: {
+      type: 'Text',
+      validators: ['required']
+    },
+    description: {
+      type: 'TextArea',
+      validators: []
+    },
+    view: {
+      type: 'Text',
+      validators: []
     }
-    
-  });
+  }
+
 });
 
 

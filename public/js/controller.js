@@ -2,40 +2,36 @@
  * Application controller
  * 
  */
-define([
-  'backbone'
-], function(Backbone) {
-  
-  return function(app_view) {
+import Backbone from 'backbone';
 
-    return {
+export default function(app_view) {
 
-      showIndex: function() {
-        app_view.showIndex();
-      },
+  return {
 
-      showProductsByCategory: function(category) {
-        app_view.showProductsByCategory(category);
-      },
-      
-      showProductsByTags: function(tags) {
-        app_view.showProductsByTags(tags);
-      },
+    showIndex: function() {
+      app_view.showIndex();
+    },
 
-      showProductsByTextSearch: function(search) {
-        app_view.showProductsByTextSearch(search);
-      },
+    showProductsByCategory: function(category) {
+      app_view.showProductsByCategory(category);
+    },
 
-      showProductDetails: function(product_id, previous_url) {
-        app_view.showProductDetails(product_id, previous_url);
-      },
-      
-      showContact: function() {
-        app_view.showContact();
-      }
+    showProductsByTags: function(tags) {
+      app_view.showProductsByTags(tags);
+    },
+
+    showProductsByTextSearch: function(search) {
+      app_view.showProductsByTextSearch(search);
+    },
+
+    showProductDetails: function(product_id, previous_url) {
+      app_view.showProductDetails(product_id, previous_url);
+    },
+
+    showContact: function() {
+      app_view.showContact();
     }
-  };
-
-});
+  }
+};
 
 

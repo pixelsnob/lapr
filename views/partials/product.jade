@@ -13,7 +13,7 @@
 
     link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product.id}")
 
-    if _.isArray(product.makers) && product.makers.length
+    if Array.isArray(product.makers) && product.makers.length
       p.makers.secondary(itemprop="manufacturer")!= product.makers.map(function(m) { return m.name; }).join(', ')
     if product.sizes && product.sizes.length && !product.hide_sizes_in_lists
       .sizes.secondary!= markdown(product.sizes)

@@ -2,18 +2,15 @@
  * product_categories collection
  * 
  */
-define([
-  '../models/product_category'
-], function(ProductCategoryModel) {
-  return Backbone.Collection.extend({
-    
-    url: '/api/categories',
+import ProductCategoryModel from '../models/product_category';
 
-    model: ProductCategoryModel,
+export default Backbone.Collection.extend({
 
-    comparator: 'name',
+  url: '/api/categories',
 
-    initialize: function() {
-    }
-  });
+  model: ProductCategoryModel,
+
+  comparator: 'name',
+
+  initialize: function() {}
 });

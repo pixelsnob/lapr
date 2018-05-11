@@ -2,19 +2,16 @@
  * tags collection
  * 
  */
-define([
-  '../models/tag'
-], function(TagModel) {
-  return Backbone.Collection.extend({
-    
-    url: '/api/tags',
+import TagModel from '../models/tag';
 
-    model: TagModel,
+export default Backbone.Collection.extend({
 
-    comparator: 'name',
+  url: '/api/tags',
 
-    initialize: function() {
-    }
-  });
+  model: TagModel,
+
+  comparator: 'name',
+
+  initialize: function() {}
 });
 

@@ -2,25 +2,17 @@
  * user view
  * 
  */
-define([
-  './base',
-  'models/user',
-  'forms/user'
-], function(
-  ListItemBaseView,
-  UserModel,
-  UserForm
-) {
-  
-  return ListItemBaseView.extend({
-    label: 'user',
-    title: 'User',
-    
-    model: new UserModel,
-    
-    form_obj: UserForm
+import ListItemBaseView from './base';
+import UserModel from 'models/user';
+import UserForm from 'forms/user';
 
-  });
+export default ListItemBaseView.extend({
+  label: 'user',
+  title: 'User',
+
+  model: new UserModel,
+
+  form_obj: UserForm
 
 });
 

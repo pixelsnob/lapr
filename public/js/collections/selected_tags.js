@@ -2,29 +2,28 @@
  * selected_tags collection
  * 
  */
-define([
-  'backbone',
-], function(
-  Backbone
-) {
-  return Backbone.Collection.extend({
+import Backbone from 'backbone';
 
-    initialize: function(opts) {
-    },
+export default Backbone.Collection.extend({
 
-    setFromArray: function(tags) {
-      var obj = this, models = [], tags = (_.isArray(tags) ? tags : []);
-      this.reset();
-      if (!tags.length) {
-        return;
-      }
-      tags.forEach(function(tag) {
-        var model = obj.tags.findWhere({ slug: tag });
-        if (model) {
-          obj.add(model);
-        }
-      });
+  initialize: function(opts) {},
+
+  setFromArray: function(tags) {
+    var obj = this,
+      models = [],
+      tags = (_.isArray(tags) ? tags : []);
+    this.reset();
+    if (!tags.length) {
+      return;
     }
+    tags.forEach(function(tag) {
+      var model = obj.tags.findWhere({
+        slug: tag
+      });
+      if (model) {
+        obj.add(model);
+      }
+    });
+  }
 
-  });
 });

@@ -2,35 +2,29 @@
  * maker form
  * 
  */
-define([
-  'forms/base'
-], function(
-  BaseForm
-) {
-  
-  return BaseForm.extend({
+import BaseForm from 'forms/base';
 
-    initialize: function(opts) {
-      this.schema.name.validators = [
-        'required',
-        {
-          type: 'unique',
-          name: 'name',
-          model: this.model,
-          collection: opts.collection
-        }
-      ];
-      BaseForm.prototype.initialize.apply(this, arguments);
-    },
+export default BaseForm.extend({
 
-    schema: {
-      name: {
-        type: 'Text',
-        validators: [ 'required' ]
+  initialize: function(opts) {
+    this.schema.name.validators = [
+      'required', {
+        type: 'unique',
+        name: 'name',
+        model: this.model,
+        collection: opts.collection
       }
+    ];
+    BaseForm.prototype.initialize.apply(this, arguments);
+  },
+
+  schema: {
+    name: {
+      type: 'Text',
+      validators: ['required']
     }
-    
-  });
+  }
+
 });
 
 

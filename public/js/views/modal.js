@@ -1,38 +1,34 @@
 /**
  * 
  */
-define([
-  'views/base',
-  'template',
-  'lib/stacked_modals_fix'
-], function(
-  BaseView, template
-) {
-  return BaseView.extend({
-    
-    events: {
-      'click .close': 'closeModal'
-    },
+import BaseView from 'views/base';
+import template from 'template';
+import 'lib/stacked_modals_fix';
 
-    initialize: function() {
-      this.setElement(template.render('partials/modal'));
-      this.$el.on('hidden.bs.modal', _.bind(this.close, this));
-    },
+export default BaseView.extend({
 
-    render: function(opts) {
-      this.$el.find('.modal-body').append(opts.body);
-      this.$el.modal();
-      return this;
-    },
+  events: {
+    'click .close': 'closeModal'
+  },
 
-    closeModal: function() {
-      this.$el.modal('hide');
-    },
+  initialize: function() {
+    this.setElement(template.render('partials/modal'));
+    this.$el.on('hidden.bs.modal', _.bind(this.close, this));
+  },
 
-    onClose: function() {
-      this.trigger('close');
-    }
+  render: function(opts) {
+    this.$el.find('.modal-body').append(opts.body);
+    this.$el.modal();
+    return this;
+  },
 
-  });
+  closeModal: function() {
+    this.$el.modal('hide');
+  },
+
+  onClose: function() {
+    this.trigger('close');
+  }
+
 });
 
