@@ -46,7 +46,6 @@ export default BaseView.extend({
         products: obj.products,
         input_id: 'text-search'
       });
-      console.log(text_search_view);
       obj.$el.find('header .text-search').append(text_search_view.render().el);
       obj.mobile_menu_view = new MobileMenuView({
         products: obj.products

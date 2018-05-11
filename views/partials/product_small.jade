@@ -1,9 +1,9 @@
 
-.small-product
+.product-small
   .name
     #{product.name}
     if product.sizes && !product.hide_sizes_in_lists
       span.sizes , #{product.sizes}
 
-    if Array.isArray(product.makers)
+    if Array.isArray(product.makers) && product.makers.length
       span.makers - #{product.makers.map(product => product.name).join(', ')}
