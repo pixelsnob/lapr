@@ -3,7 +3,7 @@
  * 
  */
 import BaseView from 'views/base';
-import TextSearchProductView from 'views/text_search/product';
+import TextSearchProductView from 'views/products/text_search/product';
 
 export default BaseView.extend({
 

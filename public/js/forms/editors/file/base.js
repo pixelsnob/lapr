@@ -17,6 +17,7 @@ export default Backbone.Form.editors.Text.extend({
   initialize: function() {
     Backbone.Form.editors.Text.prototype.initialize.apply(this, arguments);
     this.file_model = new this.file_model;
+    var key = this.key;
     this.setElement(template.render('admin/file_upload', {
       name: this.key,
       editor_id: this.id
@@ -26,18 +27,17 @@ export default Backbone.Form.editors.Text.extend({
     this.$error = this.$el.find('[data-error]');
     this.$preview = this.$el.find('.preview');
     this.$filename = this.$el.find('.filename');
-    var obj = this;
-    this.listenTo(this.file_model, 'upload', function(res) {
+    this.listenTo(this.file_model, 'upload', res => {
       if (typeof res.path != 'undefined') {
         // Store tmp path so that it can be moved to its permanent dest
         // on the server
-        obj.model.set('tmp_' + this.key, res.path, {
+        this.model.set('tmp_' + key, res.path, {
           silent: true
         });
-        obj.setValue(res.name);
+        this.setValue(res.name);
       }
-      obj.toggleDelete();
-      obj.updateFilename();
+      this.toggleDelete();
+      this.updateFilename();
     });
   },
 
@@ -62,21 +62,21 @@ export default Backbone.Form.editors.Text.extend({
 
   fileChange: function(ev) {
     var file = ev.currentTarget.files[0],
-      reader = new FileReader,
-      obj = this;
-    reader.onload = function(ev) {
-      obj.file_model.set({
+      reader = new FileReader;
+
+    reader.onload = ev => {
+      this.file_model.set({
         file: file,
         src: reader.result
       });
       reader.onload = null;
-      if (obj.file_model.isValid()) {
-        obj.trigger('reader-loaded', reader);
-        obj.file_model.upload();
-        obj.form.fields[obj.key].clearError();
+      if (this.file_model.isValid()) {
+        this.trigger('reader-loaded', reader);
+        this.file_model.upload();
+        this.form.fields[this.key].clearError();
       } else {
-        obj.form.fields[obj.key].setError(obj.file_model.validationError);
-        obj.$file_input.val('');
+        this.form.fields[this.key].setError(this.file_model.validationError);
+        this.$file_input.val('');
       }
     };
     reader.readAsDataURL(file);

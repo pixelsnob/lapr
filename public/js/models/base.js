@@ -9,7 +9,7 @@ export default Backbone.Model.extend({
   idAttribute: '_id',
 
   logError: function(message) {
-    $.ajax({
+    /*$.ajax({
       url: '/api/errors',
       type: 'POST',
       cache: false,
@@ -18,7 +18,7 @@ export default Backbone.Model.extend({
         message: message,
         json: JSON.stringify(this.attributes)
       }
-    });
+    });*/
   }
 
 });

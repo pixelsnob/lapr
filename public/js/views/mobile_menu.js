@@ -3,7 +3,7 @@
  * 
  */
 import BaseView from 'views/base';
-import TextSearchFormView from 'views/text_search';
+import TextSearchFormView from 'views/products/text_search';
 import template from 'template';
 
 export default BaseView.extend({

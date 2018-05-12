@@ -7,7 +7,7 @@ import ProductsView from 'views/products';
 import ProductsSearchView from 'views/products/categories_search';
 import ProductsTagsSearchView from 'views/products/tags_search';
 import ProductsTextSearchResultsView from 'views/products/text_search_results';
-import TextSearchView from 'views/text_search';
+import ProductsTextSearchView from 'views/products/text_search';
 import ProductDetailsView from 'views/product/details';
 import ListNavLinksView from 'views/list_nav_links';
 import ContactView from 'views/contact';
@@ -42,7 +42,7 @@ export default BaseView.extend({
   render: function() {
     var obj = this;
     this.products.deferred.done(function() {
-      var text_search_view = new TextSearchView({
+      var text_search_view = new ProductsTextSearchView({
         products: obj.products,
         input_id: 'text-search'
       });

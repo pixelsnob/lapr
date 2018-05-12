@@ -4,8 +4,8 @@
  */
 import BaseView from 'views/base';
 import ProductsCollection from 'collections/products';
-import TextSearchProductsView from 'views/text_search/products';
-import ProductView from 'views/text_search/product';
+import TextSearchProductsView from './text_search/products';
+import ProductView from './text_search/product';
 import TextSearchForm from 'forms/text_search';
 import template from 'template';
 import global_events from 'lib/events';

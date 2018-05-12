@@ -4,7 +4,7 @@
  */
 import BaseView from 'views/base';
 import ProductModel from 'models/product';
-import ImageOnloadView from '../image_onload';
+import ImageOnloadView from 'views/image_onload';
 import template from 'template';
 import global_events from 'lib/events';
   
