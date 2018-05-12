@@ -20,41 +20,32 @@ export default BaseModel.extend({
   xhr: null,
 
   upload: function() {
-    var form_data = new FormData;
-    var headers = {
+    /*var headers = {
       'X-Csrf-Token': $('meta[name=csrf-param]').attr('content')
-    };
-    form_data.append('file', this.get('file'));
-    $.ajax({
-      url: this.upload_url,
-      type: 'POST',
-      success: _.bind(this.trigger, this, 'upload'),
-      error: _.bind(this.trigger, this, 'error'),
-      data: form_data,
-      dataType: 'json',
-      cache: false,
-      contentType: false,
-      processData: false,
-      xhr: _.bind(this.createXhr, this),
-      headers: headers
-    });
-  },
-
-  createXhr: function() {
-    this.xhr = new XMLHttpRequest;
-    obj = this;
-    this.xhr.upload.addEventListener('progress', function(ev) {
+    };*/
+    var xhr = new XMLHttpRequest;
+    var obj = this;
+    xhr.upload.onprogress = function(ev) {
       if (ev.lengthComputable) {
         var pct = ev.loaded / ev.total;
         obj.trigger('progress', parseInt(pct * 100));
       }
-    });
-    return this.xhr;
-  },
-
-  abort: function() {
-    if (this.xhr) {
-      this.xhr.abort();
-    }
+    };
+    xhr.open('POST', this.upload_url, true);
+    xhr.onload = function(res) {
+      if (this.status == 200) {
+        try {
+          obj.trigger('upload', JSON.parse(this.response));
+        } catch (err) {
+          obj.trigger('error', err);
+        }
+      }
+    };
+    xhr.onerror = function(err) {
+      obj.trigger('error', err);
+    };
+    var form_data = new FormData;
+    form_data.append('file', this.get('file'));
+    xhr.send(form_data);
   }
 });

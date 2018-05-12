@@ -6,8 +6,8 @@
   "scripts": {
     "start-dev": "nodemon app.js -e js,jade",
     "start-staging": "NODE_ENV=staging; forever start /var/www/lapr-staging/app.js",
-    "build": "webpack --config webpack/config.js --verbose --progress",
-    "build-watch": "webpack --config webpack/config.js --verbose --progress --watch"
+    "build": "webpack --config webpack-config.js --verbose --progress",
+    "build-watch": "webpack --config webpack-config.js --verbose --progress --watch"
   },
   "dependencies": {
     "async": "^2.1.4",
@@ -42,6 +42,7 @@
     "gulp-forever": "^1.0.0",
     "gulp-image-resize": "^0.11.0",
     "gulp-watch": "^4.3.11",
+    "image-size": "^0.6.2",
     "imagemin-mozjpeg": "5.1.0",
     "imports-loader": "^0.8.0",
     "jade": "^1.11.0",

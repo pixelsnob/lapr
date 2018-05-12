@@ -3,10 +3,11 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const app_dir = path.resolve(__dirname, '../');
+const app_dir = path.resolve('./');
 
 module.exports = {
   context: app_dir,
+  mode: process.env.NODE_ENV == 'production' ? 'production' : 'development',
   entry: { 
     main: path.join(app_dir, 'public/js/main.js')
   },
@@ -33,7 +34,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-       'NODE_ENV': JSON.stringify('production')
+        'NODE_ENV': process.env.NODE_ENV == 'production' ? 'production' : 'development'
       }
     }),
     new webpack.ProvidePlugin({
