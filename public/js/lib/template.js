@@ -2,7 +2,7 @@
  * Template access
  * 
  */
-import _ from 'underscore';
+//import _ from 'underscore';
 import markdown from './markdown';
 
 export default {

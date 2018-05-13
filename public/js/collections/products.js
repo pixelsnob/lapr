@@ -3,8 +3,8 @@
  * 
  */
 import ProductModel from '../models/product';
-import MakerModel from '../models/maker';
-import ProductCategoryModel from '../models/product_category';
+//import MakerModel from '../models/maker';
+//import ProductCategoryModel from '../models/product_category';
 import FilteredProductsCollection from 'collections/filtered_products';
 import ProductCategoriesCollection from 'collections/product_categories';
 import MakersCollection from 'collections/makers';
@@ -208,7 +208,6 @@ export default Backbone.Collection.extend({
     if (limit > 0) {
       return products.splice(0, limit);
     }
-    console.log(products);
     return products;
   },
 

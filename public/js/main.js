@@ -9,13 +9,12 @@ import Router from 'router';
 import controller from 'controller';
 import ProductsCollection from './collections/products';
 import AppView from 'views/app';
-//import AdminAppView from 'views/admin/app';
-//import bootstrap from 'bootstrap';
   
 var products = new ProductsCollection;
 products.deferred = products.fetch();
 
-// Load templates
+// Load templates: note that require() is temporary until replacement
+// jade (pug) compiler is found
 require('http://127.0.0.1:3003/jade.js').then(function() {
   // Run on dom ready
   $(function() {

@@ -5,6 +5,7 @@
  */
 import Backbone from 'backbone';
 import 'backbone-forms';
+
 _.extend(Backbone.Form.validators, {
 
   number: function(options) {
