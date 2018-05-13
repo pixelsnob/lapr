@@ -22,9 +22,8 @@ export default BaseView.extend({
   render: function() {
     var obj = this;
     if (this.src) {
-      if (loaded_images_collection.findWhere({
-          src: this.src
-        })) {
+      var images = loaded_images_collection.findWhere({ src: this.src });
+      if (images) {
         this.renderImg();
         this.show(0);
         this.triggerLoaded();
@@ -52,18 +51,7 @@ export default BaseView.extend({
   },
 
   show: function(t) {
-    var obj = this;
-    var fadeIn = function() {
-      obj.$el.find('img').fadeIn(t);
-    };
-    // Stagger loading a bit...
-    var rand = (this.random_delay === true ?
-      Math.round(Math.random() * 3000) : 0);
-    if (t > 0) {
-      setTimeout(fadeIn, rand);
-    } else {
-      fadeIn();
-    }
+    this.$el.find('img').css('display', 'block');
   }
 
 });

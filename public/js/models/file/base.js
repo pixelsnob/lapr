@@ -18,9 +18,6 @@ export default BaseModel.extend({
   initialize: function() {},
 
   upload: function() {
-    /*var headers = {
-      'X-Csrf-Token': $('meta[name=csrf-param]').attr('content')
-    };*/
     var xhr = new XMLHttpRequest;
     var obj = this;
     xhr.upload.onprogress = function(ev) {
@@ -30,6 +27,7 @@ export default BaseModel.extend({
       }
     };
     xhr.open('POST', this.upload_url, true);
+    xhr.setRequestHeader('X-Csrf-Token', $('meta[name=csrf-param]').attr('content'));
     xhr.onload = function(res) {
       if (this.status == 200) {
         try {

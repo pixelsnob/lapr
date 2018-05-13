@@ -22,6 +22,8 @@ html
 
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
 
+    meta(name="csrf-param", content="#{csrf_param}")
+
     meta(property="og:site_name", content="L.A. Percussion Rentals")
     meta(property="og:title", content="#{title}")
     meta(property="og:description", content="#{description}")
@@ -32,8 +34,7 @@ html
     meta(property="og:type", content="#{og_type}")
 
     script(type="text/javascript").
-      //document.write('<style type="text/css">#main, .products .product .image img, .product-details .image img, .more-container { display: none; }</style>');
-      document.write('<style type="text/css">#main, .more-container { display: none; }</style>');
+      document.write('<style type="text/css">#main, .products .product .image img, .product-details .image img, .more-container { display: none; }</style>');
 
   body(class="#{body_class}")
     header.site-header

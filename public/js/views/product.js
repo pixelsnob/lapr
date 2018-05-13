@@ -60,13 +60,13 @@ export default BaseView.extend({
     // Image loading stuff
     var image = this.model.get('image');
     if (image) {
-      /*var $img = this.$el.find('.image');
+      var $img = this.$el.find('.image');
       var image_onload_view = new ImageOnloadView({
         el:       $img,
         src:      $img.find('img').attr('src'),
         random_delay: false
       });
-      image_onload_view.render();*/
+      image_onload_view.render();
     }
     return this;
   },

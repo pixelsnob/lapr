@@ -3,6 +3,7 @@
  * 
  */
 import Backbone from 'backbone';
+
 // Override Backbone.sync to add csrf-token header
 Backbone.sync = (function(original) {
   return function(method, model, options) {

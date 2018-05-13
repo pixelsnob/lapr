@@ -35,9 +35,9 @@ app.use(require('cookie-parser')());
 app.use(session({
   store: new redis_store,
   secret: config.session_secret,
-  proxy: true,
+  proxy: (env == 'production'),
   cookie: {
-    secure: true,
+    secure: (env == 'production'),
     httpOnly: true,
     sameSite: true,
     expires: 0,
@@ -48,7 +48,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-//app.use(require('csurf')());
+app.use(require('csurf')());
 app.use(require('express-paginate').middleware(30, 60));
 app.locals.pretty = true;
 app.locals._ = _;
@@ -67,6 +67,7 @@ app.use((req, res, next) => {
   res.locals.base_url = req.headers['x-forwarded-proto'] +
                         '://' + config.base_url + '/';
   res.locals.original_url = req.originalUrl;
+  res.locals.csrf_param = req.csrfToken();
   if (req.isAuthenticated()) {
     res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
     // Disable caching if logged in
