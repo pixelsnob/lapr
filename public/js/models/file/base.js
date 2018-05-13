@@ -3,6 +3,7 @@
  * 
  */
 import BaseModel from '../base';
+import csrf from 'lib/csrf';
 
 export default BaseModel.extend({
 
@@ -27,7 +28,7 @@ export default BaseModel.extend({
       }
     };
     xhr.open('POST', this.upload_url, true);
-    xhr.setRequestHeader('X-Csrf-Token', $('meta[name=csrf-param]').attr('content'));
+    xhr.setRequestHeader('X-Csrf-Token', csrf.getParam());
     xhr.onload = function(res) {
       if (this.status == 200) {
         try {

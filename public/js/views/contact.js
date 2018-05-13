@@ -8,6 +8,7 @@ import ContactForm from 'forms/contact';
 import content_blocks_view from 'views/content_blocks';
 import template from 'template';
 import global_events from 'lib/events';
+import csrf from 'lib/csrf';
 
 export default BaseView.extend({
 
@@ -41,7 +42,7 @@ export default BaseView.extend({
     var errors = this.form.commit(),
       obj = this;
     if (!errors) {
-      this.model.set('csrf-param', $('meta[name=csrf-param]').attr('content'));
+      this.model.set('csrf-param', csrf.getParam());
       this.model.save().done(function() {
         obj.$el.find('.form').html("Thanks! We'll get back to you shortly.");
         obj.model.clear();

@@ -4,7 +4,7 @@
  */
 import Backbone from 'backbone';
 import underscore from 'underscore';
-import csrf from 'lib/csrf';
+import csrf from 'lib/backbone-csrf';
 import Router from 'router';
 import controller from 'controller';
 import ProductsCollection from './collections/products';
