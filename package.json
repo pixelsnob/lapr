@@ -52,7 +52,6 @@
     "jade": "^1.11.0",
     "jade-browser": "0.0.14",
     "jquery": "^3.1.1",
-    "js-common": "github:pixelsnob/js-common",
     "jsdom": "^9.8.3",
     "less-loader": "^4.1.0",
     "lodash": "^4.17.10",
