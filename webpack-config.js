@@ -16,9 +16,9 @@ module.exports = {
      publicPath: '/dist/js/',
      filename: '[name].js'
   },
- 	externals: [
-		require('webpack-require-http')
-	],
+   externals: [
+    require('webpack-require-http')
+  ],
   resolve: {
     modules: [ path.join(app_dir, 'public/js'), 'node_modules' ],
     alias: {
@@ -42,7 +42,6 @@ module.exports = {
       jQuery:    'jquery',
       _:         'underscore',
       Vex:       'vexflow'
-
     })
   ],
   module: {
@@ -54,22 +53,4 @@ module.exports = {
       }
     ]
   }
-	/*optimization: {
-		splitChunks: {
-			cacheGroups: {
-				main: {
-					//test: /node_modules/,
-					name: 'main',
-					chunks: 'initial'
-          //reuseExistingChunk: true
-				},
-				vendor: {
-					test: /node_modules/,
-					name: 'vendor',
-					chunks: 'initial'
-				}
-			}
-		}
-    //runtimeChunk: { name: 'admin' }
-	},*/
 }
