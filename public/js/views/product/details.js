@@ -6,7 +6,6 @@
 import Backbone from 'backbone';
 import BaseView from 'views/base';
 import ProductDetailsImageView from './details_image';
-//import RangeView from './range';
 import YoutubePlayerView from 'views/youtube_player';
 import ImageOnloadView from 'views/image_onload';
 import ProductAdminView from 'views/admin/product';

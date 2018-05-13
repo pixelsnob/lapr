@@ -17,8 +17,6 @@ export default BaseModel.extend({
 
   initialize: function() {},
 
-  xhr: null,
-
   upload: function() {
     /*var headers = {
       'X-Csrf-Token': $('meta[name=csrf-param]').attr('content')
