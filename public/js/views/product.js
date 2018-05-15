@@ -7,7 +7,6 @@ import BaseView from 'views/base';
 import ProductModel from 'models/product';
 import ProductDetailsView from './product/details';
 import ImageOnloadView from './image_onload';
-//import ProductAdminView from 'views/admin/product';
 import template from 'template';
 import global_events from 'lib/events';
   
@@ -46,11 +45,11 @@ export default BaseView.extend({
     product.id  = this.model.id;
     if (product.makers) {
       product.makers = product.makers.map(function(maker) {
-      var maker = obj.products.refs.makers.findWhere({ _id: maker }); 
-      if (maker && maker.attributes) {
-        return maker.toJSON();
-      }
-      return [];
+        var maker = obj.products.refs.makers.findWhere({ _id: maker }); 
+        if (maker && maker.attributes) {
+          return maker.toJSON();
+        }
+        return [];
       });
     }
     this.$el.html(template.render('partials/product', {
@@ -60,13 +59,10 @@ export default BaseView.extend({
     // Image loading stuff
     var image = this.model.get('image');
     if (image) {
-      var $img = this.$el.find('.image');
       var image_onload_view = new ImageOnloadView({
-        el:       $img,
-        src:      $img.find('img').attr('src'),
-        random_delay: false
+        src: this.$el.find('.image img').attr('src'),
       });
-      image_onload_view.render();
+      image_onload_view.load();
     }
     return this;
   },

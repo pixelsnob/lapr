@@ -22,7 +22,6 @@ export default BaseView.extend({
   initialize: function(opts) {
     this.refs = this.model.collection.refs;
     this.hide_nav = opts.hide_nav;
-    var obj = this;
     // Include product admin editor if admin user
     if (window.lapr.user) {
       import('views/admin/product').then(ProductAdminView => {
@@ -35,39 +34,46 @@ export default BaseView.extend({
   },
   
   render: function() {
-    var product      = this.model.toJSON(),
-      obj        = this;
+    // Load image first, to determine dimensions, then load the rest of the content
+    if (!this.model.get('image')) {
+      this.postRender();
+      return this;
+    }
+    var image_onload_view = new ImageOnloadView({
+      src: `/images/products/${this.model.get('image')}`
+    });
+    image_onload_view.load().then(() => {
+      this.postRender();
+    }).catch(err => {
+      // render anyway?
+      console.error(err); 
+    });
+    return this;
+  },
+  
+  postRender: function() {
+    var product = this.model.toJSON();
+    // Product makers
     if (_.isArray(product.makers) && product.makers.length) {
-      product.makers = product.makers.map(function(maker_id) {
-      return obj.refs.makers.findWhere({ _id: maker_id });
+      product.makers = product.makers.map(maker_id => {
+        return this.refs.makers.findWhere({ _id: maker_id });
       }).join(', ');
     }
-    this.$el.html(template.render('partials/product_details', {
-      product: product
-    }));
-    // Image loading stuff
-    var $img = this.$el.find('.image');
-    if (product.image && product.image.length) {
-      var image_onload_view = new ImageOnloadView({
-      el:       $img,
-      src:      $img.find('img').attr('src')
-      });
-      image_onload_view.render();
-    }
+    this.$el.html(template.render('partials/product_details', { product: product }));
     // Youtube videos
     var $youtube_player = this.$el.find('.youtube-player');
     $youtube_player.hide();
     if (_.isArray(product.youtube_videos) && product.youtube_videos.length) {
       var yt_view = new YoutubePlayerView({
-      collection: product.youtube_videos.map(function(video_id) {
-        return obj.refs.youtube_videos.findWhere({ _id: video_id });
-      })
+        collection: product.youtube_videos.map(video_id => {
+          return this.refs.youtube_videos.findWhere({ _id: video_id });
+        })
       });
       this.$el.find('.youtube-player').replaceWith(yt_view.render().el);
       $youtube_player.show();
       this.$el.find('.sounds-disclaimer').removeClass('hide');
     }
-    // Range notation, if any
+    // Range notation
     if (product.range && product.range.length) {
       import('./range').then(RangeView => {
         var range_view = new RangeView.default({ range: product.range });
@@ -75,9 +81,8 @@ export default BaseView.extend({
       });
     }
     content_blocks_view.setElement(this.$el).render();
-    return this;
   },
-  
+
   navigate: function(ev) {
     if (ev.currentTarget.hostname.search(window.location.hostname) != -1) {
       var url = ev.currentTarget.pathname + ev.currentTarget.search;

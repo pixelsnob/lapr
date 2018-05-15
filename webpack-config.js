@@ -9,7 +9,7 @@ module.exports = {
   context: app_dir,
   mode: process.env.NODE_ENV == 'production' ? 'production' : 'development',
   entry: { 
-    main: path.join(app_dir, 'public/js/main.js')
+    main: [ 'core-js/fn/promise', path.join(app_dir, 'public/js/main.js') ]
   },
   output: {
      path: path.join(app_dir, 'public/dist/js'),
@@ -38,10 +38,11 @@ module.exports = {
       }
     }),
     new webpack.ProvidePlugin({
-      $:         'jquery',
-      jQuery:    'jquery',
-      _:         'underscore',
-      Vex:       'vexflow'
+      $: 'jquery',
+      jQuery: 'jquery',
+      _: 'underscore',
+      Vex: 'vexflow',
+      Promise: 'es6-promise-promise'
     })
   ],
   module: {

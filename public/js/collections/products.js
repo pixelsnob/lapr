@@ -3,8 +3,6 @@
  * 
  */
 import ProductModel from '../models/product';
-//import MakerModel from '../models/maker';
-//import ProductCategoryModel from '../models/product_category';
 import FilteredProductsCollection from 'collections/filtered_products';
 import ProductCategoriesCollection from 'collections/product_categories';
 import MakersCollection from 'collections/makers';
@@ -14,6 +12,7 @@ import SelectedTagsCollection from 'collections/selected_tags';
 import SelectedCategoriesCollection from 'collections/selected_categories';
 import YoutubeVideosCollection from 'collections/youtube_videos';
 import lunr from 'lunr';
+import Promise from 'lib/promise';
 
 export default Backbone.Collection.extend({
 
@@ -39,20 +38,19 @@ export default Backbone.Collection.extend({
   },
 
   fetch: function() {
-    var stored = this.getStored(),
-      deferred = new jQuery.Deferred(),
-      obj = this;
+    var stored = this.getStored();
     if (stored && !window.lapr.user) {
-      this.reset(stored.data.products);
-      this.refs.product_categories.reset(stored.data.product_categories);
-      this.refs.makers.reset(stored.data.makers);
-      this.refs.tags.reset(stored.data.tags);
-      this.refs.tag_categories.reset(stored.data.tag_categories);
-      this.refs.youtube_videos.reset(stored.data.youtube_videos);
-      deferred.resolve();
-      return deferred.promise();
+      this.deferred = new Promise((resolve, reject) => {
+        this.reset(stored.data.products);
+        this.refs.product_categories.reset(stored.data.product_categories);
+        this.refs.makers.reset(stored.data.makers);
+        this.refs.tags.reset(stored.data.tags);
+        this.refs.tag_categories.reset(stored.data.tag_categories);
+        this.refs.youtube_videos.reset(stored.data.youtube_videos);
+        return resolve();
+      });
     } else {
-      return Backbone.Collection.prototype.fetch.call(this).done(function(res) {
+      return Backbone.Collection.prototype.fetch.call(this).then(res => {
         var data = {
           products: res.products,
           product_categories: res.product_categories,
@@ -61,7 +59,7 @@ export default Backbone.Collection.extend({
           tag_categories: res.tag_categories,
           youtube_videos: res.youtube_videos
         };
-        obj.setStored(data);
+        this.setStored(data);
       });
     }
   },
@@ -155,13 +153,12 @@ export default Backbone.Collection.extend({
       this.field('range');
       this.field('sizes');
     });
-    var obj = this;
-    _.each(this.models, function(product) {
+    _.each(this.models, product => {
       product = product.toJSON();
       var makers = '';
       if (_.isArray(product.makers) && product.makers.length) {
-        makers = product.makers.map(function(maker_id) {
-          var maker = obj.refs.makers.findWhere({
+        makers = product.makers.map(maker_id => {
+          var maker = this.refs.makers.findWhere({
             _id: Number(maker_id)
           });
           return (maker ? maker.get('name') : '');
@@ -169,14 +166,14 @@ export default Backbone.Collection.extend({
       }
       var categories = '';
       if (_.isArray(product.categories) && product.categories.length) {
-        categories = product.categories.map(function(category_id) {
-          var category = obj.refs.product_categories.findWhere({
+        categories = product.categories.map(category_id => {
+          var category = this.refs.product_categories.findWhere({
             _id: Number(category_id)
           });
           return (category ? category.get('name') : '');
         }).join(', ');
       }
-      obj.index.add({
+      this.index.add({
         id: product._id,
         name: product.name,
         alt_names: product.alt_names,
@@ -195,10 +192,9 @@ export default Backbone.Collection.extend({
       return [];
     }
     var search_res = this.index.search(search),
-      products = [],
-      obj = this;
-    _.each(search_res, function(product) {
-      var product_model = obj.findWhere({
+      products = [];
+    _.each(search_res, product => {
+      var product_model = this.findWhere({
         _id: Number(product.ref)
       });
       if (product_model) {
