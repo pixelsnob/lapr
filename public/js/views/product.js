@@ -40,12 +40,11 @@ export default BaseView.extend({
   },
   
   render: function() {
-    var product = this.model.toJSON(),
-      obj   = this;
+    var product = this.model.toJSON();
     product.id  = this.model.id;
     if (product.makers) {
-      product.makers = product.makers.map(function(maker) {
-        var maker = obj.products.refs.makers.findWhere({ _id: maker }); 
+      product.makers = product.makers.map(maker => {
+        var maker = this.products.refs.makers.findWhere({ _id: maker }); 
         if (maker && maker.attributes) {
           return maker.toJSON();
         }

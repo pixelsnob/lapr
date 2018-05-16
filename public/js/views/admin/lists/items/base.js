@@ -57,13 +57,12 @@ export default BaseView.extend({
   },
 
   save: function() {
-    var errors = this.form.commit(),
-      obj = this;
+    var errors = this.form.commit();
     if (!errors) {
       this.model.save(this.form.getValue(), {
         wait: true,
-        success: function(model) {
-          obj.trigger('save', model);
+        success: model => {
+          this.trigger('save', model);
         },
         error: _.bind(this.showServerError, this)
       });
@@ -73,16 +72,15 @@ export default BaseView.extend({
   },
 
   destroy: function(ev) {
-    var obj = this,
-      label = this.label || 'item';
+    var label = this.label || 'item';
     dialog.confirm({
       message: 'Are you sure you want to remove this ' + this.label + '?',
-      callback: function(value) {
+      callback: value => {
         if (value) {
-          obj.model.destroy({
+          this.model.destroy({
             wait: true,
-            success: _.bind(obj.trigger, obj, 'destroy'),
-            error: _.bind(obj.showServerError, obj)
+            success: _.bind(this.trigger, this, 'destroy'),
+            error: _.bind(this.showServerError, this)
           });
         }
       }

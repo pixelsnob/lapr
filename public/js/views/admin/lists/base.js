@@ -26,13 +26,12 @@ export default BaseView.extend({
   },
 
   render: function() {
-    var obj = this
     var $table = this.$el.find('table');
     $table.empty();
-    this.collection.each(function(model) {
-      var view = new obj.view({
+    this.collection.each(model => {
+      var view = new this.view({
         model: model,
-        collection: obj.collection
+        collection: this.collection
       });
       $table.append(view.render().el);
     });

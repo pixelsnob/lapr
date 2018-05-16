@@ -18,12 +18,11 @@ export default BaseView.extend({
       images: []
     }));
     content_blocks_view.setElement(this.$el).render();
-    var obj = this;
-    content_blocks_view.deferred.done(function() {
+    content_blocks_view.deferred.then(() => {
       // For each column on index page, find the first link in the content, and attach an onlick
       // to the image that will follow that link
-      ['.index-left', '.index-middle', '.index-right'].forEach(function(sel) {
-        var $el = obj.$el.find(sel + ' .content');
+      ['.index-left', '.index-middle', '.index-right'].forEach(sel => {
+        var $el = this.$el.find(sel + ' .content');
         var $link = $el.find('a:eq(0)');
         if ($link.length && $link.attr('href')) {
           var href = $link.attr('href');

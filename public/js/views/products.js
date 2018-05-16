@@ -32,16 +32,15 @@ export default BaseView.extend({
     $(window).off('scroll');
     $(window).on('scroll', _.bind(this.onScroll, this));
     var $results = this.$el.find('.results'),
-      products = this.refs.filtered_products,
-      obj = this;
+      products = this.refs.filtered_products;
     if (append !== true) {
       $results.empty();
     }
-    products.getPaged().forEach(function(product) {
+    products.getPaged().forEach(product => {
       var view = new ProductView({
         model: product,
-        products: obj.collection,
-        refs: obj.refs
+        products: this.collection,
+        refs: this.refs
       });
       $results.append(view.render().el);
     });

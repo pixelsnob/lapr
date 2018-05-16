@@ -19,20 +19,19 @@ var View = BaseView.extend({
 
   // Looks for all .content-block elements and render them
   render: function() {
-    var obj = this;
-    this.deferred.done(function() {
-      var $content_blocks = obj.$el.find('.content-block');
-      $content_blocks.each(function() {
-        var $el = $(this),
+    this.deferred.then(() => {
+      var $content_blocks = this.$el.find('.content-block');
+      Array.from($content_blocks).forEach($content_block => {
+        var $el = $($content_block),
           name = $el.attr('data-name'),
           id = $el.attr('data-id'),
           model;
         if (name) {
-          model = obj.collection.findWhere({
+          model = this.collection.findWhere({
             name: name
           });
         } else {
-          model = obj.collection.findWhere({
+          model = this.collection.findWhere({
             _id: Number(id)
           });
         }

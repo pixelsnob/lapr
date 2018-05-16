@@ -6,7 +6,6 @@ import ListItemBaseView from './base';
 import YoutubeVideoModel from 'models/youtube_video';
 import YoutubeVideoForm from 'forms/youtube_video';
 import template from 'template';
-import Promise from 'lib/promise';
 
 export default ListItemBaseView.extend({
   label: 'youtube video',

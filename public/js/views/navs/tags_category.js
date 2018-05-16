@@ -17,7 +17,6 @@ export default BaseView.extend({
   },
 
   render: function() {
-    var obj = this;
     this.$el.append(this.model.get('name'));
     var view = new TagsListView({
       collection: this.tags,

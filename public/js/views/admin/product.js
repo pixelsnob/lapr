@@ -45,12 +45,11 @@ export default BaseView.extend({
   },
 
   save: function() {
-    var errors = this.form.commit(),
-      obj = this;
+    var errors = this.form.commit();
     if (!errors) {
       this.model.save(this.model.attributes, {
         wait: true,
-        success: _.bind(obj.trigger, obj, 'save'),
+        success: _.bind(this.trigger, this, 'save'),
         error: _.bind(this.showServerError, this)
       });
     } else {
@@ -59,15 +58,14 @@ export default BaseView.extend({
   },
 
   _remove: function() {
-    var obj = this;
     dialog.confirm({
       message: 'Are you sure you want to remove this?',
       callback: function(value) {
         if (value) {
-          obj.model.destroy({
+          this.model.destroy({
             wait: true,
-            success: _.bind(obj.trigger, obj, 'remove'),
-            error: _.bind(obj.showServerError, obj)
+            success: _.bind(this.trigger, this, 'remove'),
+            error: _.bind(this.showServerError, this)
           });
         }
       }

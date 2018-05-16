@@ -20,12 +20,11 @@ export default BaseView.extend({
   },
 
   render: function() {
-    var obj = this;
-    this.collection.forEach(function(model) {
+    this.collection.forEach(model => {
       var video_view = new YoutubeVideoView({
         model: model
       });
-      obj.$el.append(video_view.render().el);
+      this.$el.append(video_view.render().el);
     });
     return this;
   },
@@ -41,9 +40,8 @@ export default BaseView.extend({
   },
 
   hideUnselected: function(selected_model) {
-    var obj = this;
-    this.collection.forEach(function(model) {
-      obj.$el.find('li[data-id=' + model.id + ']:not([data-id=' + selected_model.id + '])').hide();
+    this.collection.forEach(model => {
+      this.$el.find('li[data-id=' + model.id + ']:not([data-id=' + selected_model.id + '])').hide();
     });
   }
 });

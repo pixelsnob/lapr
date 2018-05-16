@@ -17,8 +17,7 @@ export default BaseView.extend({
 
   render: function() {
     var product = this.model.toJSON(),
-      product_image = this.model.get('image'),
-      obj = this;
+      product_image = this.model.get('image');
     if (product_image) {
       this.setElement(template.render('partials/product_details_image', {
         product: product

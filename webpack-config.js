@@ -9,7 +9,10 @@ module.exports = {
   context: app_dir,
   mode: process.env.NODE_ENV == 'production' ? 'production' : 'development',
   entry: { 
-    main: [ 'core-js/fn/promise', path.join(app_dir, 'public/js/main.js') ]
+    main: [
+      'core-js/fn/promise',
+      path.join(app_dir, 'public/js/main.js')
+    ]
   },
   output: {
      path: path.join(app_dir, 'public/dist/js'),

@@ -12,7 +12,6 @@ import SelectedTagsCollection from 'collections/selected_tags';
 import SelectedCategoriesCollection from 'collections/selected_categories';
 import YoutubeVideosCollection from 'collections/youtube_videos';
 import lunr from 'lunr';
-import Promise from 'lib/promise';
 
 export default Backbone.Collection.extend({
 
@@ -123,8 +122,7 @@ export default Backbone.Collection.extend({
   // Filters products by categories and adds them to the filtered_products
   // collection
   filterByCategory: function() {
-    var obj = this,
-      selected_category = this.refs.selected_categories.at(0),
+    var selected_category = this.refs.selected_categories.at(0),
       selected_category_id = selected_category ? selected_category.id : null;
     var products = this.filter(function(product) {
       // Return all products if no category specified

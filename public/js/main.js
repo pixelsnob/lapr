@@ -7,14 +7,14 @@ import underscore from 'underscore';
 import csrf from 'lib/backbone-csrf';
 import Router from 'router';
 import controller from 'controller';
-import ProductsCollection from './collections/products';
+import ProductsCollection from 'collections/products';
 import AppView from 'views/app';
   
 var products = new ProductsCollection;
 products.deferred = products.fetch();
 
 // Run on dom ready
-$(function() {
+//$(function() {
 
   var app_view = new AppView({ products: products });
   app_view.render();
@@ -40,4 +40,4 @@ $(function() {
       });
     });
   }
-});
+//});

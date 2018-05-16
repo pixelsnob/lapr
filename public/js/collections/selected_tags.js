@@ -9,19 +9,18 @@ export default Backbone.Collection.extend({
   initialize: function(opts) {},
 
   setFromArray: function(tags) {
-    var obj = this,
-      models = [],
+    var models = [],
       tags = (_.isArray(tags) ? tags : []);
     this.reset();
     if (!tags.length) {
       return;
     }
-    tags.forEach(function(tag) {
-      var model = obj.tags.findWhere({
+    tags.forEach(tag => {
+      var model = this.tags.findWhere({
         slug: tag
       });
       if (model) {
-        obj.add(model);
+        this.add(model);
       }
     });
   }

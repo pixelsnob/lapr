@@ -31,14 +31,13 @@ export default BaseView.extend({
   },
 
   render: function() {
-    var obj = this;
     this.$el.empty();
-    this.products.refs.product_categories.forEach(function(category) {
+    this.products.refs.product_categories.forEach(category => {
       var view = new CategoriesNavItemView({
         model: category,
-        products: obj.products
+        products: this.products
       });
-      obj.$el.append(view.render().el);
+      this.$el.append(view.render().el);
     });
     return this;
   }

@@ -29,12 +29,11 @@ export default BaseView.extend({
       $(window).scrollTop(0);
       global_events.trigger('set-page-title', this.getTitleTag());
     });
-    var obj = this,
-      refs = this.products.refs;
+    var refs = this.products.refs;
     // If a product is added to the collection, and the product contains some of the currently
     // selected tags, or no tags are selected and the product contains at least one tag,
     // add it to the filtered list
-    this.listenTo(this.products, 'add', function(model) {
+    this.listenTo(this.products, 'add', model => {
       var product_tags = model.get('tags');
       if (!product_tags.length) {
         return;
@@ -48,7 +47,7 @@ export default BaseView.extend({
       if (!sel_tag_ids.length || _.some(sel_tag_ids, hasSomeTags)) {
         refs.filtered_products.add(model);
         model.highlight = true;
-        obj.products_view.render();
+        this.products_view.render();
       }
     });
   },

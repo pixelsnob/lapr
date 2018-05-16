@@ -21,16 +21,15 @@ export default BaseView.extend({
 
   render: function() {
     //this.$el.append(template.render('partials/tags_nav'));
-    var obj = this,
-      $ul = this.$el.find('ul');
+    var $ul = this.$el.find('ul');
     $ul.empty();
-    this.products.refs.tag_categories.forEach(function(category) {
-      var tags = obj.products.refs.tags.where({
+    this.products.refs.tag_categories.forEach(category => {
+      var tags = this.products.refs.tags.where({
         category: category.id
       });
       var view = new TagsCategoryView({
         model: category,
-        products: obj.products,
+        products: this.products,
         tags: tags
       });
       $ul.append(view.render().el);

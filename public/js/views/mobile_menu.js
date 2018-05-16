@@ -45,7 +45,6 @@ export default BaseView.extend({
   },
 
   show: function($content) {
-    var obj = this;
     if (!this.shown) {
       this.shown = true;
       var text_search_form_view = new TextSearchFormView({
@@ -54,7 +53,7 @@ export default BaseView.extend({
       });
       this.listenTo(text_search_form_view, 'selected', function() {
         text_search_form_view.blur();
-        obj.hide();
+        this.hide();
       });
       this.$mobile_menu.find('.text-search')
         .append(text_search_form_view.render().el);
@@ -63,8 +62,8 @@ export default BaseView.extend({
       opacity: 1,
       left: 0
     }, function() {
-      obj.trigger('shown');
-      obj.disableDocumentScroll();
+      this.trigger('shown');
+      this.disableDocumentScroll();
     });
     // Hide if back or forward buttons are hit
     window.onpopstate = this.hide.bind(this);
@@ -72,12 +71,11 @@ export default BaseView.extend({
 
   hide: function() {
     this.enableDocumentScroll();
-    var obj = this;
     this.$mobile_menu.stop().animate({
       opacity: 0
     }, function() {
-      obj.$mobile_menu.css('left', '-100%');
-      obj.trigger('hidden');
+      this.$mobile_menu.css('left', '-100%');
+      this.trigger('hidden');
       window.onpopstate = null;
     });
   },

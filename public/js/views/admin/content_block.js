@@ -39,8 +39,7 @@ export default BaseView.extend({
   },
 
   save: function() {
-    var errors = this.form.commit(),
-      obj = this;
+    var errors = this.form.commit();
     if (!errors) {
       this.trigger('save');
     }

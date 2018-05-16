@@ -45,10 +45,9 @@ export default BaseView.extend({
       mode: 'add'
     });
     view.renderModal();
-    var obj = this;
     // Add to collection if save is successful
-    this.listenTo(view, 'save', function(model) {
-      obj.products.add(model);
+    this.listenTo(view, 'save', model => {
+      this.products.add(model);
     });
     return true; // true so that BS dropdown closes
   },
@@ -93,10 +92,9 @@ export default BaseView.extend({
   },
 
   editContentBlocks: function() {
-    var obj = this;
-    this.content_blocks_deferred.done(function(collection) {
+    this.content_blocks_deferred.then(collection => {
       var view = new ContentBlocksView({
-        collection: obj.content_blocks
+        collection: this.content_blocks
       });
       view.renderModal();
       view.listenTo(view, 'close', function() {
@@ -107,10 +105,9 @@ export default BaseView.extend({
   },
 
   editImages: function() {
-    var obj = this;
-    this.images_deferred.done(function(collection) {
+    this.images_deferred.then(collection => {
       var view = new ImagesView({
-        collection: obj.images
+        collection: this.images
       });
       view.renderModal();
       view.listenTo(view, 'close', function() {
@@ -121,10 +118,9 @@ export default BaseView.extend({
   },
 
   editPages: function() {
-    var obj = this;
-    this.pages_deferred.done(function(collection) {
+    this.pages_deferred.then(collection => {
       var view = new PagesView({
-        collection: obj.pages
+        collection: this.pages
       });
       view.renderModal();
       view.listenTo(view, 'close', function() {

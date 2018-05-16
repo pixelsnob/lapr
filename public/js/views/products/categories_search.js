@@ -29,23 +29,22 @@ export default BaseView.extend({
     this.stats_view = new ProductsSearchStatsView({
       products: this.products
     });
-    var refs = this.products.refs,
-      obj = this;
+    var refs = this.products.refs;
     // If a product is added to the collection, and the product is in the current category,
     // or no category is selected (all products shown), add it to the filtered list
-    this.listenTo(this.products, 'add', function(model) {
+    this.listenTo(this.products, 'add', model => {
       var selected_category = this.getSelectedCategory(),
         categories = model.get('categories');
       if (!selected_category || _.contains(categories, selected_category.id)) {
         refs.filtered_products.add(model);
         model.highlight = true;
-        obj.products_view.render();
+        this.products_view.render();
       }
     });
-    this.listenTo(refs.selected_categories, 'add reset', function() {
+    this.listenTo(refs.selected_categories, 'add reset', () => {
       this.$el.find('.boxes-list').scrollTop(0);
       $(window).scrollTop(0);
-      obj.toggleMoreInfoLink();
+      this.toggleMoreInfoLink();
       global_events.trigger('set-page-title', this.getTitleTag());
     });
   },

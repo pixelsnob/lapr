@@ -39,14 +39,13 @@ export default BaseView.extend({
   },
 
   send: function(ev) {
-    var errors = this.form.commit(),
-      obj = this;
+    var errors = this.form.commit();
     if (!errors) {
       this.model.set('csrf-param', csrf.getParam());
-      this.model.save().done(function() {
-        obj.$el.find('.form').html("Thanks! We'll get back to you shortly.");
-        obj.model.clear();
-      }).fail(this.showServerError);
+      this.model.save().then(function() {
+        this.$el.find('.form').html("Thanks! We'll get back to you shortly.");
+        this.model.clear();
+      }).catch(this.showServerError);
     }
     return false;
   },

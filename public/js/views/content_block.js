@@ -45,24 +45,22 @@ export default BaseView.extend({
     view.renderModal();
     this.listenTo(view, 'save', function() {
       if (this.model.hasChanged()) {
-      this.showEditLinks();
+      	this.showEditLinks();
       }
     });
   },
 
   save: function() {
-    var obj = this;
-    this.model.save(this.model.attributes).done(function() {
-      obj.hideEditLinks();
-    }).fail(obj.showServerError);
+    this.model.save(this.model.attributes).then(() => {
+      this.hideEditLinks();
+    }).catch(this.showServerError);
   },
 
   revert: function() {
-    var obj = this;
-    this.deferred = this.model.fetch().done(function() {
-      obj.hideEditLinks();
-      obj.render();
-    }).fail(obj.showServerError);
+    this.deferred = this.model.fetch().then(() => {
+      this.hideEditLinks();
+      this.render();
+    }).catch(this.showServerError);
   },
 
   showEditLinks: function() {

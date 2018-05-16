@@ -40,26 +40,24 @@ export default BaseView.extend({
   },
 
   toggleSelected: function(selected_tags) {
-    var obj = this,
-      selected_tag_ids = selected_tags.pluck('_id');
+    var selected_tag_ids = selected_tags.pluck('_id');
     if (!selected_tag_ids.length) {
       return this.deselect();
     }
     this.products.refs.tags.forEach(function(tag) {
       if (_.contains(selected_tag_ids, tag.id)) {
-        obj.select();
+        this.select();
       } else {
-        obj.deselect();
+        this.deselect();
       }
     });
   },
 
   toggleDisabled: function(products) {
     var refs = this.products.refs,
-      selected_tag_ids = refs.selected_tags.pluck('_id'),
-      obj = this;
-    products = products.filter(function(product) {
-      return _.contains(product.get('tags'), obj.model.id);
+      selected_tag_ids = refs.selected_tags.pluck('_id');
+    products = products.filter(product => {
+      return _.contains(product.get('tags'), this.model.id);
     });
     if ((products.length && refs.filtered_products.length > 1) ||
       _.contains(selected_tag_ids, this.model.id)) {

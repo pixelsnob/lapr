@@ -14,8 +14,7 @@ export default MultiSelectEditorView.extend({
 
   // Build tags tree structure
   renderOptions: function(options) {
-    var tree = [],
-      obj = this;
+    var tree = [];
     this.schema.tag_categories.forEach(function(category) {
       tree.push({
         group: category.get('name'),

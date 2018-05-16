@@ -16,13 +16,12 @@ export default BaseView.extend({
   },
 
   render: function() {
-    var obj = this;
-    this.collection.forEach(function(tag) {
+    this.collection.forEach(tag => {
       var view = new TagsListItemView({
         model: tag,
-        products: obj.products
+        products: this.products
       });
-      obj.$el.append(view.render().el);
+      this.$el.append(view.render().el);
     });
     this.$el.addClass('tags-list');
     return this;

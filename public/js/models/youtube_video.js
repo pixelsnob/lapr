@@ -3,7 +3,6 @@
  * 
  */
 import BaseModel from './base';
-import Promise from 'lib/promise';
 
 export default BaseModel.extend({
 
