@@ -10,7 +10,9 @@ module.exports = {
   mode: process.env.NODE_ENV == 'production' ? 'production' : 'development',
   entry: { 
     main: [
+      // Browser polyfills
       'core-js/fn/promise',
+      'core-js/fn/array/from',
       path.join(app_dir, 'public/js/main.js')
     ]
   },
