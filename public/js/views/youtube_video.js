@@ -21,9 +21,10 @@ export default BaseView.extend({
 
   render: function() {
     // Show only if video is available
-    var obj = this;
-    this.model.getVideoJSON().done(function() {
-      obj.$el.removeClass('hide');
+    this.model.getPublishedVideos().then(videos => {
+      if (videos.length) {
+        this.$el.removeClass('hide');
+      }
     });
     return this;
   },

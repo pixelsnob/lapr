@@ -11,9 +11,7 @@ import ProductsCollection from './collections/products';
 import AppView from 'views/app';
   
 var products = new ProductsCollection;
-//products.deferred = products.fetch();
-
-products.fetch();
+products.deferred = products.fetch();
 
 // Run on dom ready
 $(function() {

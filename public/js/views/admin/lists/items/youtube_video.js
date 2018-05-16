@@ -6,6 +6,7 @@ import ListItemBaseView from './base';
 import YoutubeVideoModel from 'models/youtube_video';
 import YoutubeVideoForm from 'forms/youtube_video';
 import template from 'template';
+import Promise from 'lib/promise';
 
 export default ListItemBaseView.extend({
   label: 'youtube video',
@@ -20,30 +21,37 @@ export default ListItemBaseView.extend({
     ListItemBaseView.prototype.initialize.apply(this, arguments);
   },
 
+  showStatusBadge: function(type, text) {
+    var $warning_container = this.$el.find('.warning-container');
+    var $label = $('<span>').addClass(`label label-${type}`).text(text);
+    $warning_container.append($label);
+  },
+
   render: function() {
     this.$el.children().remove();
     this.$el.append(template.render('admin/youtube_video_list_item',
       this.model.toJSON()));
-    var obj = this;
     // Show a message if there's an issue accessing the video
-    this.model.getVideoJSON().done(function() {
-      var badge = $('<span>').addClass('label label-success').text('OK');
-      obj.$el.find('.warning-container').append(badge);
-    }).fail(function() {
-      var badge = $('<span>').addClass('label label-danger').text('Problem!');
-      obj.$el.find('.warning-container').append(badge);
+    this.model.getPublishedVideos().then(videos => {
+      if (videos.length) {
+        this.showStatusBadge('success', 'OK');
+      } else {
+        this.showStatusBadge('danger', 'Problem!');
+      }
+    }).catch(err => {
+      this.showStatusBadge('default', 'No data!');
     });
     var ref_products = [];
-    this.products.map(function(product) {
+    this.products.map(product => {
       var product = product.toJSON();
       if (product.youtube_videos && _.isArray(product.youtube_videos)) {
-        var products = product.youtube_videos.filter(function(video) {
-          return video == obj.model.id;
-        }).map(function(video) {
+        var products = product.youtube_videos.filter(video => {
+          return video == this.model.id;
+        }).map(video => {
           return product.name;
         });
         if (products.length) {
-          products.forEach(function(_product) {
+          products.forEach(_product => {
             ref_products.push(_product);
           });
         }

@@ -40,15 +40,13 @@ export default Backbone.Collection.extend({
   fetch: function() {
     var stored = this.getStored();
     if (stored && !window.lapr.user) {
-      this.deferred = new Promise((resolve, reject) => {
-        this.reset(stored.data.products);
-        this.refs.product_categories.reset(stored.data.product_categories);
-        this.refs.makers.reset(stored.data.makers);
-        this.refs.tags.reset(stored.data.tags);
-        this.refs.tag_categories.reset(stored.data.tag_categories);
-        this.refs.youtube_videos.reset(stored.data.youtube_videos);
-        return resolve();
-      });
+      this.reset(stored.data.products);
+      this.refs.product_categories.reset(stored.data.product_categories);
+      this.refs.makers.reset(stored.data.makers);
+      this.refs.tags.reset(stored.data.tags);
+      this.refs.tag_categories.reset(stored.data.tag_categories);
+      this.refs.youtube_videos.reset(stored.data.youtube_videos);
+      return Promise.resolve(this);
     } else {
       return Backbone.Collection.prototype.fetch.call(this).then(res => {
         var data = {
