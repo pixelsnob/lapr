@@ -13,6 +13,7 @@ module.exports = {
       // Browser polyfills
       'core-js/fn/promise',
       'core-js/fn/array/from',
+      'core-js/fn/array/is-array',
       path.join(app_dir, 'public/js/main.js')
     ]
   },
