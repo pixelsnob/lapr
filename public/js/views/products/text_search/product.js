@@ -51,6 +51,7 @@ export default BaseView.extend({
       `/instruments/${this.model.get('slug')}/${this.model.id}?nav=0`,
       { trigger: true }
     );
+    this.trigger('selected');
     return false;
   }
 

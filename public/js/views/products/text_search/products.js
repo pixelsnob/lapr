@@ -29,6 +29,7 @@ export default BaseView.extend({
         refs: this.refs
       });
       this.$el.append(view.render().el);
+      this.listenTo(view, 'selected', () => this.trigger('selected'));
     });
     return this;
   }

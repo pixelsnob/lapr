@@ -3,7 +3,7 @@
  * 
  */
 import BaseView from 'views/base';
-import TextSearchFormView from 'views/products/text_search';
+import ProductsTextSearchView from 'views/products/text_search';
 import template from 'template';
 
 export default BaseView.extend({
@@ -47,21 +47,20 @@ export default BaseView.extend({
   show: function($content) {
     if (!this.shown) {
       this.shown = true;
-      var text_search_form_view = new TextSearchFormView({
+      var text_search_view = new ProductsTextSearchView({
         products: this.products,
         input_id: 'mobile-text-search'
       });
-      this.listenTo(text_search_form_view, 'selected', function() {
-        text_search_form_view.blur();
+      this.listenTo(text_search_view, 'selected', () => {
+        //text_search_view.blur();
         this.hide();
       });
-      this.$mobile_menu.find('.text-search')
-        .append(text_search_form_view.render().el);
+      this.$mobile_menu.find('.text-search').append(text_search_view.render().el);
     }
     this.$mobile_menu.stop().animate({
       opacity: 1,
       left: 0
-    }, function() {
+    }, () => {
       this.trigger('shown');
       this.disableDocumentScroll();
     });
@@ -73,7 +72,7 @@ export default BaseView.extend({
     this.enableDocumentScroll();
     this.$mobile_menu.stop().animate({
       opacity: 0
-    }, function() {
+    }, () => {
       this.$mobile_menu.css('left', '-100%');
       this.trigger('hidden');
       window.onpopstate = null;

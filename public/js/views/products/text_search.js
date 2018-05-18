@@ -22,6 +22,7 @@ export default BaseView.extend({
     this.products_view = new TextSearchProductsView({
       collection: this.search_results_collection
     });
+    this.listenTo(this.products_view, 'selected', () => this.trigger('selected'));
     this.listenTo(global_events, 'content-panel-closed', () => {
       this.getInputElement().focus();
     });
