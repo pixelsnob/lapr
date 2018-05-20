@@ -7,7 +7,7 @@ import ImageModel from 'models/file/image';
 
 export default FileUploadView.extend({
 
-  image_path: '/images/global/',
+  image_path: '/images/products/',
 
   file_model: ImageModel,
 

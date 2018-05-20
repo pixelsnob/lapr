@@ -9,6 +9,15 @@ var ImageSchema = new db.Schema({
   title: String
 });
 
+ImageSchema.pre('remove', function(next) {
+  db.model('Product').update(
+    { images: this._id },
+    { $pull: { images: this._id }},
+    { multi: true },
+    next
+  );
+});
+
 module.exports = mai => {
   ImageSchema.plugin(mai.plugin, {
     model: 'Image',
