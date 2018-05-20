@@ -16,7 +16,7 @@ export default ListBaseView.extend({
   },
 
   render: function() {
-    var $table = this.$el.find('table');
+    var $table = this.$el.find('table tbody');
     $table.empty();
     this.collection.each(model => {
       var view = new this.view({
@@ -28,7 +28,5 @@ export default ListBaseView.extend({
     });
     return this;
   }
-
-
 });
 

@@ -3,6 +3,7 @@
  */
 import BaseView from 'views/base';
 import template from 'template';
+import 'bootstrap';
 import 'lib/stacked_modals_fix';
 
 export default BaseView.extend({
