@@ -60,7 +60,7 @@ export default BaseView.extend({
   _remove: function() {
     dialog.confirm({
       message: 'Are you sure you want to remove this?',
-      callback: function(value) {
+      callback: value => {
         if (value) {
           this.model.destroy({
             wait: true,

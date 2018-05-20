@@ -135,8 +135,8 @@ app.route('/sitemap.xml').get(routes.showSitemap);
 
 // Product refs and related CRUD
 
-app.route('/api/slideshow-images')
-  .get(routes.getSlideshowImages);
+//app.route('/api/slideshow-images')
+//  .get(routes.getSlideshowImages);
 
 var models = {
   ProductCategory:  '/api/categories',
