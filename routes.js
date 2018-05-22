@@ -141,7 +141,8 @@ module.exports = app => {
             makers: json_data.makers,
             tags: json_data.tags,
             tag_categories: json_data.tag_categories,
-            youtube_videos: json_data.youtube_videos
+            youtube_videos: json_data.youtube_videos,
+            images: json_data.images
           });
         }
       });
@@ -252,7 +253,8 @@ module.exports = app => {
           'makers':              'Maker',
           'tags':                'Tag',
           'tag_categories':      'TagCategory',
-          'youtube_videos':      'YoutubeVideo'
+          'youtube_videos':      'YoutubeVideo',
+          'images':              'Image'
         }; 
         async.each(Object.keys(model_names), (model_name, cb) => {
           db.model(model_names[model_name]).find({}, { __v: 0 }, { sort: { name: 1 }},

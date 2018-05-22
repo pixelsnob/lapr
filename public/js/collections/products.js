@@ -11,6 +11,7 @@ import TagCategoriesCollection from 'collections/tag_categories';
 import SelectedTagsCollection from 'collections/selected_tags';
 import SelectedCategoriesCollection from 'collections/selected_categories';
 import YoutubeVideosCollection from 'collections/youtube_videos';
+import ImagesCollection from 'collections/images';
 import lunr from 'lunr';
 
 export default Backbone.Collection.extend({
@@ -30,7 +31,8 @@ export default Backbone.Collection.extend({
       tag_categories: new TagCategoriesCollection,
       selected_tags: new SelectedTagsCollection,
       selected_categories: new SelectedCategoriesCollection,
-      youtube_videos: new YoutubeVideosCollection
+      youtube_videos: new YoutubeVideosCollection,
+      images: new ImagesCollection
     };
     this.refs.selected_tags.tags = this.refs.tags;
     this.refs.selected_categories.product_categories = this.refs.product_categories;
@@ -45,6 +47,7 @@ export default Backbone.Collection.extend({
       this.refs.tags.reset(stored.data.tags);
       this.refs.tag_categories.reset(stored.data.tag_categories);
       this.refs.youtube_videos.reset(stored.data.youtube_videos);
+      this.refs.images.reset(stored.data.images);
       return Promise.resolve(this);
     } else {
       return Backbone.Collection.prototype.fetch.call(this).then(res => {
@@ -54,7 +57,8 @@ export default Backbone.Collection.extend({
           makers: res.makers,
           tags: res.tags,
           tag_categories: res.tag_categories,
-          youtube_videos: res.youtube_videos
+          youtube_videos: res.youtube_videos,
+          images: res.images
         };
         this.setStored(data);
       });
@@ -94,6 +98,7 @@ export default Backbone.Collection.extend({
     this.refs.tags.reset(res.tags);
     this.refs.tag_categories.reset(res.tag_categories);
     this.refs.youtube_videos.reset(res.youtube_videos);
+    this.refs.images.reset(res.images);
     return res.products;
   },
 

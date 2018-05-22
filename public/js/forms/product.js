@@ -19,7 +19,7 @@ export default BaseForm.extend({
     this.fields.tags.schema.options = opts.refs.tags;
     this.fields.tags.schema.tag_categories = opts.refs.tag_categories;
     this.fields.youtube_videos.schema.options = opts.refs.youtube_videos;
-    this.fields.images.schema.options = [];//opts.refs.images;
+    this.fields.images.schema.options = opts.refs.images;
   },
 
   schema: {
