@@ -8,7 +8,7 @@ import ProductCategoriesEditor from './editors/product_categories';
 import MakersEditor from './editors/makers';
 import TagsEditor from './editors/tags';
 import YoutubeVideosEditor from './editors/youtube_videos';
-import ProductImageEditor from './editors/file/product_image';
+import ProductImagesEditor from './editors/product_images';
 
 export default BaseForm.extend({
 
@@ -19,6 +19,7 @@ export default BaseForm.extend({
     this.fields.tags.schema.options = opts.refs.tags;
     this.fields.tags.schema.tag_categories = opts.refs.tag_categories;
     this.fields.youtube_videos.schema.options = opts.refs.youtube_videos;
+    this.fields.images.schema.options = [];//opts.refs.images;
   },
 
   schema: {
@@ -82,9 +83,10 @@ export default BaseForm.extend({
       type: 'TextArea',
       help: '<em>Markdown enabled</em>'
     },
-    image: {
-      type: ProductImageEditor,
-      help: '<em>Image must be < 250KB in size, and < 1000px wide. Thumbnails generated automatically</em>'
+    images: {
+      options: [],
+      type: ProductImagesEditor,
+      //help: '<em>Image must be < 250KB in size, and < 1000px wide. Thumbnails generated automatically</em>'
     },
     youtube_videos: {
       type: YoutubeVideosEditor,

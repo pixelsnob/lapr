@@ -3,7 +3,6 @@
  * 
  * 
  */
-import Backbone from 'backbone';
 import MultiSelectEditorView from './multi_select';
 import YoutubeVideosView from 'views/admin/lists/youtube_videos';
 import 'backbone-forms';
