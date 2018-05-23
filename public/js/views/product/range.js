@@ -116,7 +116,6 @@ export default BaseView.extend({
 
     canvas.height += (max_octave >= 7 ? 30 : 0);
     canvas.height += (min_octave < 2 ? 20 : 0);
-    //console.log(min_octave, canvas.height);
 
     var canvas_ctx = canvas.getContext('2d');
 

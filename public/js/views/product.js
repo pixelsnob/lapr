@@ -36,7 +36,7 @@ export default BaseView.extend({
       });
     }
     // Update if makers collection has changed
-    this.listenTo(this.products.refs.makers, 'add change remove', this.render);
+    this.listenTo(this.products.refs.makers, 'add change remove destroy', this.render);
   },
   
   render: function() {
@@ -48,20 +48,25 @@ export default BaseView.extend({
         if (maker && maker.attributes) {
           return maker.toJSON();
         }
-        return [];
-      });
+        return null;
+      }).filter(maker => maker !== null);
     }
+    if (Array.isArray(product.images) && product.images.length) {
+      var image = this.products.refs.images.findWhere({ _id: product.images[0] });
+      if (image) {
+        product.image = image;
+      }
+    }
+    // Image loading stuff
     this.$el.html(template.render('partials/product', {
       product: product
     }));
-    this.$el.attr('id', this.model.id);
-    // Image loading stuff
-    var image = this.model.get('image');
-    if (image) {
+    var $image = this.$el.find('.image img');
+    if (product.image && $image.length) {
       var image_onload_view = new ImageOnloadView({
         src: this.$el.find('.image img').attr('src'),
       });
-      image_onload_view.load();
+      image_onload_view.load().then(() => $image.show());
     }
     return this;
   },

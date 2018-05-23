@@ -15,7 +15,8 @@ export default BaseView.extend({
 
   initialize: function() {
     this.setElement(template.render('admin/list'));
-    this.listenTo(this.collection, 'change add remove', this.render);
+    this.listenTo(this.collection, 'change add remove destroy', this.render);
+  
     this.$el.find('.pager').hide();
     if (this.paged) {
       this.$el.find('.pager').show();
@@ -78,7 +79,7 @@ export default BaseView.extend({
   },
 
   onClose: function() {
-    this.collection.unbind();
+    //this.collection.unbind();
   }
 
 });

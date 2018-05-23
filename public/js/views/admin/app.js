@@ -11,7 +11,7 @@ import ContentBlocksView from 'views/admin/lists/content_blocks';
 import ImagesView from 'views/admin/lists/images';
 import PagesView from 'views/admin/lists/pages';
 import ContentBlocksCollection from 'collections/content_blocks';
-import ImagesCollection from 'collections/images';
+//import ImagesCollection from 'collections/images';
 import PagesCollection from 'collections/pages';
 
 export default BaseView.extend({
@@ -30,10 +30,8 @@ export default BaseView.extend({
 
   initialize: function(opts) {
     this.products = opts.products;
-    this.content_blocks = new ContentBlocksCollection;
-    this.content_blocks_deferred = this.content_blocks.fetch();
-    this.images = new ImagesCollection;
-    this.images_deferred = this.images.fetch();
+    this.content_blocks = this.products.refs.content_blocks;
+    this.images = this.products.refs.images;
     this.pages = new PagesCollection;
     this.pages_deferred = this.pages.fetch();
   },
@@ -92,27 +90,23 @@ export default BaseView.extend({
   },
 
   editContentBlocks: function() {
-    this.content_blocks_deferred.then(collection => {
-      var view = new ContentBlocksView({
-        collection: this.content_blocks
-      });
-      view.renderModal();
-      view.listenTo(view, 'close', function() {
-        view.close();
-      });
+    var view = new ContentBlocksView({
+      collection: this.content_blocks
+    });
+    view.renderModal();
+    view.listenTo(view, 'close', function() {
+      view.close();
     });
     return true;
   },
 
   editImages: function() {
-    this.images_deferred.then(collection => {
-      var view = new ImagesView({
-        collection: this.images
-      });
-      view.renderModal();
-      view.listenTo(view, 'close', function() {
-        view.close();
-      });
+    var view = new ImagesView({
+      collection: this.images
+    });
+    view.renderModal();
+    view.listenTo(view, 'close', function() {
+      view.close();
     });
     return true;
   },

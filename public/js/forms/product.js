@@ -30,6 +30,11 @@ export default BaseForm.extend({
     slug: {
       type: 'Text'
     },
+    images: {
+      options: [],
+      type: ProductImagesEditor,
+      //help: '<em>Image must be < 250KB in size, and < 1000px wide. Thumbnails generated automatically</em>'
+    },
     description: {
       type: 'TextArea',
       help: '<em>Markdown enabled</em>'
@@ -82,11 +87,6 @@ export default BaseForm.extend({
     sizes: {
       type: 'TextArea',
       help: '<em>Markdown enabled</em>'
-    },
-    images: {
-      options: [],
-      type: ProductImagesEditor,
-      //help: '<em>Image must be < 250KB in size, and < 1000px wide. Thumbnails generated automatically</em>'
     },
     youtube_videos: {
       type: YoutubeVideosEditor,

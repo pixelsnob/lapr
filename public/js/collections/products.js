@@ -36,6 +36,18 @@ export default Backbone.Collection.extend({
     };
     this.refs.selected_tags.tags = this.refs.tags;
     this.refs.selected_categories.product_categories = this.refs.product_categories;
+    // Go through each model and find any image ids that have been removed; if so,
+    // refresh the model from the server (lazy)
+    this.listenTo(this.refs.images, 'destroy', image_model => {
+      this.models.forEach(product_model => {
+        var product_images = product_model.get('images');
+        if (Array.isArray(product_images) && product_images.length) {
+          if (product_images.includes(image_model.id)) {
+            product_model.fetch({ cache: false, trigger: true });
+          }
+        }
+      });
+    });
   },
 
   fetch: function() {

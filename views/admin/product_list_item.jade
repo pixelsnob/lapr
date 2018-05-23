@@ -2,7 +2,7 @@
 td= name
 
 td
-  if !image
+  if !Array.isArray(images) || !images.length
     span.label.label-warning No image
 
 td.edit

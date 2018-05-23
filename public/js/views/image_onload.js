@@ -31,7 +31,7 @@ export default BaseView.extend({
           resolve();
         };
         tmp_img.onerror = err => {
-          reject(err);
+          reject({ err, src: this.src });
         };
         tmp_img.src = this.src;
       }
