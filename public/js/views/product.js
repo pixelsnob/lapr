@@ -42,29 +42,17 @@ export default BaseView.extend({
   render: function() {
     var product = this.model.toJSON();
     product.id  = this.model.id;
-    if (product.makers) {
-      product.makers = product.makers.map(maker => {
-        var maker = this.products.refs.makers.findWhere({ _id: maker }); 
-        if (maker && maker.attributes) {
-          return maker.toJSON();
-        }
-        return null;
-      }).filter(maker => maker !== null);
-    }
-    if (Array.isArray(product.images) && product.images.length) {
-      var image = this.products.refs.images.findWhere({ _id: product.images[0] });
-      if (image) {
-        product.image = image;
-      }
-    }
+    // Populate refs
+    [ 'images', 'makers' ].forEach(ref_name => {
+      product[ref_name] = this.model.getRefs(ref_name).toJSON();
+    });
+    // Render
+    this.$el.html(template.render('partials/product', { product: product }));
     // Image loading stuff
-    this.$el.html(template.render('partials/product', {
-      product: product
-    }));
     var $image = this.$el.find('.image img');
-    if (product.image && $image.length) {
+    if (product.images && $image.length) {
       var image_onload_view = new ImageOnloadView({
-        src: this.$el.find('.image img').attr('src'),
+        src: $image.attr('src')
       });
       image_onload_view.load().then(() => $image.show());
     }

@@ -606,20 +606,23 @@ input, textarea, select {
       margin-top: 0;
     }
   }
-  .image {
+  .images {
     width: 50%;
     padding: 7px 0 20px 20px;
     text-align: right;
     .pull-right;
-    img {
-      margin: 0 auto;
-      /* Preserve aspect ratio */
-      height: auto;
-      width: auto;
-      max-width: 100%;
-      max-height: 85vh;
-      &.noscript {
-        display: block;
+    li {
+      list-style: none;
+      img {
+        margin: 0 auto;
+        /* Preserve aspect ratio */
+        height: auto;
+        width: auto;
+        max-width: 100%;
+        max-height: 85vh;
+        &.noscript {
+          display: block;
+        }
       }
     }
   }

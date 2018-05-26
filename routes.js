@@ -16,51 +16,36 @@ module.exports = app => {
   
   return {
     
-    get: model_name => 
-      (req, res, next) =>
-        db.model(model_name).find()
-          .sort({ name: 1 })
-          .exec((err, docs) => {
-            if (err) {
-              return next(err);
-            }
-            res.send(docs);
-          }),
+    get: model_name => async (req, res, next) => {
+      try {
+        const docs = await db.model(model_name).find().sort({ name: 1 }).exec();
+        res.send(docs);
+      } catch (err) {
+        next(err);
+      }
+    },
 
-    update: model_name => 
-      (req, res, next) => {
-        if (!isValidId(req.params.id)) {
-          return res.render('not_found');
+    update: model_name => async (req, res, next) => {
+      try {
+        const doc = await db.model(model_name).findOne({ _id: req.params.id });
+        if (!doc) {
+          next(new Error(model_name + ' not found'));
         }
-        db.model(model_name).findOne({ _id: req.params.id },
-          (err, doc) => {
-            if (err) {
-              return next(err);
-            }
-            if (!doc) {
-              return new Error(model_name + ' not found');
-            }
-            _.extend(doc, _.omit(req.body, '_id'));
-            doc.save(err => {
-              if (err) {
-                return next(err);
-              }
-              res.send(doc);
-            });
-          }
-        );
-      },
+        // Omit id and mongo __v
+        const { _id, __v, ...body } = req.body;
+        Object.assign(doc, body);
+        await doc.save();
+        res.send(req.body);
+      } catch(err) {
+        next(err);
+      }
+    },
 
-    add: model_name =>
-      (req, res, next) => {
-        var data  = _.omit(req.body, [ 'id', '_id' ]);
-        db.model(model_name).create(data, (err, doc) => {
-          if (err) {
-            return next(err);
-          }
-          res.send(doc);
-        });
-      },
+    add: model_name => async (req, res, next) => {
+      const { _id, id, ...body } = req.body;
+      const doc = await db.model(model_name).create(body);
+      res.send(doc);
+    },
     
     remove: model_name => 
       (req, res, next) => {
@@ -83,161 +68,140 @@ module.exports = app => {
         });
       },
 
-    showProduct: (req, res, next) => {
+    showProduct: async (req, res, next) => {
       if (!isValidId(req.params.id)) {
         return res.render('not_found');
       }
-      db.model('Product').findById(req.params.id, (err, product) => {
-        if (err) {
-          return next(err);
-        }
-        if (!product) {
-          return res.render('not_found');
-        }
+      try {
+        var product = await db.model('Product').findById(req.params.id);
         res.format({
-          html: () => {
-            product.populate('categories makers youtube_videos',
-            (err, product) => {
-              if (err) {
-                return next(err);
-              }
-              // Convert makers array -- if any -- to list
-              product = product.toJSON();
-              product.makers = (_.isArray(product.makers) ?
-                  _.pluck(product.makers, 'name').join(', ') : '');
-              res.render('product', { product: product });
-            });
+          html: async () => {
+            if (!product) {
+              return res.render('not_found');
+            }
+            await db.model('Product').populate(product, { path: 'images' });
+            await db.model('Product').populate(product, { path: 'makers' });
+            product = product.toJSON();
+            if (Array.isArray(product.makers)) {
+              product.makers = product.makers.map(maker => maker.name).join(', ');
+            }
+            res.render('product', { product: product });
           },
           json: () => {
-            res.send(product);
+            res.send(product || {});
           },
         });
-      });
+      } catch (err) {
+        next(err);
+      }
     },
 
-    showProducts: (req, res, next) => {
-      var json_data = res.locals.json_data;
+    showProducts: async (req, res, next) => {
+      const products = await db.model('Product').find();
+      const product_categories = await db.model('ProductCategory').find();
       res.format({
-        html: () => {
-          let pagination_opts = { page: req.query.page, limit: 100 };
-          db.model('Product').paginate({}, pagination_opts, (err, results) => {
-            if (err) {
-              return next(err);
-            }
-            res.render('products_search', {
-              class_name:  'products-categories-search',
-              heading:     'All Instruments',
-              products:    results.docs,
-              categories:  json_data.categories,
-              page_count:  results.total,
-              item_count:  results.limit
-            });
-          }, { sortBy: { name: 1 }, populate: 'makers' });
+        html: async () => {
+          await db.model('Product').populate(products, { path: 'makers' });
+          await db.model('Product').populate(products, { path: 'images' });
+          res.render('products_search', {
+            class_name: 'products-categories-search',
+            heading: 'All Instruments',
+            products,
+            categories: product_categories, ///////////
+            page_count:  0, // <
+            item_count:  0 // <
+          });
         },
-        json: () => {
+        json: async () => {
+          const makers = await db.model('Maker').find();
+          const tags = await db.model('Tag').find();
+          const tag_categories = await db.model('TagCategory').find();
+          const images = await db.model('Image').find();
+          const youtube_videos = await db.model('YoutubeVideo').find();
           res.send({
-            products: json_data.products,
-            product_categories: json_data.product_categories,
-            makers: json_data.makers,
-            tags: json_data.tags,
-            tag_categories: json_data.tag_categories,
-            youtube_videos: json_data.youtube_videos,
-            images: json_data.images
+            products,
+            product_categories,
+            makers,
+            tags,
+            tag_categories,
+            youtube_videos,
+            images
           });
         }
       });
     },
 
-    showProductsByCategory: (req, res, next) => {
-      db.model('ProductCategory').findOne({ slug: req.params.category },
-      (err, product_category) => {
-        if (err) {
-          return next(err);
-        }
+    showProductsByCategory: async (req, res, next) => {
+      try {
+        const product_category = await db.model('ProductCategory').findOne({
+          slug: req.params.category
+        });
         if (!product_category) {
           return res.render('not_found');
         }
-        let query           = { categories: product_category._id },
-            pagination_opts = { page: req.query.page, limit: 100 };
-        db.model('Product').paginate(query, pagination_opts, (err, results) => {
-          if (err) {
-            return next(err);
-          }
-          res.format({
-            html: () => {
-              res.render('products_search', {
-                class_name:         'products-categories-search',
-                heading:            product_category.name,
-                products:           results.docs,
-                product_categories: res.locals.json_data.product_categories,
-                page_count:         results.total,
-                item_count:         results.limit
-              });
-            },
-            json: () => {
-              res.send(products);
-            }
-          });
-        }, { populate: 'makers', sortBy : { name: 1 } });
-      });
-    },
-
-    showProductsTextSearchResults: (req, res, next) => {
-      var search = req.params.search;
-      db.model('Product').search({}, {}, search, (err, products) => {
-        if (err) {
-          return next(err);
-        }
+        const products = await db.model('Product').find({
+          categories: product_category._id
+        }).populate([ 'images', 'makers', 'product_categories' ]).exec();
         res.format({
           html: () => {
             res.render('products_search', {
-              class_name:         'products-text-search',
-              heading:            'Search Results',
-              products:           products,
-              page_count:         0,
-              item_count:         0
+              class_name:         'products-categories-search',
+              heading:            product_category.name,
+              products,
+              product_categories: res.locals.json_data.product_categories, //<
+              page_count:         0, // <
+              item_count:         0 // <
             });
           },
           json: () => {
             res.send(products);
           }
         });
-      });
+      } catch (err) {
+        next(err);
+      }
     },
     
-    showProductsByTags: (req, res, next) => {
-      var tags  = (typeof req.params.tags != 'undefined' ?
-                  req.params.tags.split(',') : []),
-                  // Default is to include all tagged products
-          query = { 'tags.0': { $exists: true }};
-      var tag_ids = res.locals.json_data.tags.filter(tag => 
-        _.contains(tags, tag.slug)
-      ).map(tag => 
-        Number(tag._id)
-      );
-      if (tag_ids.length) {
-        query = { tags: { $all: tag_ids }};
-      }
-      let pagination_opts = { page: req.query.page, limit: 100 };
-      db.model('Product').paginate(query, pagination_opts, (err, results) => {
-        if (err) {
-          return next(err);
-        }
-        res.format({
-          html: () => {
-            res.render('products_search', {
-              class_name:         'products-tags-search',
-              heading:            'Sound Search',
-              products:           results.docs,
-              page_count:         results.total,
-              item_count:         results.limit
-            });
+    showProductsByTags: async (req, res, next) => {
+      var selected_tags  = (typeof req.params.tags != 'undefined' ? req.params.tags.split(',') : []);
+      var products = [];
+      if (selected_tags.length) {
+        products = await db.model('Product').aggregate([
+          {
+            $lookup: {
+              from: 'tags',
+              localField: 'tags',
+              foreignField: '_id',
+              as: 'tags'
+            }
           },
-          json: () => {
-            res.send(products);
+          {
+            $match: {
+              'tags.slug': { $all: selected_tags }
+            }
           }
+        ]);
+      } else {
+        products = await db.model('Product').find({
+          'tags.0': { $exists: true }
         });
-      }, { populate: 'makers', sortBy : { name: 1 } });
+      }
+      res.format({
+        html: async () => {
+          await db.model('Product').populate(products, { path: 'makers' });
+          await db.model('Product').populate(products, { path: 'images' });
+          res.render('products_search', {
+            class_name: 'products-tags-search',
+            heading: 'Sound Search',
+            products,
+            page_count: 0, //results.total,
+            item_count: 0 //results.limit
+          });
+        },
+        json: () => {
+          res.send(products);
+        }
+      });
     },
     
     // Returns an object with pertinent model data, used to create a JSON
@@ -289,6 +253,29 @@ module.exports = app => {
         res.locals.json_data = cached_data;
         next(); 
       }
+    },
+
+    showProductsTextSearchResults: (req, res, next) => {
+      var search = req.params.search;
+      db.model('Product').search({}, {}, search, (err, products) => {
+        if (err) {
+          return next(err);
+        }
+        res.format({
+          html: () => {
+            res.render('products_search', {
+              class_name:         'products-text-search',
+              heading:            'Search Results',
+              products:           products,
+              page_count:         0,
+              item_count:         0
+            });
+          },
+          json: () => {
+            res.send(products);
+          }
+        });
+      });
     },
 
     getContentBlocks: (req, res, next) => {
@@ -361,30 +348,10 @@ module.exports = app => {
         res.send(files.file);
       });
     },
-    
-    // Moves tmp file to permanent destination
-    moveProductImages: (req, res, next) => {
-      var image_dir = __dirname + '/public/images/products/';
-      async.waterfall([
-        cb => {
-          if (req.body.tmp_thumbnail) {
-            return fs.rename(req.body.tmp_thumbnail, image_dir +
-              req.body.thumbnail, cb);
-          }
-          cb();
-        },
-        cb => {
-          if (req.body.tmp_image) {
-            return fs.rename(req.body.tmp_image, image_dir +
-              req.body.image, cb);
-          }
-          cb();
-        }
-      ], next);
-    },
-    
+
+    // Moves image tmp file to permanent destination
     moveImage: (req, res, next) => {
-      var image_dir = __dirname + '/public/images/global/';
+      var image_dir = __dirname + '/public/images/products/';
       if (req.body.tmp_name) {
         return fs.rename(req.body.tmp_name, image_dir + req.body.name, next);
       }

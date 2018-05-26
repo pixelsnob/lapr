@@ -9,7 +9,7 @@ db.products.find().forEach(function(product) {
     print('no image');
     return null;
   }
-  var doc = db.images.insertOne({ name: product.image, _id });
+  var doc = db.images.insertOne({ name: product.image, _id, __v: 0  });
   db.products.update({
     _id: product._id
   }, {
@@ -17,5 +17,4 @@ db.products.find().forEach(function(product) {
     $push: { images: doc.insertedId }
   });
   _id++;
-
 });

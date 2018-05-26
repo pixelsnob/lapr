@@ -7,7 +7,6 @@ var mongoose   = require('mongoose'),
     mai        = require('mongoose-plugin-autoinc');
 
 var db = require('../lib/db')(config.db.name);
-mai.initialize(db.connection);
 
 var file_names = fs.readdirSync(__dirname).filter(file => 
   !file.match(/^\./) && file != 'index.js'

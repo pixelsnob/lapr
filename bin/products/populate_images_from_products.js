@@ -1,101 +1,28 @@
 
-'use strict';
-
-var async            = require('async'),
-    db               = require('../../models'),
-    fs               = require('fs-extra'),
-    path             = require('path'),
-    _                = require('underscore');
-
-var images_dir   = __dirname + '/../../public/images/';
-
-async.waterfall([
-  function(next) {
-    db.connection.model('Product').find({}, function(err, products) {
-      if (err) {
-        return next(err);
-      }
-      async.eachSeries(products, function(product, cb) {
-        if (product.image) {
-          db.connection.model('Image').findOne({ name: product.image },
-          function(err, image) {
-            if (err) {
-              return cb(err);
-            }
-            if (image) {
-              product.images.push(image._id);
-              product.save(cb);
-            } else {
-              db.connection.model('Image').create({ name: product.image },
-              function(err, image) {
-                if (err) {
-                  return cb(err);
-                }
-                product.images.push(image._id);
-                product.save(cb);
-              });
-            }
-          });
-          return;
+const db = require('../../models');
+console.log(db);
+(async () => {
+  try {
+    //await db.connection.collections['images'].drop();
+    const products = await db.model('Product').find();
+    for (let product of products) {
+      product.images = [];
+      if (product.image) {
+        // Check for existing
+        let existing_image = await db.model('Image').findOne({ name: product.image });
+        if (existing_image) {
+          product.images = [ existing_image._id ];
+          console.log(`Duplicate image ${product.image}`);
+        } else {
+          const image = await db.model('Image').create({ name: product.image });
+          product.images = [ image._id ];
         }
-        cb();
-      }, next);
-    });
-  },
-  function(next) {
-    db.connection.model('Product').find({}, function(err, products) {
-      if (err) {
-        return next(err);
       }
-      async.eachSeries(products, function(product, cb) {
-        if (product.thumbnail) {
-          db.connection.model('Image').findOne({ name: product.thumbnail },
-          function(err, image) {
-            if (err) {
-              return cb(err);
-            }
-            if (image) {
-              product.thumbnail_image = image._id;
-              product.save(cb);
-            } else {
-              db.connection.model('Image').create({ name: product.thumbnail },
-              function(err, image) {
-                if (err) {
-                  return cb(err);
-                }
-                product.thumbnail_image = image._id;
-                product.save(cb);
-              });
-            }
-          });
-          return;
-        }
-        cb();
-      }, next);
-    });
+      product.save();
+    }
+    db.connection.close();
+  } catch (err) {
+    console.error(err);
+    db.connection.close();
   }
-  /*function(next) {
-    db.connection.model('Product').find({}, function(err, products) {
-      if (err) {
-        return next(err);
-      }
-      async.eachSeries(products, function(product, cb) {
-        if (product.thumbnail) {
-          product.thumbnail = product.new_thumbnail
-        }
-        if (product.image) {
-          product.image = product.new_image;
-        }
-        product.save(cb);
-      }, next);
-    });
-  }*/
-], function(err) {
-  if (err) {
-    return console.error(err);
-  }
-  console.log('Done');
-  db.connection.close();
-});
-
-
+})();

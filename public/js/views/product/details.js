@@ -35,27 +35,14 @@ export default BaseView.extend({
 
   render: function() {
     var product = this.model.toJSON();
-    if (Array.isArray(product.makers) && product.makers.length) {
-      product.makers = product.makers.map(maker_id =>
-        this.refs.makers.findWhere({ _id: maker_id })
-      ).join(', ');
-    }
-    // Images
-    if (Array.isArray(product.images) && product.images.length) {
-      product.images = product.images.map(image => {
-        var image = this.refs.images.findWhere({ _id: product.images[0] });
-        if (image) {
-          return image.toJSON();
-        }
-        return null;
-      }).filter(image => image !== null);
-    }
+    product.makers = this.model.getRefs('makers').toJSON().map(maker => maker.name).join(', ');
+    product.images = this.model.getRefs('images').toJSON();
     // Render
     this.$el.html(template.render('partials/product_details', {
       product: product
     }));
     // Image loading
-    if (Array.isArray(product.images) && product.images.length) {
+    if (product.images.length) {
       var $image = this.$el.find('.image img');
       if ($image.length) {
         var image_onload_view = new ImageOnloadView({
@@ -69,11 +56,10 @@ export default BaseView.extend({
     // Youtube videos
     var $youtube_player = this.$el.find('.youtube-player');
     $youtube_player.hide();
-    if (Array.isArray(product.youtube_videos) && product.youtube_videos.length) {
+    const youtube_videos = this.model.getRefs('youtube_videos');
+    if (youtube_videos.length) {
       var yt_view = new YoutubePlayerView({
-        collection: product.youtube_videos.map(video_id =>
-          this.refs.youtube_videos.findWhere({ _id: video_id })
-        )
+        collection: youtube_videos
       });
       this.$el.find('.youtube-player').replaceWith(yt_view.render().el);
       $youtube_player.show();

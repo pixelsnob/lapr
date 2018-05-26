@@ -55,7 +55,7 @@ export default Backbone.Form.editors.Select.extend({
         product_image._id == image._id
       )
     ).sort((a, b) => {
-      let a_name = a.name.toUpperCase();
+      let a_name = a.name.toUpperCase();//<
       let b_name = b.name.toUpperCase();
       return a_name > b_name ? 1 : (a_name == b_name ? 0 : -1);
     }).forEach(image => {
@@ -80,7 +80,7 @@ export default Backbone.Form.editors.Select.extend({
   getValue: function() {
     return Array.from(
       this.$el.find('.product-images input[type="hidden"]')
-    ).map(input => input.value);
+    ).map(input => Number(input.value));
   }
 
 });

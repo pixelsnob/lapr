@@ -24,15 +24,7 @@ export default BaseView.extend({
   render: function() {
     var product = this.model.toJSON();
     product.id  = this.model.id;
-    if (product.makers) {
-      product.makers = product.makers.map(maker => {
-        var maker = this.model.collection.refs.makers.findWhere({ _id: maker }); 
-        if (maker && maker.attributes) {
-          return maker.toJSON();
-        }
-        return [];
-      });
-    }
+    product.makers = this.model.getRefs('makers').toJSON();
     this.$el.html(template.render('partials/product_small', {
       product: product
     }));

@@ -124,8 +124,8 @@ app.route('/files/tmp')
 
 app.route('/instruments/:slug/:id?')
   .get(routes.showProduct)
-  .post(routes.auth, routes.moveProductImages, routes.add('Product'))
-  .put(routes.auth, routes.moveProductImages, routes.update('Product'))
+  .post(routes.auth, /*routes.moveProductImages,*/ routes.add('Product'))
+  .put(routes.auth, /*routes.moveProductImages,*/ routes.update('Product'))
   .delete(routes.auth, routes.remove('Product'));
 
 app.route('/contact')
@@ -134,9 +134,6 @@ app.route('/contact')
 app.route('/sitemap.xml').get(routes.showSitemap);
 
 // Product refs and related CRUD
-
-//app.route('/api/slideshow-images')
-//  .get(routes.getSlideshowImages);
 
 var models = {
   ProductCategory:  '/api/categories',
