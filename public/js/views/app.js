@@ -10,6 +10,7 @@ import ProductsTextSearchResultsView from 'views/products/text_search_results';
 import ProductsTextSearchView from 'views/products/text_search';
 import ProductDetailsView from 'views/product/details';
 import ListNavLinksView from 'views/list_nav_links';
+import ProductCategoriesNavView from 'views/navs/categories';
 import ContactView from 'views/contact';
 import IndexView from 'views/index';
 import ContentPanelView from 'views/content_panel';
@@ -40,29 +41,31 @@ export default BaseView.extend({
   },
 
   render: function() {
-    this.products.deferred.then(() => {
-      var text_search_view = new ProductsTextSearchView({
-        products: this.products,
-        input_id: 'text-search'
-      });
-      this.$el.find('header .text-search').append(text_search_view.render().el);
-      this.mobile_menu_view = new MobileMenuView({
-        products: this.products
-      });
-      this.mobile_menu_view.render();
+    var text_search_view = new ProductsTextSearchView({
+      products: this.products,
+      input_id: 'text-search'
     });
+    var product_categories_nav_view = new ProductCategoriesNavView({
+      products: this.products
+    });
+    this.$el.find('header .text-search').empty().append(text_search_view.render().el);
+    this.mobile_menu_view = new MobileMenuView({
+      products: this.products
+    });
+    this.mobile_menu_view.render();
+    // merge this with sidebar list navs, etc.
+    var $product_categories_dropdown = product_categories_nav_view.render().$el;
+    $product_categories_dropdown.addClass('dropdown-menu');
+    this.$el.find('.site-header .instruments .dropdown-menu')
+      .replaceWith($product_categories_dropdown);
   },
 
   showMobileMenu: function(ev) {
-    this.products.deferred.then(() => {
-      this.mobile_menu_view.show();
-    });
+    this.mobile_menu_view.show();
   },
 
   hideMobileMenu: function(ev) {
-    this.products.deferred.then(() => {
-      this.mobile_menu_view.hide();
-    });
+    this.mobile_menu_view.hide();
   },
 
   toggleSiteMenu: function(ev) {
@@ -114,57 +117,55 @@ export default BaseView.extend({
   },
 
   showProductsByCategory: function(category) {
-    this.products.deferred.then(() => {
-      this.loadMainView('products-categories-search', ProductsSearchView);
-      this.products.refs.selected_categories.setFromSlug(category);
-      this.products.filterByCategory();
-    });
+    this.loadMainView('products-categories-search', ProductsSearchView);
+    this.products.refs.selected_categories.setFromSlug(category);
+    this.products.filterByCategory();
     return false;
   },
 
   showProductsByTags: function(tags) {
-    this.products.deferred.then(() => {
-      this.loadMainView('products-tags-search', ProductsTagsSearchView);
-      this.products.refs.selected_tags.setFromArray(tags);
-      this.products.filterByTags();
-    });
+    this.loadMainView('products-tags-search', ProductsTagsSearchView);
+    this.products.refs.selected_tags.setFromArray(tags);
+    this.products.filterByTags();
     return false;
   },
 
   showProductsByTextSearch: function(search) {
-    this.products.deferred.then(() => {
-      this.loadMainView('products-text-search', TextSearchResultsView);
-      this.products.filterByTextSearch(search);
-    });
+    this.loadMainView('products-text-search', TextSearchResultsView);
+    this.products.filterByTextSearch(search);
     return false;
   },
 
   showProductDetails: function(product_id, hide_nav) {
     this.showMain();
-    this.products.deferred.then(() => {
-      var product = this.products.findWhere({
-        _id: Number(product_id)
-      });
-      if (!product) {
-        return this.showServerError();
-      }
-      var product_view = new ProductDetailsView({
-        model: product,
-        refs: this.products.refs
-      });
-      if (this.$main.find('.product-details').length) {
-        product_view.setElement(this.$main.find('.product-details'));
-        product_view.render();
-      } else {
-        var list_nav_view = new ListNavLinksView({
-          collection: this.products.refs.filtered_products,
-          model: product,
-          label: 'Instrument',
-          base_url_path: '/instruments/'
-        });
-        this.showContentPanel(product_view, list_nav_view, hide_nav);
-      }
+    var product = this.products.findWhere({
+      _id: Number(product_id)
     });
+    if (!product) {
+      return this.showServerError();
+    }
+    var product_view = new ProductDetailsView({
+      model: product,
+      refs: this.products.refs
+    });
+    if (this.$main.find('.product-details').length) {
+      product_view.setElement(this.$main.find('.product-details'));
+      product_view.render();
+    } else {
+      if (window.__lapr_ssr) {
+        // Load index "underneath" if this is being rendered on the server
+        const index_view = new IndexView;
+        this.$el.removeClass().addClass('index');
+        this.$main.empty().append(index_view.render().el);
+      }
+      var list_nav_view = new ListNavLinksView({
+        collection: this.products.refs.filtered_products,
+        model: product,
+        label: 'Instrument',
+        base_url_path: '/instruments/'
+      });
+      this.showContentPanel(product_view, list_nav_view, hide_nav);
+    }
     return false;
   },
 
@@ -177,13 +178,18 @@ export default BaseView.extend({
     if (this.content_panel_view) {
       this.content_panel_view.remove();
     }
-    this.content_panel_view = new ContentPanelView;
+
     // Render content_view inside content panel
-    this.$el.prepend(
-      this.content_panel_view.render(
-        content_view.render().el
-      ).el
-    );
+    this.content_panel_view = new ContentPanelView;
+    const $content_panel = this.content_panel_view.render(
+      content_view.render().el
+    ).el;
+    // If server-rendered, #content-panel will already exist
+    if (this.$el.find('#content-panel').length) {
+      this.$el.find('#content-panel').replaceWith($content_panel);
+    } else {
+      this.$el.prepend($content_panel);
+    }
     // Attach keydown handlers
     this.attachKeydownHandler(_.bind(this.content_panel_view.onKeydown,
       this.content_panel_view));
@@ -239,7 +245,7 @@ export default BaseView.extend({
   },
 
   showMain: function() {
-    this.$main.fadeIn(1000);
+    //this.$main.fadeIn(1000);
   },
 
   disableDocumentScroll: function() {

@@ -4,12 +4,7 @@
 var db    = require('../models'),
     async = require('async');
 
-db.connection.on('error', function(err) {
-  console.error('mongo error: ' + err);
-  db.connection.close();
-});
-
-db.connection.on('open', function() {
+db.on('open', function() {
 
   async.waterfall([
     function(next) {
@@ -27,7 +22,7 @@ db.connection.on('open', function() {
     } else {
       console.log('Done');
     }
-    db.connection.close();
+    db.close();
   });
 
 });

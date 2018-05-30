@@ -1,7 +1,7 @@
 
 'use strict';
 
-var
+const
   config            = require('./config'),
   port              = config.port || 3003,
   express           = require('express'),
@@ -63,9 +63,10 @@ git.revparse([ 'HEAD' ], (err, rev) => {
   }
 });
 
+// Session/user stuff
 app.use((req, res, next) => {
-  res.locals.base_url = req.headers['x-forwarded-proto'] +
-                        '://' + config.base_url + '/';
+  //res.locals.base_url = req.headers['x-forwarded-proto'] + '://' + config.base_url + '/';
+  res.locals.base_url = config.base_url
   res.locals.original_url = req.originalUrl;
   res.locals.csrf_param = req.csrfToken();
   if (req.isAuthenticated()) {
@@ -79,8 +80,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(require('./lib/pages'));
-app.use(require('./lib/post_render'));
+app.use(require('./lib/pages')); // <<<<<< ?
 
 app.use(jade_browser(
   '/jade.js',
@@ -88,48 +88,30 @@ app.use(jade_browser(
   { root: app.get('views'), minify: (env == 'production') }
 ));
 
-var routes = require('./routes')(app);
+app.use(require('./lib/data_access'));
 
-app.use(routes.getProducts);
+var routes = require('./routes')(app);
 
 if (config.enable_admin) {
   app.route('/login').get(routes.loginForm).post(routes.login);
   app.route('/logout').get(routes.logout);
 }
 
-app.route('/').get(routes.showIndex);
-
 // Products
 
-app.route('/instruments')
+app.route('/instruments') //<<<<<<<<<<<<<<<<<
   .get(routes.showProducts)
-  .post(routes.showProducts)
-
-app.route('/instruments/text-search/:search')
-  .get(routes.showProductsTextSearchResults);
-
-app.route('/instruments/categories/all')
-  .get(routes.showProducts)
-  .post(routes.showProducts);
-
-app.route('/instruments/categories/:category')
-  .get(routes.showProductsByCategory)
-  .post(routes.showProductsByCategory);
-
-app.route('/instruments/tags/:tags?')
-  .get(routes.showProductsByTags);
+  .post(routes.showProducts); // << ?
 
 app.route('/files/tmp')
   .post(routes.auth, routes.saveTempUpload);
 
 app.route('/instruments/:slug/:id?')
-  .get(routes.showProduct)
+  // Forward to catch-all renderer
+  .get((req, res, next) => next())
   .post(routes.auth, /*routes.moveProductImages,*/ routes.add('Product'))
   .put(routes.auth, /*routes.moveProductImages,*/ routes.update('Product'))
   .delete(routes.auth, routes.remove('Product'));
-
-app.route('/contact')
-  .get(routes.getContentBlocks, routes.showContactForm);
 
 app.route('/sitemap.xml').get(routes.showSitemap);
 
@@ -177,14 +159,18 @@ app.route('/api/images/:id')
 
 app.route('/api/errors').post(routes.add('Error'));
 
-// 404
+// Chrome renderer: render client-side code
+// this should be whitelisted *
+app.route('*').get(async (...args) => {
+  await require('./lib/chrome_renderer')(...args);
+});
 
+// 404
 app.use((req, res, next) => {
   res.status(404).render('not_found');
 });
 
 // Error page
-
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.format({
@@ -200,12 +186,4 @@ app.use((err, req, res, next) => {
 
 app.listen(port);
 console.log('Listening on port ' + port);
-
-// Force garbage collection
-//if (typeof gc == 'function') {
-//  setInterval(gc, 60000);
-//}
-
-
-
 

@@ -7,8 +7,8 @@ var async            = require('async'),
     formidable       = require('formidable'),
     _                = require('underscore'),
     passport         = require('passport'),
-    mail             = require('./lib/mail'),
-    cache            = require('memory-cache');
+    mail             = require('./lib/mail');
+
 
 module.exports = app => {
 
@@ -29,7 +29,7 @@ module.exports = app => {
       try {
         const doc = await db.model(model_name).findOne({ _id: req.params.id });
         if (!doc) {
-          next(new Error(model_name + ' not found'));
+          return next(new Error(model_name + ' not found'));
         }
         // Omit id and mongo __v
         const { _id, __v, ...body } = req.body;
@@ -42,239 +42,39 @@ module.exports = app => {
     },
 
     add: model_name => async (req, res, next) => {
-      const { _id, id, ...body } = req.body;
-      const doc = await db.model(model_name).create(body);
-      res.send(doc);
+      try {
+        const { _id, id, ...body } = req.body;
+        const doc = await db.model(model_name).create(body);
+        res.send(doc);
+      } catch (err) {
+        next(err);
+      }
     },
     
-    remove: model_name => 
-      (req, res, next) => {
-        if (!isValidId(req.params.id)) {
-          return res.render('not_found');
-        }
-        db.model(model_name).findOne({ _id: req.params.id }, (err, doc) => {
-          if (err) {
-            return next(err);
-          }
-          if (!doc) {
-            return res.render('not_found');
-          }
-          doc.remove(err => {
-            if (err) {
-              return next(err);
-            }
-            res.send(doc);
-          });
-        });
-      },
-
-    showProduct: async (req, res, next) => {
+    remove: model_name => async (req, res, next) => {
       if (!isValidId(req.params.id)) {
-        return res.render('not_found');
+        return next(new Error(model_name + ' not found'));
       }
       try {
-        var product = await db.model('Product').findById(req.params.id);
-        res.format({
-          html: async () => {
-            if (!product) {
-              return res.render('not_found');
-            }
-            await db.model('Product').populate(product, { path: 'images' });
-            await db.model('Product').populate(product, { path: 'makers' });
-            product = product.toJSON();
-            if (Array.isArray(product.makers)) {
-              product.makers = product.makers.map(maker => maker.name).join(', ');
-            }
-            res.render('product', { product: product });
-          },
-          json: () => {
-            res.send(product || {});
-          },
-        });
+        const doc = await db.model(model_name).findOne({ _id: req.params.id });
+        if (!doc) {
+          return next(new Error(model_name + ' not found'));
+        }
+        await doc.remove();
+        res.send(doc);
       } catch (err) {
         next(err);
       }
     },
 
     showProducts: async (req, res, next) => {
-      const products = await db.model('Product').find();
-      const product_categories = await db.model('ProductCategory').find();
       res.format({
         html: async () => {
-          await db.model('Product').populate(products, { path: 'makers' });
-          await db.model('Product').populate(products, { path: 'images' });
-          res.render('products_search', {
-            class_name: 'products-categories-search',
-            heading: 'All Instruments',
-            products,
-            categories: product_categories, ///////////
-            page_count:  0, // <
-            item_count:  0 // <
-          });
+          next();
         },
         json: async () => {
-          const makers = await db.model('Maker').find();
-          const tags = await db.model('Tag').find();
-          const tag_categories = await db.model('TagCategory').find();
-          const images = await db.model('Image').find();
-          const youtube_videos = await db.model('YoutubeVideo').find();
-          res.send({
-            products,
-            product_categories,
-            makers,
-            tags,
-            tag_categories,
-            youtube_videos,
-            images
-          });
+          res.send(res.locals.json_data);
         }
-      });
-    },
-
-    showProductsByCategory: async (req, res, next) => {
-      try {
-        const product_category = await db.model('ProductCategory').findOne({
-          slug: req.params.category
-        });
-        if (!product_category) {
-          return res.render('not_found');
-        }
-        const products = await db.model('Product').find({
-          categories: product_category._id
-        }).populate([ 'images', 'makers', 'product_categories' ]).exec();
-        res.format({
-          html: () => {
-            res.render('products_search', {
-              class_name:         'products-categories-search',
-              heading:            product_category.name,
-              products,
-              product_categories: res.locals.json_data.product_categories, //<
-              page_count:         0, // <
-              item_count:         0 // <
-            });
-          },
-          json: () => {
-            res.send(products);
-          }
-        });
-      } catch (err) {
-        next(err);
-      }
-    },
-    
-    showProductsByTags: async (req, res, next) => {
-      var selected_tags  = (typeof req.params.tags != 'undefined' ? req.params.tags.split(',') : []);
-      var products = [];
-      if (selected_tags.length) {
-        products = await db.model('Product').aggregate([
-          {
-            $lookup: {
-              from: 'tags',
-              localField: 'tags',
-              foreignField: '_id',
-              as: 'tags'
-            }
-          },
-          {
-            $match: {
-              'tags.slug': { $all: selected_tags }
-            }
-          }
-        ]);
-      } else {
-        products = await db.model('Product').find({
-          'tags.0': { $exists: true }
-        });
-      }
-      res.format({
-        html: async () => {
-          await db.model('Product').populate(products, { path: 'makers' });
-          await db.model('Product').populate(products, { path: 'images' });
-          res.render('products_search', {
-            class_name: 'products-tags-search',
-            heading: 'Sound Search',
-            products,
-            page_count: 0, //results.total,
-            item_count: 0 //results.limit
-          });
-        },
-        json: () => {
-          res.send(products);
-        }
-      });
-    },
-    
-    // Returns an object with pertinent model data, used to create a JSON
-    // file, etc.
-    getProducts: (req, res, next) => {
-      var cached_data   = cache.get('json_data'),
-          nocache       = typeof req.query.nocache != 'undefined';
-      if (req.isAuthenticated() || nocache || !cached_data) {
-        var data = {};
-        var model_names = {
-          'products':            'Product',
-          'product_categories':  'ProductCategory',
-          'makers':              'Maker',
-          'tags':                'Tag',
-          'tag_categories':      'TagCategory',
-          'youtube_videos':      'YoutubeVideo',
-          'images':              'Image'
-        }; 
-        async.each(Object.keys(model_names), (model_name, cb) => {
-          db.model(model_names[model_name]).find({}, { __v: 0 }, { sort: { name: 1 }},
-          (err, docs) => {
-            if (err) {
-              return cb(err);
-            }
-            data[model_name] = docs.map(doc => {
-              // Send only fields that are in the model (mongoose likes to just
-              // send them all...)
-              var fields = Object.keys(
-                db.model(model_names[model_name]).schema.paths);
-              var new_doc = {};
-              fields.forEach(field => {
-                if (typeof doc[field] != 'undefined') {
-                  new_doc[field] = doc[field];
-                }
-              });
-              return new_doc;
-            });
-            cb();
-          });
-        }, err => {
-          if (err) {
-            return next(err);
-          }
-          res.locals.json_data = data;
-          cache.put('json_data', data, (1000 * 60 * 60));
-          next();
-        });
-      } else {
-        res.locals.json_data = cached_data;
-        next(); 
-      }
-    },
-
-    showProductsTextSearchResults: (req, res, next) => {
-      var search = req.params.search;
-      db.model('Product').search({}, {}, search, (err, products) => {
-        if (err) {
-          return next(err);
-        }
-        res.format({
-          html: () => {
-            res.render('products_search', {
-              class_name:         'products-text-search',
-              heading:            'Search Results',
-              products:           products,
-              page_count:         0,
-              item_count:         0
-            });
-          },
-          json: () => {
-            res.send(products);
-          }
-        });
       });
     },
 
@@ -454,7 +254,5 @@ module.exports = app => {
         next();
       }
     }
-
-
   };
 };

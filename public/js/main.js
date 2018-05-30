@@ -1,5 +1,5 @@
 /**
- * Main initialization file
+ * Main client-side initialization file
  * 
  */
 import Backbone from 'backbone';
@@ -11,33 +11,45 @@ import ProductsCollection from 'collections/products';
 import AppView from 'views/app';
   
 var products = new ProductsCollection;
-products.deferred = products.fetch();
 
-// Run on dom ready
-//$(function() {
+if (!window.__lapr_ssr) {
+  // Client-side
+  products.fetch().then(() => {
+    $(function() {
+      var app_view = new AppView({ products: products });
+      app_view.render();
 
-  var app_view = new AppView({ products: products });
-  app_view.render();
+      new Router({ controller: controller(app_view) });
 
-  new Router({ controller: controller(app_view) });
-  
-  if (Backbone.history && !Backbone.History.started) {
-    if (!(window.history && history.pushState)) {
-      Backbone.history.start({ pushState: false, silent: true });
-      var fragment = window.location.pathname.substr(
-      Backbone.history.options.root.length);
-      Backbone.history.navigate(fragment, { trigger: true });
-    } else {
-      Backbone.history.start({ pushState: true });
-    }
-  }
+      if (Backbone.history && !Backbone.History.started) {
+        if (!(window.history && history.pushState)) {
+          Backbone.history.start({ pushState: false, silent: true });
+          var fragment = window.location.pathname.substr(
+          Backbone.history.options.root.length);
+          Backbone.history.navigate(fragment, { trigger: true });
+        } else {
+          Backbone.history.start({ pushState: true });
+        }
+      }
 
-  if (window.lapr.user) {
-    import('views/admin/app').then(AdminAppView => {
-      new AdminAppView.default({
-        el: app_view.$el,
-        products: products
-      });
+      if (window.lapr.user) {
+        import('views/admin/app').then(AdminAppView => {
+          new AdminAppView.default({
+            el: app_view.$el,
+            products: products
+          });
+        });
+      }
     });
-  }
-//});
+  });
+
+} else {
+  // Server-side
+  products.hydrate(window.__lapr_data); // use reset()?
+  var app_view = new AppView({ products: products });
+  new Router({ controller: controller(app_view) });
+  $(function() {
+    app_view.render();
+    Backbone.history.start({ pushState: false, silent: false });
+  });
+}

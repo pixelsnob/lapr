@@ -68,6 +68,7 @@
     "nodemailer-smtp-transport": "^2.7.2",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "puppeteer": "^1.4.0",
     "recursive-readdir": "2.1.0",
     "request": "^2.79.0",
     "simple-git": "^1.64.0",

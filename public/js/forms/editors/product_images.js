@@ -21,7 +21,7 @@ export default Backbone.Form.editors.Select.extend({
     this.setElement(template.render('admin/product_images'));
 
     const images = this.schema.options.toJSON();
-    const product_image_ids = this.model.get('images');
+    const product_image_ids = this.model.get('images') || [];
     const $product_images_ul = this.$el.find('.product-images ul');
     const $images_ul = this.$el.find('.images ul');
 

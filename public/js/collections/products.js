@@ -40,7 +40,7 @@ export default Backbone.Collection.extend({
     // refresh the model from the server (lazy)
     this.listenTo(this.refs.images, 'destroy', image_model => {
       this.models.forEach(product_model => {
-        var product_images = product_model.get('images');
+       var product_images = product_model.get('images');
         if (Array.isArray(product_images) && product_images.length) {
           if (product_images.includes(image_model.id)) {
             product_model.fetch({ cache: false, trigger: true });
@@ -48,6 +48,16 @@ export default Backbone.Collection.extend({
         }
       });
     });
+  },
+  
+  hydrate: function(data = {}) {
+    this.refs.product_categories.reset(data.product_categories);
+    this.refs.makers.reset(data.makers);
+    this.refs.tags.reset(data.tags);
+    this.refs.tag_categories.reset(data.tag_categories);
+    this.refs.youtube_videos.reset(data.youtube_videos);
+    this.refs.images.reset(data.images);
+    this.reset(data.products);
   },
 
   fetch: function() {
