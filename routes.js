@@ -67,12 +67,12 @@ module.exports = app => {
       }
     },
 
-    showProducts: async (req, res, next) => {
+    showProducts: (req, res, next) => {
       res.format({
-        html: async () => {
+        html: () => {
           next();
         },
-        json: async () => {
+        json: () => {
           res.send(res.locals.json_data);
         }
       });
@@ -121,16 +121,6 @@ module.exports = app => {
     showSitemap: (req, res, next) => {
       res.set('Content-Type', 'text/xml');
       res.render('sitemap'); 
-    },
-
-    getSlideshowImages: (req, res, next) => {
-      db.model('Product').find({ include_in_slideshow: true },
-      (err, products) => {
-        if (err) {
-          return next(err);
-        }
-        res.send(products);
-      });
     },
 
     // Saves a file upload in a tmp dir and send back filename and other

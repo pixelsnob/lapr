@@ -45,7 +45,7 @@ if (!window.__lapr_ssr) {
 
 } else {
   // Server-side
-  products.hydrate(window.__lapr_data); // use reset()?
+  products.fetch();
   var app_view = new AppView({ products: products });
   new Router({ controller: controller(app_view) });
   $(function() {

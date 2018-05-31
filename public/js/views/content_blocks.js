@@ -14,12 +14,11 @@ var View = BaseView.extend({
 
   initialize: function(opts) {
     this.collection = new ContentBlocksCollection;
-    this.deferred = this.collection.fetch();
   },
 
   // Looks for all .content-block elements and render them
   render: function() {
-    this.deferred.then(() => {
+    this.collection.fetch().then(() => {
       var $content_blocks = this.$el.find('.content-block');
       Array.from($content_blocks).forEach($content_block => {
         var $el = $($content_block),

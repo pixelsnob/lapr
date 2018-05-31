@@ -164,7 +164,9 @@ export default BaseView.extend({
         label: 'Instrument',
         base_url_path: '/instruments/'
       });
-      this.showContentPanel(product_view, list_nav_view, hide_nav);
+      setTimeout(() => { // kludge -- remove this after adding content_blocks to products refs
+        this.showContentPanel(product_view, list_nav_view, hide_nav);
+      }, 100);
     }
     return false;
   },
@@ -178,7 +180,6 @@ export default BaseView.extend({
     if (this.content_panel_view) {
       this.content_panel_view.remove();
     }
-
     // Render content_view inside content panel
     this.content_panel_view = new ContentPanelView;
     const $content_panel = this.content_panel_view.render(

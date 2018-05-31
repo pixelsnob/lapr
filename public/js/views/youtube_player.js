@@ -8,6 +8,7 @@ import template from 'template';
 import global_events from 'lib/events';
 import markdown from 'lib/markdown';
 import dialog from 'lib/dialog';
+import 'youtube';
 
 export default BaseView.extend({
 
@@ -39,12 +40,10 @@ export default BaseView.extend({
   },
 
   render: function() {
-    import('youtube').then(() => {
-      var videos_view = new YoutubeVideosView({
-        collection: this.collection
-      });
-      this.$el.find('.youtube-videos').replaceWith(videos_view.render().el);
+    var videos_view = new YoutubeVideosView({
+      collection: this.collection
     });
+    this.$el.find('.youtube-videos').replaceWith(videos_view.render().el);
     return this;
   },
 
