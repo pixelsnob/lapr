@@ -142,7 +142,8 @@ export default BaseView.extend({
       _id: Number(product_id)
     });
     if (!product) {
-      return this.showServerError();
+      return Backbone.history.trigger('route-not-found');
+      //return this.showServerError();
     }
     var product_view = new ProductDetailsView({
       model: product,
@@ -153,10 +154,10 @@ export default BaseView.extend({
       product_view.render();
     } else {
       if (window.__lapr_ssr) {
-        // Load index "underneath" if this is being rendered on the server
-        const index_view = new IndexView;
-        this.$el.removeClass().addClass('index');
-        this.$main.empty().append(index_view.render().el);
+        // Load all instruments "underneath" if this is being rendered on the server
+        this.products.refs.selected_categories.reset();
+        this.products.filterByCategory();
+        this.loadMainView('products-categories-search', ProductsSearchView);
       }
       var list_nav_view = new ListNavLinksView({
         collection: this.products.refs.filtered_products,
@@ -164,9 +165,10 @@ export default BaseView.extend({
         label: 'Instrument',
         base_url_path: '/instruments/'
       });
-      setTimeout(() => { // kludge -- remove this after adding content_blocks to products refs
+      setTimeout(() => {
         this.showContentPanel(product_view, list_nav_view, hide_nav);
       }, 100);
+      // if model is destroyed, this shouldn't show
     }
     return false;
   },
@@ -180,6 +182,10 @@ export default BaseView.extend({
     if (this.content_panel_view) {
       this.content_panel_view.remove();
     }
+    var ssr = false;
+    if (this.$main.attr('ssr')) {
+      ssr = true;
+    }
     // Render content_view inside content panel
     this.content_panel_view = new ContentPanelView;
     const $content_panel = this.content_panel_view.render(
@@ -191,6 +197,10 @@ export default BaseView.extend({
     } else {
       this.$el.prepend($content_panel);
     }
+    if (window.__lapr_ssr) {
+      this.$el.find('#content-panel').attr('ssr', '1');
+    }
+    
     // Attach keydown handlers
     this.attachKeydownHandler(_.bind(this.content_panel_view.onKeydown,
       this.content_panel_view));
@@ -233,7 +243,11 @@ export default BaseView.extend({
       }
       content_view.close();
       global_events.trigger('content-panel-closed');
-      Backbone.history.back();
+      if (ssr) {
+        Backbone.history.navigate('instruments', { trigger: true });
+      } else {
+        Backbone.history.back();
+      }
     });
   },
 
@@ -275,7 +289,13 @@ export default BaseView.extend({
       });
       this.$main.html(this.current_view.render().el);
     }
-    this.showMain();
+    console.log(this.current_view.render().$el.get(0).innerHTML);
+    //this.showMain();
+    if (window.__lapr_ssr) {
+      this.$main.attr('ssr', 1);
+    } else {
+      this.$main.removeAttr('ssr');
+    }
     return false;
   }
 });

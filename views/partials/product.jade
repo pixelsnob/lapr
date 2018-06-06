@@ -1,24 +1,24 @@
+li
+  .product(itemscope, itemtype="http://schema.org/Product")
+    .image
+      if Array.isArray(product.images) && product.images.length
+        - var thumb_path = user ? '/images/products/' : '/dist/images/products/140/';
+        - var qs = user ? '?t=' + (new Date).getTime() : '';
+        img(src="#{thumb_path}#{product.images[0].name}#{qs}", alt="#{product.name}")
 
-.product(itemscope, itemtype="http://schema.org/Product")
-  .image
-    if Array.isArray(product.images) && product.images.length
-      - var thumb_path = user ? '/images/products/' : '/dist/images/products/140/';
-      - var qs = user ? '?t=' + (new Date).getTime() : '';
-      img(src="#{thumb_path}#{product.images[0].name}#{qs}", alt="#{product.name}")
+    .details.hidden-xs.hidden-sm
 
-  .details.hidden-xs.hidden-sm
+      h3.name
+        a(href="/instruments/#{product.slug}/#{product.id}", itemprop="name")= product.name
 
-    h3.name
-      a(href="/instruments/#{product.slug}/#{product.id}", itemprop="name")= product.name
+      link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product.id}")
 
-    link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product.id}")
+      if Array.isArray(product.makers) && product.makers.length
+        p.makers.secondary(itemprop="manufacturer")!= product.makers.map(function(m) { return m.name; }).join(', ')
+      if product.sizes && product.sizes.length && !product.hide_sizes_in_lists
+        //.sizes.secondary!= markdown(product.sizes)
 
-    if Array.isArray(product.makers) && product.makers.length
-      p.makers.secondary(itemprop="manufacturer")!= product.makers.map(function(m) { return m.name; }).join(', ')
-    if product.sizes && product.sizes.length && !product.hide_sizes_in_lists
-      .sizes.secondary!= markdown(product.sizes)
-
-  if user
-    p.edit-link
-      a.edit(href="/instruments/#{product.slug}/#{product._id}") Edit
+    if user
+      p.edit-link
+        a.edit(href="/instruments/#{product.slug}/#{product._id}") Edit
 

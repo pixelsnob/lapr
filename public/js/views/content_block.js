@@ -16,7 +16,7 @@ export default BaseView.extend({
   
   initialize: function(opts) {
     // Content block editor if logged in
-    if (window.lapr.user) {
+    if (!window.__lapr_ssr && window.lapr.user) {
       import('views/admin/content_block').then(ContentBlockAdminView => {
         var events = {
           'click .edit-content-block':   _.bind(this.edit, this, ContentBlockAdminView.default),

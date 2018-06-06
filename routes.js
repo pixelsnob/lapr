@@ -1,7 +1,7 @@
 
 'use strict';
 
-var async            = require('async'),
+const //async            = require('async'),
     db               = require('./models'),
     fs               = require('fs'),
     formidable       = require('formidable'),
@@ -9,6 +9,7 @@ var async            = require('async'),
     passport         = require('passport'),
     mail             = require('./lib/mail');
 
+const jade = require('jade');
 
 module.exports = app => {
 
@@ -121,6 +122,10 @@ module.exports = app => {
     showSitemap: (req, res, next) => {
       res.set('Content-Type', 'text/xml');
       res.render('sitemap'); 
+    },
+
+    showLayout: (req, res, next) => {
+      res.send(jade.renderFile('views/layout.jade', res.locals));
     },
 
     // Saves a file upload in a tmp dir and send back filename and other

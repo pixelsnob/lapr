@@ -52,6 +52,7 @@ app.use(require('csurf')());
 app.use(require('express-paginate').middleware(30, 60));
 app.locals.pretty = true;
 app.locals._ = _;
+app.locals.env = env;
 
 // Get current git commit id to append to asset urls
 git.revparse([ 'HEAD' ], (err, rev) => {
@@ -88,9 +89,15 @@ app.use(jade_browser(
   { root: app.get('views'), minify: (env == 'production') }
 ));
 
-app.use(require('./lib/data_access'));
+const data_access = require('./lib/data_access');
+
+app.use((res, req, next) => {
+  data_access.getData(res, req, next);
+});
 
 var routes = require('./routes')(app);
+
+app.route('/layout.html').get(routes.showLayout);
 
 if (config.enable_admin) {
   app.route('/login').get(routes.loginForm).post(routes.login);

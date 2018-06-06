@@ -50,8 +50,19 @@ export default Backbone.Collection.extend({
     });
   },
   
-  /*fetch: function() {
-    var stored = this.getStored();
+  hydrate: function(data = {}) {
+    this.refs.product_categories.reset(data.product_categories);
+    this.refs.makers.reset(data.makers);
+    this.refs.tags.reset(data.tags);
+    this.refs.tag_categories.reset(data.tag_categories);
+    this.refs.youtube_videos.reset(data.youtube_videos);
+    this.refs.images.reset(data.images);
+    this.reset(data.products);
+  },
+
+  fetch: function() {
+    //var stored = this.getStored();
+    var stored = null;
     if (stored && !window.lapr.user) {
       this.reset(stored.data.products);
       this.refs.product_categories.reset(stored.data.product_categories);
@@ -75,7 +86,7 @@ export default Backbone.Collection.extend({
         this.setStored(data);
       });
     }
-  },*/
+  },
 
   // Get from session storage, if any
   getStored: function() {
@@ -112,47 +123,6 @@ export default Backbone.Collection.extend({
     this.refs.youtube_videos.reset(res.youtube_videos);
     this.refs.images.reset(res.images);
     return res.products;
-  },
-  
-  fetch: function() {
-    return new Promise((resolve, reject) => {
-      // Skip network call if on server and populate from a window object
-      if (window.__lapr_ssr && window.__lapr_data) {
-        this.refs.product_categories.reset(window.__lapr_data.product_categories);
-        this.refs.makers.reset(window.__lapr_data.makers);
-        this.refs.tags.reset(window.__lapr_data.tags);
-        this.refs.tag_categories.reset(window.__lapr_data.tag_categories);
-        this.refs.youtube_videos.reset(window.__lapr_data.youtube_videos);
-        this.refs.images.reset(window.__lapr_data.images);
-        this.reset(window.__lapr_data.products);
-        return resolve();
-      }
-      // Fetch from session storage or server
-      var stored = this.getStored();
-      if (stored && !window.lapr.user) {
-        this.reset(stored.data.products);
-        this.refs.product_categories.reset(stored.data.product_categories);
-        this.refs.makers.reset(stored.data.makers);
-        this.refs.tags.reset(stored.data.tags);
-        this.refs.tag_categories.reset(stored.data.tag_categories);
-        this.refs.youtube_videos.reset(stored.data.youtube_videos);
-        this.refs.images.reset(stored.data.images);
-        resolve();
-      } else {
-        Backbone.Collection.prototype.fetch.call(this).then(res => {
-          this.setStored({
-            products: res.products,
-            product_categories: res.product_categories,
-            makers: res.makers,
-            tags: res.tags,
-            tag_categories: res.tag_categories,
-            youtube_videos: res.youtube_videos,
-            images: res.images
-          });
-          resolve();
-        });
-      }
-    });
   },
 
   // Filters products by tags and adds them to the filtered_products

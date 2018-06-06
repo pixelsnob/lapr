@@ -7,7 +7,7 @@ import dialog from 'lib/dialog';
 
 export default Backbone.View.extend({
   showServerError: function(model, xhr) {
-    if (typeof xhr != 'object') {
+    /*if (typeof xhr != 'object') {
       dialog.alert('An error has occurred!');
       return;
     }
@@ -15,7 +15,7 @@ export default Backbone.View.extend({
       dialog.alert('You must be logged in to do that...');
     } else {
       dialog.alert('A server error has occurred!');
-    }
+    }*/
   },
 
   close: function() {

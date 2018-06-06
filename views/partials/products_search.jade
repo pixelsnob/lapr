@@ -1,17 +1,17 @@
 
-.container-fluid.products(class="#{class_name}")
+.container-fluid.products.products-categories-search
   .row
     .sidebar.col-xs-6.col-sm-6.col-md-3
       nav
         .scroll-fixed-inner
           .categories
             if typeof product_categories != 'undefined'
-              ul
-                each category in product_categories
-                  li
-                    a(href="/instruments/categories/#{category.slug}")= category.name 
+              //ul
+                //- each category in product_categories
+                  //- li
+                    //- a(href="/instruments/categories/#{category.slug}", navigate)= category.name 
 
-        .tags-tree
+        //.tags-tree
 
     .products-results.col-xs-6.col-sm-6.col-md-9
       #heading-container
@@ -22,19 +22,11 @@
         .stats-container
           .stats.secondary #{products.length} Results
           .sort-direction.hidden-xs.hidden-sm
-            a.toggle-sort-direction(href="javascript:void(0);") Sort Descending
+            a(href="/instruments/categories/#{context.params.category}/sort/#{context.params.sort_dir == 'asc' ? 'desc' : 'asc'}", navigate).toggle-sort-direction.
+              #{context.params.sort_dir == 'asc' ? 'Ascending' : 'Descending'}
 
       .boxes-list
         .scroll-fixed-inner
           ul.results
-            each product in products
-              li
-                include product
-          
-          - var href = 'javascript:void(0);'
-          if paginate && paginate.hasNextPages(page_count)
-            - href = paginate.href()
-          .more-container 
-            a.more(href=href) More
 
 

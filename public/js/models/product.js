@@ -14,7 +14,7 @@ export default BaseModel.extend({
     if (opts && opts.id) {
       this.id = opts.id;
     }
-  },
+  }/*,
 
   getRefs: function(ref_name) {
     const ref_ids = Array.isArray(this.get(ref_name)) ? this.get(ref_name) : [];
@@ -23,6 +23,6 @@ export default BaseModel.extend({
       return ref_collection.findWhere({ _id: ref_id });
     });
     return new Backbone.Collection(models);
-  }
+  }*/
 
 });

@@ -11,7 +11,8 @@ export default BaseView.extend({
 
   events: {},
 
-  initialize: function(opts) {},
+  initialize: function(opts) {
+  },
 
   render: function() {
     this.setElement(template.render('partials/index', {

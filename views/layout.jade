@@ -24,6 +24,12 @@ html
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
 
     meta(name="csrf-param", content="#{csrf_param}")
+    script(type="text/javascript").
+      window.lapr = {
+        env: '#{env}',
+        markdown_opts: {"gfm":true,"breaks":true,"tables":true,"sanitize":true,"smartypants":true},
+        assets_version: '#{assets_version}'
+      };
 
     meta(property="og:site_name", content="L.A. Percussion Rentals")
     meta(property="og:title", content="#{title}")
@@ -35,9 +41,9 @@ html
     meta(property="og:type", content="#{og_type}")
 
     script(type="text/javascript").
-      document.write('<style type="text/css">#main, .products .product .image img, .product-details .image img, .more-container { display: none; }</style>');
+      document.write('<style type="text/css">/*#main, .products .product .image img, .product-details .image img,*/ .more-container { display: none; }</style>');
 
-  body(class="#{body_class}")
+  body
     header.site-header
       .site-header-inner.container-fluid
         .row
@@ -47,18 +53,15 @@ html
 
           .col-xs-3.logo-container
             h1.logo
-              a.navigate(href="/", title="L.A. Percussion Rentals")
+              a.navigate(href="/", title="L.A. Percussion Rentals", navigate)
                 span L.A. Percussion Rentals
             
           .col-xs-5.visible-md-block.visible-lg-block
             nav
               ul.nav.navbar-nav
                 li.dropdown.instruments
-                  a.dropdown-toggle.navigate(href="/instruments") Instruments
+                  a.dropdown-toggle.navigate(href="/instruments", navigate) Instruments
                   ul.dropdown-menu
-                    each category in json_data.product_categories
-                      li
-                        a.navigate(href="/instruments/categories/#{category.slug}")= category.name 
                 li
                   a.navigate(href="/instruments/tags") Sound Search
                 li
@@ -94,27 +97,13 @@ html
     footer
       p &copy;!{(new Date).getFullYear()} L.A. Percussion Rentals
 
-    script(type="text/javascript").
-      // Various polyfills
-      [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});
-      Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r};
-      Array.isArray||(Array.isArray=function(a){return''+a!==a&&{}.toString.call(a)=='[object Array]'});
-      window.lapr = {
-        env: '#{settings.env}',
-        markdown_opts: !{JSON.stringify(marked_opts)},
-        assets_version: '#{assets_version}'
-      };
     
-    block script
+    //block script
 
     if user
       script(type="text/javascript").
         window.lapr.user = !{JSON.stringify(user)};
-    
-    script(type="text/javascript", src="/jade.js")
-    script(type="text/javascript", src="/dist/js/main.js")
-
-    if settings.env == 'production' && !user
+    if env == 'production' && !user
       script(type="text/javascript").
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

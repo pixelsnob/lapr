@@ -11,9 +11,10 @@ module.exports = {
   entry: { 
     main: [
       // Browser polyfills
-      'core-js/fn/promise',
-      'core-js/fn/array/from',
-      'core-js/fn/array/is-array',
+      //'core-js/fn/promise',
+      //'core-js/fn/array/from',
+      //'core-js/fn/array/is-array',
+      'babel-polyfill',
       path.join(app_dir, 'public/js/main.js')
     ]
   },
@@ -33,7 +34,8 @@ module.exports = {
       youtube: 'lib/youtube',
       backbone_forms: 'backbone-forms',
       vex: 'vex-js/js/vex',
-      vex_dialog: 'vex-js/js/vex.dialog'
+      vex_dialog: 'vex-js/js/vex.dialog',
+      events: 'eventemitter3'
     },
     extensions: [ '.js' ]
   },
@@ -48,7 +50,7 @@ module.exports = {
       jQuery: 'jquery',
       _: 'underscore',
       Vex: 'vexflow',
-      Promise: 'es6-promise-promise'
+      Promise: 'es6-promise-promise'//
     })
   ],
   module: {
@@ -58,7 +60,7 @@ module.exports = {
         exclude: [ /node_modules/ ],
         loader: 'babel-loader',
         query: {
-          presets: [ 'es2015' ],
+          presets: [ 'env' ],
           plugins: [ 'syntax-dynamic-import' ]
         }
       }
