@@ -1,7 +1,6 @@
 
 import template from 'lib/template';
 import events from 'events/app';
-//import navigate from 'navigate';
 
 export default class {
   
@@ -12,7 +11,6 @@ export default class {
     this.$el = document.createElement('template');
     this.events = events;
     events.once('connected', this.connected.bind(this));
-    // add unique id
   }
 
   render() {
@@ -24,7 +22,6 @@ export default class {
   }
 
   connected($el) {
-    console.log('s');
-    this.$el.onclick = function() { alert('?'); };
   }
 }
+

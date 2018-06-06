@@ -11,6 +11,7 @@ export default $el => {
     } else {
       diffhtml.outerHTML($el, ''); 
     }
+
     // Notify components that they are connected
     events.emit('connected', $el);
 

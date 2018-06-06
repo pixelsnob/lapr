@@ -22,7 +22,7 @@
         .stats-container
           .stats.secondary #{products.length} Results
           .sort-direction.hidden-xs.hidden-sm
-            a(href="/instruments/categories/#{context.params.category}/sort/#{context.params.sort_dir == 'asc' ? 'desc' : 'asc'}", navigate).toggle-sort-direction.
+            a(data-action="app:navigate", href="/instruments/categories/#{context.params.category}/sort/#{context.params.sort_dir == 'asc' ? 'desc' : 'asc'}").toggle-sort-direction.
               #{context.params.sort_dir == 'asc' ? 'Ascending' : 'Descending'}
 
       .boxes-list

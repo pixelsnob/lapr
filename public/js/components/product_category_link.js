@@ -1,6 +1,5 @@
 
 import template from 'lib/template';
-import navigate from 'navigate';
 import events from 'events/app';
 
 export default class {
@@ -14,7 +13,6 @@ export default class {
   }
   
   connected($el) {
-    navigate.attachLinks($el.querySelectorAll('.sidebar nav .categories a[navigate]'));
   }
 
   render() {

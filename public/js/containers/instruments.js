@@ -1,6 +1,5 @@
 
 import template from 'lib/template';
-import navigate from 'navigate';
 import events from 'events/app';
 
 import Instrument from 'components/instrument';
@@ -37,7 +36,6 @@ export default class {
       const instrument = new Instrument(this.context, product); 
       $products.appendChild(instrument.render());
     });
-    // abstract
     // Sidebar nav
     const product_categories_nav = new ProductCategoriesNav(
       this.context,
@@ -49,8 +47,6 @@ export default class {
   }
 
   connected($el) {
-    // see if selector can be scoped better
-    navigate.attachLinks($el.querySelectorAll('.sort-direction a[navigate]'));
   }
 
 }

@@ -8,19 +8,19 @@ body
 
         .col-xs-3.logo-container
           h1.logo
-            a.navigate(href="/", title="L.A. Percussion Rentals", navigate)
+            a(href="/", title="L.A. Percussion Rentals", data-action="app:navigate")
               span L.A. Percussion Rentals
           
         .col-xs-5.visible-md-block.visible-lg-block
           nav
             ul.nav.navbar-nav
               li.dropdown.instruments
-                a.dropdown-toggle.navigate(href="/instruments", navigate) Instruments
+                a.dropdown-toggle(href="/instruments", data-action="app:navigate") Instruments
                 ul.dropdown-menu
               li
-                a.navigate(href="/instruments/tags") Sound Search
+                a(href="/instruments/tags", data-action="app:navigate") Sound Search
               li
-                a.navigate(href="/contact") Contact Us
+                a(href="/contact", data-action="app:navigate") Contact Us
               if user
                 li.dropdown 
                   a.dropdown-toggle(href="javascript:void(0);") Admin

@@ -7,6 +7,7 @@ import routes from './routes';
 import Router from './router';
 import Render from './render';
 import navigate from './navigate';
+import events from 'events/dom';
 
 //
 import ProductsCollection from 'collections/products';
@@ -27,14 +28,14 @@ if (!window.__lapr_ssr) {
     const dispatch = async path => {
       try {
         await router.resolve(path).then(render);
-        //navigate.attachLinks(document.querySelectorAll('a[navigate]'));
       } catch (err) {
         console.error(err);
       }
     };
-    window.addEventListener('app-navigate', async ev => {
-      window.history.pushState(null, null, ev.detail.path);
-      await dispatch(ev.detail.path);
+    events.register('click', 'app:navigate', async ev => {
+      const path = ev.target.getAttribute('href');
+      window.history.pushState(null, null, path);
+      await dispatch(path);
     });
     window.addEventListener('popstate', async () => {
       await dispatch(location.pathname);
