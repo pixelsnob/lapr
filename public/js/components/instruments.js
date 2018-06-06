@@ -1,13 +1,12 @@
 
-import diffhtml from 'diffhtml';
 import template from 'lib/template';
-import navigate from 'navigate';
 
 export default class {
   
-  constructor(context, store) {
+  constructor(context, store, slots) {
     this.context = context;
     this.store = store;
+    this.slots = slots;
   }
 
   render() {
@@ -16,7 +15,6 @@ export default class {
     this.store.filterByCategory();
     return template.render('partials/products_search', {
       products: this.store.refs.filtered_products.toJSON(),
-      product_categories: this.store.refs.product_categories.toJSON()
     });
   }
 }

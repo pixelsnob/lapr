@@ -4,14 +4,8 @@
     .sidebar.col-xs-6.col-sm-6.col-md-3
       nav
         .scroll-fixed-inner
-          .categories
-            if typeof product_categories != 'undefined'
-              //ul
-                //- each category in product_categories
-                  //- li
-                    //- a(href="/instruments/categories/#{category.slug}", navigate)= category.name 
-
-        //.tags-tree
+          .categories.tags-tree
+            <!-- needs to be more generic -->
 
     .products-results.col-xs-6.col-sm-6.col-md-9
       #heading-container

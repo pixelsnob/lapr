@@ -3,14 +3,14 @@ import template from 'lib/template';
 import events from 'events/app';
 
 import Instrument from 'components/instrument';
-import ProductCategoriesNav from 'containers/product_categories_nav';
+//import ProductCategoriesNav from 'containers/product_categories_nav';
 
 export default class {
   
-  constructor(context, store, $el) {
+  constructor(context, store, slots = []) {
     this.context = context;
     this.store = store;
-    this.$el = $el || document.createElement('template');
+    this.$el = document.createElement('template');
 
     this.store.refs.filtered_products.reset(this.store.toJSON());
     this.store.refs.selected_categories.setFromSlug(this.context.params.category);
@@ -19,7 +19,9 @@ export default class {
     this.store.refs.filtered_products.sort();
     
     this.events = events;
-    this.events.once('connected', this.connected.bind(this));
+    
+    this.slots = slots;
+    //this.events.once('connected', this.connected.bind(this));
   }
 
   render() {
@@ -36,13 +38,10 @@ export default class {
       const instrument = new Instrument(this.context, product); 
       $products.appendChild(instrument.render());
     });
-    // Sidebar nav
-    const product_categories_nav = new ProductCategoriesNav(
-      this.context,
-      this.store.refs.product_categories
-    );
-    const $nav = this.$el.content.querySelector('.categories');
-    $nav.appendChild(product_categories_nav.render());
+    // Sidebar
+    if (this.slots.sidebar) {
+      this.$el.content.querySelector('.categories').appendChild(this.slots.sidebar.render());
+    }
     return this.$el.content.cloneNode(true);
   }
 

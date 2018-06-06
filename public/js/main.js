@@ -7,7 +7,7 @@ import routes from './routes';
 import Router from './router';
 import Render from './render';
 import navigate from './navigate';
-import events from 'events/dom';
+import dom_events from 'events/dom';
 
 //
 import ProductsCollection from 'collections/products';
@@ -32,7 +32,7 @@ if (!window.__lapr_ssr) {
         console.error(err);
       }
     };
-    events.register('click', 'app:navigate', async ev => {
+    dom_events.register('click', 'app:navigate', async ev => {
       const path = ev.target.getAttribute('href');
       window.history.pushState(null, null, path);
       await dispatch(path);
