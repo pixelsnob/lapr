@@ -7,12 +7,10 @@ import routes from './routes';
 import Router from './router';
 import Render from './render';
 import navigate from './navigate';
-import dom_events from 'events/dom';
+import events from './events/app';
 
-//
 import ProductsCollection from 'collections/products';
 const store = new ProductsCollection;
-//
 
 const getMountPoint = () => document.querySelector('body');
 
@@ -32,10 +30,15 @@ if (!window.__lapr_ssr) {
         console.error(err);
       }
     };
-    dom_events.register('click', 'app:navigate', async ev => {
+    events.registerDomEvent('click', 'app:navigate', async ev => {
       const path = ev.target.getAttribute('href');
       window.history.pushState(null, null, path);
       await dispatch(path);
+    });
+    events.on('app:refresh', async ev => {
+      console.log('refreshing');
+      await dispatch(location.pathname);
+
     });
     window.addEventListener('popstate', async () => {
       await dispatch(location.pathname);

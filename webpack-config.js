@@ -35,7 +35,7 @@ module.exports = {
       backbone_forms: 'backbone-forms',
       vex: 'vex-js/js/vex',
       vex_dialog: 'vex-js/js/vex.dialog',
-      events: 'eventemitter3'
+      //events: 'eventemitter3'
     },
     extensions: [ '.js' ]
   },

@@ -1,28 +1,22 @@
 
 import template from 'lib/template';
-import ProductCategoryLink from 'components/product_category_link';
-import events from 'events/app';
+import ProductCategoryNavItem from 'components/product_category_nav_item';
 
 export default class {
   
-  constructor(context, store, $el) {
+  constructor(context, store) {
     this.context = context;
     this.store = store;
-    this.$el = $el || document.createElement('template');
-    this.events = events;
-    this.events.once('connected', $el => this.connected($el));
-  }
-  
-  connected($el) {
+    this.$el = document.createElement('template');
   }
 
   render() {
-    const $ul = document.createElement('ul');
+    this.$el.innerHTML = template.render('partials/product_categories_nav');
+    const $ul = this.$el.content.querySelector('ul');
     this.store.models.forEach(model => {
-      const product_category_link = new ProductCategoryLink(null, model)
+      const product_category_link = new ProductCategoryNavItem(this.context, model)
       $ul.appendChild(product_category_link.render());
     });
-    this.$el.content.appendChild($ul);
     return this.$el.content.cloneNode(true);
   }
 }

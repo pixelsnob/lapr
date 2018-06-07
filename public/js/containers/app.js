@@ -1,6 +1,5 @@
 
 import template from 'lib/template';
-import events from 'events/app';
 
 export default class {
   
@@ -9,8 +8,6 @@ export default class {
     this.store = store;
     this.slots = slots;
     this.$el = document.createElement('template');
-    this.events = events;
-    events.once('connected', this.connected.bind(this));
   }
 
   render() {
@@ -19,9 +16,6 @@ export default class {
       this.$el.content.querySelector('#main').appendChild(this.slots.main.render());
     }
     return this.$el.content.cloneNode(true);
-  }
-
-  connected($el) {
   }
 }
 

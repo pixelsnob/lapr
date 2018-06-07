@@ -4,8 +4,7 @@
     .sidebar.col-xs-6.col-sm-6.col-md-3
       nav
         .scroll-fixed-inner
-          .categories.tags-tree
-            <!-- needs to be more generic -->
+          .sidebar
 
     .products-results.col-xs-6.col-sm-6.col-md-9
       #heading-container
@@ -16,8 +15,8 @@
         .stats-container
           .stats.secondary #{products.length} Results
           .sort-direction.hidden-xs.hidden-sm
-            a(data-action="app:navigate", href="/instruments/categories/#{context.params.category}/sort/#{context.params.sort_dir == 'asc' ? 'desc' : 'asc'}").toggle-sort-direction.
-              #{context.params.sort_dir == 'asc' ? 'Ascending' : 'Descending'}
+            a(href="javascript:void(0);", data-action="app:instruments:sort-products").toggle-sort-direction.
+              #{sort_dir == 'desc' ? 'Descending' : 'Ascending'}
 
       .boxes-list
         .scroll-fixed-inner

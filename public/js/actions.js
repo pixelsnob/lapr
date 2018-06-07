@@ -20,9 +20,15 @@ export default {
       },
 
       instruments: context => {
+
+        store.refs.filtered_products.reset(store.toJSON());
+        store.refs.selected_categories.setFromSlug(context.params.category);
+        store.filterByCategory();
+        store.refs.filtered_products.sort();
+
         const product_categories_nav = new ProductCategoriesNav(
           context,
-          store.refs.product_categories //<
+          store.refs.product_categories
         );
         const instruments_container = new InstrumentsContainer(context, store, {
           sidebar: product_categories_nav
@@ -34,6 +40,11 @@ export default {
       },
 
       'sound-search': context => {
+
+        store.refs.selected_tags.setFromArray([]);
+        store.filterByTags();
+        store.refs.filtered_products.sort();
+
         const tags_nav = new TagsNav(context, store);
         const instruments_container = new InstrumentsContainer(context, store, {
           sidebar: tags_nav
@@ -42,7 +53,6 @@ export default {
           main: instruments_container
         });
         return app_container;
-        
       },
 
       error: err => `<h2>%$#@^%$#!!!!<br>Page not found!</h2>`
