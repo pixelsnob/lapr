@@ -2,6 +2,7 @@
 import AppContainer from 'containers/app';
 import IndexContainer from 'containers/index';
 import InstrumentsContainer from 'containers/instruments';
+import ContactContainer from 'containers/contact';
 import ProductCategoriesNav from 'containers/product_categories_nav';
 import TagsNav from 'containers/tags_nav';
 
@@ -53,6 +54,14 @@ export default {
         });
         const app_container = new AppContainer(context, store, {
           main: instruments_container
+        });
+        return app_container;
+      },
+
+      contact: context => {
+        const contact_container = new ContactContainer(context, store);
+        const app_container = new AppContainer(context, store, {
+          main: contact_container
         });
         return app_container;
       },

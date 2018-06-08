@@ -11,7 +11,7 @@ export default class {
 
   render() {
     this.$el.innerHTML = template.render('partials/product_category_link', {
-      product_category: this.store.toJSON()
+      product_category: this.context.params.product_category
     });
     return this.$el.content.cloneNode(true);
   }

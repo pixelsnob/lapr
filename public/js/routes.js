@@ -14,15 +14,19 @@ export default [
     action: 'instruments'
   },
   {
-    path: '/instruments/categories/:category/sort/:sort_dir',
-    action: 'instruments'
-  },
-  {
     path: '/instruments/tags',
     action: 'sound-search'
   },
   {
     path: '/instruments/tags/:tags',
     action: 'sound-search'
+  },
+  {
+    path: '/instruments/',
+    action: 'sound-search'
+  },
+  {
+    path: '/contact',
+    action: 'contact'
   }
 ];

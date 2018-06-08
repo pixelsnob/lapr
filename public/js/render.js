@@ -15,9 +15,6 @@ export default $el => {
     // Notify components that they are connected
     events.emit('connected', $el);
 
-    //events.on('force-render', ev => {
-    //  diffhtml.outerHTML($el, view.render()); 
-    //});
   };
 };
 
