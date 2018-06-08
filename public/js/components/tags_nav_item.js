@@ -18,8 +18,8 @@ export default class {
     if (is_selected) {
       return 'selected';
     }
-    // Does any product in the products list contain any of the selected tags?
-    // Also disable if results count is 1 or 0
+    // Is this tag assigned to at least one product in the products list?
+    // Is the products list length 1 or bigger?
     const is_tag_in_filtered_products = filtered_products.find(product => {
       return product.get('tags').includes(this.context.params.tag._id);
     });
