@@ -35,7 +35,6 @@ if (!window.__lapr_ssr) {
       await dispatch(path);
     });
     events.on('app:refresh', async ev => {
-      console.log('refreshing');
       await dispatch(location.pathname);
 
     });
