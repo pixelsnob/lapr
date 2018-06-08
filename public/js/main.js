@@ -6,7 +6,6 @@ import Actions from './actions';
 import routes from './routes';
 import Router from './router';
 import Render from './render';
-import navigate from './navigate';
 import events from './events/app';
 
 import ProductsCollection from 'collections/products';
