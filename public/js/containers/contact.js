@@ -61,8 +61,6 @@ export default class {
       </form>
     `;
     return this.$el.content.cloneNode(true);
-    
   }
-
 }
 

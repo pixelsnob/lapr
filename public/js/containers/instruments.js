@@ -33,7 +33,7 @@ export default class {
     const $products = this.$el.content.querySelector('.results');
     products.models.forEach(model => {
       const instrument = new Instrument({
-        params: { product: model.toJSON([ 'images', 'makers' ]) }
+        params: { product: model.toJSON([ 'images', 'makers' ]) }//<
       }, this.store);
       $products.appendChild(instrument.render());
     });
