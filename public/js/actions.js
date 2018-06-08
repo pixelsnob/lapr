@@ -22,14 +22,14 @@ export default {
 
       instruments: context => {
 
-        store.refs.filtered_products.reset(store.toJSON());
-        store.refs.selected_categories.setFromSlug(context.params.category);
-        store.filterByCategory();
-        store.refs.filtered_products.sort();
+        store.filtered_products.reset(store.products.toJSON());
+        store.selected_categories.setFromSlug(context.params.category);
+        store.products.filterByCategory();
+        store.filtered_products.sort();
 
         const product_categories_nav = new ProductCategoriesNav(
           context,
-          store.refs.product_categories
+          store.product_categories
         );
         const instruments_container = new InstrumentsContainer(context, store, {
           sidebar: product_categories_nav
@@ -42,11 +42,11 @@ export default {
 
       'sound-search': context => {
 
-        store.refs.filtered_products.reset(store.toJSON());
+        store.filtered_products.reset(store.products.toJSON());
         const selected_tags = context.params.tags ? context.params.tags.split(',') : [];
-        store.refs.selected_tags.setFromArray(selected_tags);
-        store.filterByTags();
-        store.refs.filtered_products.sort();
+        store.selected_tags.setFromArray(selected_tags);
+        store.products.filterByTags();
+        store.filtered_products.sort();
 
         const tags_nav = new TagsNav(context, store);
         const instruments_container = new InstrumentsContainer(context, store, {

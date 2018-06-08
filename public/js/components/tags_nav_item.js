@@ -10,8 +10,8 @@ export default class {
   }
 
   render() {
-    const filtered_products = this.store.refs.filtered_products.models;
-    const selected_tags = this.store.refs.selected_tags.models;
+    const filtered_products = this.store.filtered_products.models;
+    const selected_tags = this.store.selected_tags.models;
 
     var class_name = '';
     var path = '/instruments/tags/';

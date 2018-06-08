@@ -2,26 +2,26 @@
  * Main client-side initialization file
  * 
  */
-import Actions from './actions';
-import routes from './routes';
-import Router from './router';
-import Render from './render';
-import events from './events/app';
+import Actions from 'actions';
+import routes from 'routes';
+import Router from 'router';
+import Render from 'render';
+import Store from 'store';
+import events from 'events/app';
 
-import ProductsCollection from 'collections/products';
-const store = new ProductsCollection;
-
-const getMountPoint = () => document.querySelector('body');
+const store = new Store;
 
 const actions = Actions.create(store);
 const router = Router.create(routes, actions);
+
+const getMountPoint = () => document.querySelector('body');
 
 if (!window.__lapr_ssr) {
 
   // Client
   document.addEventListener('DOMContentLoaded', async ev => {
     const render =  new Render(getMountPoint());
-    await store.fetch();
+    await store.products.fetch();
     const dispatch = async path => {
       try {
         await router.resolve(path).then(render);
@@ -42,6 +42,7 @@ if (!window.__lapr_ssr) {
       await dispatch(location.pathname);
     });
     await dispatch(location.pathname);
+    console.log(store.refs);
   });
 
 } else {
@@ -50,7 +51,7 @@ if (!window.__lapr_ssr) {
   window.__lapr_dispatch = async path => {
     try {
       const data = JSON.parse(window.localStorage.getItem('data'));
-      store.hydrate(data);
+      store.products.hydrate(data);
       const render =  new Render(getMountPoint());
       await router.resolve(path).then(render);
     } catch (err) {

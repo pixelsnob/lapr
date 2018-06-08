@@ -13,7 +13,7 @@ export default class {
   render() {
     this.$el.innerHTML = template.render('partials/tags_nav');
     const $ul = this.$el.content.querySelector('ul');
-    this.store.refs.tag_categories.models.forEach(model => {
+    this.store.tag_categories.models.forEach(model => {
       const context = {
         ...this.context,
         params: {

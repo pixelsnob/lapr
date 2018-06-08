@@ -11,12 +11,12 @@ export default class {
     this.slots = slots;
     this.$el = document.createElement('template');
     events.registerDomEvent('click', 'app:instruments:sort-products', ev => {
-      this.store.refs.filtered_products.sort_direction = (
-        this.store.refs.filtered_products.sort_direction == 'desc' ?
+      this.store.filtered_products.sort_direction = (
+        this.store.filtered_products.sort_direction == 'desc' ?
         'asc' :
         'desc'
       );
-      this.store.refs.filtered_products.sort();
+      this.store.filtered_products.sort();
       events.emit('app:refresh');
 
     });
@@ -24,10 +24,10 @@ export default class {
 
   render() {
     // Products search container
-    const products = this.store.refs.filtered_products;
+    const products = this.store.filtered_products;
     this.$el.innerHTML = template.render('partials/products_search', {
       products: products.toJSON(),
-      sort_dir: this.store.refs.filtered_products.sort_direction
+      sort_dir: this.store.filtered_products.sort_direction
     });
     // Populate products
     const $products = this.$el.content.querySelector('.results');

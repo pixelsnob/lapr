@@ -6,7 +6,7 @@ const createNamespace = (dom_event_name, app_event_name) => {
 };
 
 class AppEvents extends EventEmitter {
-  
+
   constructor() {
     super();
     this.dom_events = new Set;

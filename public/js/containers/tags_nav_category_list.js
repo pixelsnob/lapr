@@ -14,7 +14,7 @@ export default class {
     this.$el.innerHTML = template.render('partials/tags_nav_category_list', {
       tag_category: this.context.params.tag_category
     });
-    const tags = this.store.refs.tags.models.filter(tag => {
+    const tags = this.store.tags.models.filter(tag => {
       return tag.get('category') == this.context.params.tag_category._id
     });
     tags.forEach(model => {
