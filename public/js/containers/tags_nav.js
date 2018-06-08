@@ -14,12 +14,14 @@ export default class {
     this.$el.innerHTML = template.render('partials/tags_nav');
     const $ul = this.$el.content.querySelector('ul');
     this.store.refs.tag_categories.models.forEach(model => {
-      const tag_category = new TagsNavCategoryList({
+      const context = {
+        ...this.context,
         params: {
-          tag_category:
-            model.toJSON()
-        } 
-      }, this.store);
+          ...this.context.params,
+          tag_category: model.toJSON()
+        }
+      }; 
+      const tag_category = new TagsNavCategoryList(context, this.store);
       $ul.appendChild(tag_category.render());
     });
     return this.$el.content.cloneNode(true);

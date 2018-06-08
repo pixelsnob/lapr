@@ -17,13 +17,14 @@ export default class {
     const tags = this.store.refs.tags.models.filter(tag => {
       return tag.get('category') == this.context.params.tag_category._id
     });
-    tags.forEach(tag => {
-      const tags_nav_item = new TagsNavItem({
-        params: { 
-          tag:
-            tag.toJSON()
+    tags.forEach(model => {
+      const context = {
+        ...this.context,
+        params: {
+          ...this.context.params, tag: model.toJSON()
         }
-      }, this.store);
+      };
+      const tags_nav_item = new TagsNavItem(context, this.store);
       this.$el.content.querySelector('.tags-list').appendChild(tags_nav_item.render());
     });
     return this.$el.content.cloneNode(true);

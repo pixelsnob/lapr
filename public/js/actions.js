@@ -41,7 +41,9 @@ export default {
 
       'sound-search': context => {
 
-        store.refs.selected_tags.setFromArray([]);
+        store.refs.filtered_products.reset(store.toJSON());
+        const selected_tags = context.params.tags ? context.params.tags.split(',') : [];
+        store.refs.selected_tags.setFromArray(selected_tags);
         store.filterByTags();
         store.refs.filtered_products.sort();
 
