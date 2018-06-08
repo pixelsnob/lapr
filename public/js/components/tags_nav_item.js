@@ -25,11 +25,12 @@ export default class {
       // Remove current slug from path
       const slugs = selected_tags.filter(tag => tag.id != this.context.params.tag._id)
       path += slugs.map(tag => tag.get('slug')).join(',');
+
     } else {
-      // Not selected (normal state) or disabled
       const is_tag_in_filtered_products = filtered_products.find(product =>
         product.get('tags').includes(this.context.params.tag._id)
       );
+
       if (!is_tag_in_filtered_products || filtered_products.length <= 1) {
         class_name = 'disabled';
         path = 'javascript:void(0);';
@@ -39,11 +40,13 @@ export default class {
         path += [ ...slugs, this.context.params.tag.slug ].join(',');
       }
     }
+
     this.$el.innerHTML = template.render('partials/tags_nav_item', {
       tag:  this.context.params.tag,
       class_name,
       path
     });
+
     return this.$el.content.cloneNode(true);
   }
 }
