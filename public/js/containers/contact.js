@@ -42,12 +42,20 @@ export default class {
       });
 
       if (valid_flags.every(valid => valid)) {
-        // submit here 
-        this.model.set('csrf-param', csrf.getParam());
-        this.model.save().then(function() {
-        this.$el.find('.form').html("Thanks! We'll get back to you shortly.");
-          this.model.clear();
-        }).catch(this.showServerError);
+        const contact = new this.store.Contact;
+        field_names.forEach(field_name => {
+          //contact.set(field_name, .value);
+          const field_value = document.querySelector(`[name="${field_name}"`).value;
+          contact.set(field_name, field_value);
+        });
+        contact.save().then(() => {
+          console.log('?');
+        });
+        /*this.model.save().then(function() {
+          //this.model.clear();
+          console.log('?');
+        });*/
+        //}).catch(this.showServerError);
       }
     });
   }
@@ -63,7 +71,7 @@ export default class {
               <label for="c2_name">Name</label>
               <div>
                 <span data-editor="">
-                  <input id="c2_name" name="name" type="text" autocomplete="name" aria-live="polite" required>
+                  <input tabindex="1" id="c2_name" name="name" type="text" autocomplete="name" aria-live="polite" required>
                 </span>
                 <div data-error="name" class="error">
                 </div>
@@ -73,7 +81,7 @@ export default class {
                 <label for="c2_email">Email</label>
                 <div>
                   <span data-editor="">
-                    <input id="c2_email" name="email" type="email" autocomplete="email" aria-live="polite" required>
+                    <input tabindex="2" id="c2_email" name="email" type="email" autocomplete="email" aria-live="polite" required>
                   </span>
                   <div data-error="email" class="error"></div>
                   <div></div>
@@ -83,7 +91,7 @@ export default class {
                 <label for="c2_phone">Phone</label>
                   <div>
                     <span data-editor="">
-                      <input id="c2_phone" name="phone" type="text" autocomplete="tel" aria-live="polite">
+                      <input tabindex="3" id="c2_phone" name="phone" type="text" autocomplete="tel" aria-live="polite">
                     </span>
                     <div data-error="phone" class="error"></div>
                     <div></div>
@@ -93,7 +101,7 @@ export default class {
                 <label for="c2_comments" required>Comments</label>
                 <div>
                   <span data-editor="comments">
-                    <textarea id="c2_comments" name="comments" aria-live="polite" required></textarea>
+                    <textarea tabindex="4" id="c2_comments" name="comments" aria-live="polite" required></textarea>
                   </span>
                   <div data-error="comments" class="error"></div>
                   <div></div>
@@ -102,8 +110,10 @@ export default class {
             </fieldset>
           </div>
         <button class="send" data-action="contact:send">Send</button>
+        <input type="hidden" name="csrf" value=""></input>
       </form>
     `;
+    this.$el.content.querySelector('[name="csrf"]').value = csrf.getParam();
     return this.$el.content.cloneNode(true);
   }
 }

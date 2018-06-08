@@ -2,26 +2,25 @@
 // Backbone collections/models adapter
 
 import ProductsCollection from 'collections/products';
+import ContactModel from 'models/contact';
 
-export default class {
+const products = new ProductsCollection;
+
+const store = {};
+export default store; 
+
+// Main products collection
+Object.defineProperty(store, 'products', {
+  value: products
+});
   
-  constructor() {
+// Product related collections "refs"
+Object.keys(products.refs).forEach(ref_name => {
+  Object.defineProperty(store, ref_name, {
+    value: products.refs[ref_name]
+  });
+});
 
-    Object.defineProperty(this, 'products', {
-      value: new ProductsCollection,
-      enumerable: false,
-      writable: false,
-      configurable: false
-    });
-
-    Object.keys(this.products.refs).forEach(ref_name => {
-      Object.defineProperty(this, ref_name, {
-        value: this.products.refs[ref_name],
-        enumerable: false,
-        writable: false,
-        configurable: false
-      });
-    });
-  }
-
-}
+Object.defineProperty(store, 'Contact', {
+  value: ContactModel
+});

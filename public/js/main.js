@@ -6,10 +6,10 @@ import Actions from 'actions';
 import routes from 'routes';
 import Router from 'router';
 import Render from 'render';
-import Store from 'store';
+import store from 'store';
 import events from 'events/app';
 
-const store = new Store;
+//const store = new Store;
 
 const actions = Actions.create(store);
 const router = Router.create(routes, actions);
