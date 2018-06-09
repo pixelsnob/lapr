@@ -13,7 +13,8 @@ export default class {
   
   render() {
     this.$el.innerHTML = template.render('partials/product', {
-      product: this.context.params.product
+      product: this.context.params.product,
+      user: null // <<<<<<<<<<replace me
     });
     return this.$el.content.cloneNode(true);
   }

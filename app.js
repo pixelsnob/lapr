@@ -13,7 +13,7 @@ const
   redis_store       = require('connect-redis')(session),
   body_parser       = require('body-parser'),
   fs                = require('fs'),
-  marked            = require('./lib/marked')(app),
+  //marked            = require('./lib/marked')(app),
   env               = process.env.NODE_ENV || 'development',
   git               = require('simple-git')(__dirname);
 
@@ -77,7 +77,7 @@ app.use((req, res, next) => {
   } else {
     delete res.locals.user;
   }
-  res.locals.markdown = app.locals.markdown;
+  //res.locals.markdown = app.locals.markdown;
   next();
 });
 

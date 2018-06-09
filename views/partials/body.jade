@@ -1,0 +1,81 @@
+header.site-header
+  .site-header-inner.container-fluid
+    .row
+      .col-xs-1.hidden-lg.hidden-md
+        a#show-mobile-menu
+          span.glyphicon.glyphicon-menu-hamburger
+
+      .col-xs-3.logo-container
+        h1.logo
+          a(href="/", title="L.A. Percussion Rentals", data-action="app:navigate")
+            span L.A. Percussion Rentals
+        
+      .col-xs-5.visible-md-block.visible-lg-block
+        nav
+          ul.nav.navbar-nav
+            li.dropdown.instruments
+              a.dropdown-toggle(href="/instruments", data-action="app:navigate") Instruments
+              ul.dropdown-menu
+            li
+              a(href="/instruments/tags", data-action="app:navigate") Sound Search
+            li
+              a(href="/contact", data-action="app:navigate") Contact Us
+            li.dropdown.hidden 
+              a.dropdown-toggle(href="javascript:void(0);") Admin
+              ul.dropdown-menu
+                li
+                  a.add-product(href="javascript:void(0);") Add Product
+                li
+                  a.edit-tag-categories(href="javascript:void(0);") Edit Tag Categories
+                li
+                  a.edit-youtube-videos(href="javascript:void(0);") Edit Youtube Videos
+                li
+                  a.edit-products(href="javascript:void(0);") Edit Products
+                li
+                  a.edit-content-blocks(href="javascript:void(0);") Edit Content Blocks
+                li
+                  a.edit-pages(href="javascript:void(0);") Edit Pages
+                li
+                  a.edit-images(href="javascript:void(0);") Edit Images
+                li
+                  a.logout(href="/logout") Logout
+      
+      .col-xs-4.hidden-xs.hidden-sm
+        .text-search
+
+
+#main
+
+footer
+  p &copy;!{(new Date).getFullYear()} L.A. Percussion Rentals
+
+//if user
+//  script(type="text/javascript").
+//    window.lapr.user = !{JSON.stringify(user)};
+//if env == 'production' && !user
+//  script(type="text/javascript").
+//    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+//      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+//      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+//    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+//    ga('create', 'UA-68091818-1', 'auto');
+//    ga('send', 'pageview');
+
+//script(type="application/ld+json").
+//  {
+//    "@context": "http://schema.org/",
+//    "@type": "ProfessionalService",
+//    "name": "Los Angeles Percussion Rentals",
+//    "address": {
+//      "@type": "PostalAddress",
+//      "addressLocality": "Santa Clarita",
+//      "addressRegion": "CA",
+//      "postalCode": "91350",
+//      "streetAddress": "26450 Ruether Ave., #208"
+//    },
+//    "telephone": "310-666-8152",
+//    "url": "#{base_url}"
+//  } 
+
+

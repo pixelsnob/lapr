@@ -8,6 +8,7 @@ import Router from 'router';
 import Render from 'render';
 import store from 'store';
 import events from 'events/app';
+import HeadContainer from 'containers/head';
 
 //const store = new Store;
 
@@ -36,13 +37,11 @@ if (!window.__lapr_ssr) {
     });
     events.on('app:refresh', async ev => {
       await dispatch(location.pathname);
-
     });
     window.addEventListener('popstate', async () => {
       await dispatch(location.pathname);
     });
     await dispatch(location.pathname);
-    console.log(store.refs);
   });
 
 } else {
@@ -50,6 +49,7 @@ if (!window.__lapr_ssr) {
   // Server
   window.__lapr_dispatch = async path => {
     try {
+      console.log(window.__lapr_locals);
       const data = JSON.parse(window.localStorage.getItem('data'));
       store.products.hydrate(data);
       const render =  new Render(getMountPoint());
