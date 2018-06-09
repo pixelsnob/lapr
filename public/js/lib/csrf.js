@@ -5,7 +5,7 @@
 export default {
   
   getParam: function() {
-    return $('meta[name=csrf-param]').attr('content');
+    return window.__lapr_locals.csrf_param;
   }
 };
 

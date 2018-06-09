@@ -49,7 +49,6 @@ if (!window.__lapr_ssr) {
   // Server
   window.__lapr_dispatch = async path => {
     try {
-      console.log(window.__lapr_locals);
       const data = JSON.parse(window.localStorage.getItem('data'));
       store.products.hydrate(data);
       const render =  new Render(getMountPoint());

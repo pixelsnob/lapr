@@ -17,6 +17,7 @@ export default class {
       document.head.appendChild(this.head_container.render().cloneNode(true));
       document.head.populated = true;
     }
+
   }
 
   render() {

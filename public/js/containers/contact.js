@@ -44,25 +44,19 @@ export default class {
       if (valid_flags.every(valid => valid)) {
         const contact = new this.store.Contact;
         field_names.forEach(field_name => {
-          //contact.set(field_name, .value);
           const field_value = document.querySelector(`[name="${field_name}"`).value;
           contact.set(field_name, field_value);
         });
+        contact.set('_csrf', csrf.getParam());
         contact.save().then(() => {
-          console.log('?');
+          //////////////
         });
-        /*this.model.save().then(function() {
-          //this.model.clear();
-          console.log('?');
-        });*/
-        //}).catch(this.showServerError);
       }
     });
   }
 
   render() {
     this.$el.innerHTML = template.render('partials/contact', {});
-    // add csrf
     this.$el.content.querySelector('.form').innerHTML = `
       <form action="/contact" method="post" novalidate>
         <div data-fieldsets="">
@@ -110,10 +104,8 @@ export default class {
             </fieldset>
           </div>
         <button class="send" data-action="contact:send">Send</button>
-        <input type="hidden" name="csrf" value=""></input>
       </form>
     `;
-    this.$el.content.querySelector('[name="csrf"]').value = csrf.getParam();
     return this.$el.content.cloneNode(true);
   }
 }
