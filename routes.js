@@ -163,6 +163,9 @@ module.exports = app => {
         if (err) {
           return next(err);
         }
+        if (!app.locals.config.contact_email) {
+          return res.send(contact);
+        }
         var msg = 'From: ' + contact.name + "\n" +
                   'Email: ' + contact.email + "\n" +
                   "Comments: \n\n" + contact.comments;

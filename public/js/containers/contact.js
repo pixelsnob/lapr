@@ -27,14 +27,14 @@ export default class {
         const field = document.querySelector(`[name="${field_name}"]`);
         const $field_error = document.querySelector(`[data-error="${field_name}"]`);
 
-        field.style = '';
+        field.className = '';
         $field_error.innerText = '';
 
         if (!field.validity.valid) {
-          field.style = 'border:2px solid red;'; // <<
+          field.className = 'error';
           if (field.validity.valueMissing && field.required) {
             $field_error.innerText = 'Required';
-          } else if (field_name == 'email' && field.validity.typeMismatch) {
+          } else if (field.type == 'email' && field.validity.typeMismatch) {
             $field_error.innerText = 'Email address is not valid';
           }
         }
@@ -50,6 +50,7 @@ export default class {
         contact.set('_csrf', csrf.getParam());
         contact.save().then(() => {
           //////////////
+          events.emit('app:navigate', '/contact/success');
         });
       }
     });

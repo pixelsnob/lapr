@@ -17,13 +17,15 @@ class AppEvents extends EventEmitter {
     if (this.dom_events.has(ns)) {
       return null; // promisify
     }
+
     this.dom_events.add(ns);
+
     document.body.addEventListener(dom_event_name, async ev => {
       const action_name = ev.target.getAttribute('data-action');
       if (action_name == app_event_name) {
         ev.preventDefault();
         ev.stopPropagation();
-        this.emit(action_name, ev);
+
         if (typeof cb == 'function') {
           await cb(ev);
         }

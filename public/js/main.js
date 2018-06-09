@@ -32,6 +32,10 @@ if (!window.__lapr_ssr) {
     };
     events.registerDomEvent('click', 'app:navigate', async ev => {
       const path = ev.target.getAttribute('href');
+      events.emit('app:navigate', path);
+    });
+    events.on('app:navigate', async path => {
+      //const path = ev.target.getAttribute('href');
       window.history.pushState(null, null, path);
       await dispatch(path);
     });
