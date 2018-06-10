@@ -2,9 +2,6 @@
 .container-fluid.products.products-categories-search
   .row
     .sidebar.col-xs-6.col-sm-6.col-md-3
-      nav
-        .scroll-fixed-inner
-          .sidebar
 
     .products-results.col-xs-6.col-sm-6.col-md-9
       #heading-container
@@ -13,7 +10,7 @@
           a.more-info(href="javascript:void(0);") More&hellip; 
 
         .stats-container
-          .stats.secondary #{products.length} Results
+          .stats.secondary #{products_length} Results
           .sort-direction.hidden-xs.hidden-sm
             a(href="javascript:void(0);", data-action="app:instruments:sort-products").toggle-sort-direction.
               #{sort_dir == 'desc' ? 'Descending' : 'Ascending'}

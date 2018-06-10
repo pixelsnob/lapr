@@ -1,5 +1,6 @@
 
 import template from 'lib/template';
+import events from 'events/app';
 
 export default class {
   
@@ -8,6 +9,29 @@ export default class {
     this.store = store;
     this.slots = slots;
     this.$el = document.createElement('template');
+
+
+    events.once('connected', this.connected.bind(this));
+  }
+
+  connected($el) {
+    const $input = $el.querySelector('#search1');
+    if (!$input.attached) {
+      $input.addEventListener('keyup', this.keyup.bind(this));
+      $input.addEventListener('blur', this.blur.bind(this));
+      $input.attached = true;
+    }
+  }
+
+  keyup(ev) {
+    this.store.products.createProductsIndex();
+    const products_results = this.store.products.getSearchResults(ev.target.value, 50); // limit?
+    console.log(products_results);
+    // render list
+  }
+
+  blur(ev) {
+    // hide list
   }
 
   render() {

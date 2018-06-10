@@ -26,14 +26,15 @@ export default class {
     // Products search container
     const products = this.store.filtered_products;
     this.$el.innerHTML = template.render('partials/products_search', {
-      products: products.toJSON(),
+      products_length: products.models.length,
       sort_dir: this.store.filtered_products.sort_direction
     });
     // Populate products
     const $products = this.$el.content.querySelector('.results');
-    products.models.forEach(product => {
+    const products_json = products.toJSON([ 'images', 'makers' ]); // <<< this is slow
+    products_json.forEach(product => {
       const instrument = new Instrument({
-        params: { product: product.toJSON([ 'images', 'makers' ]) }//<
+        params: { product }
       }, this.store);
       $products.appendChild(instrument.render());
     });

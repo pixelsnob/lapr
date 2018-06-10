@@ -12,21 +12,20 @@ export default class {
     this.$el = document.createElement('template');
 
     this.head_container = new HeadContainer(this.context, this.store);
-    this.products_text_search_container = new ProductsTextSearchContainer(this.context, this.store);
+    //this.products_text_search_container = new ProductsTextSearchContainer(this.context, this.store);
 
-    if (!document.head.populated) {
-      // modify <head> directly
+    if (window.__lapr_ssr && !document.head.attached) {
       document.head.appendChild(this.head_container.render().cloneNode(true));
-      document.head.populated = true;
+      document.head.attached = true;
     }
 
   }
 
   render() {
-    this.$el.innerHTML = template.render('partials/body');//>
-    this.$el.content.querySelector('.text-search').appendChild(
-      this.products_text_search_container.render()
-    );
+    this.$el.innerHTML = template.render('partials/body');
+    //this.$el.content.querySelector('.text-search').appendChild(
+    //  this.products_text_search_container.render()
+    //);
     if (this.slots.main) {
       this.$el.content.querySelector('#main').appendChild(this.slots.main.render());
     }

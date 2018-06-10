@@ -8,21 +8,21 @@ import Router from 'router';
 import Render from 'render';
 import store from 'store';
 import events from 'events/app';
-import HeadContainer from 'containers/head';
+import AppContainer from 'containers/app';
 
 //const store = new Store;
 
 const actions = Actions.create(store);
 const router = Router.create(routes, actions);
 
-const getMountPoint = () => document.querySelector('body');
+const app_container = new AppContainer(store);
+const getMountPoint = () => document.querySelector('#main');
 
 if (!window.__lapr_ssr) {
 
   // Client
   document.addEventListener('DOMContentLoaded', async ev => {
     const render =  new Render(getMountPoint());
-    await store.products.fetch();
     const dispatch = async path => {
       try {
         await router.resolve(path).then(render);
@@ -30,12 +30,10 @@ if (!window.__lapr_ssr) {
         console.error(err);
       }
     };
+    app_container.render();
+    await store.products.fetch();
     events.registerDomEvent('click', 'app:navigate', async ev => {
       const path = ev.target.getAttribute('href');
-      events.emit('app:navigate', path);
-    });
-    events.on('app:navigate', async path => {
-      //const path = ev.target.getAttribute('href');
       window.history.pushState(null, null, path);
       await dispatch(path);
     });
@@ -53,6 +51,7 @@ if (!window.__lapr_ssr) {
   // Server
   window.__lapr_dispatch = async path => {
     try {
+      app_container.render();
       const data = JSON.parse(window.localStorage.getItem('data'));
       store.products.hydrate(data);
       const render =  new Render(getMountPoint());
