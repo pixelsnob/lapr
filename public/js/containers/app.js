@@ -1,6 +1,7 @@
 
 import template from 'lib/template';
 import HeadContainer from 'containers/head';
+import ProductsTextSearchContainer from 'containers/products_text_search';
 
 export default class {
   
@@ -10,7 +11,8 @@ export default class {
     this.slots = slots;
     this.$el = document.createElement('template');
 
-    this.head_container = new HeadContainer;
+    this.head_container = new HeadContainer(this.context, this.store);
+    this.products_text_search_container = new ProductsTextSearchContainer(this.context, this.store);
 
     if (!document.head.populated) {
       // modify <head> directly
@@ -21,8 +23,10 @@ export default class {
   }
 
   render() {
-    this.head_container.setParams();
     this.$el.innerHTML = template.render('partials/body');//>
+    this.$el.content.querySelector('.text-search').appendChild(
+      this.products_text_search_container.render()
+    );
     if (this.slots.main) {
       this.$el.content.querySelector('#main').appendChild(this.slots.main.render());
     }

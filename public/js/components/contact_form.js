@@ -63,55 +63,7 @@ export default class {
   }
 
   render() {
-    this.$el.innerHTML = `
-      <form action="/contact" method="post" novalidate id="contact-form">
-        <div data-fieldsets="">
-          <fieldset data-fields="">
-            <div>
-              <label for="c2_name">Name</label>
-              <div>
-                <span data-editor="">
-                  <input tabindex="1" id="c2_name" name="name" type="text" autocomplete="name" aria-live="polite" required>
-                </span>
-                <div data-error="name" class="error">
-                </div>
-                <div></div>
-              </div>
-              <div>
-                <label for="c2_email">Email</label>
-                <div>
-                  <span data-editor="">
-                    <input tabindex="2" id="c2_email" name="email" type="email" autocomplete="email" aria-live="polite" required>
-                  </span>
-                  <div data-error="email" class="error"></div>
-                  <div></div>
-                </div>
-              </div>
-              <div>
-                <label for="c2_phone">Phone</label>
-                  <div>
-                    <span data-editor="">
-                      <input tabindex="3" id="c2_phone" name="phone" type="text" autocomplete="tel" aria-live="polite">
-                    </span>
-                    <div data-error="phone" class="error"></div>
-                    <div></div>
-                  </div>
-              </div>
-              <div>
-                <label for="c2_comments" required>Comments</label>
-                <div>
-                  <span data-editor="comments">
-                    <textarea tabindex="4" id="c2_comments" name="comments" aria-live="polite" required></textarea>
-                  </span>
-                  <div data-error="comments" class="error"></div>
-                  <div></div>
-                </div>
-              </div>
-            </fieldset>
-          </div>
-        <button class="send" data-action="contact:send">Send</button>
-      </form>
-    `;
+    this.$el.innerHTML = template.render('partials/contact_form');
     return this.$el.content.cloneNode(true);
   }
 }

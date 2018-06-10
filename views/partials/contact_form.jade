@@ -1,8 +1,35 @@
+.form
 
-.container-fluid
-  .row
-    .col-xs-9.col-xs-offset-3
-      h1 Contact Us
-      //- != outputContentBlock('testing', content_blocks)
-      .form
+  form#contact-form(action="/contact", method="post", novalidate="")
+    div(data-fieldsets="")
+      fieldset(data-fields="")
+        div
+          label(for="c2_name") Name
+          div
+            span(data-editor="")
+              input#c2_name(tabindex="1", name="name", type="text", autocomplete="name", aria-live="polite", required="")
+            .error(data-error="name")
+            div
+          div
+            label(for="c2_email") Email
+            div
+              span(data-editor="")
+                input#c2_email(tabindex="2", name="email", type="email", autocomplete="email", aria-live="polite", required="")
+              .error(data-error="email")
+              div
+          div
+            label(for="c2_phone") Phone
+            div
+              span(data-editor="")
+                input#c2_phone(tabindex="3", name="phone", type="text", autocomplete="tel", aria-live="polite")
+              .error(data-error="phone")
+              div
+          div
+            label(for="c2_comments", required="") Comments
+            div
+              span(data-editor="comments")
+                textarea#c2_comments(tabindex="4", name="comments", aria-live="polite", required="")
+              .error(data-error="comments")
+              div
+    button.send(data-action="contact:send", tabindex="5") Send
 

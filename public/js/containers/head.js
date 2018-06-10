@@ -8,10 +8,6 @@ export default class {
     this.store = store;
     this.$el = document.createElement('template');
   }
-  
-  setParams() {
-    
-  }
 
   render() {
     this.$el.innerHTML = template.render('partials/head', {
