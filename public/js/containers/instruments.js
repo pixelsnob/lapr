@@ -22,7 +22,7 @@ export default class {
         'desc'
       );
       this.store.filtered_products.sort();
-      events.emit('app:refresh');
+      events.emit('app:refresh'); // slow
     });
   }
 
@@ -33,6 +33,7 @@ export default class {
       products_length: products.models.length,
       sort_dir: this.store.filtered_products.sort_direction
     });
+
     // Populate products
     const $products = this.$el.content.querySelector('.results');
     const products_json = products.toJSON([ 'images', 'makers' ]); // <<< this is slow
@@ -42,9 +43,9 @@ export default class {
       }, this.store);
       $products.appendChild(instrument.render());
     });
+
     // Sidebar
     if (this.slots.sidebar) {
-      // change .categories to .sidebar 
       const $sidebar = this.$el.content.querySelector('.sidebar');
       $sidebar.innerHTML = '';
       $sidebar.appendChild(this.slots.sidebar.render());
