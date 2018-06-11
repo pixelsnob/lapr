@@ -22,7 +22,7 @@ if (!window.__lapr_ssr) {
 
   // Client
   document.addEventListener('DOMContentLoaded', async ev => {
-    const render =  new Render(getMountPoint());
+    const render =  new Render(getMountPoint()); //<
     const dispatch = async path => {
       try {
         await router.resolve(path).then(render);

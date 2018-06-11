@@ -18,7 +18,6 @@ export default {
       },
 
       instruments: context => {
-
         store.filtered_products.reset(store.filtered_products);
         store.selected_categories.setFromSlug(context.params.category);
         store.products.filterByCategory();
@@ -30,13 +29,11 @@ export default {
         const instruments_container = new InstrumentsContainer(context, store, {
           sidebar: product_categories_nav
         });
-        const content_blocks_container = new ContentBlocksContainer(context, store);
 
         return instruments_container;
       },
 
       'sound-search': context => {
-
         store.filtered_products.reset(store.filtered_products);
         const selected_tags = context.params.tags ? context.params.tags.split(',') : [];
         store.selected_tags.setFromArray(selected_tags);
