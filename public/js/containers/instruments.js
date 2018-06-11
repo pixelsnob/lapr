@@ -10,6 +10,11 @@ export default class {
     this.store = store;
     this.slots = slots;
     this.$el = document.createElement('template');
+
+    events.once('connected', this.connected.bind(this));
+  }
+
+  connected($el) {
     events.registerDomEvent('click', 'app:instruments:sort-products', ev => {
       this.store.filtered_products.sort_direction = (
         this.store.filtered_products.sort_direction == 'desc' ?
@@ -18,7 +23,6 @@ export default class {
       );
       this.store.filtered_products.sort();
       events.emit('app:refresh');
-
     });
   }
 

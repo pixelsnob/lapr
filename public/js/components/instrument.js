@@ -8,7 +8,6 @@ export default class {
     this.context = context;
     this.store = store;
     this.$el = $el || document.createElement('template');
-    this.events = events;
   }
   
   render() {
