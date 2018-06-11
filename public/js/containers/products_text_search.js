@@ -1,40 +1,40 @@
 
 import template from 'lib/template';
 import events from 'events/app';
-import ProductsTextSearchItemComponent from 'components/products_text_search_item';
+import ProductsTextSearchListComponent from 'components/products_text_search_list';
 
 export default class {
   
   constructor(context, store) {
     this.context = context;
     this.store = store;
+    this.$products_list = null;
   }
 
   connected($el) {
-    const $input = $el.querySelector('#search1');
-    $input.addEventListener('keyup', ev => this.keyup(ev, $el));
-    $input.addEventListener('blur', ev => this.blur(ev, $el));
+    this.$input = $el.querySelector('#search1');
+    this.$products_list = $el.querySelector('.products-text-search .products-list');
+    this.$input.addEventListener('keyup', this.keyup.bind(this));
+    this.$input.addEventListener('blur', this.blur.bind(this));
   }
 
-  keyup(ev, $el) {
+  keyup(ev) {
     const products = this.store.products.getSearchResults(ev.target.value, 50); // limit?
-    const $results_ul = $el.querySelector('.products-text-search .products-list ul');
-    // show ^^^
-    if ($results_ul.childNodes.length) {
-      $results_ul.innerHTML = '';
+    if (!products.length) {
+      this.$products_list.innerHTML = '';
+      return null;
     }
-    console.log(this.context);
-    products.map(product => {
-      const products_text_search_item_component = new ProductsTextSearchItemComponent(
-        { params: { product: product.toJSON() }},
-        this.store
-      );
-      $results_ul.appendChild(products_text_search_item_component.render());
-    });
+    const products_text_search_list_component = new ProductsTextSearchListComponent(
+      { ...this.context, params: { products }},
+      this.store
+    );
+    this.$products_list.innerHTML = '';
+    this.$products_list.appendChild(products_text_search_list_component.render());
   }
 
   blur(ev) {
-    // hide list
+    this.$input.value = '';
+    this.$products_list.innerHTML = '';
   }
 
   render() {
