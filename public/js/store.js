@@ -25,14 +25,3 @@ Object.defineProperty(store, 'Contact', {
   value: ContactModel
 });
 
-var populated_products = [];
-Object.defineProperty(store, 'populated_products', {
-  get: () => {
-	if (populated_products.length) {
-	  return populated_products;
-	} else {
-	  populated_products = products.toJSON(['images','makers']);
-	  return populated_products;
-	}
-  }
-});

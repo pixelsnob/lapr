@@ -14,7 +14,6 @@ export default class {
 
     events.once('connected', this.connected.bind(this));
 
-    document.body.className = 'contact'; // <<<<<,
 
     this.contact_form_component = new ContactFormComponent(this.context, this.store);
     this.contact_form_success_component = new ContactFormSuccessComponent(this.context, this.store);
@@ -35,6 +34,7 @@ export default class {
   }
 
   render() {
+    document.body.className = 'contact'; // <<<<<,
     this.$el.innerHTML = template.render('partials/contact', {});
     this.$el.content.querySelector('.form').appendChild(this.contact_form_component.render());
     return this.$el.content.cloneNode(true);

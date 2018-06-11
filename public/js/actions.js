@@ -3,7 +3,8 @@ import IndexContainer from 'containers/index';
 import InstrumentsContainer from 'containers/instruments';
 import ContactContainer from 'containers/contact';
 import ProductCategoriesNavContainer from 'containers/product_categories_nav';
-import TagsNav from 'containers/tags_nav';
+import ContentBlocksContainer from 'containers/content_blocks';
+import TagsNavContainer from 'containers/tags_nav';
 
 export default {
   
@@ -12,15 +13,15 @@ export default {
     return {
 
       index: context => {
+        new ContentBlocksContainer(context, store);
         return new IndexContainer(context, store);
       },
 
       instruments: context => {
 
-        store.filtered_products.reset(store.populated_products);
+        store.filtered_products.reset(store.filtered_products);
         store.selected_categories.setFromSlug(context.params.category);
         store.products.filterByCategory();
-        //store.filtered_products.sort();
 
         const product_categories_nav = new ProductCategoriesNavContainer(
           context,
@@ -29,18 +30,19 @@ export default {
         const instruments_container = new InstrumentsContainer(context, store, {
           sidebar: product_categories_nav
         });
+        const content_blocks_container = new ContentBlocksContainer(context, store);
+
         return instruments_container;
       },
 
       'sound-search': context => {
 
-        store.filtered_products.reset(store.populated_products);
+        store.filtered_products.reset(store.filtered_products);
         const selected_tags = context.params.tags ? context.params.tags.split(',') : [];
         store.selected_tags.setFromArray(selected_tags);
         store.products.filterByTags();
-        //store.filtered_products.sort();
 
-        const tags_nav = new TagsNav(context, store);
+        const tags_nav = new TagsNavContainer(context, store);
         const instruments_container = new InstrumentsContainer(context, store, {
           sidebar: tags_nav
         });
@@ -48,6 +50,7 @@ export default {
       },
 
       contact: context => {
+        new ContentBlocksContainer(context, store);
         return new ContactContainer(context, store);
       },
 

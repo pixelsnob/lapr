@@ -12,6 +12,7 @@ import SelectedTagsCollection from 'collections/selected_tags';
 import SelectedCategoriesCollection from 'collections/selected_categories';
 import YoutubeVideosCollection from 'collections/youtube_videos';
 import ImagesCollection from 'collections/images';
+import ContentBlocksCollection from 'collections/content_blocks';
 import lunr from 'lunr';
 
 export default Backbone.Collection.extend({
@@ -32,7 +33,8 @@ export default Backbone.Collection.extend({
       selected_tags: new SelectedTagsCollection,
       selected_categories: new SelectedCategoriesCollection,
       youtube_videos: new YoutubeVideosCollection,
-      images: new ImagesCollection
+      images: new ImagesCollection,
+      content_blocks: new ContentBlocksCollection
     };
     this.refs.selected_tags.tags = this.refs.tags;
     this.refs.selected_categories.product_categories = this.refs.product_categories;
@@ -57,6 +59,7 @@ export default Backbone.Collection.extend({
     this.refs.tag_categories.reset(data.tag_categories);
     this.refs.youtube_videos.reset(data.youtube_videos);
     this.refs.images.reset(data.images);
+    this.refs.content_blocks.reset(data.content_blocks);
     this.reset(data.products);
   },
 
@@ -71,6 +74,7 @@ export default Backbone.Collection.extend({
       this.refs.tag_categories.reset(stored.data.tag_categories);
       this.refs.youtube_videos.reset(stored.data.youtube_videos);
       this.refs.images.reset(stored.data.images);
+      this.refs.content_blocks.reset(stored.data.images);
       return Promise.resolve(this);
     } else {
       return Backbone.Collection.prototype.fetch.call(this).then(res => {
@@ -81,7 +85,8 @@ export default Backbone.Collection.extend({
           tags: res.tags,
           tag_categories: res.tag_categories,
           youtube_videos: res.youtube_videos,
-          images: res.images
+          images: res.images,
+          content_blocks: res.content_blocks
         };
         this.setStored(data);
       });
@@ -122,6 +127,7 @@ export default Backbone.Collection.extend({
     this.refs.tag_categories.reset(res.tag_categories);
     this.refs.youtube_videos.reset(res.youtube_videos);
     this.refs.images.reset(res.images);
+    this.refs.content_blocks.reset(res.content_blocks);
     return res.products;
   },
 

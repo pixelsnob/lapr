@@ -6,6 +6,7 @@ export default $el => {
 
   return view => {
 
+    document.body.className = ''; // < legacy
     if (typeof view.render == 'function') {
       diffhtml.outerHTML($el, view.render()); 
     } else {

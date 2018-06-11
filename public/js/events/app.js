@@ -21,8 +21,8 @@ class AppEvents extends EventEmitter {
     this.dom_events.add(ns);
 
     document.body.addEventListener(dom_event_name, async ev => {
-      const action_name = ev.target.getAttribute('data-action');
-      if (action_name == app_event_name) {
+      const action_name = ev.target.dataset.action;
+      if (ev.target.dataset.action == app_event_name) {
         ev.preventDefault();
         ev.stopPropagation();
 
