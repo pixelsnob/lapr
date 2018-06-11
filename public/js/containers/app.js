@@ -6,22 +6,24 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(context, store, slots = {}) {
+  constructor(context, store) {
     this.context = context;
     this.store = store;
-    this.slots = slots;
     this.$el = document.createElement('template');
 
     this.head_container = new HeadContainer(this.context, this.store);
-    //this.products_text_search_container = new ProductsTextSearchContainer(this.context, this.store);
-    
-    //events.once('connected', this.connected.bind(this));
+
+    events.once('connected', this.connected.bind(this));
   }
 
-  //connected($el) {
-  //  console.log('?');
- //   console.log($el.querySelectorAll('.content-block[data-name]'));
- // }
+  connected($el) {
+    const products_text_search_container = new ProductsTextSearchContainer(
+      this.context,
+      this.store
+    );
+    products_text_search_container.render();
+    products_text_search_container.connected(document.body);
+  }
 
   render() {
     if (window.__lapr_ssr && !document.head.attached) {
@@ -29,12 +31,6 @@ export default class {
       document.head.attached = true;
     }
     this.$el.innerHTML = template.render('partials/body');
-    //this.$el.content.querySelector('.text-search').appendChild(
-    //  this.products_text_search_container.render()
-    //);
-    if (this.slots.main) {
-      this.$el.content.querySelector('#main').appendChild(this.slots.main.render());
-    }
     return this.$el.content.cloneNode(true);
   }
 }

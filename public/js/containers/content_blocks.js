@@ -6,7 +6,6 @@ import markdown from 'lib/markdown';
 export default class {
   
   constructor(context, store) {
-    //this.$el = document.querySelector('#main'); // <<<< abstract;
     this.context = context;
     this.store = store;
     events.once('connected', this.connected.bind(this));

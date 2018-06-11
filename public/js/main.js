@@ -15,7 +15,7 @@ import AppContainer from 'containers/app';
 const actions = Actions.create(store);
 const router = Router.create(routes, actions);
 
-const app_container = new AppContainer(store);
+const app_container = new AppContainer(null, store);
 const getMountPoint = () => document.querySelector('#main');
 
 if (!window.__lapr_ssr) {

@@ -4,27 +4,18 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(context, store, slots = {}) {
+  constructor(context, store) {
     this.context = context;
     this.store = store;
-    this.slots = slots;
-    this.$el = document.createElement('template');
-
-
-    events.once('connected', this.connected.bind(this));
   }
 
   connected($el) {
     const $input = $el.querySelector('#search1');
-    if (!$input.attached) {
-      $input.addEventListener('keyup', this.keyup.bind(this));
-      $input.addEventListener('blur', this.blur.bind(this));
-      $input.attached = true;
-    }
+    $input.addEventListener('keyup', this.keyup.bind(this));
+    $input.addEventListener('blur', this.blur.bind(this));
   }
 
   keyup(ev) {
-    this.store.products.createProductsIndex();
     const products_results = this.store.products.getSearchResults(ev.target.value, 50); // limit?
     console.log(products_results);
     // render list
@@ -35,8 +26,13 @@ export default class {
   }
 
   render() {
-    this.$el.innerHTML = template.render('partials/products_text_search');
-    return this.$el.content.cloneNode(true);
+    this.store.products.createProductsIndex();
+    const $text_search_container = document.body.querySelector('.text-search');
+    console.log($text_search_container);
+    if ($text_search_container) {
+      $text_search_container.innerHTML = template.render('partials/products_text_search');
+    }
+    return null;
   }
 }
 
