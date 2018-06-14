@@ -7,10 +7,8 @@ import routes from 'routes';
 import Router from 'router';
 import Render from 'render';
 import store from 'store';
-import events from 'events/app';
+import app_events from 'events/app';
 import AppContainer from 'containers/app';
-
-//const store = new Store;
 
 const actions = Actions.create(store);
 const router = Router.create(routes, actions);
@@ -32,15 +30,21 @@ if (!window.__lapr_ssr) {
     };
     app_container.render();
     await store.products.fetch();
-    events.registerDomEvent('click', 'app:navigate', async ev => {
+    app_events.registerDomEvent('click', 'click:navigate', async ev => {
       const path = ev.target.getAttribute('href');
-      window.history.pushState(null, null, path);
+      //history.pushState({ previous: location.pathname }, null, path);
+      //await dispatch(path);
+      app_events.emit('app:navigate', path);
+    });
+    app_events.on('app:navigate', async path => {
+      console.log(path);
+      history.pushState({ previous: location.pathname }, null, path);
       await dispatch(path);
     });
-    events.on('app:refresh', async ev => {
+    app_events.on('app:refresh', async ev => {
       await dispatch(location.pathname);
     });
-    window.addEventListener('popstate', async () => {
+    window.addEventListener('popstate', async ev => {
       await dispatch(location.pathname);
     });
     await dispatch(location.pathname);

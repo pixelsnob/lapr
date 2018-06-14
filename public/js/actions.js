@@ -1,7 +1,10 @@
 
 import IndexContainer from 'containers/index';
 import InstrumentsContainer from 'containers/instruments';
+import InstrumentDetailsListContainer from 'containers/instrument_details_list';
 import ContactContainer from 'containers/contact';
+import ErrorComponent from 'components/error';
+
 import ProductCategoriesNavContainer from 'containers/product_categories_nav';
 import ContentBlocksContainer from 'containers/content_blocks';
 import TagsNavContainer from 'containers/tags_nav';
@@ -18,7 +21,6 @@ export default {
       },
 
       instruments: context => {
-        store.filtered_products.reset(store.filtered_products);
         store.selected_categories.setFromSlug(context.params.category);
         store.products.filterByCategory();
 
@@ -33,8 +35,15 @@ export default {
         return instruments_container;
       },
 
+      'instrument-details': context => {
+        //if (store.filtered_products.models.length) {
+          return new InstrumentDetailsListContainer(context, store);
+        //} else {
+          //return new InstrumentDetailsContainer(context, store);
+        //}
+      },
+
       'sound-search': context => {
-        store.filtered_products.reset(store.filtered_products);
         const selected_tags = context.params.tags ? context.params.tags.split(',') : [];
         store.selected_tags.setFromArray(selected_tags);
         store.products.filterByTags();
@@ -51,7 +60,9 @@ export default {
         return new ContactContainer(context, store);
       },
 
-      error: err => `<h2>%$#@^%$#!!!!<br>Page not found!</h2>`
+      error: err => {
+        return new ErrorComponent(err);
+      }
 
     };
   }

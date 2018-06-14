@@ -1,3 +1,4 @@
 
 li
-  p= product.name
+  p.product-small
+    a(href="/instruments/#{product.slug}/#{product._id}", data-action="products-text-search:navigate")!=product.name

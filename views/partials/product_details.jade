@@ -1,62 +1,66 @@
 
-.container-fluid.product-details(itemscope, itemtype="http://schema.org/Product")
+
+.container-fluid
   .row
-    .col-md-12
-      .product-heading
-        h2(itemprop="name", class="line-after")= product.name
-      link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
-      if Array.isArray(product.images) && product.images.length
-        - var image_path = user ? '/images/products/' : '/dist/images/products/400/';
-        - var qs = user ? '?t=' + (new Date).getTime() : '';
-        ul.images
-          li
-            img(src="#{image_path}#{product.images[0].name}#{qs}", width="400", title="#{product.name}", alt="#{product.name}", itemprop="image")
-      
-      if product.alt_names
-        p.alt-names.secondary(itemprop="alternateName") (#{product.alt_names})
-      if product.makers.length
-        p.makers(itemprop="manufacturer") Mfg. by #{product.makers}
-      
-      .description(itemprop="description")!= markdown(product.description)
+    .col-md-8
+      .container-fluid.product-details(style="min-height:100px;", itemscope, itemtype="http://schema.org/Product")
+        .row
+          .col-md-12
+            .product-heading
+              h2(itemprop="name", class="line-after")= product.name
+            link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
+            if Array.isArray(product.images) && product.images.length
+              - var image_path = user ? '/images/products/' : '/dist/images/products/400/';
+              - var qs = user ? '?t=' + (new Date).getTime() : '';
+              ul.images
+                li
+                  img(src="#{image_path}#{product.images[0].name}#{qs}", width="400", title="#{product.name}", alt="#{product.name}", itemprop="image")
+            
+            if product.alt_names
+              p.alt-names.secondary(itemprop="alternateName") (#{product.alt_names})
+            if product.makers.length
+              p.makers(itemprop="manufacturer") Mfg. by #{product.makers.map(maker => maker.name).join(', ')}
+            
+            .description(itemprop="description")!= markdown(product.description)
 
-      if product.more_info
-        .more-info-container
-          .more-info!= markdown(product.more_info)
+            if product.more_info
+              .more-info-container
+                .more-info!= markdown(product.more_info)
 
-      dl
-        if product.model_no
-          dt Model No.
-          dd(itemprop="model")= product.model_no
-        if product.price
-          - var label = /call/i.test(product.price) ? '' : (product.price_label ? '/' + product.price_label : '/Day');
-          dt Price#{label}
-          dd(itemprop="price")= product.price
-        if product.sizes
-          dt Sizes
-          dd!= markdown(product.sizes)
-        if product.range
-          dt Range
-          dd
-            span= product.range
+            dl
+              if product.model_no
+                dt Model No.
+                dd(itemprop="model")= product.model_no
+              if product.price
+                - var label = /call/i.test(product.price) ? '' : (product.price_label ? '/' + product.price_label : '/Day');
+                dt Price#{label}
+                dd(itemprop="price")= product.price
+              if product.sizes
+                dt Sizes
+                dd!= markdown(product.sizes)
+              if product.range
+                dt Range
+                dd
+                  span= product.range
 
-      .range
+            .range
 
-      if product.octave_shift
-       .range-notice.secondary
-         - var s = (product.octave_shift > 1 ? 's' : '')
-         em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
+            if product.octave_shift
+             .range-notice.secondary
+               - var s = (product.octave_shift > 1 ? 's' : '')
+               em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
 
-      .sounds
-        if Array.isArray(product.youtube_videos) && product.youtube_videos.length
-          //- h3 Sounds
-          hr
-          - var youtube_videos = product.youtube_videos
-          include youtube_player
-          if !product.hide_sounds_disclaimer
-            .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
-              .content
+            .sounds
+              if Array.isArray(product.youtube_videos) && product.youtube_videos.length
+                //- h3 Sounds
+                hr
+                - var youtube_videos = product.youtube_videos
+                include youtube_player
+                if !product.hide_sounds_disclaimer
+                  .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
+                    .content
 
-      if user
-        p.edit-link
-          a.edit(href="/instruments/#{product.slug}/#{product._id}") Edit Product
-    
+            if user
+              p.edit-link
+                a.edit(href="/instruments/#{product.slug}/#{product._id}") Edit Product
+          

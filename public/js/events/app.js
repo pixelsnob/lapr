@@ -15,7 +15,7 @@ class AppEvents extends EventEmitter {
   registerDomEvent(dom_event_name, app_event_name, cb) {
     const ns = createNamespace(dom_event_name, app_event_name);
     if (this.dom_events.has(ns)) {
-      return null; // promisify
+      return null;
     }
 
     this.dom_events.add(ns);

@@ -25,3 +25,15 @@ Object.defineProperty(store, 'Contact', {
   value: ContactModel
 });
 
+const search_cache = new Map;
+
+Object.defineProperty(store, 'getSearchResults', {
+  value: (value, limit) => {
+    if (search_cache.has(value)) {
+      return Object.values(search_cache);
+    }
+    search_cache.set(value, products.getSearchResults(value, limit));
+    return search_cache;
+  }
+});
+
