@@ -49,6 +49,7 @@
     "grunt-css": "^0.5.4",
     "grunt-embed-fonts": "^1.0.0",
     "gulp": "^3.9.1",
+    "gulp-fn": "0.0.2",
     "gulp-forever": "^1.0.0",
     "gulp-image-resize": "^0.11.0",
     "gulp-watch": "^4.3.11",

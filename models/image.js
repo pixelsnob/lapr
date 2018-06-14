@@ -6,7 +6,9 @@ var db = require('mongoose');
 var ImageSchema = new db.Schema({
   name: { type: String, index: true, unique: true },
   size: Number,
-  title: String
+  title: String,
+  width: Number,
+  height: Number
 });
 
 ImageSchema.pre('remove', function(next) {
