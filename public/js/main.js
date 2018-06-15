@@ -37,7 +37,7 @@ if (!window.__lapr_ssr) {
       app_events.emit('app:navigate', path);
     });
     app_events.on('app:navigate', async path => {
-      console.log(path);
+      //console.log(path);
       history.pushState({ previous: location.pathname }, null, path);
       await dispatch(path);
     });
@@ -46,6 +46,9 @@ if (!window.__lapr_ssr) {
     });
     window.addEventListener('popstate', async ev => {
       await dispatch(location.pathname);
+    });
+    window.addEventListener('scroll', ev => {
+      app_events.emit('app:scroll', ev);
     });
     await dispatch(location.pathname);
   });

@@ -222,13 +222,15 @@ export default Backbone.Collection.extend({
       return [];
     }
     var search_res = this.index.search(search),
-      products = [];
+      products = [], i = 1;
     _.each(search_res, product => {
       var product_model = this.findWhere({
         _id: Number(product.ref)
       });
       if (product_model) {
+        product_model.set('list_position', i);
         products.push(product_model);
+        i++;
       }
     });
     if (limit > 0) {
@@ -238,12 +240,9 @@ export default Backbone.Collection.extend({
   },
 
   getSearchResults: function(search, limit = 0) {
-    var search_res = this.search(search, limit),
-      products = [];
-    _.each(search_res, product => {
-      products.push(product);
-    });
-    return products;
+    var search_res = this.search(search, limit), products = [];
+    this.refs.filtered_products.sort_mode = 'list_position';
+    return this.refs.filtered_products.reset(search_res).sort();
   },
 
   filterByTextSearch: function(search) {

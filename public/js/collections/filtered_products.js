@@ -13,6 +13,8 @@ export default Backbone.Collection.extend({
 
   sort_direction: 'asc',
 
+  sort_mode: 'default',
+
   getPaged: function() {
     return this.slice(this.getStartIndex(), this.getEndIndex());
   },
@@ -39,10 +41,17 @@ export default Backbone.Collection.extend({
   },
 
   comparator: function(a, b) {
-    var aval = a.get('name') + ' ' + a.get('sizes'),
-      bval = b.get('name') + ' ' + b.get('sizes');
-    var comp = aval.localeCompare(bval);
-    return (this.sort_direction == 'asc' ? comp : -comp);
+    if (this.sort_mode == 'default') {
+      var aval = a.get('name') + ' ' + a.get('sizes'),
+        bval = b.get('name') + ' ' + b.get('sizes');
+      var comp = aval.localeCompare(bval);
+      return (this.sort_direction == 'asc' ? comp : -comp);
+    } else {
+      var aval = a.get('list_position');
+      var bval = b.get('list_position');
+      return -(aval < bval);
+
+    }
   }
 
 });

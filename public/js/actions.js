@@ -22,6 +22,7 @@ export default {
 
       instruments: context => {
         store.selected_categories.setFromSlug(context.params.category);
+        store.filtered_products.sort_mode = 'default';
         store.products.filterByCategory();
 
         const product_categories_nav = new ProductCategoriesNavContainer(
@@ -46,6 +47,7 @@ export default {
       'sound-search': context => {
         const selected_tags = context.params.tags ? context.params.tags.split(',') : [];
         store.selected_tags.setFromArray(selected_tags);
+        store.filtered_products.sort_mode = 'default';
         store.products.filterByTags();
 
         const tags_nav = new TagsNavContainer(context, store);
