@@ -1,5 +1,4 @@
 
-
 .container-fluid
   .row
     .col-md-8
@@ -9,12 +8,7 @@
             .product-heading
               h2(itemprop="name", class="line-after")= product.name
             link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
-            if Array.isArray(product.images) && product.images.length
-              - var image_path = user ? '/images/products/' : '/dist/images/products/400/';
-              - var qs = user ? '?t=' + (new Date).getTime() : '';
-              ul.images
-                li
-                  img(src="#{image_path}#{product.images[0].name}#{qs}", width="400", title="#{product.name}", alt="#{product.name}", itemprop="image")
+            .images
             
             if product.alt_names
               p.alt-names.secondary(itemprop="alternateName") (#{product.alt_names})

@@ -37,11 +37,7 @@ export default {
       },
 
       'instrument-details': context => {
-        //if (store.filtered_products.models.length) {
-          return new InstrumentDetailsListContainer(context, store);
-        //} else {
-          //return new InstrumentDetailsContainer(context, store);
-        //}
+        return new InstrumentDetailsListContainer(context, store);
       },
 
       'sound-search': context => {

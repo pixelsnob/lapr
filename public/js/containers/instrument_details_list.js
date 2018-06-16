@@ -77,7 +77,7 @@ export default class {
         instrument_details_container.render()
       );
     }
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 
