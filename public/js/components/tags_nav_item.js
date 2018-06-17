@@ -47,6 +47,6 @@ export default class {
       path
     });
 
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }

@@ -27,11 +27,11 @@ export default class {
 
   render() {
     if (window.__lapr_ssr && !document.head.attached) {
-      document.head.appendChild(this.head_container.render().cloneNode(true));
+      document.head.appendChild(this.head_container.render());
       document.head.attached = true;
     }
     this.$el.innerHTML = template.render('partials/body');
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 

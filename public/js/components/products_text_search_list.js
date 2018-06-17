@@ -23,7 +23,7 @@ export default class {
       $ul.appendChild(products_text_search_item_component.render());
     });
     this.$el.innerHTML;
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 

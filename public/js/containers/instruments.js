@@ -50,7 +50,7 @@ export default class {
       $sidebar.innerHTML = '';
       $sidebar.appendChild(this.slots.sidebar.render());
     }
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 
 }

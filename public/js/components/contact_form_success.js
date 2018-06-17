@@ -14,7 +14,7 @@ export default class {
     this.$el.innerHTML = `
       <p>Thanks! We'll get back to you shortly.</p>
     `;
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 

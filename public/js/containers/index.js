@@ -12,6 +12,6 @@ export default class {
   render() {
     document.body.className = 'index';//<<
     this.$el.innerHTML = template.render('partials/index');
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }

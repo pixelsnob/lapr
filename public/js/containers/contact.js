@@ -37,7 +37,7 @@ export default class {
     document.body.className = 'contact'; // <<<<<,
     this.$el.innerHTML = template.render('partials/contact', {});
     this.$el.content.querySelector('.form').appendChild(this.contact_form_component.render());
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 

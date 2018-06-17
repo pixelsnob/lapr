@@ -27,7 +27,7 @@ export default class {
       const tags_nav_item = new TagsNavItem(context, this.store);
       this.$el.content.querySelector('.tags-list').appendChild(tags_nav_item.render());
     });
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 

@@ -15,6 +15,6 @@ export default class {
       image: this.context.params.image,
       image_path: this.context.params.image_path
     });
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }

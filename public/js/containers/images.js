@@ -28,7 +28,7 @@ export default class {
         $ul.appendChild(image_component.render());
       });
     }
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 

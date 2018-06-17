@@ -13,6 +13,6 @@ export default class {
     this.$el.innerHTML = template.render('partials/product_category_link', {
       product_category: this.context.params.product_category
     });
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }

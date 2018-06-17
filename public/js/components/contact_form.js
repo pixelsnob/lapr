@@ -64,7 +64,7 @@ export default class {
 
   render() {
     this.$el.innerHTML = template.render('partials/contact_form');
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 

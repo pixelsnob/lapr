@@ -14,7 +14,7 @@ export default class {
     this.$el.innerHTML = `
       <p class="error">Uh-oh. Something bad happened.</p>
     `;
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 

@@ -21,7 +21,7 @@ export default class {
       og_image: '',
       user: {}
     });
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 

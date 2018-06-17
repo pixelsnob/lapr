@@ -24,6 +24,6 @@ export default class {
       const product_category_link = new ProductCategoryNavItem(context, this.store)
       $ul.appendChild(product_category_link.render());
     });
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }

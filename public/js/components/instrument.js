@@ -15,6 +15,6 @@ export default class {
       product: this.context.params.product,
       user: null // <<<<<<<<<<replace me
     });
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }

@@ -17,6 +17,6 @@ export default class {
     });
     this.$el.innerHTML = template.render('partials/product', {
     });
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }

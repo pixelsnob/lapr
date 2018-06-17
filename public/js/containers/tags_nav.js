@@ -24,7 +24,7 @@ export default class {
       const tag_category = new TagsNavCategoryList(context, this.store);
       $ul.appendChild(tag_category.render());
     });
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 

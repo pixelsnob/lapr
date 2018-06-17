@@ -8,7 +8,7 @@ export default class {
 
   render() {
     this.$el.innerHTML = `<h2>%$#@^%$#!!!!<br>${this.error.message}</h2>`;
-    return this.$el.content.cloneNode(true);
+    return this.$el.content;
   }
 }
 
