@@ -32,12 +32,10 @@ if (!window.__lapr_ssr) {
     await store.products.fetch();
     app_events.registerDomEvent('click', 'click:navigate', async ev => {
       const path = ev.target.getAttribute('href');
-      //history.pushState({ previous: location.pathname }, null, path);
-      //await dispatch(path);
       app_events.emit('app:navigate', path);
     });
     app_events.on('app:navigate', async path => {
-      //console.log(path);
+      console.log('navigating');
       history.pushState({ previous: location.pathname }, null, path);
       await dispatch(path);
     });

@@ -15,6 +15,7 @@ export default class {
   }
 
   connected($el) {
+    events.removeAllListeners('app:scroll');
     events.registerDomEvent('click', 'app:instruments:sort-products', ev => {
       this.store.filtered_products.sort_direction = (
         this.store.filtered_products.sort_direction == 'desc' ?

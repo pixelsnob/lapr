@@ -8,7 +8,8 @@
             .product-heading
               h2(itemprop="name", class="line-after")= product.name
             link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
-            .images
+
+            .images(style="display:none")
             
             if product.alt_names
               p.alt-names.secondary(itemprop="alternateName") (#{product.alt_names})
@@ -46,8 +47,7 @@
 
             .sounds
               if Array.isArray(product.youtube_videos) && product.youtube_videos.length
-                //- h3 Sounds
-                hr
+                //- hr
                 - var youtube_videos = product.youtube_videos
                 include youtube_player
                 if !product.hide_sounds_disclaimer

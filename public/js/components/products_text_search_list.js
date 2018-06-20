@@ -9,17 +9,19 @@ export default class {
     this.context = context;
     this.store = store;
     this.$el = document.createElement('template');
-
-    //events.once('connected', this.connected.bind(this));
   }
 
   render() {
     this.$el.innerHTML = '<ul></ul>';
     const $ul = this.$el.content.querySelector('ul');
     const products = this.context.params.products.map(product => {
-      const products_text_search_item_component = new ProductsTextSearchItemComponent(
-        { ...this.context, params: { product }}
-      );
+      const products_text_search_item_component = new ProductsTextSearchItemComponent({
+        ...this.context,
+        params: {
+          ...this.context.params,
+          product
+        }
+      });
       $ul.appendChild(products_text_search_item_component.render());
     });
     this.$el.innerHTML;

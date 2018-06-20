@@ -47,10 +47,7 @@ export default Backbone.Collection.extend({
       var comp = aval.localeCompare(bval);
       return (this.sort_direction == 'asc' ? comp : -comp);
     } else {
-      var aval = a.get('list_position');
-      var bval = b.get('list_position');
-      return -(aval < bval);
-
+      return a.get('list_position') - b.get('list_position');
     }
   }
 

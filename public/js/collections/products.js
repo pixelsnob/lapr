@@ -240,9 +240,11 @@ export default Backbone.Collection.extend({
   },
 
   getSearchResults: function(search, limit = 0) {
-    var search_res = this.search(search, limit), products = [];
+    var search_res = this.search(search, limit);
+    this.refs.filtered_products.reset(search_res);
     this.refs.filtered_products.sort_mode = 'list_position';
-    return this.refs.filtered_products.reset(search_res).sort();
+    this.refs.filtered_products.sort();
+    return search_res;
   },
 
   filterByTextSearch: function(search) {

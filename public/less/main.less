@@ -662,7 +662,7 @@ input, textarea, select {
 
 .product-details-list {
   list-style-type: none;
-  li {
+  & > li {
     padding-bottom: 20px;
     padding-top: 15px;
     .images img {
@@ -672,6 +672,12 @@ input, textarea, select {
       .images img {
         /*visibility: visible;*/
       }
+    }
+    &.inactive {
+      /*opacity: 0.07;*/
+    }
+    &:last-child {
+      height: 90vh;
     }
   }
 }

@@ -2,7 +2,6 @@
 import template from 'lib/template';
 import events from 'events/app';
 import ProductsTextSearchListComponent from 'components/products_text_search_list';
-//import 'element-closest';
 
 export default class {
   
@@ -18,38 +17,83 @@ export default class {
 
     this.$input.addEventListener('keyup', this.onKeyup.bind(this));
     this.$input.addEventListener('keydown', this.onKeydown.bind(this));
+    this.$input.addEventListener('blur', this.onBlur.bind(this));
 
-    events.registerDomEvent('click', 'products-text-search:navigate', ev => {
-      this.clearSelected();
-      events.emit('app:navigate', ev.target.getAttribute('href'));
-      this.$input.focus();
-      ev.target.parentNode.parentNode.className = 'selected';
-      // determine index
+    // Hijack app:navigate click to focus the input
+    this.$products_list.addEventListener('click', ev => { // scope?
+      ev.stopPropagation();
+      ev.preventDefault();
+      // In case we are about to blur...cancel that
+      clearTimeout(this.blur_timeout_id);
+      if (ev.target.tagName == 'A') {
+        this.$input.focus();
+        this.highlightFromPathname(ev.target.getAttribute('href'));///???????????
+        events.emit('app:navigate', ev.target.getAttribute('href'));
+        events.emit('products-text-search:selected', this.selected_index);
+      }
     });
 
-    // Close if user navigates to another page besides a product page
-    events.on('app:navigate', path => {
-      // hacky...
-      if (location.pathname.match(/\/instruments\/[^\/]+\/\d+/i) === null) {
-        this.close();    
-      }
-      console.log(history.state);
-      // to highlight instead use a custom param in pushstate
+    events.on('app:product-selected', path => {
+      this.highlightFromPathname(path);
+    });
+
+    // Close dropdown and don't bother trying to duplicate history while
+    // navigating through dropdown list
+    window.addEventListener('popstate', (ev) => {
+      this.close();
+      this.store.filtered_products.reset();
     });
   }
   
+
   onKeydown(ev) {
+    const highlightAndNavigate = () => {
+      const path = this.highlightFromIndex(this.selected_index);
+      if (path) {
+        events.emit('app:navigate', path);
+        events.emit('products-text-search:selected', this.selected_index);
+      }
+    };
+
     switch (ev.keyCode) {
       case 38:
         this.setSelectedIndex(-1);
-        this.highlightSelected('down');
+        highlightAndNavigate(); 
         break;
       case 40:
         this.setSelectedIndex(1);
-        this.highlightSelected('up');
+        highlightAndNavigate(); 
         break;
     }
+
     ev.stopPropagation();
+  }
+
+  onKeyup(ev) {
+    const products = this.store.products.getSearchResults(ev.target.value, 20)
+    if (this.cached_search_value == ev.target.value) {
+      return null;
+    }
+
+    //if (this.last_search != ev.target.value) {
+      this.selected_index = null;
+    //}
+
+    this.cached_search_value = ev.target.value;
+
+    if (!products.length) {
+      this.$products_list.innerHTML = '';
+      return null;
+    }
+    const products_text_search_list_component = new ProductsTextSearchListComponent({
+      ...this.context,
+      params: {
+        products: this.store.filtered_products.models,
+        selected_index: this.selected_index
+      }
+    }, this.store);
+    this.$products_list.innerHTML = '';
+    this.$products_list.appendChild(products_text_search_list_component.render());
   }
 
   setSelectedIndex(operand) {
@@ -64,17 +108,27 @@ export default class {
     return true;
   }
 
-  highlightSelected(direction) {
-    const target = this.$products_list.querySelector(`li:nth-of-type(${this.selected_index})`);
+  highlightFromPathname(path) {
+    this.clearSelected();
+    Array.from(this.$products_list.querySelectorAll('li')).forEach(($li, i) => {
+      if ($li.dataset.pathname == path) {
+        this.selected_index = i + 1; ///// !!!!!!!!!1
+        $li.className = 'selected';
+      }
+    });
+  }
+
+  highlightFromIndex(i) {
+    const target = this.$products_list.querySelector(`li:nth-of-type(${i})`);
     if (target) {
       this.clearSelected();
       target.className = 'selected';
       const $target_a = target.querySelector('a');
       if ($target_a && location.pathname.indexOf($target_a.getAttribute('href')) == -1) {
-        events.emit('app:navigate', $target_a.getAttribute('href'));
-        //location.pushState({ source: 'products-text-search' });
+        return $target_a.getAttribute('href');
       }
     }
+    return null;
   }
   
   clearSelected() {
@@ -84,38 +138,14 @@ export default class {
     }
   }
 
-  onKeyup(ev) {
-    const products = this.store.products.getSearchResults(ev.target.value, 50)
-    if (this.cached_search_value == ev.target.value) {
-      return null;
-    }
-    this.selected_index = null;
-    this.cached_search_value = ev.target.value;
-    if (!products.length) {
-      this.$products_list.innerHTML = '&nbsp;';//<
-      return null;
-    }
-    const products_text_search_list_component = new ProductsTextSearchListComponent(
-      { ...this.context, params: { products: this.store.filtered_products.models }},
-      this.store
-    );
-    this.$products_list.innerHTML = '';
-    this.$products_list.appendChild(products_text_search_list_component.render());
-  }
-
   onBlur(ev) {
-    if (location.pathname.match(/\/instruments\/[^\/]+\/\d+/i) === null) {
-      return;
-    }
-    // Timeout so that dropdown doesn't disappear 
-    this.timeout_id = setTimeout(() => {
-      this.$input.value = '';
-      this.$products_list.innerHTML = '';
+    // Timeout so that clicking on the dropdown doesn't trigger it to be closed on blur
+    this.blur_timeout_id = setTimeout(() => {
+      this.close();
     }, 300);
   }
 
   close() {
-    this.selected_index = null;
     this.$input.value = '';
     this.$products_list.innerHTML = '';
   }
