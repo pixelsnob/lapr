@@ -11,7 +11,7 @@ export default class {
 
   render() {
     document.body.className = 'index';//<<
-    this.$el.innerHTML = template.render('partials/index');
+    this.$el.innerHTML = require('views/partials/index.jade')();
     return this.$el.content;
   }
 }

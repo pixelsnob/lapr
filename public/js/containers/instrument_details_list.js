@@ -14,7 +14,7 @@ export default class {
   
   connected($el) {
     events.removeAllListeners('app:scroll');
-    events.on('app:scroll', this.onScroll.bind(this));
+    events.on('app:scroll', _.throttle(this.onScroll.bind(this), 100, true));
     events.once('products-text-search:selected', i => {
       setTimeout(() => {
         const $li = $el.querySelector(`.product-details-list > li:nth-of-type(${i})`);
@@ -29,20 +29,20 @@ export default class {
     ev.stopPropagation();
     const $product_details_list = document.querySelectorAll('.product-details-list > li');
     var done = false; 
-    $product_details_list.forEach($li => {
+    Array.from($product_details_list).forEach($li => {
       if (done) {
         return null;
       }
       if ($li.offsetTop > (document.documentElement.scrollTop || document.body.scrollTop)) {
         $li.className = 'active';
-        $li.style = '';
+        //$li.style = '';
         done = true;
         // prevent from running if we "self induce" a scroll by setting scrollTop above
-        console.log('------------');
+        //console.log('------------');
         if ($li.dataset.pathname != location.pathname) {
-          console.log('xxxxxxx');
+          //console.log('xxxxxxx');
           events.emit('app:product-selected', $li.dataset.pathname);
-          events.emit('app:navigate', $li.dataset.pathname);
+          //events.emit('app:navigate', $li.dataset.pathname);
         }
       }
     });

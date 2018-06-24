@@ -34,7 +34,11 @@ export default class {
     });
 
     events.on('app:product-selected', path => {
-      this.highlightFromPathname(path);
+      if (path != location.pathname) {
+        console.log(path, location.pathname, this.keydown);
+        this.highlightFromPathname(path);
+        events.emit('app:navigate', path); 
+      }
     });
 
     // Close dropdown and don't bother trying to duplicate history while
@@ -47,6 +51,7 @@ export default class {
   
 
   onKeydown(ev) {
+    this.keydown = true;
     const highlightAndNavigate = () => {
       const path = this.highlightFromIndex(this.selected_index);
       if (path) {
@@ -67,6 +72,7 @@ export default class {
     }
 
     ev.stopPropagation();
+    this.keydown = false;
   }
 
   onKeyup(ev) {
@@ -154,7 +160,7 @@ export default class {
     this.store.products.createProductsIndex();
     const $text_search_container = document.body.querySelector('.text-search');
     if ($text_search_container) {
-      $text_search_container.innerHTML = template.render('partials/products_text_search');
+      $text_search_container.innerHTML = require('views/partials/products_text_search.jade')();
     }
     return null;
   }

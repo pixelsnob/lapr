@@ -6,7 +6,7 @@ const
   port              = config.port || 3003,
   express           = require('express'),
   app               = express(),
-  jade_browser      = require('jade-browser'),
+  //jade_browser      = require('jade-browser'),
   passport          = require('passport'),
   _                 = require('underscore'),
   session           = require('express-session'),
@@ -26,7 +26,7 @@ if (env == 'development') {
 
 app.locals.config = config;
 
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.set('views', __dirname + '/views');
 app.set('view cache', (env == 'production'));
 app.use(body_parser.urlencoded({ extended: true }));
@@ -83,11 +83,11 @@ app.use((req, res, next) => {
 
 app.use(require('./lib/pages')); // <<<<<< ?
 
-app.use(jade_browser(
-  '/jade.js',
-  '**/*.jade',
-  { root: app.get('views'), minify: (env == 'production') }
-));
+//app.use(jade_browser(
+//  '/jade.js',
+//  '**/*.jade',
+//  { root: app.get('views'), minify: (env == 'production') }
+//));
 
 const data_access = require('./lib/data_access');
 
@@ -169,7 +169,11 @@ app.route('/api/errors').post(routes.add('Error'));
 // Chrome renderer: render client-side code
 // this should be whitelisted *
 app.route('*').get(async (...args) => {
-  await require('./lib/chrome_renderer')(...args);
+  try {
+    await require('./lib/chrome_renderer')(...args);
+  } catch (err) {
+    next(err);
+  }
 });
 
 // 404

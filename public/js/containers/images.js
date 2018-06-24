@@ -12,7 +12,7 @@ export default class {
   }
   
   render() {
-    this.$el.innerHTML = template.render('partials/images');
+    this.$el.innerHTML = require('views/partials/images.jade')();
     const $ul = this.$el.content.querySelector('ul.images-list');
     const images = this.context.params.images;
     if (images) {

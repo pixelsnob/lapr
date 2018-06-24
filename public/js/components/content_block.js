@@ -15,8 +15,7 @@ export default class {
     const content_block = this.store.content_blocks.find(content_block => {
       return content_block.id == this.context.params.id;
     });
-    this.$el.innerHTML = template.render('partials/product', {
-    });
+    this.$el.innerHTML = require('views/partials/product.jade');
     return this.$el.content;
   }
 }

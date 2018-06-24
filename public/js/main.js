@@ -2,6 +2,8 @@
  * Main client-side initialization file
  * 
  */
+import './polyfills';
+
 import Actions from 'actions';
 import routes from 'routes';
 import Router from 'router';

@@ -11,7 +11,7 @@ export default class {
     this.store = store;
     this.$el = document.createElement('template');
 
-    this.head_container = new HeadContainer(this.context, this.store);
+    //this.head_container = new HeadContainer(this.context, this.store);
 
     events.once('connected', this.connected.bind(this));
   }
@@ -26,12 +26,7 @@ export default class {
   }
 
   render() {
-    if (window.__lapr_ssr && !document.head.attached) {
-      document.head.appendChild(this.head_container.render());
-      document.head.attached = true;
-    }
-    this.$el.innerHTML = template.render('partials/body');
-    return this.$el.content;
+    //document.body.innerHTML = template.render('partials/body');
   }
 }
 

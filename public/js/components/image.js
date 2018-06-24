@@ -11,7 +11,7 @@ export default class {
   }
   
   render() {
-    this.$el.innerHTML = template.render('partials/image', {
+    this.$el.innerHTML = require('views/partials/image.jade')({
       image: this.context.params.image,
       image_path: this.context.params.image_path
     });

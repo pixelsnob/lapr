@@ -1,60 +1,57 @@
 
 .container-fluid
-  .row
-    .col-md-8
-      .container-fluid.product-details(style="min-height:100px;", itemscope, itemtype="http://schema.org/Product")
-        .row
-          .col-md-12
-            .product-heading
-              h2(itemprop="name", class="line-after")= product.name
-            link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
+.row
+  .col-md-8
+    .container-fluid.product-details(style="min-height:100px;", itemscope, itemtype="http://schema.org/Product")
+      .row
+        .col-md-12
+          link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
 
-            .images(style="display:none")
-            
-            if product.alt_names
-              p.alt-names.secondary(itemprop="alternateName") (#{product.alt_names})
-            if product.makers.length
-              p.makers(itemprop="manufacturer") Mfg. by #{product.makers.map(maker => maker.name).join(', ')}
-            
-            .description(itemprop="description")!= markdown(product.description)
+          .product-heading
+            h2(itemprop="name", class="line-after")= product.name
 
-            if product.more_info
-              .more-info-container
-                .more-info!= markdown(product.more_info)
+          .images(style="display:none")
+          if product.alt_names
+            p.alt-names.secondary(itemprop="alternateName").
+              (#{product.alt_names})
+          if product.makers.length
+          .description(itemprop="description")!= markdown(product.description)
 
-            dl
-              if product.model_no
-                dt Model No.
-                dd(itemprop="model")= product.model_no
-              if product.price
-                - var label = /call/i.test(product.price) ? '' : (product.price_label ? '/' + product.price_label : '/Day');
-                dt Price#{label}
-                dd(itemprop="price")= product.price
-              if product.sizes
-                dt Sizes
-                dd!= markdown(product.sizes)
-              if product.range
-                dt Range
-                dd
-                  span= product.range
+          if product.more_info
+            .more-info-container
+              .more-info!= markdown(product.more_info)
 
-            .range
+          dl
+            if product.model_no
+              dt Model No.
+              dd(itemprop="model")= product.model_no
+            if product.price
+              - var label = /call/i.test(product.price) ? '' : (product.price_label ? '/' + product.price_label : '/Day');
+              dt Price#{label}
+              dd(itemprop="price")= product.price
+            if product.sizes
+              dt Sizes
+              dd!= markdown(product.sizes)
+            if product.range
+              dt Range
+              dd
+                span= product.range
 
-            if product.octave_shift
-             .range-notice.secondary
-               - var s = (product.octave_shift > 1 ? 's' : '')
-               em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
+          .range
 
-            .sounds
-              if Array.isArray(product.youtube_videos) && product.youtube_videos.length
-                //- hr
-                - var youtube_videos = product.youtube_videos
-                include youtube_player
-                if !product.hide_sounds_disclaimer
-                  .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
-                    .content
+          if product.octave_shift
+           .range-notice.secondary
+             - var s = (product.octave_shift > 1 ? 's' : '')
+             em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
+          .sounds
+            if Array.isArray(product.youtube_videos) && product.youtube_videos.length
+              //- hr
+              - var youtube_videos = product.youtube_videos
+              //- include youtube_player
+              //- if !product.hide_sounds_disclaimer
+              //-   .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
+              //-    .content
 
-            if user
-              p.edit-link
-                a.edit(href="/instruments/#{product.slug}/#{product._id}") Edit Product
-          
+          if user
+            p.edit-link
+              a.edit(href="/instruments/#{product.slug}/#{product._id}") Edit Product

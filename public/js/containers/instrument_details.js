@@ -20,7 +20,7 @@ export default class {
       this.$el.innerHTML = '<p class="error">Product not found</p>';
     } else {
       const product_json = product.toJSON([ 'images', 'makers', 'youtube_videos' ]);
-      this.$el.innerHTML = template.render('partials/product_details', {
+      this.$el.innerHTML = require('views/partials/product_details.jade')({
         product: product_json,
         markdown,
         user: null // <<<<<<<<<<replace me

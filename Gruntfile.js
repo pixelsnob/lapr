@@ -35,6 +35,13 @@ module.exports = function(grunt) {
             src: [ '*' ],
             dest: 'public/dist/fonts/',
             filter: 'isFile'
+          },
+					{
+            expand: true,
+            cwd: 'node_modules/@webcomponents/template',
+            src: [ 'template.js' ],
+            dest: 'public/dist/webcomponents/',
+            filter: 'isFile'
           }
 				]
 			}

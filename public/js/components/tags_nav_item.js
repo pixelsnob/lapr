@@ -41,7 +41,7 @@ export default class {
       }
     }
 
-    this.$el.innerHTML = template.render('partials/tags_nav_item', {
+    this.$el.innerHTML = require('views/partials/tags_nav_item.jade')({
       tag:  this.context.params.tag,
       class_name,
       path

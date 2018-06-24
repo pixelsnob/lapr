@@ -63,7 +63,7 @@ export default class {
   }
 
   render() {
-    this.$el.innerHTML = template.render('partials/contact_form');
+    this.$el.innerHTML = require('views/partials/contact_form.jade')();
     return this.$el.content;
   }
 }

@@ -1,4 +1,7 @@
 
-li(data-pathname="/instruments/#{product.slug}/#{product._id}", class="#{product.selected ? 'selected' : ''}")
+- var path = '/instruments/' + product.slug + '/' + product._id;
+- class_name = product.selected ? 'selected' : '';
+
+li(data-pathname=path, class=class_name)
   p.product-small
-    a(href="/instruments/#{product.slug}/#{product._id}", data-action="app:navigate")!=product.name
+    a(href=path, data-action="app:navigate")=product.name

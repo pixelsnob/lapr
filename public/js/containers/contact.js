@@ -35,7 +35,7 @@ export default class {
 
   render() {
     document.body.className = 'contact'; // <<<<<,
-    this.$el.innerHTML = template.render('partials/contact', {});
+    this.$el.innerHTML = require('views/partials/contact.jade')();
     this.$el.content.querySelector('.form').appendChild(this.contact_form_component.render());
     return this.$el.content;
   }

@@ -10,7 +10,7 @@ export default class {
   }
 
   render() {
-    this.$el.innerHTML = template.render('partials/product_category_link', {
+    this.$el.innerHTML = require('views/partials/product_category_link.jade')({
       product_category: this.context.params.product_category
     });
     return this.$el.content;

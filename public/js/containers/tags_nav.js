@@ -11,7 +11,7 @@ export default class {
   }
 
   render() {
-    this.$el.innerHTML = template.render('partials/tags_nav');
+    this.$el.innerHTML = require('views/partials/tags_nav.jade')();
     const $ul = this.$el.content.querySelector('ul');
     this.store.tag_categories.models.forEach(model => {
       const context = {

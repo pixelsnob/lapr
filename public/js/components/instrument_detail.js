@@ -11,7 +11,7 @@ export default class {
   }
   
   render() {
-    this.$el.innerHTML = template.render('partials/product', {
+    this.$el.innerHTML = require('views/partials/product.jade')({
       product: this.context.params.product,
       user: null // <<<<<<<<<<replace me
     });

@@ -23,21 +23,21 @@ export default class {
         'desc'
       );
       this.store.filtered_products.sort();
-      events.emit('app:refresh'); // slow
+      events.emit('app:refresh'); // slow ... add this.render()
     });
   }
 
   render() {
     // Products search container
     const products = this.store.filtered_products;
-    this.$el.innerHTML = template.render('partials/products_search', {
+    this.$el.innerHTML = require('views/partials/products_search.jade')({
       products_length: products.models.length,
       sort_dir: this.store.filtered_products.sort_direction
     });
 
     // Populate products
     const $products = this.$el.content.querySelector('.results');
-    const products_json = products.toJSON([ 'images', 'makers' ]); // <<< this is slow
+    const products_json = products.toJSON([ 'images', 'makers' ]).splice(0, 50); // <<< this is slow
     products_json.forEach(product => {
       const instrument = new Instrument({
         params: { product }
@@ -53,6 +53,5 @@ export default class {
     }
     return this.$el.content;
   }
-
 }
 

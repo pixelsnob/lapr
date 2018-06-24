@@ -1,4 +1,5 @@
 
 li
-  a(href="/instruments/categories/#{product_category.slug}", data-action="click:navigate")= product_category.name 
+  - var href = "/instruments/categories/" + product_category.slug
+  a(href=href, data-action="click:navigate")= product_category.name 
 

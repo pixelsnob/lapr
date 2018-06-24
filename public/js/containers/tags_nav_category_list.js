@@ -11,7 +11,7 @@ export default class {
   }
 
   render() {
-    this.$el.innerHTML = template.render('partials/tags_nav_category_list', {
+    this.$el.innerHTML = require('views/partials/tags_nav_category_list.jade')({
       tag_category: this.context.params.tag_category
     });
     const tags = this.store.tags.models.filter(tag => {
