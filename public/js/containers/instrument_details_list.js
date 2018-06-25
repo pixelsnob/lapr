@@ -13,8 +13,8 @@ export default class {
   }
   
   connected($el) {
-    events.removeAllListeners('app:scroll');
-    events.on('app:scroll', _.throttle(this.onScroll.bind(this), 100, true));
+    /*events.removeAllListeners('app:scroll');
+    events.on('app:scroll', _.debounce(this.onScroll.bind(this), 20, true));
     events.once('products-text-search:selected', i => {
       setTimeout(() => {
         const $li = $el.querySelector(`.product-details-list > li:nth-of-type(${i})`);
@@ -22,10 +22,10 @@ export default class {
           document.documentElement.scrollTop = document.body.scrollTop = ($li.offsetTop - 70);
         }
       }, 10);
-    });
+    });*/
   }
   
-  onScroll(ev) {
+  /*onScroll(ev) {
     ev.stopPropagation();
     const $product_details_list = document.querySelectorAll('.product-details-list > li');
     var done = false; 
@@ -46,7 +46,7 @@ export default class {
         }
       }
     });
-  }
+  }*/
 
   render() {
     // check to see if product is in filtered products? ////
@@ -67,7 +67,7 @@ export default class {
         const $li = document.createElement('li');
         if (product.id == this.context.params.id) {
           $li.className = 'active';
-        } else {
+        } else if (this.context.params.id) {
           $li.className = 'inactive';
         }
         $ul.appendChild($li);

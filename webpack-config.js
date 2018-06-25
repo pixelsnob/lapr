@@ -47,7 +47,6 @@ module.exports = {
       jQuery: 'jquery',
       _: 'underscore',
       Vex: 'vexflow'
-      //Promise: 'es6-promise-promise'//
     })
   ],
   module: {

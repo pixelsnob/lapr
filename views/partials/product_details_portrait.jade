@@ -1,0 +1,13 @@
+
+.container-fluid
+  .row
+    .col-md-8
+      .container-fluid.product-details.portrait(style="min-height:100px;", itemscope, itemtype="http://schema.org/Product")
+        .row
+          .col-md-12
+            link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
+
+            .product-heading
+              h2(itemprop="name", class="line-after")= product.name
+            .images
+

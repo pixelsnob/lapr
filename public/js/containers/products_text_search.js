@@ -49,7 +49,7 @@ export default class {
     });
   }
   
-
+  // use history.back() and forward() to prevent browser throttling pushState calls
   onKeydown(ev) {
     this.keydown = true;
     const highlightAndNavigate = () => {
@@ -70,7 +70,6 @@ export default class {
         highlightAndNavigate(); 
         break;
     }
-
     ev.stopPropagation();
     this.keydown = false;
   }

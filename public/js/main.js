@@ -21,6 +21,7 @@ const getMountPoint = () => document.querySelector('#main');
 if (!window.__lapr_ssr) {
 
   // Client
+
   document.addEventListener('DOMContentLoaded', async ev => {
     const render =  new Render(getMountPoint()); //<
     const dispatch = async path => {
@@ -31,37 +32,48 @@ if (!window.__lapr_ssr) {
       }
     };
     app_container.render();
+
     await store.products.fetch();
+
     app_events.registerDomEvent('click', 'click:navigate', async ev => {
       const path = ev.target.getAttribute('href');
       app_events.emit('app:navigate', path);
     });
+
     app_events.on('app:navigate', async path => {
       console.log('navigating');
       history.pushState({ previous: location.pathname }, null, path);
       await dispatch(path);
     });
+
     app_events.on('app:refresh', async ev => {
       await dispatch(location.pathname);
     });
+
     window.addEventListener('popstate', async ev => {
       await dispatch(location.pathname);
     });
+
     window.addEventListener('scroll', ev => {
       app_events.emit('app:scroll', ev);
     });
+
     await dispatch(location.pathname);
   });
 
 } else {
 
   // Server
+
   window.__lapr_dispatch = async path => {
     try {
-      app_container.render();
-      const data = JSON.parse(window.localStorage.getItem('data'));
-      store.products.hydrate(data);
       const render =  new Render(getMountPoint());
+      const data = JSON.parse(window.localStorage.getItem('data'));
+
+      app_container.render();
+
+      store.products.hydrate(data);
+
       await router.resolve(path).then(render);
     } catch (err) {
       console.error(err);

@@ -1,0 +1,65 @@
+
+if product.images.length
+  - var aspect = product.images[0].width / product.images[0].height;
+  - var class_name = (aspect < 0.8 ? 'portrait' : (aspect > 2.3 ? 'landscape' : 'square-ish'));
+
+.container-fluid.product-details(itemscope, itemtype="http://schema.org/Product", class=class_name)
+  .row
+    - var grid_class_name = 'col-md-' + (grid_width ? grid_width : 12)
+    div(class=grid_class_name)
+      //- link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
+
+      //-p=aspect
+      //-p=class_name
+
+      .product-heading
+        h2(itemprop="name", class="line-after")= product.name
+
+      .images
+
+      if product.alt_names
+        p.alt-names.secondary(itemprop="alternateName").
+          (#{product.alt_names})
+      if product.makers.length
+      .description(itemprop="description")!= markdown(product.description)
+
+      if product.more_info
+        .more-info-container
+          .more-info!= markdown(product.more_info)
+
+      dl
+        if product.model_no
+          dt Model No.
+          dd(itemprop="model")= product.model_no
+        if product.price
+          - var label = /call/i.test(product.price) ? '' : (product.price_label ? '/' + product.price_label : '/Day');
+          dt Price#{label}
+          dd(itemprop="price")= product.price
+        if product.sizes
+          dt Sizes
+          dd!= markdown(product.sizes)
+        if product.range
+          dt Range
+          dd
+            span= product.range
+
+      .range
+
+      if product.octave_shift
+       .range-notice.secondary
+         - var s = (product.octave_shift > 1 ? 's' : '')
+         em This instrument is traditionally written for #{product.octave_shift} octave#{s} below where it actually sounds.
+      .sounds
+        if Array.isArray(product.youtube_videos) && product.youtube_videos.length
+          //- hr
+          - var youtube_videos = product.youtube_videos
+          //- include youtube_player
+          //- if !product.hide_sounds_disclaimer
+          //-   .sounds-disclaimer.content-block(data-name="sounds-disclaimer").hide
+          //-    .content
+
+      if user
+        p.edit-link
+          a.edit(href="/instruments/#{product.slug}/#{product._id}") Edit Product
+
+

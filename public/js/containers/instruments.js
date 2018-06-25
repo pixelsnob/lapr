@@ -1,6 +1,7 @@
 
 import template from 'lib/template';
-import Instrument from 'components/instrument';
+//import Instrument from 'components/instrument';
+import InstrumentDetailsListContainer from 'containers/instrument_details_list';
 import events from 'events/app';
 
 export default class {
@@ -36,14 +37,21 @@ export default class {
     });
 
     // Populate products
-    const $products = this.$el.content.querySelector('.results');
-    const products_json = products.toJSON([ 'images', 'makers' ]).splice(0, 50); // <<< this is slow
+    // !!this entire block is really slow!!
+    /*const $products = this.$el.content.querySelector('.results');
+    const products_json = products.toJSON([ 'images', 'makers' ]).splice(0, 50);
     products_json.forEach(product => {
       const instrument = new Instrument({
         params: { product }
       }, this.store);
       $products.appendChild(instrument.render());
-    });
+    });*/
+    const $products = this.$el.content.querySelector('.products-results');
+    const instrument_details_list_container = new InstrumentDetailsListContainer({
+      ...this.context,
+      params: { ...this.context.params, grid_width: 10 }
+    }, this.store);
+    $products.appendChild(instrument_details_list_container.render());
 
     // Sidebar
     if (this.slots.sidebar) {

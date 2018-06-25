@@ -20,6 +20,13 @@ export default {
         return new IndexContainer(context, store);
       },
 
+      'instrument-details': context => {
+        return new InstrumentDetailsListContainer({
+          ...context,
+          params: { ...context.params, grid_width: 8 }// ?
+        }, store);
+      },
+
       instruments: context => {
         store.selected_categories.setFromSlug(context.params.category);
         store.filtered_products.sort_mode = 'default';
@@ -34,10 +41,6 @@ export default {
         });
 
         return instruments_container;
-      },
-
-      'instrument-details': context => {
-        return new InstrumentDetailsListContainer(context, store);
       },
 
       'sound-search': context => {

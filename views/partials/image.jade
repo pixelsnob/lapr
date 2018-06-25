@@ -1,3 +1,12 @@
 
+- var orig = '/images/products/' + image.name;
+
+- var srcset400 = '/dist/images/products/400/' + image.name;
+- var srcset140 = '/dist/images/products/140/' + image.name;
+
 li
-  img(src="#{image_path}#{image.name}", title="#{image.name}", alt="#{image.name}", itemprop="image")
+  picture
+    //- source(srcset=srcset140, media="(max-width:600px)")
+    img(src=orig, alt=image.name, title=image.name, itemprop="image")
+
+

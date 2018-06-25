@@ -3,5 +3,4 @@
 - class_name = product.selected ? 'selected' : '';
 
 li(data-pathname=path, class=class_name)
-  p.product-small
-    a(href=path, data-action="app:navigate")=product.name
+  a(href=path, data-action="app:navigate")=product.name
