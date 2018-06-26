@@ -1,0 +1,22 @@
+
+li
+  .product(itemscope, itemtype="http://schema.org/Product")
+    .image
+
+    .details.hidden-xs.hidden-sm
+
+      h3.name
+        a(href=`/instruments/#{product.slug}/#{product.id}`, itemprop="name")= product.name
+
+      link(itemprop="url", href=`http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product.id}`)
+
+      if Array.isArray(product.makers) && product.makers.length
+        p.makers.secondary(itemprop="manufacturer")!= product.makers.map(function(m) { return m.name; }).join(', ')
+
+      if product.sizes && product.sizes.length && !product.hide_sizes_in_lists
+        .sizes.secondary!= markdown(product.sizes)
+
+    if user
+      p.edit-link
+        a.edit(href=`/instruments/#{product.slug}/#{product._id}`) Edit
+

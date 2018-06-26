@@ -1,6 +1,6 @@
 
 import template from 'lib/template';
-import HeadContainer from 'containers/head';
+//import HeadContainer from 'containers/head';
 import ProductsTextSearchContainer from 'containers/products_text_search';
 import events from 'events/app';
 

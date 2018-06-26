@@ -23,15 +23,12 @@ export default class {
 
       const product_json = product.toJSON([ 'images', 'makers', 'youtube_videos' ]);
       
-      console.log(this.context.params);
       this.$el.innerHTML = require('views/partials/product_details_container.jade')({
         product: product_json,
         markdown,
-        grid_width: this.context.params.grid_width || 12,
-        user: null // <<<<<<<<<<replace me
+        grid_width: this.context.params.grid_width || 12
       });
 
-      // Images container
       const images_container = new ImagesContainer({
         ...this.context,
         params: {
@@ -41,10 +38,12 @@ export default class {
       }, this.store);
 
       const $images = this.$el.content.querySelector('.images');
+
       if ($images) {
         $images.appendChild(images_container.render());
       }
     }
+
     return this.$el.content;
   }
 }

@@ -588,8 +588,6 @@ input, textarea, select {
       img {
         position: absolute;
         right: 0;
-        max-width: 100%;
-        max-height: 100%;
         height: auto;
         &.noscript {
           display: block;
@@ -634,6 +632,7 @@ input, textarea, select {
     padding: 0;
     li {
       list-style: none;
+      display: none;
       img {
         margin: 0 auto;
         /* Preserve aspect ratio */
@@ -645,10 +644,13 @@ input, textarea, select {
         &.noscript {
           display: block;
         }
-          filter: grayscale(1);
+          /*filter: grayscale(1);
           -webkit-filter: grayscale(1);
-          -moz-filter: grayscale(1);
+          -moz-filter: grayscale(1);*/
       }
+    }
+    li:nth-of-type(1) {
+      display: block;
     }
   }
   &.landscape .images {
