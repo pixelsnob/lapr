@@ -7,6 +7,7 @@ const gulp_fn          = require('gulp-fn');
 const image_size       = require('image-size');
 const db               = require('./models');
 const path             = require('path');
+const exec             = require('child_process').exec;
 //const jimp             = require('gulp-jimp');
 
 const src = 'public/images/products/*.{jpg,JPG}';
@@ -26,7 +27,7 @@ const storeImageDimensions = () =>
         console.error('Error retrieving/saving image dimensions!', file.path, err.message);
       }
       return file.path;
-    }, true));
+    }));
 
 const resizeImages400 = () =>
   gulp.src(src)
@@ -42,11 +43,30 @@ const resizeImages140 = () =>
     .pipe(imageResize({ width: 140 }))
     .pipe(gulp.dest('public/dist/images/products/140'));
 
-const all = gulp.series(storeImageDimensions, resizeImages400, resizeImages140);
+const cropImages = () => {
+  gulp.src(src)
+    .pipe(watch(src))
+    .pipe(gulp_fn(function(file) {
+      const dest = path.resolve('public/dist/images/products/crop', path.basename(file.path));
+      exec(`smartcrop --width=260 --height=200 --quality=80 ${file.path} ${dest}`, (err, stdout, stderr) => {
+        console.log(stdout);
+      });
+      return null;
+    }));
+    //.pipe(gulp.dest('public/dist/images/products/crop'));
+};
+
+const all = () => gulp.series(
+  storeImageDimensions,
+  resizeImages400,
+  resizeImages140,
+  //cropImages
+);
 
 gulp.task('store-image-dimensions', storeImageDimensions);
 gulp.task('resize-images-400', resizeImages400);
 gulp.task('resize-images-140', resizeImages140);
+gulp.task('crop-images', cropImages);
 
 gulp.task('default', all);
 

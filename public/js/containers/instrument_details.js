@@ -13,35 +13,27 @@ export default class {
   }
   
   render() {
-    const product = this.store.products.models.find(product => {
-      return product.id == this.context.params.id
+
+    const product = this.context.params.product;
+
+    this.$el.innerHTML = require('views/partials/instrument_details.jade')({
+      product,
+      markdown,
+      grid_width: this.context.params.grid_width || 12
     });
 
-    if (!product) {
-      this.$el.innerHTML = '<p class="error">Product not found</p>';
-    } else {
-
-      const product_json = product.toJSON([ 'images', 'makers', 'youtube_videos' ]);
-      
-      this.$el.innerHTML = require('views/partials/product_details_container.jade')({
-        product: product_json,
-        markdown,
-        grid_width: this.context.params.grid_width || 12
-      });
-
-      const images_container = new ImagesContainer({
-        ...this.context,
-        params: {
-          ...this.params,
-          images: product_json.images
-        }
-      }, this.store);
-
-      const $images = this.$el.content.querySelector('.images');
-
-      if ($images) {
-        $images.appendChild(images_container.render());
+    const images_container = new ImagesContainer({
+      ...this.context,
+      params: {
+        ...this.params,
+        images: product.images
       }
+    }, this.store);
+
+    const $images = this.$el.content.querySelector('.images');
+
+    if ($images) {
+      $images.appendChild(images_container.render());
     }
 
     return this.$el.content;

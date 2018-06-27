@@ -35,7 +35,7 @@ export default class {
 
     events.on('app:product-selected', path => {
       if (path != location.pathname) {
-        console.log(path, location.pathname, this.keydown);
+        //console.log(path, location.pathname, this.keydown);
         this.highlightFromPathname(path);
         events.emit('app:navigate', path); 
       }

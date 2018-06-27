@@ -93,6 +93,7 @@
     "request": "^2.79.0",
     "simple-git": "^1.64.0",
     "slug": "^0.9.1",
+    "smartcrop-cli": "^2.0.3",
     "sortablejs": "^1.7.0",
     "underscore": "^1.9.0",
     "universal-router": "^6.0.0",
@@ -105,7 +106,5 @@
     "webpack-require-http": "^0.4.3",
     "webpack-unused": "^0.1.0"
   },
-  "devDependencies": {
-    "grunt-contrib-jasmine": "^1.0.3"
-  }
+  "devDependencies": {}
 }

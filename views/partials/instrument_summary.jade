@@ -6,9 +6,13 @@ li
     .details.hidden-xs.hidden-sm
 
       h3.name
-        a(href=`/instruments/#{product.slug}/#{product.id}`, itemprop="name")= product.name
+        - var href = '/instruments/categories/' + category + '/instrument/' +  product.slug + '/' + product._id;
+          
+        a(href=href, itemprop="name")= product.name
+      
+      //- var url = 'http://www.lapercussionrentals.com/instruments/' + product.slug + '/' + product._id;
 
-      link(itemprop="url", href=`http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product.id}`)
+      //-link(itemprop="url", href=href)
 
       if Array.isArray(product.makers) && product.makers.length
         p.makers.secondary(itemprop="manufacturer")!= product.makers.map(function(m) { return m.name; }).join(', ')
@@ -16,7 +20,6 @@ li
       if product.sizes && product.sizes.length && !product.hide_sizes_in_lists
         .sizes.secondary!= markdown(product.sizes)
 
-    if user
-      p.edit-link
-        a.edit(href=`/instruments/#{product.slug}/#{product._id}`) Edit
-
+    //- if user
+    //-  p.edit-link
+    //-    a.edit(href=`/instruments/#{product.slug}/#{product._id}`) Edit

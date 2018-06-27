@@ -10,6 +10,10 @@ export default [
     action: 'instruments'
   },
   {
+    path: '/instruments/categories/:category/instrument/:slug/:instrument_id',
+    action: 'instruments'
+  },
+  {
     path: '/instruments/categories/:category',
     action: 'instruments'
   },
@@ -22,7 +26,7 @@ export default [
     action: 'sound-search'
   },
   {
-    path: '/instruments/:slug/:id',
+    path: '/instruments/:slug/:product_id',
     action: 'instrument-details'
   },
   {

@@ -41,7 +41,10 @@ export default class {
     const products_json = products.toJSON([ 'images', 'makers' ]).splice(0, 50);
     products_json.forEach(product => {
       const instrument = new InstrumentSummaryContainer({
-        params: { product }
+        params: {
+          ...this.context.params,
+          product
+        }
       }, this.store);
       $products.appendChild(instrument.render());
     });

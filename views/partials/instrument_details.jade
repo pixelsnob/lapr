@@ -1,5 +1,5 @@
 
-if product.images.length
+if product.images && product.images.length
   - var aspect = product.images[0].width / product.images[0].height;
   - var class_name = (aspect < 0.8 ? 'portrait' : (aspect > 2.3 ? 'landscape' : 'square-ish'));
 

@@ -26,7 +26,7 @@ if (env == 'development') {
 
 app.locals.config = config;
 
-app.set('view engine', 'pug');
+app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.set('view cache', (env == 'production'));
 app.use(body_parser.urlencoded({ extended: true }));

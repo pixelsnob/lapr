@@ -1,14 +1,14 @@
 
-import IndexContainer from 'containers/index';
-import InstrumentSummariesListContainer from 'containers/instrument_summaries_list';
+import InstrumentsPageContainer from 'containers/pages/instruments';
+import SoundSearchPageContainer from 'containers/pages/sound_search';
+import InstrumentDetailsPageContainer from 'containers/pages/instrument_details';
 
-import InstrumentDetailsListContainer from 'containers/instrument_details_list';
+import IndexContainer from 'containers/index';
+
 import ContactContainer from 'containers/contact';
 import ErrorComponent from 'components/error';
 
-import ProductCategoriesNavContainer from 'containers/product_categories_nav';
 import ContentBlocksContainer from 'containers/content_blocks';
-import TagsNavContainer from 'containers/tags_nav';
 
 export default {
   
@@ -22,43 +22,15 @@ export default {
       },
 
       instruments: context => {
-        store.selected_categories.setFromSlug(context.params.category);
-        store.filtered_products.sort_mode = 'default';
-        store.products.filterByCategory();
-
-        const product_categories_nav = new ProductCategoriesNavContainer(
-          context,
-          store.product_categories
-        );
-        const instruments_container = new InstrumentSummariesListContainer(context, store, {
-          sidebar: product_categories_nav
-        });
-
-        return instruments_container;
+        return new InstrumentsPageContainer(context, store);
       },
 
       'sound-search': context => {
-        const selected_tags = context.params.tags ? context.params.tags.split(',') : [];
-        store.selected_tags.setFromArray(selected_tags);
-        store.filtered_products.sort_mode = 'default';
-        store.products.filterByTags();
-
-        const tags_nav = new TagsNavContainer(context, store);
-        const instruments_container = new InstrumentSummariesListContainer(context, store, {
-          sidebar: tags_nav
-        });
-        return instruments_container;
+        return new SoundSearchPageContainer(context, store);
       },
 
       'instrument-details': context => {
-        return new InstrumentDetailsListContainer({
-          ...context,
-          params: {
-            ...context.params,
-            grid_width: 8,
-            list: store.filtered_products.models
-          }
-        }, store);
+        return new InstrumentDetailsPageContainer(context, store);
       },
 
       contact: context => {

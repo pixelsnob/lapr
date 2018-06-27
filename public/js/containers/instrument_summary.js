@@ -30,7 +30,12 @@ export default class {
       return this.$el.content;
     }
 
-    this.$el.innerHTML = require('views/partials/instrument_summary.jade')({ product, markdown });
+    this.$el.innerHTML = require('views/partials/instrument_summary.jade')({
+      product,
+      markdown,
+      category: this.context.params.category
+    });
+    console.log(this.context.params);
 
     // Images container
     if (product.images.length) {

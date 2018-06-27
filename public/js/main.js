@@ -41,7 +41,6 @@ if (!window.__lapr_ssr) {
     });
 
     app_events.on('app:navigate', async path => {
-      console.log('navigating');
       history.pushState({ previous: location.pathname }, null, path);
       await dispatch(path);
     });
