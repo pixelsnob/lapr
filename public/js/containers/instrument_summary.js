@@ -14,28 +14,18 @@ export default class {
   
   render() {
 
-    var product;
+    const product = this.context.params.product;
 
-    if (this.context.params.id) {
-      product = this.store.products.models.find(product => product.id == this.context.params.id);
-      if (!product) {
-        // not found
-        return this.$el.content;
-      }
-      product = product.toJSON([ 'images', 'makers' ]);
-    } else if (this.context.params.product) {
-      product = this.context.params.product;
-    } else {
-      // error.........
-      return this.$el.content;
+    if (!product) {
+      return { error: 'product not found in context.params' };
     }
 
     this.$el.innerHTML = require('views/partials/instrument_summary.jade')({
       product,
       markdown,
-      category: this.context.params.category
+      //category: this.context.params.category
+      base_path: this.context.params.base_path
     });
-    console.log(this.context.params);
 
     // Images container
     if (product.images.length) {

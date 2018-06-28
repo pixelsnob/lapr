@@ -22,6 +22,10 @@ export default [
     action: 'sound-search'
   },
   {
+    path: '/instruments/tags/:tags/instrument/:slug/:instrument_id',
+    action: 'sound-search'
+  },
+  {
     path: '/instruments/tags/:tags',
     action: 'sound-search'
   },

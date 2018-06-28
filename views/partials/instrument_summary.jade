@@ -6,8 +6,7 @@ li
     .details.hidden-xs.hidden-sm
 
       h3.name
-        - var href = '/instruments/categories/' + category + '/instrument/' +  product.slug + '/' + product._id;
-          
+        - var href = base_path + '/instrument/' + product.slug + '/' + product._id;
         a(href=href, itemprop="name")= product.name
       
       //- var url = 'http://www.lapercussionrentals.com/instruments/' + product.slug + '/' + product._id;

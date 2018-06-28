@@ -7,7 +7,8 @@ if product.images && product.images.length
   .row
     - var grid_class_name = 'col-md-' + (grid_width ? grid_width : 12)
     div(class=grid_class_name)
-      //- link(itemprop="url", href="http://www.lapercussionrentals.com/instruments/#{product.slug}/#{product._id}")
+      - var href = base_path + '/instrument/' + product.slug + '/' + product.id
+      link(itemprop="url", href=href)
 
       //-p=aspect
       //-p=class_name

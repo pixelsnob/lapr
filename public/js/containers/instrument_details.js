@@ -16,6 +16,10 @@ export default class {
 
     const product = this.context.params.product;
 
+    if (!product) {
+      return { error: 'product not found in context.params' };
+    }
+
     this.$el.innerHTML = require('views/partials/instrument_details.jade')({
       product,
       markdown,

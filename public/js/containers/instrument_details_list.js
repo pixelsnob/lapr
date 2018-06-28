@@ -20,10 +20,12 @@ export default class {
   render() {
 
     const $ul = document.createElement('ul');
+    this.$el.content.appendChild($ul);
 
     $ul.className = 'product-details-list';
-    this.$el.content.appendChild($ul);
-    console.log(this.store.filtered_products.models.length);
+
+    //console.log(this.store.filtered_products.models.length);
+
     this.store.filtered_products.models.forEach(product => {
       const instrument_details_container = new InstrumentDetailsContainer({
         ...this.context,

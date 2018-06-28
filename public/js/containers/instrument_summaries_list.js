@@ -5,10 +5,9 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(context, store, slots = []) {
+  constructor(context, store) {
     this.context = context;
     this.store = store;
-    this.slots = slots;
     this.$el = document.createElement('template');
 
     events.once('connected', this.connected.bind(this));
@@ -30,15 +29,14 @@ export default class {
   render() {
     // Products search container
     const products = this.store.filtered_products;
-    this.$el.innerHTML = require('views/partials/products_search.jade')({
-      products_length: products.models.length,
-      sort_dir: this.store.filtered_products.sort_direction
-    });
+
+    this.$el.innerHTML = '<ul class="results"></ul>';
 
     // Populate products
     // !!this entire block is really slow!!
     const $products = this.$el.content.querySelector('.results');
     const products_json = products.toJSON([ 'images', 'makers' ]).splice(0, 50);
+
     products_json.forEach(product => {
       const instrument = new InstrumentSummaryContainer({
         params: {
@@ -49,12 +47,6 @@ export default class {
       $products.appendChild(instrument.render());
     });
 
-    // Sidebar
-    if (this.slots.sidebar) {
-      const $sidebar = this.$el.content.querySelector('.sidebar');
-      $sidebar.innerHTML = '';
-      $sidebar.appendChild(this.slots.sidebar.render());
-    }
     return this.$el.content;
   }
 }
