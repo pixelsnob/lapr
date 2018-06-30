@@ -22,7 +22,7 @@ export default class {
         'desc'
       );
       this.store.filtered_products.sort();
-      events.emit('app:refresh'); // slow ... add this.render()
+      events.emit('app:refresh');
     });
   }
 
@@ -33,7 +33,6 @@ export default class {
     this.$el.innerHTML = '<ul class="results"></ul>';
 
     // Populate products
-    // !!this entire block is really slow!!
     const $products = this.$el.content.querySelector('.results');
     const products_json = products.toJSON([ 'images', 'makers' ]).splice(0, 50);
 

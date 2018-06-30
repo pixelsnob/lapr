@@ -7,7 +7,7 @@ li
 
       h3.name
         - var href = base_path + '/instrument/' + product.slug + '/' + product._id;
-        a(href=href, itemprop="name")= product.name
+        a(href=href, itemprop="name", data-action="click:navigate")= product.name
       
       //- var url = 'http://www.lapercussionrentals.com/instruments/' + product.slug + '/' + product._id;
 

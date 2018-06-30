@@ -36,7 +36,7 @@ export default class {
         ...this.context,
         params: {
           ...this.context.params,
-          grid_width: 8,
+          grid_width: 12,
           base_path
         }
       }, this.store);

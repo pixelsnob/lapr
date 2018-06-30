@@ -1,12 +1,8 @@
 
-- var orig = '/dist/images/products/crop/' + image.name;
-
-- var srcset400 = '/dist/images/products/400/' + image.name;
-- var srcset140 = '/dist/images/products/140/' + image.name;
 
 li
   picture
-    //- source(srcset=srcset140, media="(max-width:600px)")
-    img(src=orig, alt=image.name, title=image.name, itemprop="image")
+    -var src = base_path + image.name
+    img(src=src, alt=image.name, title=image.name, itemprop="image")
 
 

@@ -23,7 +23,7 @@ export default class {
     this.$el.innerHTML = require('views/partials/instrument_details.jade')({
       product,
       markdown,
-      grid_width: this.context.params.grid_width || 12
+      grid_width: this.context.params.grid_width || 8
     });
 
     const images_container = new ImagesContainer({

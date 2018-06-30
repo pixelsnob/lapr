@@ -23,8 +23,7 @@ export default class {
     this.$el.content.appendChild($ul);
 
     $ul.className = 'product-details-list';
-
-    //console.log(this.store.filtered_products.models.length);
+    console.log(this.context.params);
 
     this.store.filtered_products.models.forEach(product => {
       const instrument_details_container = new InstrumentDetailsContainer({

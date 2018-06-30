@@ -11,9 +11,21 @@ export default class {
   }
   
   render() {
+    var base_path = '/dist/images/products/';
+
+    switch (this.context.params.display) {
+      case 'crop':
+        base_path += 'crop/';
+        break;
+        
+      case '400w':
+        base_path += '400/';
+        break;
+    }
+
     this.$el.innerHTML = require('views/partials/image.jade')({
       image: this.context.params.image,
-      image_path: this.context.params.image_path
+      base_path
     });
     return this.$el.content;
   }

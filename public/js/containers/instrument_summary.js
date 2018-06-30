@@ -23,7 +23,6 @@ export default class {
     this.$el.innerHTML = require('views/partials/instrument_summary.jade')({
       product,
       markdown,
-      //category: this.context.params.category
       base_path: this.context.params.base_path
     });
 
@@ -33,7 +32,8 @@ export default class {
         ...this.context,
         params: {
           ...this.params,
-          images: product.images
+          images: product.images,
+          display: 'crop'
         }
       }, this.store);
 

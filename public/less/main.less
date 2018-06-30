@@ -83,8 +83,12 @@ dl {
   }
 }
 
+p {
+  font-size: 1.3em;
+}
+
 .error [data-error], .error[data-error] {
-  color: @alert-color;
+    color: @alert-color;
   font-weight: bold;
 }
 
@@ -112,7 +116,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.3em;
+  font-size: 1.5em;
   margin-top: 0;
 }
 
@@ -134,11 +138,11 @@ h2 {
 }
 
 h3 {
-  font-size: 1.1em;
+  font-size: 1.3em;
 }
 
 h4 {
-  font-size: 1em;
+  font-size: 1.3em;
 }
 
 hr {
@@ -187,7 +191,7 @@ input, textarea, select {
     position: relative;
     top: 0;
     height: 25px;
-    font-size: 1.2em;
+    font-size: 1.4em;
     padding-left: 28px;
   }
   .products-text-search {
@@ -204,7 +208,7 @@ input, textarea, select {
       left: 0;
       content: "\e003";
       font-family: 'Glyphicons Halflings';
-      font-size: 1.2em;
+      font-size: 1.4em;
       padding: 5px 0 0 7px;
       font-style: normal;
       font-weight: normal;
@@ -242,7 +246,7 @@ input, textarea, select {
           background-color: #888;
         }
         cursor: pointer;
-        font-size: 1em;
+        font-size: 1.4em;
         .alt-names, .makers {
           color: @text-secondary-color;
         }
@@ -304,7 +308,7 @@ input, textarea, select {
   nav {
     .dropdown li a {
       text-transform: uppercase;
-      font-size: 0.9em;
+      font-size: 1.4em;
       line-height: 19px;
     }
     .navbar-nav {
@@ -497,7 +501,8 @@ input, textarea, select {
     padding: 4px 0;
     a:link {
       text-transform: uppercase;
-      font-size: 0.9em;
+      font-size: 1.3em;
+      line-height: 1.4em;
     }
     a:active {
     }
@@ -550,8 +555,8 @@ input, textarea, select {
 
 .products {
   .boxes-list {
-    padding: 110px 10px 0 10px;
     overflow: hidden;
+    padding-top: 12px;
   }
   nav {
     .scroll-fixed;
@@ -603,7 +608,7 @@ input, textarea, select {
       img {
         width: 100%;
         transform: scale(1.1);
-        filter: blur(5px) contrast(130%) brightness(0.6);
+        filter: blur(6px) contrast(120%) brightness(0.85);
         &.noscript {
           display: block;
         }
@@ -629,7 +634,7 @@ input, textarea, select {
       }
     }
     &:hover .details .name a {
-      background-color: rgba(0,0,0,0.65);
+      background-color: rgba(0,0,0,0.35);
     }
     &:hover .image img {
       filter: blur(0);
@@ -641,7 +646,6 @@ input, textarea, select {
   .product-heading {
     padding-bottom: 7px;
     h2 {
-      font-size: 1.2em;
       margin-top: 0;
     }
   }
