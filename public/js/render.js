@@ -17,14 +17,17 @@ export default $el => {
           diffhtml.outerHTML($el, render_output); 
         }
       } catch (err) {
-        diffhtml.innerHTML($el, '<p class="error">An error has ocurred</p>');
+        //console.error(err);
+        diffhtml.innerHTML($el, '<p class="error">An error has occurred</p>');
       }
     } else {
       diffhtml.outerHTML($el, ''); 
     }
 
     // Notify components when they are connected
-    events.emit('connected', $el);
+    if (!window.__lapr_ssr) {
+      events.emit('connected', $el);
+    }
 
   };
 };

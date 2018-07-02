@@ -12,6 +12,7 @@ module.exports = {
   entry: { 
     main: [
       'babel-polyfill',
+      'core-js/es6/reflect',
       path.join(app_dir, 'public/js/main.js')
     ]
   },

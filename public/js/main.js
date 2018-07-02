@@ -10,12 +10,14 @@ import Router from 'router';
 import Render from 'render';
 import store from 'store';
 import app_events from 'events/app';
-import AppContainer from 'containers/app';
+//import AppContainer from 'containers/app';
+
+import ProductsTextSearchContainer from 'containers/products_text_search';
 
 const actions = Actions.create(store);
 const router = Router.create(routes, actions);
 
-const app_container = new AppContainer(null, store);
+//const app_container = new AppContainer(null, store);
 const getMountPoint = () => document.querySelector('#main');
 
 if (!window.__lapr_ssr) {
@@ -31,9 +33,17 @@ if (!window.__lapr_ssr) {
         console.error(err);
       }
     };
-    app_container.render();
+    //app_container.render();
 
     await store.products.fetch();
+
+    // maybe move this back to app container?
+    const products_text_search_container = new ProductsTextSearchContainer(
+      null,
+      store,
+      document.body.querySelector('.text-search')
+    );
+    products_text_search_container.render();
 
     app_events.registerDomEvent('click', 'click:navigate', async ev => {
       const path = ev.target.getAttribute('href');
@@ -63,17 +73,23 @@ if (!window.__lapr_ssr) {
 } else {
 
   // Server
-
   window.__lapr_dispatch = async path => {
     try {
       const render =  new Render(getMountPoint());
       const data = JSON.parse(window.localStorage.getItem('data'));
 
-      app_container.render();
+      //app_container.render();
 
       store.products.hydrate(data);
 
       await router.resolve(path).then(render);
+      // maybe move this back to app container?
+      const products_text_search_container = new ProductsTextSearchContainer(
+        null,
+        store,
+        document.body.querySelector('.text-search')
+      );
+      products_text_search_container.render();
     } catch (err) {
       console.error(err);
     }
