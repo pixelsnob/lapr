@@ -9,8 +9,12 @@ export default class {
     this.store = store;
   }
 
+  onMount($el) {
+    const content_blocks_container = new ContentBlocksContainer(this.context, this.store);
+    content_blocks_container.render();
+  }
+
   render() {
-    new ContentBlocksContainer(this.context, this.store);
     return (new ContactContainer(this.context, this.store)).render();
   }
 }

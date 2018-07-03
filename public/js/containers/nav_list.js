@@ -24,7 +24,6 @@ export default class {
       this.close();
       this.collection.reset();
     });
-
   }
 
   render() {
@@ -50,8 +49,9 @@ export default class {
       // (Let this bubble up to click:navigate event -- don't stopPropagation())
       ev.preventDefault();
       this.clearSelected();
-      this.selected_index = this.getIndexOf(ev.target.parentNode);
-      this.highlightAtIndex(this.selected_index);
+      const selected_index = this.getIndexOf(ev.target.parentNode);
+      this.highlightAtIndex(selected_index);
+      this.setSelectedIndex(selected_index);
       events.emit('nav-list:selected', ev.target.parentNode.dataset.pathname);
     }
   }
@@ -60,16 +60,25 @@ export default class {
     if (ev.target.value != this.last_search_value) {
       this.populate();
     }
+    const i = this.getSelectedIndex();
+    if (i) {
+      const $li = this.$el.querySelector(`li:nth-of-type(${i})`);
+      if ($li && $li.dataset.pathname) {
+        events.emit('app:navigate', $li.dataset.pathname);
+      }
+    }
   }
 
   // use history.back() and forward() to prevent browser throttling pushState calls
   onKeydown(ev) {
     ev.stopPropagation();
+    this.clearSelected();
+
     if (ev.target.value != this.last_search_value) {
       this.setSelectedIndex(null);
-      this.clearSelected();
     }
     this.last_search_value = ev.target.value;
+
     if (ev.keyCode == 38 || ev.keyCode == 40) {
       var operand;
       switch (ev.keyCode) {
@@ -80,8 +89,13 @@ export default class {
           operand = 1;
           break;
       }
-      this.setSelectedIndex(this.getNextIndex(operand, this.getSelectedIndex()));
-      this.highlightAtIndex(this.getSelectedIndex());
+      const next_index = this.getNextIndex(operand, this.getSelectedIndex());
+      this.setSelectedIndex(next_index);
+      const $li = this.$el.querySelector(`li:nth-of-type(${next_index})`);
+      if ($li && $li.dataset.pathname) {
+        $li.className = 'selected';
+        events.emit('app:navigate', $li.dataset.pathname);
+      }
     }
   }
   

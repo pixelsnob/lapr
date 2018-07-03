@@ -12,15 +12,14 @@ export default class {
   }
   
   connected($el) {
-    this.render($el);//<
     // Add "app:navigate" action to links in rendered content blocks
     Array.from($el.querySelectorAll('.content-block .content a[href]')).map($el => {
       $el.setAttribute('data-action', 'app:navigate');
     });
   }
 
-  render($el) {
-    const $content_blocks = $el.querySelectorAll('.content-block[data-name]');
+  render() {
+    const $content_blocks = document.body.querySelectorAll('.content-block[data-name]');
     // Populate all content blocks found
     Array.from($content_blocks).map($content_block => {
       const content_block = this.store.content_blocks.find(content_block => {
