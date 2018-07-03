@@ -1,43 +1,22 @@
 
 import template from 'lib/template';
 import events from 'events/app';
-import ProductsTextSearchItemComponent from 'components/products_text_search_item';
+import NavListItemComponent from 'components/nav_list_item';
 
 export default class {
   
-  constructor(params, store, $el) {
+  constructor(params, store) {
     this.store = store;
-
     this.collection = params.collection;
+    this.$el = params.$el;
 
-    this.$el = $el;
-    console.log(this.$el);
-    events.on('connected', this.connected.bind(this));
+    this.selected_index = null;
+
+    events.once('connected', this.connected.bind(this));
   }
 
   connected() {
-
-    // Hijack app:navigate click to focus the input
-    this.$el.addEventListener('click', ev => { // scope?
-      ev.stopPropagation();
-      ev.preventDefault();
-      // In case we are about to blur...cancel that
-      clearTimeout(this.blur_timeout_id);
-      if (ev.target.tagName == 'A') {
-        //this.$input.focus(); ////////////////
-        this.highlightFromPathname(ev.target.getAttribute('href'));///???????????
-        events.emit('app:navigate', ev.target.getAttribute('href'));
-        //events.emit('products-text-search:selected', this.selected_index);
-      }
-    });
-
-    /*events.on('app:product-selected', path => {
-      if (path != location.pathname) {
-        //console.log(path, location.pathname, this.keydown);
-        this.highlightFromPathname(path);
-        events.emit('app:navigate', path); 
-      }
-    });*/
+    this.$el.addEventListener('click', this.onClick.bind(this));
 
     // Close dropdown and don't bother trying to duplicate history while
     // navigating through dropdown list
@@ -45,98 +24,103 @@ export default class {
       this.close();
       this.collection.reset();
     });
+
   }
 
-  // use history.back() and forward() to prevent browser throttling pushState calls
-  onKeydown(ev) { // move to 'Input nav list'?
-    this.keydown = true;
-    const highlightAndNavigate = () => {
-      const path = this.highlightFromIndex(this.selected_index);
-      if (path) {
-        events.emit('app:navigate', path);
-        events.emit('products-text-search:selected', this.selected_index);
-      }
-    };
-
-    switch (ev.keyCode) {
-      case 38:
-        this.setSelectedIndex(-1);
-        highlightAndNavigate(); 
-        break;
-      case 40:
-        this.setSelectedIndex(1);
-        highlightAndNavigate(); 
-        break;
-    }
-    ev.stopPropagation();
-    this.keydown = false;
-  }
-
-  getResults() {
-    throw new Error('Please define getResults() method');  
-  }
-
-  onKeyup(ev) {
-    const results = this.getResults(ev.target.value);
-
-    //if (this.cached_search_value == ev.target.value) {
-    //  return null;
-    //}
-
-    //if (this.last_search != ev.target.value) {
-    this.selected_index = null;
-    //}
-
-    //this.cached_search_value = ev.target.value;
-    events.emit('nav-list:update');
-    //this.update();
-  }
-
-  render($el) {
+  render() {
     const $ul = document.createElement('ul');
     this.$el.innerHTML = '';
     this.$el.appendChild($ul);
-    const products = this.collection.models.map(product => { // change to "nav item" etc.
-      const products_text_search_item_component = new ProductsTextSearchItemComponent({
-        ...this.context,
-        params: {
-          product
-        }
-      });
-      $ul.appendChild(products_text_search_item_component.render());
-    });
     return this.$el;
   }
 
-  close() {
-    this.$el.innerHTML = '';
-    // off handlers
-  }
-
-  /*setSelectedIndex(operand) {
-    if (!this.selected_index) {
-      this.selected_index = 1;
-    } else {
-      const next = this.selected_index + operand;
-      if (next > 0 && next <= this.collection.models.length) {
-        this.selected_index = next;
-      }
-    }
-    return true;
-  }
-
-  highlightFromPathname(path) {
-    this.clearSelected();
-    Array.from(this.$list.querySelectorAll('li')).forEach(($li, i) => {
-      if ($li.dataset.pathname == path) {
-        this.selected_index = i + 1; ///// !!!!!!!!!1
-        $li.className = 'selected';
-      }
+  populate() {
+    const $ul = this.$el.querySelector('ul');
+    $ul.innerHTML = ''; 
+    this.collection.models.forEach((item, i) => {
+      const nav_list_item_component = new NavListItemComponent({
+        item: item.toJSON()
+      });
+      $ul.appendChild(nav_list_item_component.render());
     });
   }
 
-  highlightFromIndex(i) {
-    const target = this.$list.querySelector(`li:nth-of-type(${i})`);
+  onClick(ev) {
+    if (ev.target.tagName == 'A') {
+      // (Let this bubble up to click:navigate event -- don't stopPropagation())
+      ev.preventDefault();
+      this.clearSelected();
+      this.selected_index = this.getIndexOf(ev.target.parentNode);
+      this.highlightAtIndex(this.selected_index);
+      events.emit('nav-list:selected', ev.target.parentNode.dataset.pathname);
+    }
+  }
+
+  onKeyup(ev) {
+    if (ev.target.value != this.last_search_value) {
+      this.populate();
+    }
+  }
+
+  // use history.back() and forward() to prevent browser throttling pushState calls
+  onKeydown(ev) {
+    ev.stopPropagation();
+    if (ev.target.value != this.last_search_value) {
+      this.setSelectedIndex(null);
+      this.clearSelected();
+    }
+    this.last_search_value = ev.target.value;
+    if (ev.keyCode == 38 || ev.keyCode == 40) {
+      var operand;
+      switch (ev.keyCode) {
+        case 38:
+          operand = -1;
+          break;
+        case 40:
+          operand = 1;
+          break;
+      }
+      this.setSelectedIndex(this.getNextIndex(operand, this.getSelectedIndex()));
+      this.highlightAtIndex(this.getSelectedIndex());
+    }
+  }
+  
+  getSelectedIndex() {
+    return this.selected_index;
+  }
+
+  setSelectedIndex(i) {
+    this.selected_index = i; 
+  }
+
+  getNextIndex(operand, i) {
+    if (!i) {
+      return 1;
+    } else {
+      const next = i + operand;
+      if (next > 0 && next <= this.collection.models.length) {
+        return next;
+      }
+    }
+    return i;
+  }
+
+  getIndexOf($el) {
+    const $items = this.$el.querySelectorAll('li');
+    var i = 0;
+    for (var $item of Array.from($items)) {
+      i++;
+      if ($item === $el) {
+        return i;
+      }
+    }
+  }
+
+  highlightAtIndex(i) {
+    if (!i) {
+      return null;
+    }
+    const target = this.$el.querySelector(`li:nth-of-type(${i})`);
     if (target) {
       this.clearSelected();
       target.className = 'selected';
@@ -149,13 +133,24 @@ export default class {
   }
   
   clearSelected() {
-    const $current = this.$list.querySelector('li.selected');
+    const $current = this.$el.querySelector('li.selected');
     if ($current) {
       $current.className = '';
     }
   }
 
+  close() {
+    this.$el.querySelector('ul').innerHTML = '';
+  }
 
+  /*highlightFromPathname(path) {
+    this.clearSelected();
+    Array.from(this.$el.querySelectorAll('li')).forEach(($li, i) => {
+      if ($li.dataset.pathname == path) {
+        this.selected_index = i + 1; ///// !!!!!!!!!1
+        $li.className = 'selected';
+      }
+    });
   }*/
 }
 
