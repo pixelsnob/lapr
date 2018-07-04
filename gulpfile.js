@@ -7,7 +7,8 @@ const gulp_fn          = require('gulp-fn');
 const image_size       = require('image-size');
 const db               = require('./models');
 const path             = require('path');
-const exec             = require('child_process').exec;
+const execSync         = require('sync-exec');
+
 //const jimp             = require('gulp-jimp');
 
 const src = 'public/images/products/*.{jpg,JPG}';
@@ -43,24 +44,28 @@ const resizeImages140 = () =>
     .pipe(imageResize({ width: 140 }))
     .pipe(gulp.dest('public/dist/images/products/140'));
 
+
+const cropImage = file => {
+  return new Promise((resolve, reject) => {
+    const dest = path.resolve('public/dist/images/products/crop', path.basename(file.path));
+  });
+};
+
 const cropImages = () => {
   gulp.src(src)
-    .pipe(watch(src))
-    .pipe(gulp_fn(function(file) {
+    .pipe(gulp_fn(file => {
       const dest = path.resolve('public/dist/images/products/crop', path.basename(file.path));
-      exec(`smartcrop --width=260 --height=200 --quality=80 ${file.path} ${dest}`, (err, stdout, stderr) => {
-        console.log(stdout);
-      });
-      return null;
+      const command = `smartcrop --width=260 --height=200 --quality=80 ${file.path} ${dest}`;
+      const out = execSync(command, 5000);
+      return dest;
     }));
-    //.pipe(gulp.dest('public/dist/images/products/crop'));
 };
 
 const all = () => gulp.series(
   storeImageDimensions,
   resizeImages400,
   resizeImages140,
-  //cropImages
+  cropImages
 );
 
 gulp.task('store-image-dimensions', storeImageDimensions);
