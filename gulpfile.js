@@ -9,9 +9,9 @@ const db               = require('./models');
 const path             = require('path');
 const execSync         = require('sync-exec');
 const jimp             = require('gulp-jimp');
-//const through          = require('through2');
 const fs               = require('fs');
 const modifyFile       = require('gulp-modify-file');
+const rename           = require('gulp-rename');
 
 const src = 'public/images/products/*.{jpg,JPG}';
 
@@ -54,6 +54,9 @@ const cropImages = () => {
       '-blur': {
         blur: 16
       }
+    }))
+    .pipe(rename(path => {
+      path.basename = path.basename.replace('-blur', '');
     }))
     .pipe(gulp.dest('public/dist/images/products/crop-blur'));
 };
