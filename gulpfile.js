@@ -8,11 +8,14 @@ const image_size       = require('image-size');
 const db               = require('./models');
 const path             = require('path');
 const execSync         = require('sync-exec');
-
-//const jimp             = require('gulp-jimp');
+const jimp             = require('gulp-jimp');
+//const through          = require('through2');
+const fs               = require('fs');
+const modifyFile       = require('gulp-modify-file');
 
 const src = 'public/images/products/*.{jpg,JPG}';
 
+// Save image dimensions to the db for calculating aspect ratio, etc.
 const storeImageDimensions = () =>
   gulp.src(src)
     .pipe(watch(src))
@@ -30,6 +33,31 @@ const storeImageDimensions = () =>
       return file.path;
     }));
 
+const cropImages = () => {
+  gulp.src(src)
+    .pipe(watch(src))
+    // Couldn't get any other smartcrop solution to work: save cropped image to a file, read
+    // the file, and pass it along to the next pipe()
+    .pipe(modifyFile((content, file_path, file) => {
+      const dest_dir = 'public/dist/images/products/crop';
+      if (!fs.existsSync(dest_dir)) {
+        fs.mkdirSync(dest_dir);
+      }
+      const dest = path.resolve(dest_dir, path.basename(file_path));
+      const command = `smartcrop --width=260 --height=200 --quality=100 ${file.path} ${dest}`;
+      const out = execSync(command, 5000);
+      console.log(`Saved cropped image ${dest}`);
+      // Point the pipe to the newly created file 
+      return fs.readFileSync(dest);
+    }))
+    .pipe(jimp({
+      '-blur': {
+        blur: 16
+      }
+    }))
+    .pipe(gulp.dest('public/dist/images/products/crop-blur'));
+};
+
 const resizeImages400 = () =>
   gulp.src(src)
     .pipe(watch(src))
@@ -44,23 +72,6 @@ const resizeImages140 = () =>
     .pipe(imageResize({ width: 140 }))
     .pipe(gulp.dest('public/dist/images/products/140'));
 
-
-const cropImage = file => {
-  return new Promise((resolve, reject) => {
-    const dest = path.resolve('public/dist/images/products/crop', path.basename(file.path));
-  });
-};
-
-const cropImages = () => {
-  gulp.src(src)
-    .pipe(gulp_fn(file => {
-      const dest = path.resolve('public/dist/images/products/crop', path.basename(file.path));
-      const command = `smartcrop --width=260 --height=200 --quality=80 ${file.path} ${dest}`;
-      const out = execSync(command, 5000);
-      return dest;
-    }));
-};
-
 const all = () => gulp.series(
   storeImageDimensions,
   resizeImages400,
@@ -68,6 +79,7 @@ const all = () => gulp.series(
   cropImages
 );
 
+// Execute
 gulp.task('store-image-dimensions', storeImageDimensions);
 gulp.task('resize-images-400', resizeImages400);
 gulp.task('resize-images-140', resizeImages140);
