@@ -17,7 +17,10 @@ export default class {
       case 'crop':
         base_path += 'crop/';
         break;
-        
+
+      case 'crop-blur':
+        base_path += 'crop-blur/';
+        break;
       case '400w':
         base_path += '400/';
         break;

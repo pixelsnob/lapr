@@ -8,7 +8,8 @@ var ImageSchema = new db.Schema({
   size: Number,
   title: String,
   width: Number,
-  height: Number
+  height: Number,
+  inline: String
 });
 
 ImageSchema.pre('remove', function(next) {

@@ -33,7 +33,7 @@ export default class {
         params: {
           ...this.params,
           images: product.images,
-          display: 'crop'
+          display: 'crop-blur'
         }
       }, this.store);
 

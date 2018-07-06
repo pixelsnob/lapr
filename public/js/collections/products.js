@@ -88,7 +88,7 @@ export default Backbone.Collection.extend({
           images: res.images,
           content_blocks: res.content_blocks
         };
-        this.setStored(data);
+        //this.setStored(data);
       });
     }
   },
