@@ -5,8 +5,8 @@ import ImageComponent from 'components/image';
 
 export default class {
   
-  constructor(context, store, $el) {
-    this.context = context;
+  constructor(params, store, $el) {
+    this.params = params;
     this.store = store;
     this.$el = $el || document.createElement('template');
   }
@@ -14,16 +14,12 @@ export default class {
   render() {
     this.$el.innerHTML = require('views/partials/images.jade')();
     const $ul = this.$el.content.querySelector('ul.images-list');
-    const images = this.context.params.images;
-    if (images) {
-      images.forEach(image => {
+    if (this.params.images) {
+      this.params.images.forEach(image => {
         const image_component = new ImageComponent({
-          ...this.context,
-          params: {
-            ...this.context.params,
-            image,
-            image_path: '/images/products/'
-          }
+          ...this.params,
+          image,
+          image_path: '/images/products/'
         }, this.store);
         $ul.appendChild(image_component.render());
       });

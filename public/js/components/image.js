@@ -4,8 +4,8 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(context, store, $el) {
-    this.context = context;
+  constructor(params, store, $el) {
+    this.params = params;
     this.store = store;
     this.$el = $el || document.createElement('template');
   }
@@ -13,7 +13,7 @@ export default class {
   render() {
     var base_path = '/dist/images/products/';
 
-    switch (this.context.params.display) {
+    switch (this.params.display) {
       case 'crop':
         base_path += 'crop/';
         break;
@@ -27,7 +27,7 @@ export default class {
     }
 
     this.$el.innerHTML = require('views/partials/image.jade')({
-      image: this.context.params.image,
+      image: this.params.image,
       base_path
     });
     return this.$el.content;

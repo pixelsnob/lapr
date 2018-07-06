@@ -7,8 +7,8 @@ import NavListContainer from 'containers/nav_list';
 
 export default class {
   
-  constructor(context, store, $el) {
-    this.context = context;
+  constructor(params, store, $el) {
+    this.params = params;
     this.store = store;
     this.$el = $el;
 

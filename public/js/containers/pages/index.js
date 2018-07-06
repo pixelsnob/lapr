@@ -5,18 +5,18 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(context, store) {
-    this.context = context;
+  constructor(params, store) {
+    this.params = params;
     this.store = store;
   }
 
   onMount($el) {
-    const content_blocks_container = new ContentBlocksContainer(this.context, this.store);
+    const content_blocks_container = new ContentBlocksContainer(this.params, this.store);
     content_blocks_container.render();
   }
 
   render() {
-    return (new IndexContainer(this.context, this.store)).render();
+    return (new IndexContainer(this.params, this.store)).render();
   }
 }
 

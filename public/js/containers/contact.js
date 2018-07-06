@@ -7,17 +7,17 @@ import ContactFormErrorComponent from 'components/contact_form_error';
 
 export default class {
   
-  constructor(context, store) {
-    this.context = context;
+  constructor(params, store) {
+    this.params = params;
     this.store = store;
     this.$el = document.createElement('template');
 
     events.once('connected', this.connected.bind(this));
 
 
-    this.contact_form_component = new ContactFormComponent(this.context, this.store);
-    this.contact_form_success_component = new ContactFormSuccessComponent(this.context, this.store);
-    this.contact_form_error_component = new ContactFormErrorComponent(this.context, this.store);
+    this.contact_form_component = new ContactFormComponent(this.params, this.store);
+    this.contact_form_success_component = new ContactFormSuccessComponent(this.params, this.store);
+    this.contact_form_error_component = new ContactFormErrorComponent(this.params, this.store);
   }
   
   connected($el) {

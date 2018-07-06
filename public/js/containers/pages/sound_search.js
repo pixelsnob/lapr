@@ -5,14 +5,14 @@ import InstrumentDetailsListContainer from 'containers/instrument_details_list';
 
 export default class {
   
-  constructor(context, store, $el) {
-    this.context = context;
+  constructor(params, store, $el) {
+    this.params = params;
     this.store = store;
     this.$el = $el || document.createElement('template');
   }
 
   render() {
-    const selected_tags = this.context.params.tags ? this.context.params.tags.split(',') : [];
+    const selected_tags = this.params.tags ? this.params.tags.split(',') : [];
     this.store.selected_tags.setFromArray(selected_tags);
     this.store.filtered_products.sort_mode = 'default';
     this.store.products.filterByTags();
@@ -23,7 +23,7 @@ export default class {
     });
 
     const tags_nav_container = new TagsNavContainer(
-      this.context,
+      this.params,
       this.store
     );
     
@@ -31,25 +31,19 @@ export default class {
 
     const base_path = selected_tags ? `/instruments/tags/${selected_tags}` : '/instruments/tags';
 
-    if (this.context.params.instrument_id) {
+    if (this.params.instrument_id) {
       const instrument_details_list_container = new InstrumentDetailsListContainer({
-        ...this.context,
-        params: {
-          ...this.context.params,
-          grid_width: 12,
-          base_path
-        }
+        ...this.params,
+        grid_width: 12,
+        base_path
       }, this.store);
       this.$el.content.querySelector('.results-container').appendChild(
         instrument_details_list_container.render()
       );
     } else {
       const instrument_summaries_list_container = new InstrumentSummariesListContainer({
-        ...this.context,
-        params: {
-          ...this.context.params,
-          base_path
-        }
+        ...this.params,
+        base_path
       }, this.store);
       this.$el.content.querySelector('.results-container').appendChild(
         instrument_summaries_list_container.render()

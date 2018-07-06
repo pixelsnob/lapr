@@ -4,15 +4,15 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(context, store, $el) {
-    this.context = context;
+  constructor(params, store, $el) {
+    this.params = params;
     this.store = store;
     this.$el = $el || document.createElement('template');
   }
   
   render() {
     this.$el.innerHTML = require('views/partials/product.jade')({
-      product: this.context.params.product,
+      product: this.params.product,
       user: null // <<<<<<<<<<replace me
     });
     return this.$el.content;

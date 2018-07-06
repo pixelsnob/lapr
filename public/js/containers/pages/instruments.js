@@ -5,15 +5,15 @@ import InstrumentDetailsListContainer from 'containers/instrument_details_list';
 
 export default class {
   
-  constructor(context, store, $el) {
-    this.context = context;
+  constructor(params, store, $el) {
+    this.params = params;
     this.store = store;
     
     this.$el = $el || document.createElement('template');
   }
 
   render() {
-    this.store.selected_categories.setFromSlug(this.context.params.category);
+    this.store.selected_categories.setFromSlug(this.params.category);
     this.store.filtered_products.sort_mode = 'default';
     this.store.products.filterByCategory();
     
@@ -23,35 +23,29 @@ export default class {
     });
 
     const product_categories_nav = new ProductCategoriesNavContainer(
-      this.context,
+      this.params,
       this.store.product_categories
     );
 
     this.$el.content.querySelector('.sidebar').appendChild(product_categories_nav.render());
     
-    const base_path = this.context.params.category ?
-      `/instruments/categories/${this.context.params.category}` :
+    const base_path = this.params.category ?
+      `/instruments/categories/${this.params.category}` :
       '/instruments';
 
-    if (this.context.params.instrument_id) {
+    if (this.params.instrument_id) {
       const instrument_details_list_container = new InstrumentDetailsListContainer({
-        ...this.context,
-        params: {
-          ...this.context.params,
-          grid_width: 12,
-          base_path
-        }
+        ...this.params,
+        grid_width: 12,
+        base_path
       }, this.store);
       this.$el.content.querySelector('.results-container').appendChild(
         instrument_details_list_container.render()
       );
     } else {
       const instrument_summaries_list_container = new InstrumentSummariesListContainer({
-        ...this.context,
-        params: {
-          ...this.context.params,
-          base_path
-        }
+        ...this.params,
+        base_path
       }, this.store);
       this.$el.content.querySelector('.results-container').appendChild(
         instrument_summaries_list_container.render()

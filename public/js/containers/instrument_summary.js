@@ -6,38 +6,36 @@ import ImagesContainer from 'containers/images';
 
 export default class {
   
-  constructor(context, store, $el) {
-    this.context = context;
+  constructor(params, store, $el) {
+    this.params = params;
     this.store = store;
     this.$el = $el || document.createElement('template');
   }
   
   render() {
 
-    const product = this.context.params.product;
+    const product = this.params.product;
 
     if (!product) {
-      return { error: 'product not found in context.params' };
+      return { error: 'product not found in params' };
     }
 
     this.$el.innerHTML = require('views/partials/instrument_summary.jade')({
       product,
       markdown,
-      base_path: this.context.params.base_path
+      base_path: this.params.base_path
     });
 
     // Images container
     if (product.images.length) {
       const images_container = new ImagesContainer({
-        ...this.context,
-        params: {
-          ...this.params,
-          images: product.images,
-          display: 'crop-blur'
-        }
+        ...this.params,
+        images: product.images,
+        display: 'crop-blur'
       }, this.store);
 
       const $image = this.$el.content.querySelector('.image');
+
       if ($image) {
         $image.appendChild(images_container.render());
       }

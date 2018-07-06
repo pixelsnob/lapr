@@ -5,8 +5,8 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(context, store) {
-    this.context = context;
+  constructor(params, store) {
+    this.params = params;
     this.store = store;
     this.$el = document.createElement('template');
 
@@ -17,7 +17,7 @@ export default class {
 
   connected($el) {
     const products_text_search_container = new ProductsTextSearchContainer(
-      this.context,
+      this.params,
       this.store
     );
     products_text_search_container.render();

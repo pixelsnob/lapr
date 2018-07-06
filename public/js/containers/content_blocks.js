@@ -5,8 +5,8 @@ import markdown from 'lib/markdown';
 
 export default class {
   
-  constructor(context, store) {
-    this.context = context;
+  constructor(params, store) {
+    this.params = params;
     this.store = store;
     events.once('connected', this.connected.bind(this));
   }
@@ -21,9 +21,7 @@ export default class {
   render() {
     const $content_blocks = document.body.querySelectorAll('.content-block[data-name]');
     // Populate all content blocks found
-    //console.log($content_blocks.length);
     Array.from($content_blocks).map($content_block => {
-      console.log(this.store.content_blocks.models.length);
       const content_block = this.store.content_blocks.find(content_block => {
         return $content_block.dataset.name == content_block.get('name');
       });
@@ -33,7 +31,6 @@ export default class {
           const content = content_block.get('content');
           if (content_block.get('type') == 'markdown') {
             $content.innerHTML = markdown(content);
-            console.log(content);
           }
         }
       }

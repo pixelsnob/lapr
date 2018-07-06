@@ -5,8 +5,8 @@ import ProductsTextSearchItemComponent from 'components/products_text_search_ite
 
 export default class {
   
-  constructor(context, store) {
-    this.context = context;
+  constructor(params, store) {
+    this.params = params;
     this.store = store;
     this.$el = document.createElement('template');
   }
@@ -14,13 +14,10 @@ export default class {
   render() {
     this.$el.innerHTML = '<ul></ul>';
     const $ul = this.$el.content.querySelector('ul');
-    const products = this.context.params.products.map(product => {
+    const products = this.params.products.map(product => {
       const products_text_search_item_component = new ProductsTextSearchItemComponent({
-        ...this.context,
-        params: {
-          ...this.context.params,
-          product
-        }
+        ...this.params,
+        product
       });
       $ul.appendChild(products_text_search_item_component.render());
     });

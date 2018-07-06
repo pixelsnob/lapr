@@ -5,8 +5,8 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(context, store, $el) {
-    this.context = context;
+  constructor(params, store, $el) {
+    this.params = params;
     this.store = store;
     this.$el = $el || document.createElement('template');
 
@@ -23,22 +23,18 @@ export default class {
     this.$el.content.appendChild($ul);
 
     $ul.className = 'product-details-list';
-    console.log(this.context.params);
 
     this.store.filtered_products.models.forEach(product => {
       const instrument_details_container = new InstrumentDetailsContainer({
-        ...this.context,
-        params: {
-          ...this.context.params,
-          product: product.toJSON([ 'images', 'makers', 'youtube_videos' ])
-        } 
+        ...this.params,
+        product: product.toJSON([ 'images', 'makers', 'youtube_videos' ])
       }, this.store);
 
       const $li = document.createElement('li');
 
-      if (product.id == this.context.params.id) {
+      if (product.id == this.params.id) {
         $li.className = 'active';
-      } else if (this.context.params.id) {
+      } else if (this.params.id) {
         $li.className = 'inactive';
       }
       

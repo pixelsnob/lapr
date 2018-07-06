@@ -4,8 +4,8 @@ import TagsNavCategoryList from 'containers/tags_nav_category_list';
 
 export default class {
   
-  constructor(context, store) {
-    this.context = context;
+  constructor(params, store) {
+    this.params = params;
     this.store = store;
     this.$el = document.createElement('template');
   }
@@ -14,14 +14,10 @@ export default class {
     this.$el.innerHTML = require('views/partials/tags_nav.jade')();
     const $ul = this.$el.content.querySelector('ul');
     this.store.tag_categories.models.forEach(model => {
-      const context = {
-        ...this.context,
-        params: {
-          ...this.context.params,
-          tag_category: model.toJSON()
-        }
-      }; 
-      const tag_category = new TagsNavCategoryList(context, this.store);
+      const tag_category = new TagsNavCategoryList({
+        ...this.params,
+        tag_category: model.toJSON()
+      }, this.store);
       $ul.appendChild(tag_category.render());
     });
     return this.$el.content;

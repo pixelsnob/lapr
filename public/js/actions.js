@@ -13,15 +13,15 @@ export default {
 
     return {
 
-      index: context => new IndexPageContainer(context, store),
+      index: context => new IndexPageContainer(context.params, store),
 
-      instruments: context => new InstrumentsPageContainer(context, store),
+      instruments: context => new InstrumentsPageContainer(context.params, store),
 
-      'sound-search': context => new SoundSearchPageContainer(context, store),
+      'sound-search': context => new SoundSearchPageContainer(context.params, store),
 
-      'instrument-details': context => new InstrumentDetailsPageContainer(context, store),
+      'instrument-details': context => new InstrumentDetailsPageContainer(context.params, store),
 
-      contact: context => new ContactPageContainer(context, store),
+      contact: context => new ContactPageContainer(context.params, store),
 
       error: err => new ErrorComponent(err)
 

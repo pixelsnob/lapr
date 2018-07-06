@@ -5,8 +5,8 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(context, store) {
-    this.context = context;
+  constructor(params, store) {
+    this.params = params;
     this.store = store;
     this.$el = document.createElement('template');
 
@@ -38,10 +38,8 @@ export default class {
 
     products_json.forEach(product => {
       const instrument = new InstrumentSummaryContainer({
-        params: {
-          ...this.context.params,
-          product
-        }
+        ...this.params,
+        product
       }, this.store);
       $products.appendChild(instrument.render());
     });
