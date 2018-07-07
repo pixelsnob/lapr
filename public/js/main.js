@@ -75,14 +75,12 @@ if (!window.__lapr_ssr) {
   // Server
   window.__lapr_dispatch = (path, data) => {
     try {
-      //const data = JSON.parse(window.localStorage.getItem('data'));
-
-      //app_container.render();
 
       store.products.hydrate(data);
       const render =  new Render(getMountPoint());
 
       router.resolve(path).then(render);
+
       // maybe move this back to app container?
       const products_text_search_container = new ProductsTextSearchContainer(
         null,
@@ -91,6 +89,7 @@ if (!window.__lapr_ssr) {
       );
       products_text_search_container.render();
 
+      // App events are unecessary on back-end
       app_events.removeAllListeners();
 
     } catch (err) {
