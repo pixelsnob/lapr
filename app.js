@@ -6,14 +6,12 @@ const
   port              = config.port || 3003,
   express           = require('express'),
   app               = express(),
-  //jade_browser      = require('jade-browser'),
   passport          = require('passport'),
   _                 = require('underscore'),
   session           = require('express-session'),
   redis_store       = require('connect-redis')(session),
   body_parser       = require('body-parser'),
   fs                = require('fs'),
-  //marked            = require('./lib/marked')(app),
   env               = process.env.NODE_ENV || 'development',
   git               = require('simple-git')(__dirname);
 
@@ -29,9 +27,11 @@ app.locals.config = config;
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.set('view cache', (env == 'production'));
+
 app.use(body_parser.urlencoded({ extended: true }));
 app.use(body_parser.json({ extended: true }));
 app.use(require('cookie-parser')());
+
 app.use(session({
   store: new redis_store,
   secret: config.session_secret,
@@ -46,12 +46,14 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(require('csurf')());
-app.use(require('express-paginate').middleware(30, 60));
+//app.use(require('express-paginate').middleware(30, 60));
 app.locals.pretty = true;
-app.locals._ = _;
+//app.locals._ = _;
 app.locals.env = env;
 
 // Get current git commit id to append to asset urls
@@ -77,17 +79,9 @@ app.use((req, res, next) => {
   } else {
     delete res.locals.user;
   }
-  //res.locals.markdown = app.locals.markdown;
   next();
 });
 
-app.use(require('./lib/pages')); // <<<<<< ?
-
-//app.use(jade_browser(
-//  '/jade.js',
-//  '**/*.jade',
-//  { root: app.get('views'), minify: (env == 'production') }
-//));
 
 const data_access = require('./lib/data_access');
 
@@ -168,9 +162,9 @@ app.route('/api/errors').post(routes.add('Error'));
 
 // Chrome renderer: render client-side code
 // this should be whitelisted *
-app.route('*').get(async (...args) => {
+app.route('*').get(async (req, res, next) => {
   try {
-    await require('./lib/chrome_renderer')(...args);
+    await require('./lib/chrome_renderer')(req, res, next);
   } catch (err) {
     next(err);
   }

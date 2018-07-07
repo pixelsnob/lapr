@@ -73,16 +73,16 @@ if (!window.__lapr_ssr) {
 } else {
 
   // Server
-  window.__lapr_dispatch = async path => {
+  window.__lapr_dispatch = (path, data) => {
     try {
-      const render =  new Render(getMountPoint());
-      const data = JSON.parse(window.localStorage.getItem('data'));
+      //const data = JSON.parse(window.localStorage.getItem('data'));
 
       //app_container.render();
 
       store.products.hydrate(data);
+      const render =  new Render(getMountPoint());
 
-      await router.resolve(path).then(render);
+      router.resolve(path).then(render);
       // maybe move this back to app container?
       const products_text_search_container = new ProductsTextSearchContainer(
         null,
@@ -90,6 +90,9 @@ if (!window.__lapr_ssr) {
         document.body.querySelector('.text-search')
       );
       products_text_search_container.render();
+
+      app_events.removeAllListeners();
+
     } catch (err) {
       console.error(err);
     }
