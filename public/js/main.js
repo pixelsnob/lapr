@@ -2,7 +2,8 @@
  * Main client-side initialization file
  * 
  */
-import './polyfills';
+
+//import './polyfills';
 
 import Actions from 'actions';
 import routes from 'routes';
@@ -45,8 +46,7 @@ if (!window.__lapr_ssr) {
     );
     products_text_search_container.render();
 
-    app_events.registerDomEvent('click', 'click:navigate', async ev => {
-      const path = ev.target.getAttribute('href');
+    app_events.registerDomEvent('click', 'click:navigate', async path => {
       app_events.emit('app:navigate', path);
     });
 

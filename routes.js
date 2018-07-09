@@ -184,6 +184,29 @@ module.exports = app => {
       });
     },
     
+    // Creates a CSS file of base64-encoded product background images
+    showProductImagesCSS: async (req, res, next) => {
+      db.model('Image').find().limit(10000).exec((err, images) => {
+        if (err) {
+          return next(err);
+        }
+        var str = '';
+        images.forEach(image => {
+          str += `.image-${image._id} {` +
+            `background-image:url(data:image/jpeg;base64,${image.inline_crop_blur});` +
+          `}`;
+          str += `.image-${image._id}:hover {` +
+            `background-image:url(/dist/images/products/crop/${image.name});` +
+          //  `background-image:url(data:image/jpeg;base64,${image.inline_crop});` +
+          '}';
+        });
+
+        res.setHeader('Content-Type', 'text/css');
+        res.send(str);
+
+      });
+    },
+
     /**
      * Auth stuff
      * 

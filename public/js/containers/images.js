@@ -19,7 +19,7 @@ export default class {
         const image_component = new ImageComponent({
           ...this.params,
           image,
-          image_path: '/images/products/'
+          //image_path: '/images/products/'
         }, this.store);
         $ul.appendChild(image_component.render());
       });

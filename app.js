@@ -116,6 +116,8 @@ app.route('/instruments/:slug/:id?')
 
 app.route('/sitemap.xml').get(routes.showSitemap);
 
+app.route('/product_images.css').get(routes.showProductImagesCSS);
+
 // Product refs and related CRUD
 
 var models = {

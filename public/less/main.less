@@ -343,7 +343,7 @@ input, textarea, select {
             &:hover {
               background-color: @content-bg-hover-color;
               color: #eee;
-              .transition-color;
+              //.transition-color;
             }
           }
         }
@@ -581,7 +581,10 @@ input, textarea, select {
     min-height: 200px;
     /*height: 0;
     padding-bottom: 75%;*/
-    .transition-bg;
+    transition: background-image .2s ease-in-out;
+    -moz-transition: background-image .2s ease-in-out;
+    -webkit-transition: background-image .2s ease-in-out;
+    //.transition-bg;
     /*&:hover {
       background: @content-bg-hover-color;
       .details {

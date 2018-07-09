@@ -30,6 +30,7 @@ html
     - var og_type = og_type || 'website';
     meta(property="og:type", content="#{og_type}")
 
+    link(rel="stylesheet", href="/product_images.css", type="text/css")
   body
     header.site-header
       .site-header-inner.container-fluid
@@ -84,6 +85,7 @@ html
 
     footer
       p &copy;!{(new Date).getFullYear()} L.A. Percussion Rentals
+
 
     if user
       script(type="text/javascript").

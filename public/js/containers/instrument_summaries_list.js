@@ -34,7 +34,7 @@ export default class {
 
     // Populate products
     const $products = this.$el.content.querySelector('.results');
-    const products_json = products.toJSON([ 'images', 'makers' ]).splice(0, 100);///////
+    const products_json = products.toJSON([ 'images', 'makers' ]).slice(0, 100);///////
 
     products_json.forEach(product => {
       const instrument = new InstrumentSummaryContainer({

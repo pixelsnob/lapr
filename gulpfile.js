@@ -12,10 +12,11 @@ const jimp             = require('gulp-jimp');
 const fs               = require('fs');
 const modifyFile       = require('gulp-modify-file');
 const rename           = require('gulp-rename');
-const base64_img       = require('gulp-base64-img');
-const append           = require('gulp-append');
+//const base64_img       = require('gulp-base64-img');
+//const append           = require('gulp-append');
 
 const src = 'public/images/products/*.{jpg,JPG}';
+const src_crop = 'public/dist/images/products/crop/*.{jpg,JPG}';
 const src_crop_blur = 'public/dist/images/products/crop-blur/*.{jpg,JPG}';
 
 // Save image dimensions to the db for calculating aspect ratio, etc.
@@ -43,16 +44,37 @@ const saveImagesBase64 = () => {
     .pipe(gulp_fn(async function(file) {
       try {
         //console.log(file.path);
-        const contents = fs.readFileSync(path.resolve(file.path), 'utf8');
-        const buff = new Buffer(contents);  
-        const base64 = buff.toString('base64');
+        const contents = fs.readFileSync(path.resolve(file.path));
+        const base64 = new Buffer(contents, 'binary').toString('base64');
 
         console.log(file.path);
 
         const res = await db.model('Image').update({
           name: path.basename(file.path)
         }, {
-          $set: { inline: base64 }
+          $set: { inline_crop_blur: base64 }
+        });
+
+      } catch (err) {
+        console.error('Error retrieving/saving image dimensions!', file.path, err.message);
+      }
+      return file.path;
+    }));
+  gulp
+    .src(src_crop)
+    .pipe(watch(src_crop))
+    .pipe(gulp_fn(async function(file) {
+      try {
+        //console.log(file.path);
+        const contents = fs.readFileSync(path.resolve(file.path));
+        const base64 = new Buffer(contents, 'binary').toString('base64');
+
+        console.log(file.path);
+
+        const res = await db.model('Image').update({
+          name: path.basename(file.path)
+        }, {
+          $set: { inline_crop: base64 }
         });
 
       } catch (err) {
@@ -74,7 +96,7 @@ const cropBlurImages = () => {
       }
 
       const dest = path.join(dest_dir, path.basename(file_path));
-      const command = `smartcrop --width=260 --height=200 --quality=100 ${file.path} ${dest}`;
+      const command = `smartcrop --width=260 --height=200 --quality=40 ${file.path} ${dest}`;
       const out = execSync(command, 5000);
 
       console.log(`Saved cropped image ${dest}`);

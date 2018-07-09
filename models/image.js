@@ -9,7 +9,8 @@ var ImageSchema = new db.Schema({
   title: String,
   width: Number,
   height: Number,
-  inline: String
+  inline_crop: String,
+  inline_crop_blur: String
 });
 
 ImageSchema.pre('remove', function(next) {

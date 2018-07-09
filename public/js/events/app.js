@@ -21,13 +21,16 @@ class AppEvents extends EventEmitter {
     this.dom_events.add(ns);
 
     document.body.addEventListener(dom_event_name, async ev => {
-      const action_name = ev.target.dataset.action;
+      const action_name = ev.currentTarget.dataset.action;
+      console.log(ev.target.dataset.action);
       if (ev.target.dataset.action == app_event_name) {
         ev.preventDefault();
         ev.stopPropagation();
 
+console.log('lick');
         if (typeof cb == 'function') {
-          await cb(ev);
+          const path = ev.target.dataset.path || ev.target.getAttribute('href');
+          await cb(path);
         }
       }
     });

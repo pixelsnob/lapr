@@ -1,0 +1,6 @@
+
+each image in images
+  - css += '.product-image-' + image._id + ' { ' + 'background-image:url(data:image/jpeg;base64,' + image.inline + ') }' + "\n"
+
+  | #{css}
+
