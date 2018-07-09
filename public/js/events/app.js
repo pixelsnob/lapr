@@ -27,7 +27,6 @@ class AppEvents extends EventEmitter {
         ev.preventDefault();
         ev.stopPropagation();
 
-console.log('lick');
         if (typeof cb == 'function') {
           const path = ev.target.dataset.path || ev.target.getAttribute('href');
           await cb(path);

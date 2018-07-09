@@ -25,27 +25,27 @@ module.exports = function(grunt) {
         }
       }
     },
-		copy: {
-			main: {
-				files: [
-					// includes files within path
-					{
+    copy: {
+      main: {
+        files: [
+          // includes files within path
+          {
             expand: true,
             cwd: 'node_modules/bootstrap/fonts',
             src: [ '*' ],
             dest: 'public/dist/fonts/',
             filter: 'isFile'
           },
-					{
+          {
             expand: true,
             cwd: 'node_modules/@webcomponents/template',
             src: [ 'template.js' ],
             dest: 'public/dist/webcomponents/',
             filter: 'isFile'
           }
-				]
-			}
-		}
+        ]
+      }
+    }
   });
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');

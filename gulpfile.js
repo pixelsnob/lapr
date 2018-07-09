@@ -39,49 +39,34 @@ const saveImageDimensions = () => {
 };
 
 const saveImagesBase64 = () => {
+
+  const save = async (file, field) => {
+    try {
+      const contents = fs.readFileSync(path.resolve(file.path));
+      const base64 = new Buffer(contents, 'binary').toString('base64');
+
+      console.log(file.path);
+
+      const res = await db.model('Image').update({
+        name: path.basename(file.path)
+      }, {
+        $set: { [field]: base64 }
+      });
+
+    } catch (err) {
+      console.error('Error saving base64-encoded images to the database!', file.path, err.message);
+    }
+    return file.path;
+  };
+
+  gulp.src(src_crop)
+    .pipe(watch(src_crop))
+    .pipe(gulp_fn(file => save(file, 'inline_crop')));
+
   gulp.src(src_crop_blur)
     .pipe(watch(src_crop_blur))
-    .pipe(gulp_fn(async function(file) {
-      try {
-        //console.log(file.path);
-        const contents = fs.readFileSync(path.resolve(file.path));
-        const base64 = new Buffer(contents, 'binary').toString('base64');
+    .pipe(gulp_fn(file => save(file, 'inline_crop_blur')));
 
-        console.log(file.path);
-
-        const res = await db.model('Image').update({
-          name: path.basename(file.path)
-        }, {
-          $set: { inline_crop_blur: base64 }
-        });
-
-      } catch (err) {
-        console.error('Error retrieving/saving image dimensions!', file.path, err.message);
-      }
-      return file.path;
-    }));
-  gulp
-    .src(src_crop)
-    .pipe(watch(src_crop))
-    .pipe(gulp_fn(async function(file) {
-      try {
-        //console.log(file.path);
-        const contents = fs.readFileSync(path.resolve(file.path));
-        const base64 = new Buffer(contents, 'binary').toString('base64');
-
-        console.log(file.path);
-
-        const res = await db.model('Image').update({
-          name: path.basename(file.path)
-        }, {
-          $set: { inline_crop: base64 }
-        });
-
-      } catch (err) {
-        console.error('Error retrieving/saving image dimensions!', file.path, err.message);
-      }
-      return file.path;
-    }));
 };
 
 const cropBlurImages = () => {
