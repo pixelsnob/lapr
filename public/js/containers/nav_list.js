@@ -8,7 +8,8 @@ export default class {
   constructor(params, store) {
     this.store = store;
     this.collection = params.collection;
-    this.$el = params.$el;
+    this.$el = params.$el || document.createElement('template').content;
+    this.params = params;
 
     this.selected_index = null;
 
@@ -26,11 +27,14 @@ export default class {
     });
   }
 
-  render() {
+  render(populate = false) {
     const $ul = document.createElement('ul');
     this.$el.innerHTML = '';
     this.$el.appendChild($ul);
-    return this.$el;
+    if (populate) {
+      this.populate();
+    }
+    return this.$el.nodeType == Node.DOCUMENT_FRAGMENT_NODE ? this.$el.cloneNode(true) : this.$el;
   }
 
   populate() {
@@ -38,8 +42,9 @@ export default class {
     $ul.innerHTML = ''; 
     this.collection.models.forEach((item, i) => {
       const nav_list_item_component = new NavListItemComponent({
-        item: item.toJSON()
-      });
+        ...this.params,
+        item: item.toJSON(),
+      }, this.store);
       $ul.appendChild(nav_list_item_component.render());
     });
   }

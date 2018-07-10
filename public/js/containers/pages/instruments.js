@@ -38,8 +38,8 @@ export default class {
     this.$el.content.querySelector('.sidebar').appendChild(product_categories_nav.render());
     
     const base_path = this.params.category ?
-      `/instruments/categories/${this.params.category}` :
-      '/instruments';
+      `/instruments/categories/${this.params.category}/` :
+      '/instruments/';
 
     if (this.params.instrument_id) {
       const instrument_details_list_container = new InstrumentDetailsListContainer({

@@ -19,7 +19,7 @@ export default class {
     this.store.products.createProductsIndex();
     this.nav_list_container.render();
 
-    events.on('search-input:keyup', ev => {
+    events.on('search-input:keyup', ev => {// << ns so events won't clash ?
       this.store.products.getSearchResults(ev.target.value, 100); // add cache
       this.nav_list_container.onKeyup(ev);
     });

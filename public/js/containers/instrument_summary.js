@@ -32,21 +32,6 @@ export default class {
       base_path: this.params.base_path
     });
 
-    // Images container
-    /*if (product.images.length) {
-      const images_container = new ImagesContainer({
-        ...this.params,
-        images: product.images,
-        display: 'crop-blur'
-      }, this.store);
-
-      const $image = this.$el.content.querySelector('.image');
-
-      if ($image) {
-        $image.appendChild(images_container.render());
-      }
-    }*/
-
     return this.$el.content;
   }
 }

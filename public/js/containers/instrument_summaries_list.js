@@ -5,10 +5,10 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(params, store) {
+  constructor(params, store, $el) {
     this.params = params;
     this.store = store;
-    this.$el = document.createElement('template');
+    this.$el = $el || document.createElement('template');
 
     //events.once('connected', this.connected.bind(this));
   }
@@ -20,7 +20,7 @@ export default class {
     // Products search container
     const products = this.store.filtered_products;
 
-    this.$el.innerHTML = '<ul class="results"></ul>';
+    this.$el.innerHTML = require('views/partials/instrument_summaries_list.jade')();
 
     // Populate products
     const $products = this.$el.content.querySelector('.results');

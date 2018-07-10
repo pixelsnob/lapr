@@ -23,7 +23,6 @@ export default class {
     this.$input.addEventListener('blur', this.onBlur.bind(this));
     
     events.on('nav-list:selected', (pathname) => {
-      console.log(pathname);
       clearTimeout(this.blur_timeout_id);
       this.$input.focus();
     });

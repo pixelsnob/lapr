@@ -1,5 +1,5 @@
 
-- var href = base_path + '/instrument/' + product.slug + '/' + product._id;
+- var href = base_path + 'instrument/' + product.slug + '/' + product._id;
 - var li_id = 'instrument-summary-' + product._id;
 -  var class_name = product.images.length ? 'image-' + product.images[0]._id : '';
 
@@ -15,11 +15,11 @@ li
 
       //-link(itemprop="url", href=href)
 
-      if Array.isArray(product.makers) && product.makers.length
-        p.makers.secondary(itemprop="manufacturer")!= product.makers.map(function(m) { return m.name; }).join(', ')
+      //- if Array.isArray(product.makers) && product.makers.length
+        //- p.makers.secondary(itemprop="manufacturer")!= product.makers.map(function(m) { return m.name; }).join(', ')
 
-      if product.sizes && product.sizes.length && !product.hide_sizes_in_lists
-        .sizes.secondary!= markdown(product.sizes)
+      //- if product.sizes && product.sizes.length && !product.hide_sizes_in_lists
+      //-  .sizes.secondary!= markdown(product.sizes)
 
     //- if user
     //-  p.edit-link
