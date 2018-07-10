@@ -1,4 +1,6 @@
 
+- var data_action = class_name == 'disabled' ? null : 'click:navigate';
+
 li(class=class_name)
-  a(href=path, data-action="click:navigate")= tag.name 
+  a(href=path, data-action=data_action)= tag.name 
 

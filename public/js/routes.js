@@ -7,7 +7,7 @@ export default [
   },
   {
     path: '/instruments',
-    action: 'instruments'
+    action: 'instruments-landing'
   },
   {
     path: '/instruments/categories/:category/instrument/:slug/:instrument_id',

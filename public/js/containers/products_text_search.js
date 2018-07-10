@@ -20,7 +20,7 @@ export default class {
     this.nav_list_container.render();
 
     events.on('search-input:keyup', ev => {
-      this.store.products.getSearchResults(ev.target.value, 30); // add cache
+      this.store.products.getSearchResults(ev.target.value, 100); // add cache
       this.nav_list_container.onKeyup(ev);
     });
     events.on('search-input:keydown', ev => {

@@ -23,6 +23,8 @@ export default class {
     this.$el.innerHTML = require('views/partials/instrument_details.jade')({
       product,
       markdown,
+      status: this.params.status,
+      data_pathname: this.params.data_pathname,
       grid_width: this.params.grid_width || 8
     });
 

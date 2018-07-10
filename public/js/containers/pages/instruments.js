@@ -3,6 +3,8 @@ import ProductCategoriesNavContainer from 'containers/product_categories_nav';
 import InstrumentSummariesListContainer from 'containers/instrument_summaries_list';
 import InstrumentDetailsListContainer from 'containers/instrument_details_list';
 
+import events from 'events/app';
+
 export default class {
   
   constructor(params, store, $el) {
@@ -10,6 +12,12 @@ export default class {
     this.store = store;
     
     this.$el = $el || document.createElement('template');
+    
+    events.on('connected', this.connected.bind(this));
+  }
+
+  connected($el) {
+    window.scrollTo(0, 0);
   }
 
   render() {
@@ -42,7 +50,9 @@ export default class {
       this.$el.content.querySelector('.results-container').appendChild(
         instrument_details_list_container.render()
       );
+
     } else {
+
       const instrument_summaries_list_container = new InstrumentSummariesListContainer({
         ...this.params,
         base_path

@@ -1,6 +1,7 @@
 
 import IndexPageContainer from 'containers/pages/index';
 import InstrumentsPageContainer from 'containers/pages/instruments';
+import InstrumentsLandingPageContainer from 'containers/pages/instruments_landing';
 import SoundSearchPageContainer from 'containers/pages/sound_search';
 import InstrumentDetailsPageContainer from 'containers/pages/instrument_details';
 import ContactPageContainer from 'containers/pages/contact';
@@ -16,6 +17,8 @@ export default {
       index: context => new IndexPageContainer(context.params, store),
 
       instruments: context => new InstrumentsPageContainer(context.params, store),
+
+      'instruments-landing': context => new InstrumentsLandingPageContainer(context.params, store),
 
       'sound-search': context => new SoundSearchPageContainer(context.params, store),
 

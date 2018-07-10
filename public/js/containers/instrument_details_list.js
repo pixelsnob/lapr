@@ -20,6 +20,7 @@ export default class {
   render() {
 
     const $ul = document.createElement('ul');
+    this.$el.innerHTML = '';
     this.$el.content.appendChild($ul);
 
     $ul.className = 'product-details-list';
@@ -27,20 +28,12 @@ export default class {
     this.store.filtered_products.models.forEach(product => {
       const instrument_details_container = new InstrumentDetailsContainer({
         ...this.params,
-        product: product.toJSON([ 'images', 'makers', 'youtube_videos' ])
+        product: product.toJSON([ 'images', 'makers', 'youtube_videos' ]),
+        status: (product.id == this.params.instrument_id ? 'active' : 'inactive'),
+        data_pathname: `/instruments/${product.get('slug')}/${product.id}`
       }, this.store);
 
-      const $li = document.createElement('li');
-
-      if (product.id == this.params.id) {
-        $li.className = 'active';
-      } else if (this.params.id) {
-        $li.className = 'inactive';
-      }
-      
-      $ul.appendChild($li);
-      $li.appendChild(instrument_details_container.render());
-      $li.setAttribute('data-pathname', `/instruments/${product.get('slug')}/${product.id}`);
+      $ul.appendChild(instrument_details_container.render());
     });
       
     return this.$el.content;

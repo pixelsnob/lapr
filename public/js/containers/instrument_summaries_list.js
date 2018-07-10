@@ -10,20 +10,10 @@ export default class {
     this.store = store;
     this.$el = document.createElement('template');
 
-    events.once('connected', this.connected.bind(this));
+    //events.once('connected', this.connected.bind(this));
   }
 
   connected($el) {
-    events.removeAllListeners('app:scroll');
-    events.registerDomEvent('click', 'app:instruments:sort-products', ev => {
-      this.store.filtered_products.sort_direction = (
-        this.store.filtered_products.sort_direction == 'desc' ?
-        'asc' :
-        'desc'
-      );
-      this.store.filtered_products.sort();
-      events.emit('app:refresh');
-    });
   }
 
   render() {
