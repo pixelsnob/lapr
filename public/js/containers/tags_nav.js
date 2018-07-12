@@ -13,6 +13,7 @@ export default class {
   render() {
     this.$el.innerHTML = require('views/partials/tags_nav.jade')();
     const $ul = this.$el.content.querySelector('ul');
+
     this.store.tag_categories.models.forEach(model => {
       const tag_category = new TagsNavCategoryList({
         ...this.params,
@@ -20,6 +21,7 @@ export default class {
       }, this.store);
       $ul.appendChild(tag_category.render());
     });
+
     return this.$el.content;
   }
 }

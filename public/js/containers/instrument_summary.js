@@ -2,7 +2,6 @@
 import template from 'lib/template';
 import events from 'events/app';
 import markdown from 'lib/markdown';
-//import ImagesContainer from 'containers/images';
 
 export default class {
   
@@ -10,13 +9,7 @@ export default class {
     this.params = params;
     this.store = store;
     this.$el = $el || document.createElement('template');
-    
-    //events.once('connected', this.connected.bind(this));
   }
-
-  /*connected() {
-    }
-  }*/
 
   render() {
 
@@ -26,6 +19,7 @@ export default class {
       return { error: 'product not found in params' };
     }
 
+//console.log(this.params.base_path);
     this.$el.innerHTML = require('views/partials/instrument_summary.jade')({
       product,
       markdown,

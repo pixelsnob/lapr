@@ -8,8 +8,8 @@ li(data-pathname=data_pathname, class=status)
     .row
       - var grid_class_name = 'col-md-' + (grid_width ? grid_width : 12)
       div(class=grid_class_name)
-        - var href = base_path + '/instrument/' + product.slug + '/' + product.id
-        link(itemprop="url", href=href)
+        //- var href = base_path + '/instrument/' + product.slug + '/' + product.id
+        //link(itemprop="url", href=href)
 
         //-p=aspect
         //-p=class_name
@@ -23,7 +23,9 @@ li(data-pathname=data_pathname, class=status)
           p.alt-names.secondary(itemprop="alternateName").
             (#{product.alt_names})
         if product.makers.length
-        .description(itemprop="description")!= markdown(product.description)
+
+        if product.description
+          .description(itemprop="description")!= markdown(product.description)
 
         if product.more_info
           .more-info-container

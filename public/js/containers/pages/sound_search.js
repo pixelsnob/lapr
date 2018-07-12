@@ -21,6 +21,7 @@ export default class {
 
   render() {
     const selected_tags = this.params.tags ? this.params.tags.split(',') : [];
+
     this.store.selected_tags.setFromArray(selected_tags);
     this.store.filtered_products.sort_mode = 'default';
     this.store.products.filterByTags();
@@ -37,7 +38,8 @@ export default class {
     
     this.$el.content.querySelector('.sidebar').appendChild(tags_nav_container.render());
 
-    const base_path = selected_tags ? `/instruments/tags/${selected_tags}` : '/instruments/tags';
+    const base_path = selected_tags.length ? `/instruments/tags/${selected_tags}/` :
+          '/instruments/tags/all/';
 
     if (this.params.instrument_id) {
       const instrument_details_list_container = new InstrumentDetailsListContainer({
@@ -51,7 +53,8 @@ export default class {
     } else {
       const instrument_summaries_list_container = new InstrumentSummariesListContainer({
         ...this.params,
-        base_path
+        base_path,
+        collection: this.store.filtered_products
       }, this.store);
       this.$el.content.querySelector('.results-container').appendChild(
         instrument_summaries_list_container.render()

@@ -10,7 +10,6 @@ export default class {
     this.store = store;
     this.$el = $el || document.createElement('template');
 
-    //events.once('connected', this.connected.bind(this));
   }
 
   connected($el) {
@@ -18,15 +17,14 @@ export default class {
 
   render() {
     // Products search container
-    const products = this.store.filtered_products;
-
     this.$el.innerHTML = require('views/partials/instrument_summaries_list.jade')();
 
     // Populate products
     const $products = this.$el.content.querySelector('.results');
-    const products_json = products.toJSON([ 'images', 'makers' ]).slice(0, 100);///////
+    const products = this.params.collection.toJSON([ 'images', 'makers' ]).slice(0, 100);///////
 
-    products_json.forEach(product => {
+console.log(this.params);
+    products.forEach(product => {
       const instrument = new InstrumentSummaryContainer({
         ...this.params,
         product
