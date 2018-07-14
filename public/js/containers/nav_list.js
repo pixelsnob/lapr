@@ -162,7 +162,7 @@ export default class {
     this.$el.querySelector('ul').innerHTML = '';
   }
 
-  /*highlightFromPathname(path) {
+  highlightFromPathname(path) {
     this.clearSelected();
     Array.from(this.$el.querySelectorAll('li')).forEach(($li, i) => {
       if ($li.dataset.pathname == path) {
@@ -170,6 +170,6 @@ export default class {
         $li.className = 'selected';
       }
     });
-  }*/
+  }
 }
 

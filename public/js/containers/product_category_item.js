@@ -21,6 +21,7 @@ export default class {
     const product_category = this.params.product_category.toJSON();
     const instrument_summaries_list_container = new InstrumentSummariesListContainer({
       ...this.params,
+      limit: 7,
       product_category,
       collection: new ProductsCollection(this.params.products), 
       base_path: `/instruments/categories/${product_category.slug}/`

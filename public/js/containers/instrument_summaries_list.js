@@ -19,11 +19,12 @@ export default class {
     // Products search container
     this.$el.innerHTML = require('views/partials/instrument_summaries_list.jade')();
 
+    const limit = this.params.limit || 100;
+
     // Populate products
     const $products = this.$el.content.querySelector('.results');
-    const products = this.params.collection.toJSON([ 'images', 'makers' ]).slice(0, 100);///////
+    const products = this.params.collection.toJSON([ 'images', 'makers' ]).slice(0, limit);
 
-console.log(this.params);
     products.forEach(product => {
       const instrument = new InstrumentSummaryContainer({
         ...this.params,

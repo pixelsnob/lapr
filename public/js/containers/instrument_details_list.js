@@ -1,6 +1,6 @@
 
 import InstrumentDetailsContainer from 'containers/instrument_details';
-import NavListContainer from 'containers/nav_list';
+import ProductsNavContainer from 'containers/products_nav';
 
 import template from 'lib/template';
 import events from 'events/app';
@@ -34,15 +34,15 @@ export default class {
       $ul.appendChild(instrument_details_container.render());
     });
 
-    const nav_list_container = new NavListContainer({
+    this.products_nav_container = new ProductsNavContainer({
       ...this.params,
       collection: this.store.filtered_products,
       base_path: this.params.base_path + 'instrument/'
     }, this.store);
 
     const $nav = this.$el.content.querySelector('.products-nav');
-    $nav.appendChild(nav_list_container.render(true));
-    
+    $nav.appendChild(this.products_nav_container.render(true));
+
     return this.$el.content;
   }
 }

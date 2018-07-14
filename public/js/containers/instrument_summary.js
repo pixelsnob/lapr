@@ -19,7 +19,6 @@ export default class {
       return { error: 'product not found in params' };
     }
 
-//console.log(this.params.base_path);
     this.$el.innerHTML = require('views/partials/instrument_summary.jade')({
       product,
       markdown,
