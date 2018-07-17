@@ -25,7 +25,8 @@ export default class {
         const product_subcategory_item_container = new ProductCategoryItemContainer({
           ...this.params,
           product_category,
-          products: products
+          products: products,
+          limit: this.params.product_categories.length > 1 ? 14 : null
         }, this.store);
 
         $ul.appendChild(product_subcategory_item_container.render());

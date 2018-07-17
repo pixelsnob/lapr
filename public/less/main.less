@@ -557,19 +557,6 @@ input, textarea, select {
   .boxes-list {
     overflow: hidden;
     padding-top: 12px;
-    .products-nav {
-      ul {
-        padding: 0;
-      }
-      li {
-        list-style-type: none;
-        padding: 0 0 7px 0;
-        margin: 0;
-        a:link {
-          font-size: 1.2em;
-        }
-      }
-    }
   }
   nav {
     .scroll-fixed;
@@ -738,6 +725,24 @@ input, textarea, select {
   }
   .product-category-results {
     margin-bottom: 22px;
+  }
+}
+
+.products-nav {
+  ul {
+    padding: 0;
+  }
+  li {
+    list-style-type: none;
+    padding: 0 0 7px 0;
+    margin: 0;
+    a:link {
+      font-size: 1.2em;
+    }
+    &.selected {
+      background-color: #888;
+      color: @button-selected-bg-color;
+    }
   }
 }
 

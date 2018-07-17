@@ -53,7 +53,7 @@ export default class {
       );
 
     } else {
-      // move this junk to model
+
       const selected_product_category = this.store.selected_categories.models[0];
       if (!selected_product_category) {
         return { error: 'No product category selected!' };
@@ -73,39 +73,8 @@ export default class {
       this.$el.content.querySelector('.results-container').appendChild(
         product_subcategory_instruments_container.render()
       );
-
-      return this.$el.content;
-
-      /*if (this.store.selected_categories.models.length) {
-
-        // move this junk to model
-        const product_category_id = this.store.selected_categories.models[0].id;
-        const child_categories = this.store.product_categories.models.filter(product_category => {
-          return product_category.get('parent') == product_category_id;
-        });
-
-        if (child_categories.length) {
-          const product_subcategory_instruments_container = new ProductSubcategoryInstrumentsContainer({
-            ...this.params,
-            product_categories: child_categories
-          }, this.store);
-          this.$el.content.querySelector('.results-container').appendChild(
-            product_subcategory_instruments_container.render()
-          );
-          return this.$el.content;
-        }
-      }
-
-      const instrument_summaries_list_container = new InstrumentSummariesListContainer({
-        ...this.params,
-        collection: this.store.filtered_products,
-        base_path
-      }, this.store);
-
-      this.$el.content.querySelector('.results-container').appendChild(
-        instrument_summaries_list_container.render()
-      );*/
     }
+
     return this.$el.content;
 
 
