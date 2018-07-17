@@ -11,7 +11,7 @@ module.exports = {
   mode: process.env.NODE_ENV == 'production' ? 'production' : 'development',
   entry: { 
     main: [
-      'babel-polyfill',
+      'idempotent-babel-polyfill',
       'core-js/es6/reflect',
       path.join(app_dir, 'public/js/main.js')
     ]
