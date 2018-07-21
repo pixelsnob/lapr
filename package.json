@@ -1,11 +1,11 @@
 {
   "name": "lapr",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "private": true,
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start-dev": "nodemon app.js -e js,jade",
-    "start-staging": "NODE_ENV=staging; forever start /var/www/lapr-staging/app.js",
+    "start-dev": "nodemon server.js -e js,jade,pug",
+    "start-staging": "NODE_ENV=staging; forever start /var/www/lapr-staging/server.js",
     "build": "webpack --config webpack-config.js --verbose --progress",
     "build-watch": "webpack --config webpack-config.js --verbose --progress --watch",
     "webpack-unused": "webpack --config webpack-config.js --json | webpack-unused -s public/js/"

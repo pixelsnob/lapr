@@ -38,8 +38,8 @@ module.exports = function(grunt) {
           },
           {
             expand: true,
-            cwd: 'node_modules/@webcomponents/template',
-            src: [ 'template.js' ],
+            cwd: 'node_modules/@webcomponents/webcomponentsjs',
+            src: [ '**' ],
             dest: 'public/dist/webcomponents/',
             filter: 'isFile'
           }

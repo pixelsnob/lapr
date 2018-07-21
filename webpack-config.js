@@ -13,7 +13,8 @@ module.exports = {
     main: [
       'idempotent-babel-polyfill',
       'core-js/es6/reflect',
-      path.join(app_dir, 'public/js/main.js')
+      path.join(app_dir, 'public/dist/webcomponents/webcomponents-bundle'),
+      path.join(app_dir, 'app/main.js')
     ]
   },
   output: {
