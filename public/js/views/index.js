@@ -48,6 +48,9 @@ define([
               Backbone.history.navigate(href, true);
               return false;
             });
+            if (sel == '.index-left') {
+              obj.$el.find('.button-alert').attr('href', href);
+            }
           }
         });
       });
