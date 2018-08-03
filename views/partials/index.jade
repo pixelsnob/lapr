@@ -1,19 +1,37 @@
 
-.index
-  .news.container-fluid
-    .scroll-fixed-inner
-      .row
-        .col.col-sm-4.index-left
-          .content-block(data-name="index-left")
-            .content
+.wrapper
+  header.header
+    .header__item
+      a.header__link(href="/", title="L.A. Percussion Rentals", data-action="click:navigate")
+        span.header__site-name L.A. Percussion Rentals
+    .header__item
+      a.header__link(href="/instruments", data-action="click:navigate") Instruments
+    .header__item
+      a.header__link(href="/instruments/tags", data-action="click:navigate") Sound Search
+    .header__item
+      a.header__link(href="/contact", data-action="click:navigate") Contact Us
 
-        .col.col-sm-4.index-middle
-          .content-block(data-name="index-middle", data-action="click:navigate")
-            .content
-          a.button-alert(href="/instruments/tags", data-action="click:navigate") Sound Search
+    .header__item
+      .text-search
+        .products-text-search
 
-        .col.col-sm-4.index-right
-          .content-block(data-name="index-right")
-            .content
-          a.button-alert(href="/contact", data-action="click:navigate") Contact Us
+  .content-main
+    x-test
+    .index-wrapper
+      section.index__card
+        .content-block(data-name="index-left")
+          .content
+
+      section.index__card
+        .content-block(data-name="index-middle", data-action="click:navigate")
+          .content
+        a.button(href="/instruments/tags", data-action="click:navigate") Sound Search
+
+      section.index__card
+        .content-block(data-name="index-right")
+          .content
+        a.button(href="/contact", data-action="click:navigate") Contact Us
+
+  footer.footer
+    p.footer__copy &copy;!{(new Date).getFullYear()} L.A. Percussion Rentals
 

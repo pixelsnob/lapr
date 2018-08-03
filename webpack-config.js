@@ -26,7 +26,7 @@ module.exports = {
     require('webpack-require-http')
   ],
   resolve: {
-    modules: [ path.join(app_dir, 'public/js'), 'node_modules' ],
+    modules: [ path.join(app_dir, 'app'), 'node_modules' ],
     alias: {
       template: 'lib/template',
       views: path.join(app_dir, 'views'),

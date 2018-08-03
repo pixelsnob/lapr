@@ -19,7 +19,7 @@ const actions = Actions.create(store);
 const router = Router.create(routes, actions);
 
 //const app_container = new AppContainer(null, store);
-const getMountPoint = () => document.querySelector('#main');
+const getMountPoint = () => document.querySelector('body');
 
 if (!window.__lapr_ssr) {
 
@@ -39,12 +39,12 @@ if (!window.__lapr_ssr) {
     await store.products.fetch();
 
     // maybe move this back to app container?
-    const products_text_search_container = new ProductsTextSearchContainer(
+    /*const products_text_search_container = new ProductsTextSearchContainer(
       null,
       store,
       document.body.querySelector('.text-search')
     );
-    products_text_search_container.render();
+    products_text_search_container.render();*/
 
     app_events.registerDomEvent('click', 'click:navigate', async path => {
       app_events.emit('app:navigate', path);
@@ -80,14 +80,17 @@ if (!window.__lapr_ssr) {
       const render =  new Render(getMountPoint());
 
       router.resolve(path).then(render);
+      //document.querySelector('x-test').innerHTML = document.querySelector('x-test').shadowRoot;
+      setTimeout(function() {
+        console.log(document.querySelector('x-test').shadowRoot);
+      }, 100);
 
-      // maybe move this back to app container?
-      const products_text_search_container = new ProductsTextSearchContainer(
+      /*const products_text_search_container = new ProductsTextSearchContainer(
         null,
         store,
         document.body.querySelector('.text-search')
       );
-      products_text_search_container.render();
+      products_text_search_container.render();*/
 
       // App events are unecessary on back-end
       app_events.removeAllListeners();

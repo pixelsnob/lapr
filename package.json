@@ -7,7 +7,7 @@
     "start-dev": "nodemon server.js -e js,jade,pug",
     "start-staging": "NODE_ENV=staging; forever start /var/www/lapr-staging/server.js",
     "build": "webpack --config webpack-config.js --verbose --progress",
-    "build-watch": "webpack --config webpack-config.js --verbose --progress --watch",
+    "build-watch": "webpack --config webpack-config.js --progress --watch",
     "webpack-unused": "webpack --config webpack-config.js --json | webpack-unused -s public/js/"
   },
   "dependencies": {

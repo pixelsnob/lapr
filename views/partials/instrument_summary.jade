@@ -3,8 +3,8 @@
 - var li_id = 'instrument-summary-' + product._id;
 -  var class_name = product.images.length ? 'image-' + product.images[0]._id : '';
 
-li
-  .product(class=class_name, itemscope, itemtype="http://schema.org/Product", id=li_id, data-action="click:navigate", data-path=href)
+li(class=class_name)
+  .product(itemscope, itemtype="http://schema.org/Product", id=li_id, data-action="click:navigate", data-path=href)
 
     .details.hidden-xs.hidden-sm
 

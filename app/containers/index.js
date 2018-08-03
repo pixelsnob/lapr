@@ -1,5 +1,6 @@
 
 import template from 'lib/template';
+import index_component from 'components/index';
 
 export default class {
   
@@ -10,7 +11,7 @@ export default class {
   }
 
   render() {
-    document.body.className = 'index';//<<
+    document.body.className = 'index';
     this.$el.innerHTML = require('views/partials/index.jade')();
     return this.$el.content;
   }
