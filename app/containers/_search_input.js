@@ -3,7 +3,7 @@ import template from 'lib/template';
 import events from 'events/app';
 
 
-export default class {
+export default class extends EventEmitter {
   
   constructor(params, store) {
     this.store = store;
@@ -18,8 +18,8 @@ export default class {
 
     this.$input = this.$el.querySelector('#search1');
 
-    this.$input.addEventListener('keyup', events.emit.bind(events, 'search-input:keyup'));
-    this.$input.addEventListener('keydown', events.emit.bind(events, 'search-input:keydown'));
+    this.$input.addEventListener('keyup', this.emit.bind(events, 'keyup'));
+    this.$input.addEventListener('keydown', this.emit.bind(events, 'keydown'));
     this.$input.addEventListener('blur', this.onBlur.bind(this));
     
     events.on('nav-list:selected', (pathname) => {
@@ -39,7 +39,7 @@ export default class {
     // Timeout so that clicking on the dropdown doesn't trigger it to be closed on blur
     this.blur_timeout_id = setTimeout(() => {
       this.$input.value = '';
-      events.emit('search-input:blur');
+      this.emit('blur');
     }, 300);
   }
 

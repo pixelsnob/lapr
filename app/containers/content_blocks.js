@@ -1,25 +1,17 @@
 
 import template from 'lib/template';
-import events from 'events/app';
 import markdown from 'lib/markdown';
 
 export default class {
   
-  constructor(params, store) {
+  constructor(params, store, $el) {
     this.params = params;
     this.store = store;
-    events.once('connected', this.connected.bind(this));
-  }
-  
-  connected($el) {
-    // Add "app:navigate" action to links in rendered content blocks
-    Array.from($el.querySelectorAll('.content-block .content a[href]')).map($el => {
-      $el.setAttribute('data-action', 'app:navigate');
-    });
+    this.$el = $el;
   }
 
   render() {
-    const $content_blocks = document.body.querySelectorAll('.content-block[data-name]');
+    const $content_blocks = this.$el.content.querySelectorAll('.content-block[data-name]');
     // Populate all content blocks found
     Array.from($content_blocks).map($content_block => {
       const content_block = this.store.content_blocks.find(content_block => {
@@ -35,6 +27,7 @@ export default class {
         }
       }
     });
-    return null;
+    return this.$el.content;
   }
 }
+

@@ -10,23 +10,19 @@ import routes from 'routes';
 import Router from 'router';
 import Render from 'render';
 import store from 'store';
-import app_events from 'events/app';
-//import AppContainer from 'containers/app';
-
-import ProductsTextSearchContainer from 'containers/products_text_search';
+import events from 'events/app';
 
 const actions = Actions.create(store);
 const router = Router.create(routes, actions);
 
-//const app_container = new AppContainer(null, store);
 const getMountPoint = () => document.querySelector('body');
 
 if (!window.__lapr_ssr) {
 
   // Client
-
   document.addEventListener('DOMContentLoaded', async ev => {
-    const render =  new Render(getMountPoint()); //<
+    const $root = getMountPoint();
+    const render =  new Render($root);
     const dispatch = async path => {
       try {
         await router.resolve(path).then(render);
@@ -34,28 +30,19 @@ if (!window.__lapr_ssr) {
         console.error(err);
       }
     };
-    //app_container.render();
 
     await store.products.fetch();
 
-    // maybe move this back to app container?
-    /*const products_text_search_container = new ProductsTextSearchContainer(
-      null,
-      store,
-      document.body.querySelector('.text-search')
-    );
-    products_text_search_container.render();*/
+    //app_events.registerDomEvent('click', 'click:navigate', async path => {
+    //  app_events.emit('app:navigate', path);
+    //});
 
-    app_events.registerDomEvent('click', 'click:navigate', async path => {
-      app_events.emit('app:navigate', path);
-    });
-
-    app_events.on('app:navigate', async path => {
+    events.app.on('app:navigate', async path => {
       history.pushState({ previous: location.pathname }, null, path);
       await dispatch(path);
     });
 
-    app_events.on('app:refresh', async ev => {
+    events.app.on('app:refresh', async ev => {
       await dispatch(location.pathname);
     });
 
@@ -64,7 +51,7 @@ if (!window.__lapr_ssr) {
     });
 
     window.addEventListener('scroll', ev => {
-      app_events.emit('app:scroll', ev);
+      events.app.emit('app:scroll', ev);
     });
 
     await dispatch(location.pathname);
@@ -75,25 +62,16 @@ if (!window.__lapr_ssr) {
   // Server
   window.__lapr_dispatch = (path, data) => {
     try {
+      
+      const $root = getMountPoint();
+      const render =  new Render($root);
 
       store.products.hydrate(data);
-      const render =  new Render(getMountPoint());
 
       router.resolve(path).then(render);
-      //document.querySelector('x-test').innerHTML = document.querySelector('x-test').shadowRoot;
-      setTimeout(function() {
-        console.log(document.querySelector('x-test').shadowRoot);
-      }, 100);
-
-      /*const products_text_search_container = new ProductsTextSearchContainer(
-        null,
-        store,
-        document.body.querySelector('.text-search')
-      );
-      products_text_search_container.render();*/
 
       // App events are unecessary on back-end
-      app_events.removeAllListeners();
+      //app_events.removeAllListeners();
 
     } catch (err) {
       console.error(err);

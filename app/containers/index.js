@@ -1,6 +1,7 @@
 
+import ContentBlocksContainer from 'containers/content_blocks';
 import template from 'lib/template';
-import index_component from 'components/index';
+import IndexComponent from 'components/index';
 
 export default class {
   
@@ -11,8 +12,12 @@ export default class {
   }
 
   render() {
-    document.body.className = 'index';
-    this.$el.innerHTML = require('views/partials/index.jade')();
+    const index_component = new IndexComponent;
+    this.$el.content.appendChild(index_component.render());
+    const content_blocks_container = new ContentBlocksContainer(this.params, this.store, this.$el);
+    content_blocks_container.render();
     return this.$el.content;
   }
 }
+
+

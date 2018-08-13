@@ -59,7 +59,12 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: [ 'env' ],
-          plugins: [ 'babel-plugin-transform-custom-element-classes', 'syntax-dynamic-import', 'transform-object-rest-spread' ]
+          plugins: [
+            //'babel-plugin-transform-custom-element-classes',
+            //'syntax-dynamic-import',
+            'transform-object-rest-spread',
+            //'transform-decorators-legacy'
+          ]
         }
       },
       {

@@ -20,7 +20,7 @@ export default $el => {
           }
         }
       } catch (err) {
-        console.error(err); // <<<<<<<
+        console.error(err);
         diffhtml.innerHTML($el, '<p class="error">An error has occurred</p>');
       }
     } else {
@@ -29,7 +29,7 @@ export default $el => {
 
     // Notify components when they are connected
     if (!window.__lapr_ssr) {
-      events.emit('connected', $el);////////////////////////:
+      events.app.emit('connected', $el);
     }
 
   };
