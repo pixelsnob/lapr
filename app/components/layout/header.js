@@ -3,11 +3,11 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(params, slots, $el) {
+  constructor(params, slots) {
     this.params = params;
     this.slots = slots;
-    this.$el = $el || document.createElement('template');
-    events.app.once('connected', this.connected.bind(this));
+    this.$el = document.createElement('template');
+    events.app.once('connected', this.connected, this);
     this.selector = '.header';
   }
 
@@ -26,6 +26,12 @@ export default class {
       this.$el.content.querySelector(this.selector + '__site-search').appendChild(this.slots.$search);
     }
     return this.$el.content;
+  }
+
+  disconnected($el) {
+    console.log('?');
+    events.app.off('connected', this.connected.bind(this));
+    events.app.off('disconnected', this.disconnected.bind(this));
   }
 }
 

@@ -5,10 +5,10 @@ import IndexComponent from 'components/index';
 
 export default class {
   
-  constructor(params, store, $el) {
+  constructor(params, store) {
     this.params = params;
     this.store = store;
-    this.$el = $el || document.createElement('template');
+    this.$el = document.createElement('template');
   }
 
   render() {

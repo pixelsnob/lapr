@@ -10,29 +10,36 @@ export default class {
     this.params = params;
     this.store = store;
     this.$el = $el || document.createElement('template');
-    events.app.once('connected', this.connected.bind(this));
+    this.selector = '.site-search';
+    events.app.once('connected', this.connected, this);
+
     this.site_search_component = new SiteSearchComponent(this.params);
     this.site_search_input_component = new SiteSearchInputComponent(this.params);
-    this.selector = '.site-search';
+    this.site_search_list_component = new SiteSearchListComponent(this.params);
   }
 
   connected($el) {
-    const $site_search = $el.querySelector(this.selector);
+    const $container = $el.querySelector(this.selector);
     this.store.products.createProductsIndex();
 
-    this.site_search_input_component.on('keydown', ev => {
-      //console.log('parent keydown');
+    const $results_container = $container.querySelector(this.selector + '__results');
+
+    // mousedown runs before blur: make sure dropdown doesn't close when clicking on child links
+    // by removing focus() from <input>
+    this.site_search_list_component.on('mousedown', ev => {
+      ev.preventDefault();
+    });
+
+    this.site_search_input_component.on('blur', ev => {
+      ev.target.value = '';
+      $results_container.innerHTML = '';
     });
 
     this.site_search_input_component.on('keyup', ev => {
       this.store.products.getSearchResults(ev.target.value, 100);
-      const site_search_list_component = new SiteSearchListComponent({
-        results: this.store.filtered_products.toJSON()
-      });
-      const $results_container = $site_search.querySelector(this.selector + '__results')
       $results_container.innerHTML = '';
-      $results_container.appendChild(site_search_list_component.render());
-      
+      this.site_search_list_component.setResults(this.store.filtered_products.toJSON());
+      $results_container.appendChild(this.site_search_list_component.render());
     });
   }
 
@@ -43,7 +50,7 @@ export default class {
     );
     return this.$el.content;
   }
-
+  
 }
 
 

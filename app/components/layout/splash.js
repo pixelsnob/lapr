@@ -1,9 +1,9 @@
 
 export default class {
   
-  constructor(params, slots, $el) {
+  constructor(params, slots) {
     this.slots = slots;
-    this.$el = $el || document.createElement('template');
+    this.$el = document.createElement('template');
   }
 
   render() {
@@ -13,6 +13,9 @@ export default class {
     }
     if (this.slots.$footer) {
       this.$el.content.querySelector('.footer').appendChild(this.slots.$footer);
+    }
+    if (this.slots.$content) {
+      this.$el.content.querySelector('.content-main').appendChild(this.slots.$content);
     }
     return this.$el.content;
   }

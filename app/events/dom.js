@@ -1,4 +1,8 @@
 
+// A simple DOM event aggregator/delegator
+
+// "focus" and "blur" events don't bubble up: we need to set "useCapture" param to true when
+// calling document.addEventListener
 const USE_CAPTURE_LISTENERS = [ 'focus', 'blur' ];
 
 export default class {

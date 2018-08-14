@@ -1,4 +1,5 @@
 
 ul.site-search__list
   each result in results
-    li=result.name
+    li
+      a(href="javascript:void(0)")=result.name

@@ -2,36 +2,32 @@
 import diffhtml from 'diffhtml';
 import events from 'events/app';
 
-export default $el => {
+export default $root => {
 
   return view => {
 
-    document.body.className = '';
-
     if (typeof view.render == 'function') {
       try {
-        const render_output = view.render();
-        if (render_output.error) {
-          diffhtml.innerHTML($el, `<p class="error">Error: ${render_output.error}</p>`);
-        } else {
-          diffhtml.outerHTML($el, render_output); 
-          if (typeof view.onMount == 'function') {
-            view.onMount($el);
-          }
+
+        if (!window.__lapr_ssr) {
+          events.app.emit('disconnected');
         }
+
+        // Perform "diff" on root element
+        diffhtml.outerHTML($root, view.render()); 
+
+        if (!window.__lapr_ssr) {
+          events.app.emit('connected', $root);
+        }
+
       } catch (err) {
         console.error(err);
-        diffhtml.innerHTML($el, '<p class="error">An error has occurred</p>');
+        diffhtml.innerHTML($root, '<p class="error">An error has occurred</p>');
       }
+
     } else {
-      diffhtml.outerHTML($el, ''); 
+      diffhtml.outerHTML($root, ''); 
     }
-
-    // Notify components when they are connected
-    if (!window.__lapr_ssr) {
-      events.app.emit('connected', $el);
-    }
-
   };
 };
 

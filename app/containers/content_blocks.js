@@ -4,7 +4,7 @@ import markdown from 'lib/markdown';
 
 export default class {
   
-  constructor(params, store, $el) {
+  constructor(params, store, $el) { // <<< yuck...
     this.params = params;
     this.store = store;
     this.$el = $el;

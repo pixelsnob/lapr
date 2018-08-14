@@ -1,6 +1,7 @@
 
 import IndexPageContainer from 'containers/pages/index';
 import SoundSearchPageContainer from 'containers/pages/sound_search';
+import ContactPageContainer from 'containers/pages/contact';
 
 /*import InstrumentsPageContainer from 'containers/pages/instruments';
 import InstrumentsLandingPageContainer from 'containers/pages/instruments_landing';
@@ -22,18 +23,19 @@ export default {
 
       'sound-search': context => new SoundSearchPageContainer(context.params, store),
 
+      contact: context => new ContactPageContainer(context.params, store),
+
+      error: err => new ErrorContainer(err)
+
+
       /*instruments: context => new InstrumentsPageContainer(context.params, store),
 
       'instruments-landing': context => new InstrumentsLandingPageContainer(context.params, store),
 
       'sound-search': context => new SoundSearchPageContainer(context.params, store),
 
-      'instrument-details': context => new InstrumentDetailsPageContainer(context.params, store),
-
-      contact: context => new ContactPageContainer(context.params, store),*/
-
-      error: err => new ErrorContainer(err)
-
+      'instrument-details': context => new InstrumentDetailsPageContainer(context.params, store),*/
+      
     };
   }
 };

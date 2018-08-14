@@ -1,8 +1,8 @@
 
 export default class {
   
-  constructor(params, $el) {
-    this.$el = $el || document.createElement('template');
+  constructor(params) {
+    this.$el = document.createElement('template');
     this.params = params;
   }
 

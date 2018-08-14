@@ -4,16 +4,15 @@ import events from 'events/app';
 
 export default class extends EventEmitter {
   
-  constructor(params, $el) {
+  constructor(params) {
     super();
-    this.$el = $el || document.createElement('template');
-    events.app.once('connected', this.connected.bind(this));
+    this.$el = document.createElement('template');
     this.selector = '.site-search';
     this.input_selector = this.selector + '__input';
+    events.app.once('connected', this.connected, this);
   }
 
   connected($el) {
-    //this.$el = $el.querySelector(this.selector); // retarget this.$el
     events.dom.addEventListener('keyup', this.input_selector, ev => {
       this.emit('keyup', ev);
     });
@@ -22,7 +21,6 @@ export default class extends EventEmitter {
     });
     events.dom.addEventListener('blur', this.input_selector, ev => {
       this.emit('blur', ev);
-      ev.target.value = '';
     });
   }
 

@@ -4,9 +4,9 @@ import events from 'events/app';
 
 export default class {
   
-  constructor(params, $el) {
+  constructor(params) {
     this.params = params;
-    this.$el = $el || document.createElement('template');
+    this.$el = document.createElement('template');
     events.app.once('connected', this.connected, this);
   }
   
