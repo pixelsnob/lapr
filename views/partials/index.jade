@@ -1,15 +1,15 @@
 
-.index-wrapper
+.index-wrapper(id=id)
   section.index__card
-    x-content-block(data-name="index-left")
+    .content-block(data-name="index-left")
       .content
 
   section.index__card
-    .content-block(data-name="index-middle", data-action="click:navigate")
+    .content-block(data-name="index-middle")
       .content
-    a.button(href="/instruments/tags", data-action="click:navigate") Sound Search
+    a.button(href="/instruments/tags") Sound Search
 
   section.index__card
     .content-block(data-name="index-right")
       .content
-    a.button(href="/contact", data-action="click:navigate") Contact Us
+    a.button(href="/contact") Contact Us

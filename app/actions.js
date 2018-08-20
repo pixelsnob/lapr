@@ -17,13 +17,13 @@ export default {
 
     return {
 
-      index: context => new IndexPageContainer(context.params, store),
+      index: ({ params }) => new IndexPageContainer(params, store),
 
-      'instruments-landing': context => new IndexPageContainer(context.params, store),
+      'instruments-landing': ({ params }) => new IndexPageContainer(params, store),
 
-      'sound-search': context => new SoundSearchPageContainer(context.params, store),
+      'sound-search': ({ params }) => new SoundSearchPageContainer(params, store),
 
-      contact: context => new ContactPageContainer(context.params, store),
+      contact: ({ params }) => new ContactPageContainer(params, store),
 
       error: err => new ErrorContainer(err)
 

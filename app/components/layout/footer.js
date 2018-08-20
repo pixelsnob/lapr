@@ -8,7 +8,7 @@ export default class {
 
   render() {
     this.$el.innerHTML = require('views/partials/layout/footer.jade')();
-    return this.$el.content;
+    return this.$el.content.cloneNode(true);
   }
 }
 

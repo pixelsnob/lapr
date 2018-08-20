@@ -1,17 +1,20 @@
 
 import template from 'lib/template';
 import events from 'events/app';
+import uniqid from 'uniqid';
 
 export default class {
   
-  constructor(params, $el) {
+  constructor(params, slots = {}) {
     this.params = params;
-    this.$el = $el || document.createElement('template');
+    this.slots = slots;
+    this.$el = document.createElement('template');
     events.app.once('connected', this.connected, this);
+    this.id = uniqid();
   }
   
   connected($el) {
-    events.dom.addEventListener('click', '.index__card a', ev => {
+    events.dom.addEventListener('click', `#${this.id} a`, ev => {
       if (ev.target.hasAttribute('href')) {
         ev.preventDefault();
         events.app.emit('app:navigate', ev.target.getAttribute('href'));
@@ -20,8 +23,10 @@ export default class {
   }
 
   render() {
-    this.$el.innerHTML = require('views/partials/index.jade')();
-    return this.$el.content;
+    this.$el.innerHTML = require('views/partials/index.jade')({
+      id: this.id
+    });
+    return this.$el.content.cloneNode(true);
   }
 }
 

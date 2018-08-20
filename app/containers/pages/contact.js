@@ -11,7 +11,6 @@ export default class {
   }
 
   render() {
-    debugger;
     const contact_container = new ContactContainer(this.params, this.store);
     const splash_layout_container = new SplashLayoutContainer(this.params, this.store, {
       $content: contact_container.render()

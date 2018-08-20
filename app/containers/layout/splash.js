@@ -25,7 +25,7 @@ export default class {
       $content: this.slots.$content || ''
     });
     this.$el.content.appendChild(splash_layout_component.render());
-    return this.$el.content;
+    return this.$el.content.cloneNode(true);
   }
 }
 

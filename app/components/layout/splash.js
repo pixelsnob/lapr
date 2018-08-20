@@ -1,7 +1,7 @@
 
 export default class {
   
-  constructor(params, slots) {
+  constructor(params, slots = {}) {
     this.slots = slots;
     this.$el = document.createElement('template');
   }
@@ -17,7 +17,7 @@ export default class {
     if (this.slots.$content) {
       this.$el.content.querySelector('.content-main').appendChild(this.slots.$content);
     }
-    return this.$el.content;
+    return this.$el.content.cloneNode(true);
   }
 }
 

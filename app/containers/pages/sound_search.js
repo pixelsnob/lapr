@@ -26,7 +26,7 @@ export default class {
     const splash_layout_container = new SplashLayoutContainer(this.params, this.store);
     this.$el.content.appendChild(splash_layout_container.render());
     //this.$el.content.querySelector('.content-main').appendChild(index_container.render());
-    return this.$el.content;
+    return this.$el.content.cloneNode(true);
     /*const selected_tags = this.params.tags ? this.params.tags.split(',') : [];
 
     this.store.selected_tags.setFromArray(selected_tags);

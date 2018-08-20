@@ -33,6 +33,8 @@ if (!window.__lapr_ssr) {
 
     await store.products.fetch();
 
+    store.products.createProductsIndex();
+
     //app_events.registerDomEvent('click', 'click:navigate', async path => {
     //  app_events.emit('app:navigate', path);
     //});

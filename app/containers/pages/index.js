@@ -16,7 +16,7 @@ export default class {
       $content: index_container.render()
     });
     this.$el.content.appendChild(splash_layout_container.render());
-    return this.$el.content;
+    return this.$el.content.cloneNode(true);
   }
 }
 

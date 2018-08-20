@@ -25,11 +25,11 @@ export default class {
     if (this.slots.$search) {
       this.$el.content.querySelector(this.selector + '__site-search').appendChild(this.slots.$search);
     }
-    return this.$el.content;
+    return this.$el.content.cloneNode(true);
   }
 
   disconnected($el) {
-    console.log('?');
+    console.log('?'); // ???????????????????
     events.app.off('connected', this.connected.bind(this));
     events.app.off('disconnected', this.disconnected.bind(this));
   }

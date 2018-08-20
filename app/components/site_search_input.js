@@ -1,32 +1,39 @@
 
 import EventEmitter from 'events';
 import events from 'events/app';
+import uniqid from 'uniqid';
 
-export default class extends EventEmitter {
+export default class {
   
   constructor(params) {
-    super();
+    this.params = params;
     this.$el = document.createElement('template');
-    this.selector = '.site-search';
-    this.input_selector = this.selector + '__input';
+    this.id = uniqid();
+    this.selector = `#${this.id}`;
     events.app.once('connected', this.connected, this);
   }
 
   connected($el) {
-    events.dom.addEventListener('keyup', this.input_selector, ev => {
-      this.emit('keyup', ev);
-    });
-    events.dom.addEventListener('keydown', this.input_selector, ev => {
-      this.emit('keydown', ev);
-    });
-    events.dom.addEventListener('blur', this.input_selector, ev => {
-      this.emit('blur', ev);
-    });
+    if (this.params.onKeyup) {
+      events.dom.addEventListener('keyup', this.selector, this.params.onKeyup);
+    }
+    if (this.params.onKeydown) {
+      events.dom.addEventListener('keydown', this.selector, this.params.onKeydown);
+    }
+    if (this.params.onBlur) {
+      events.dom.addEventListener('blur', this.selector, this.params.onBlur);
+    }
+  }
+
+  reset() {
+    document.querySelector(this.selector).value = '';
   }
 
   render() {
-    this.$el.innerHTML = require('views/partials/site_search_input.jade')();
-    return this.$el.content;
+    this.$el.innerHTML = require('views/partials/site_search_input.jade')({
+      id: this.id
+    });
+    return this.$el.content.cloneNode(true);
   }
 
 }
