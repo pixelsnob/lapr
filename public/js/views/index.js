@@ -49,7 +49,7 @@ define([
               return false;
             });
             if (sel == '.index-left') {
-              obj.$el.find('.button-alert').attr('href', href);
+              obj.$el.find('.index-left .button-alert').attr('href', href);
             }
           }
         });
