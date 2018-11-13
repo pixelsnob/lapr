@@ -71,7 +71,7 @@ define([
         name: 'products',
         source: function(query, cb) {
           var products = obj.getSearchResults(query);
-          cb(products.splice(0, 15)); 
+          cb(products.splice(0, 40)); 
         },
         templates: {
           suggestion: function(data) {

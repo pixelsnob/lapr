@@ -161,12 +161,12 @@ define([
         this.ref('id');
         this.field('name');
         this.field('alt_names');
-        this.field('description');
+        //this.field('description');
         this.field('makers');
-        this.field('categories');
+        //this.field('categories');
         this.field('model_no');
-        this.field('range');
-        this.field('sizes');
+        //this.field('range');
+        //this.field('sizes');
       });
       var obj = this;
       _.each(this.models, function(product) {
@@ -191,12 +191,12 @@ define([
           id:            product._id,
           name:          product.name,
           alt_names:     product.alt_names,
-          description:   product.description,
+          //description:   product.description,
           makers:        makers,
-          categories:    categories,
+          //categories:    categories,
           model_no:      product.model_no,
-          range:         product.range,
-          sizes:         product.sizes
+          //range:         product.range,
+          //sizes:         product.sizes
         });
       });
     },
