@@ -4,15 +4,14 @@
     .sidebar.col-xs-6.col-sm-6.col-md-3
       nav
         .scroll-fixed-inner
+          .tags-tree
           .categories
             if typeof product_categories != 'undefined'
               ul
                 each category in product_categories
                   li
-                    a(href="/instruments/categories/#{category.slug}")= category.name 
-
-        .tags-tree
-
+                    a(href="/instruments/categories/#{category.slug}")= category.name
+    
     .products-results.col-xs-6.col-sm-6.col-md-9
       #heading-container
         h2.line-after= (typeof heading != 'undefined' ? heading : '')
