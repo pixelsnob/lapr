@@ -63,6 +63,8 @@ git.revparse([ 'HEAD' ], (err, rev) => {
   }
 });
 
+app.locals.youtube_api_key = config.youtube_api_key;
+
 app.use((req, res, next) => {
   res.locals.base_url = req.headers['x-forwarded-proto'] +
                         '://' + config.base_url + '/';

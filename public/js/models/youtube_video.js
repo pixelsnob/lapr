@@ -20,9 +20,11 @@ define([
     // Used to check video availability
     getVideoJSON: function() {
       var deferred = new $.Deferred;
+      var youtube_api_key = $('meta[name="youtube-api-key"]').attr('content');
+      
       var url = 'https://www.googleapis.com/youtube/v3/videos?id=' +
                 this.get('youtube_id') +
-                '&key=AIzaSyAVF0IQdOfS0JS425hC-Z_e6phjepjuEFQ' +
+                '&key=' + youtube_api_key +
                 '&part=status';
       $.ajax({
         url: url,
