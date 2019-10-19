@@ -22,7 +22,7 @@ define([
       var deferred = new $.Deferred;
       var url = 'https://www.googleapis.com/youtube/v3/videos?id=' +
                 this.get('youtube_id') +
-                '&key=AIzaSyAjUkPxGyadh5relom7cM9JgAAm7dLa3l8' +
+                '&key=AIzaSyAVF0IQdOfS0JS425hC-Z_e6phjepjuEFQ' +
                 '&part=status';
       $.ajax({
         url: url,
